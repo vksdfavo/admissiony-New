@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewDocument"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10dp"
+    android:background="@drawable/card_border_bg"
+ >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+       >
+
+        <!-- Left: PDF Icon -->
+        <ImageView
+            android:id="@+id/imageViewPdf"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/z_pdf" />
+
+        <!-- Right: View Document Button -->
+        <ImageView
+            android:id="@+id/ivViewDocument"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_view"
+            android:padding="4dp"
+            android:contentDescription="@string/view_documents" />
+
+        <!-- Right: Download Button (to the left of View) -->
+        <ImageView
+            android:id="@+id/ivDownload"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_toStartOf="@id/ivViewDocument"
+            android:layout_marginEnd="5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_downloads"
+            android:padding="4dp" />
+
+        <!-- Container for File Name and Date -->
+        <LinearLayout
+            android:id="@+id/llTextContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/imageViewPdf"
+            android:layout_toStartOf="@id/ivDownload"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <!-- File Name -->
+            <TextView
+                android:id="@+id/textViewFileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Bsc Entrepreneur and Management"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <!-- Uploaded Date -->
+            <TextView
+                android:id="@+id/textViewUploadDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Uploaded on: 15 Oct 2025"
+                android:textSize="12sp"
+                android:textColor="@color/text_color" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

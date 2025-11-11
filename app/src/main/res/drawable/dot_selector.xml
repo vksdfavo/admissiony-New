@@ -1,0 +1,7 @@
+<!-- res/drawable/dot_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Active state -->
+    <item android:drawable="@drawable/dot_active" android:state_selected="true" />
+    <!-- Inactive state -->
+    <item android:drawable="@drawable/dot_inactive" />
+</selector>

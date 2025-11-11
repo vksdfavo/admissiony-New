@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.student.Admissiony",
+    "sha256_cert_fingerprints": ["BB:79:5C:68:03:9D:E7:4E:4C:FB:08:1E:52:17:06:DB:21:5D:D7:F1:D8:32:A8:2B:4E:34:B5:10:19:74:47:05"] }
+}]

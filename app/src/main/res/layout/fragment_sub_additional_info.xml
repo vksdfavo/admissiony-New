@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.home.SubAdditionalInfo"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewFullTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/full_time"
+        android:textSize="16sp"
+        android:textColor="@color/hint_signup" />
+
+    <TextView
+        android:id="@+id/textViewFullTimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:gravity="end"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_toEndOf="@id/textViewFullTimeLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/textViewAttendanceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/attendance"
+        android:textSize="16sp"
+        android:textColor="@color/hint_signup"
+        android:layout_below="@id/textViewFullTimeLabel"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/textViewAttendanceValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="On Campus"
+        android:textSize="16sp"
+        android:gravity="end"
+        android:textColor="@android:color/black"
+        android:layout_toEndOf="@id/textViewAttendanceLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/textViewFullTimeValue"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/textViewStudyLevelLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/study_level"
+        android:textSize="16sp"
+        android:textColor="@color/hint_signup"
+        android:layout_below="@id/textViewAttendanceLabel"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/textViewStudyLevelValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="i Year Post graduation"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_toEndOf="@id/textViewStudyLevelLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:gravity="end"
+        android:layout_below="@id/textViewAttendanceValue"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/textViewDisciplineLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discipline"
+        android:textSize="16sp"
+        android:textColor="@color/hint_signup"
+        android:layout_below="@id/textViewStudyLevelLabel"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/textViewDisciplineValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Undergraduate"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_toEndOf="@id/textViewDisciplineLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:gravity="end"
+        android:layout_below="@id/textViewStudyLevelValue"
+        android:layout_marginTop="8dp" />
+
+</RelativeLayout>

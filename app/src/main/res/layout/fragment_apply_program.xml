@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".fragments.program.ApplyProgramFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10dp"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_cross" />
+
+        <TextView
+            android:id="@+id/tvApd_programName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/apply_program"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="@string/destination_country"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/destination_country"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/back_pro"
+                app:drawableEndCompat="@drawable/avd_up_to_down"
+                android:hint="@string/select_destination_country"
+                android:padding="@dimen/sp_10"
+                android:paddingEnd="@dimen/_10dp"
+                 />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space10"
+                    android:layout_marginTop="@dimen/space10"
+                    android:text="@string/prefer_colage"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/space16" />
+
+                <TextView
+                    android:id="@+id/prefer_collage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space5"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_marginBottom="@dimen/space5"
+                    android:background="@drawable/back_pro"
+                    app:drawableEndCompat="@drawable/avd_up_to_down"
+                    android:hint="@string/prefer_college"
+
+                    android:padding="@dimen/sp_10" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space10"
+                    android:layout_marginTop="@dimen/space10"
+                    android:text="@string/campus"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/space16" />
+
+                <TextView
+                    android:id="@+id/select_campus"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space50"
+                    android:background="@drawable/shape_rectangle_all_radius_et_login"
+                    android:layout_marginStart="@dimen/space5"
+                    android:hint="@string/select_campus"
+                    app:drawableEndCompat="@drawable/avd_up_to_down"
+                    android:padding="@dimen/sp_10" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space10"
+                    android:layout_marginTop="@dimen/space10"
+                    android:text="@string/prefer_course"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/space16" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/prefer_course"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space5"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:ellipsize="end"
+                        android:layout_toLeftOf="@id/ivRemove"
+                        android:hint="@string/select_up_to_3_courses"
+                        android:inputType="textMultiLine"
+                        android:padding="@dimen/sp_10"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false" />
+
+                    <ImageView
+                        android:id="@+id/ivRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/space4"
+                        android:src="@drawable/ic_cross"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space10"
+                        android:layout_marginTop="@dimen/space10"
+                        android:text="@string/year"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space16" />
+
+                    <Spinner
+                        android:id="@+id/select_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space50"
+                        android:layout_marginHorizontal="@dimen/space5"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:hint="@string/select_year"
+                        android:padding="@dimen/space5" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space10"
+                        android:layout_marginTop="@dimen/space10"
+                        android:text="@string/intake_yearr"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space16" />
+
+                    <TextView
+                        android:id="@+id/select_intake"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space50"
+                        android:layout_marginStart="@dimen/space5"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:hint="@string/select_intake"
+                        android:padding="@dimen/sp_10" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/btn_create_application"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="@dimen/dp_30"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+                android:elevation="2dp"
+                android:foreground="@drawable/ripple"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/create_application"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

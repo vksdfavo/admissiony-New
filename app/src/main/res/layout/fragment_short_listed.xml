@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.home.ShortListedFragment">
+
+    <RelativeLayout
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10dp"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/tvApd_programName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/shortlisted_programs"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:elevation="2dp"
+        android:layout_below="@id/header_title"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="6dp"
+            android:text="@string/compare_shortlisted_programs"
+            android:textColor="#2A3C4A"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_shortlisted_prog" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/tlFc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        app:tabIndicatorColor="@color/secondary_color"
+        app:tabIndicatorHeight="2dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_below="@id/lll"
+        android:background="@color/white"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextAppearance="@style/CustomTabLayout"
+        app:tabTextColor="@color/viewAllTextColor">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_marginEnd="@dimen/dp_6"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/space5"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/tab_self_shortlisted"
+                android:layout_width="match_parent"
+                android:background="@android:color/transparent"
+                android:layout_height="@dimen/dp_50"
+                android:text="@string/self_shortlisted" />
+
+            <View
+                android:id="@+id/view1"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:background="@color/secondary_color"
+                android:layout_height="2dp"/>
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tab_assiged_staff"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="@dimen/dp_50"
+            android:text="@string/assigned_by_staff" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:background="@color/secondary_color"
+            android:layout_height="2dp"/>
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_below="@+id/tlFc"
+        android:padding="@dimen/sp_5"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_category"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFpAp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rvCategory"
+        android:layout_marginTop="@dimen/space10"
+        android:layout_above="@id/pbFpAp_pagination" />
+
+    <ProgressBar
+        android:id="@+id/pbFpAp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
+
+    <LinearLayout
+        android:id="@+id/llFpAp_noData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/no_program" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/no_shorlisted_program_found"
+            android:textColor="#151522"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/pbFpAp_pagination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

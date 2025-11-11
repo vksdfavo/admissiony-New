@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/white" android:orientation="vertical">
+    <TextView android:id="@+id/tvoncampus" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="10dp" android:text="On Campus" android:paddingStart="20dp" android:textSize="14sp"/>
+    <View android:id="@+id/tvView" android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/hint"/>
+    <TextView android:id="@+id/tvonline" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="10dp" android:text="Online" android:paddingStart="20dp" android:textSize="14sp"/>
+    <View android:id="@+id/tvView1" android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/hint"/>
+    <TextView android:id="@+id/tvblended" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="10dp" android:text="Blended" android:paddingStart="20dp" android:textSize="14sp"/>
+</LinearLayout>

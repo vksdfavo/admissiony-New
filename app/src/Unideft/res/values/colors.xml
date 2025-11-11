@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pink">#fff8e5</color>
+    <color name="theme_color">@color/black</color>
+    <color name="secondary_color">#FF7800</color>
+    <color name="theme_color_light">#0B5D27</color>
+    <color name="logo_secondary_color">#CC9B2D</color>
+    <color name="gradient_one">#EDFBF0</color>
+    <color name="gradient_two">#FFFCEB</color>
+    <color name="navigationBarColor">@color/black</color>
+    <color name="statusBarColor">@color/black</color>
+    <color name="statusBarColor_application_detail">@color/black</color>
+
+    <color name="bottom_nav_icon">#FFFFFFFF</color>
+    <color name="bottom_nav_text_color">#FFFFFFFF</color>
+    <color name="bottom_nav_grey">#A8A8A8</color>
+    <color name="bottom_gradient_one">@color/theme_color</color>
+    <color name="bottom_gradient_two">@color/theme_color</color>
+    <color name="bottom_nav_scout">@color/secondary_color</color>
+</resources>

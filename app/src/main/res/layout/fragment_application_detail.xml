@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+  >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/ablSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rlYouHaveSaved"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:elevation="0dp"
+                    android:translationZ="0dp"
+                    android:outlineProvider="none"
+                    android:clipToOutline="false"
+                   >
+
+                    <ImageView
+                        android:id="@+id/fabFad_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_marginStart="6dp"
+                        android:src="@drawable/back"
+                        app:tint="@color/black"
+                        app:rippleColor="@color/rippleColor"
+                       />
+
+                    <TextView
+                        android:id="@+id/app_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="App Id:23456"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/fabFad_back"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/cdLayoutLR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/dp_5"
+                   >
+
+                    <ImageView
+                        android:id="@+id/ivItemProgramRecom"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_college" />
+
+                    <TextView
+                        android:id="@+id/tvApd_programName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/ivItemProgramRecom"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:layout_marginEnd="@dimen/_10dp"
+                        android:layout_marginStart="@dimen/space10"
+                        android:text="@string/atlantic_business_college_canada"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/name_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space10"
+                        android:layout_toRightOf="@+id/ivItemProgramRecom"
+                        android:layout_below="@id/tvApd_programName"
+                        android:textColor="#666666"
+                        android:text="@string/loyalist_college_in_toronto_canada"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="@dimen/_10dp"
+                        android:layout_marginVertical="@dimen/_10dp"
+                        android:layout_below="@+id/name_country"
+                        android:background="@color/dividerBackgroundColor" />
+
+
+                    <TextView
+                        android:id="@+id/programName"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:drawablePadding="8dp"
+                        android:layout_below="@+id/view"
+                        android:textStyle="bold"
+                        android:text="Atlantic Business College, Canada"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:maxLines="2"
+                        app:drawableTint="@color/black" />
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linear_intake_fee"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/programName"
+                        android:layout_marginHorizontal="@dimen/dp_10"
+                        android:layout_marginVertical="@dimen/dp_5"
+                        android:weightSum="2"
+                        android:padding="2dp"
+                        android:background="@drawable/app_detail_background"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space10"
+                                android:textColor="@color/label_color"
+                                android:text="@string/intakes"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tvItemAa_intakeFee"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/space10"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:text="@string/intakes"
+                                    android:textSize="12sp" />
+
+                                <View
+                                    android:id="@+id/status_dot"
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:layout_toEndOf="@id/app_id"
+                                    android:layout_marginStart="6dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/shape_circle_green_view" />
+
+                            </LinearLayout>
+
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space10"
+                                android:textColor="@color/label_color"
+                                android:text="@string/application_fee"
+                                android:textSize="12sp" />
+
+
+                            <TextView
+                                android:id="@+id/application_fee_new"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space10"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:text="@string/intakes"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+    <com.student.Compass_Abroad.fragments.widgets.CustomTabLayout
+        android:id="@+id/tlTa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line1"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/secondary_color"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/viewAllTextColor" >
+
+
+    <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timeline" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/assigned_staff" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/programs" />
+
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/documents" />
+
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payments" />
+    </com.student.Compass_Abroad.fragments.widgets.CustomTabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

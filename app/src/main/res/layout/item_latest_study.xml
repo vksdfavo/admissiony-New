@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="6dp"
+    android:layout_marginBottom="6dp"
+    android:elevation="2dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
+
+    <RelativeLayout
+        android:id="@+id/rlLs_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/zls" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Title goes appear here. sdf gsdfgsdgf sdfg sdg sdg sdg sdg sdfh dfgjhf gjh dhjfgj"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:layout_alignStart="@id/tvTitle"
+            android:layout_alignEnd="@id/iv"
+            android:layout_marginTop="-5dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="-1dp"
+            android:maxLines="3"
+            android:text="There has been a myth going around for a long time now, and this myth has made a lot of people believe they cannot study"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tvTimeStamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvMsg"
+            android:layout_alignStart="@id/tvTitle"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="1 day ago"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

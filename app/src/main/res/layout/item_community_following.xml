@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@color/white"
+    android:paddingBottom="6dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivItemCommunityAllFeeds"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+       />
+
+
+    <TextView
+        android:id="@+id/tvCommunityAllFeeds_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ivItemCommunityAllFeeds"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@id/ibCommunityMenu"
+        android:layout_toEndOf="@id/ivItemCommunityAllFeeds"
+        android:text="Eztna Malachy"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvCommunityAllFeeds_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCommunityAllFeeds_name"
+        android:layout_marginTop="-7dp"
+        android:layout_toEndOf="@id/ivItemCommunityAllFeeds"
+        android:text="3 min ago"
+        android:textSize="11sp" />
+
+    <ImageButton
+        android:id="@+id/ibCommunityMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvCommunityAllFeeds_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="10dp"
+        android:src="@drawable/ic_vertical_menu" />
+
+
+    <WebView
+        android:id="@+id/tvCommunityAllFeeds_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivItemCommunityAllFeeds"
+        android:layout_alignStart="@id/ivItemCommunityAllFeeds"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="Hi Dfavo world\nanyone from Hyderabad."
+        android:textSize="13sp"
+        tools:ignore="WebViewLayout" />
+
+    <TextView
+        android:id="@+id/dv"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/tvCommunityAllFeeds_msg"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:background="@color/dividerBackgroundColor" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dv"
+        android:layout_alignStart="@id/ivItemCommunityAllFeeds"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ibLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_like"
+            />
+
+       <ImageButton
+            android:id="@+id/ibLiked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-6dp"
+           android:visibility="gone"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_liked"
+             />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ibComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dv"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/ll"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="10dp"
+        android:src="@drawable/ic_comments" />
+
+    <TextView
+        android:id="@+id/tvComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ibComments"
+        android:layout_alignBottom="@id/ibComments"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_rectangle_pressed_white"
+        android:gravity="center_vertical"
+        android:text="4 Comments"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/tvHelpful"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ibComments"
+        android:layout_alignBottom="@id/ibComments"
+        android:layout_marginEnd="20sp"
+        android:layout_toStartOf="@id/tvComments"
+        android:background="@drawable/shape_rectangle_pressed_white"
+        android:gravity="center_vertical"
+        android:text="15 Find Helpful"
+        android:textSize="11sp" />
+</RelativeLayout>

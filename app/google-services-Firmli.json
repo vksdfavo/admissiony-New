@@ -1,0 +1,335 @@
+{
+  "project_info": {
+    "project_number": "557198093322",
+    "firebase_url": "https://firmli-default-rtdb.firebaseio.com",
+    "project_id": "firmli",
+    "storage_bucket": "firmli.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:8ce76d5f23bbe57e8283f3",
+        "android_client_info": {
+          "package_name": "com.learn.FirmliStaff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:5edb2f3e54f004cc8283f3",
+        "android_client_info": {
+          "package_name": "com.learn.overseasStudent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:602fa64ef4816d748283f3",
+        "android_client_info": {
+          "package_name": "com.student.Admisiony"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:e40078fe834ffea78283f3",
+        "android_client_info": {
+          "package_name": "com.student.BasechanInternational"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:9c36cd7d8e7979858283f3",
+        "android_client_info": {
+          "package_name": "com.student.DreamEducation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:06ba8e6093f9dfb98283f3",
+        "android_client_info": {
+          "package_name": "com.student.LandmarkImmigration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:dd77c582b6b40b008283f3",
+        "android_client_info": {
+          "package_name": "com.student.Skylines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:eb0aa21eb60ecee68283f3",
+        "android_client_info": {
+          "package_name": "com.student.StudiePoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557198093322:android:b5c623236d76868d8283f3",
+        "android_client_info": {
+          "package_name": "com.student.firmli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh32eKKpV0bC2GAMZumzPRoaIKnf3kyKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557198093322-hc13og23cd7f017798bm06p46o7ft3d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557198093322-pe8icm3i273av6bbs3ohu24ph3bg58pb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.App.Firmli"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

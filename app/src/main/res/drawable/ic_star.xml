@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Star outline with smooth corners and balanced stroke -->
+    <path
+        android:pathData="M256,40 L317,192 L480,192 L347,296 L395,464 L256,368 L117,464 L165,296 L32,192 L195,192 Z"
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF4F5A"
+        android:strokeWidth="35"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/cd_others"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/card_border_bg"
+        app:cardBackgroundColor="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tv_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/visa_fee"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tvapplicationfee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cad_45"
+                    android:layout_marginStart="20dp"
+                    android:textSize="12sp"
+                    android:layout_below="@+id/tv_label"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓ Paid"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:textSize="12sp"
+                    android:paddingStart="@dimen/sp_10"
+                    android:paddingEnd="@dimen/sp_10"
+                    android:paddingTop="@dimen/sp_5"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/sp_5"
+                    android:background="@drawable/ic_paid_back"
+                    android:layout_alignTop="@+id/tv_label"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    />
+
+                <TextView
+                    android:id="@+id/tvname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paid"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:textSize="12sp"
+                    android:drawableStart="@drawable/tick_svgrepo_com"
+                    android:drawableTint="@color/hyperlinkTextColor"
+                    android:paddingStart="@dimen/sp_10"
+                    android:drawablePadding="5dp"
+                    android:paddingEnd="@dimen/sp_10"
+                    android:paddingTop="@dimen/sp_5"
+                    android:paddingBottom="@dimen/sp_5"
+                    android:background="@drawable/ic_paid_back"
+                    android:layout_alignTop="@+id/tv_label"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:background="@drawable/app_detail_background"
+                android:paddingVertical="10dp">
+
+                <!-- Left section: Date + Time -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp">
+
+                    <TextView
+                        android:id="@+id/tvdatelabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvdateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="28-10-2001 10:12:56"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Right arrow -->
+                <ImageView
+                    android:id="@+id/tvviewdetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/baseline_arrow_forward_ios_24"
+                     />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

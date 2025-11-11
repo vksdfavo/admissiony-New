@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragments.login.SignInEmailFragment">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="@dimen/space50"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mobile_number"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                >
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/country_code"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_defaultNameCode="IND"
+                    android:background="@drawable/shape_rectangle_all_radius_et_country_code_no"
+                    app:ccp_showFlag="true"
+                    app:ccp_showFullName="true"
+                    app:ccp_showNameCode="true"/>
+
+
+
+                <EditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/shape_rectangle_all_radius_et_phone_no"
+                    android:gravity="center_vertical"
+                    android:hint="@string/_8699339451"
+                    android:focusable="true"
+                    android:inputType="number"
+                    android:paddingStart="14dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="15dp"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="13sp"
+                    tools:ignore="TextFields" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/tv_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/dp_80"
+        android:padding="12dp"
+        android:layout_below="@+id/ll1"
+        android:text="@string/next_button"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        >
+        <TextView
+            android:id="@+id/tv_dont_have_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:justificationMode="inter_word"
+            android:textColor="@color/appSecondaryColor"
+            android:text="@string/don_t_have_an_account_sign_up1"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

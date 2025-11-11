@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="-18dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+    <TextView
+        android:id="@+id/tvItemTimeline_estimated"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-4dp"
+        android:lineSpacingExtra="3dp"
+        android:text="Est. Date\nXX-XX-XX"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:id="@+id/llTimeline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/tvItemTimeline_estimated">
+
+        <TextView
+            android:id="@+id/tvItemTimeline_statusS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_circle_green"
+            android:gravity="center"
+            android:text="AR"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvItemTimeline_half1"
+            android:layout_width="32dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/tvItemTimeline_statusS"
+            android:layout_marginStart="-.5dp"
+            android:layout_marginTop="-18dp" />
+
+        <TextView
+            android:id="@+id/tvItemTimeline_half2"
+            android:layout_width="32dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/tvItemTimeline_half1"
+            android:layout_marginStart="-.5dp"
+            android:layout_marginTop="-40dp" />
+
+        <ImageButton
+            android:id="@+id/ibItemTimeline_warningInHalf"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/tvItemTimeline_half1"
+            android:layout_marginStart="5.7dp"
+            android:layout_marginTop="-30dp"
+            android:background="@drawable/shape_circle_hint"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_warning_small"
+            android:visibility="gone"
+            app:tint="@color/snackWarningBack" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvItemTimeline_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-5dp"
+        android:layout_toStartOf="@id/civItemAa_chat"
+        android:layout_toEndOf="@id/llTimeline"
+        android:text="Started &amp; Submitted\nfor options"
+        android:textColor="#344955"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvItemTimeline_actual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvItemTimeline_status"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-6dp"
+        android:layout_toStartOf="@id/civItemAa_chat"
+        android:layout_toEndOf="@id/llTimeline"
+        android:text="Actual Date XX-XX-XX"
+        android:textSize="12sp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/civItemAa_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvItemTimeline_status"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/remarksButtonBackgroundColor"
+        android:src="@drawable/ic_remarks"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:fabCustomSize="34dp"
+        app:maxImageSize="10dp"
+        app:rippleColor="@color/hint" />
+</RelativeLayout>

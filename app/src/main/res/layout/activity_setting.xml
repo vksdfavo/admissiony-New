@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/ablSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabMySettings_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="6dp"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_back"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    app:fabCustomSize="32dp"
+                    app:maxImageSize="16dp"
+                    app:rippleColor="@color/rippleColor"
+                    app:tint="@color/tintColorToolbar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/settings"
+                    android:textColor="@color/tintColorToolbar"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ablSelect"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notifications"
+                android:textColor="#151522" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                android:theme="@style/Switch" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerBackgroundColor" />
+
+        <TextView
+            android:id="@+id/changePasscode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rectangle_layout_pressed"
+            android:drawableEnd="@drawable/ic_next3"
+            android:drawableTint="@color/tintColorToolbar"
+            android:padding="16dp"
+            android:paddingEnd="22sp"
+            android:text="@string/change_password"
+            android:textColor="#151522" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerBackgroundColor" />
+
+        <TextView
+            android:id="@+id/tvSettings_loginToNewAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/shape_rectangle_layout_pressed"
+            android:drawableEnd="@drawable/ic_next3"
+            android:drawableTint="@color/tintColorToolbar"
+            android:padding="16dp"
+            android:paddingEnd="22sp"
+            android:text="Login to New Account"
+            android:textColor="#151522" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerBackgroundColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:text="Help &amp; Support"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tvSettings_helpSupport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rectangle_layout_pressed"
+            android:clickable="false"
+            android:enabled="false"
+            android:visibility="gone"
+            android:padding="16dp"
+            android:paddingEnd="22sp"
+            android:text="Help &amp; Support"
+            android:textColor="#30151522"
+            app:drawableEndCompat="@drawable/ic_next3"
+            app:drawableTint="#30151522" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerBackgroundColor" />
+
+        <TextView
+            android:id="@+id/tvSettings_contactUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rectangle_layout_pressed"
+            android:drawableEnd="@drawable/ic_next3"
+            android:drawableTint="@color/tintColorToolbar"
+            android:padding="16dp"
+            android:paddingEnd="22sp"
+            android:text="@string/contact_us"
+            android:textColor="#151522" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerBackgroundColor" />
+
+        <TextView
+            android:id="@+id/tvSettings_deactivate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rectangle_layout_pressed"
+            android:drawableEnd="@drawable/ic_next3"
+            android:drawableTint="@color/tintColorToolbar"
+            android:padding="16dp"
+            android:paddingEnd="22sp"
+            android:text="@string/deactivate_account"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerBackgroundColor" />
+    </LinearLayout>
+</RelativeLayout>

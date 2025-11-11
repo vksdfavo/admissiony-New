@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_dashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/menu_applications"
+        android:icon="@drawable/ic_applications"
+        android:title="Applications" />
+
+    <item
+        android:id="@+id/students"
+        android:icon="@drawable/student"
+        android:title="Students" />
+
+    <item
+        android:id="@+id/menu_call_logs"
+        android:icon="@drawable/ic_insights"
+        android:title="Call Logs" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile" />
+</menu>

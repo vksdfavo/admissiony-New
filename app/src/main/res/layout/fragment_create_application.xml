@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".fragments.CreateApplicationFragment">
+
+    <!-- Close / Back button -->
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="none"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_cross"
+                    android:layout_gravity="start" />
+
+                <!-- Illustration Image -->
+                <ImageView
+                    android:id="@+id/ivHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/img_create_application" />
+
+            </LinearLayout>
+
+    <!-- Title -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space16"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Create New Application"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Destination Country -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Destination Country"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="@dimen/space20"
+                    android:layout_marginStart="@dimen/space4" />
+
+                <TextView
+                    android:id="@+id/destination_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space50"
+                    android:layout_marginTop="@dimen/space6"
+                    android:background="@drawable/bg_dropdown_field"
+                    android:gravity="center_vertical|start"
+                    android:paddingHorizontal="@dimen/space12"
+                    android:hint="Select" />
+
+                <!-- College -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="College"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="@dimen/space12"
+                    android:layout_marginStart="@dimen/space4" />
+
+                <TextView
+                    android:id="@+id/prefer_collage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space50"
+                    android:layout_marginTop="@dimen/space6"
+                    android:background="@drawable/bg_dropdown_field"
+                    android:gravity="center_vertical|start"
+                    android:paddingHorizontal="@dimen/space12"
+                    android:hint="Select" />
+
+                <!-- Campus -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Campus"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="@dimen/space12"
+                    android:layout_marginStart="@dimen/space4" />
+
+                <TextView
+                    android:id="@+id/select_campus"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space50"
+                    android:layout_marginTop="@dimen/space6"
+                    android:background="@drawable/bg_dropdown_field"
+                    android:gravity="center_vertical|start"
+                    android:paddingHorizontal="@dimen/space12"
+                    android:hint="Select" />
+
+                <!-- Course -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Course"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="@dimen/space12"
+                    android:layout_marginStart="@dimen/space4" />
+
+                <TextView
+                    android:id="@+id/prefer_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space50"
+                    android:layout_marginTop="@dimen/space6"
+                    android:background="@drawable/bg_dropdown_field"
+                    android:gravity="center_vertical|start"
+                    android:paddingHorizontal="@dimen/space12"
+                    android:hint="Select" />
+
+                <!-- Year and Intake -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space12"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Year"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_marginStart="@dimen/space4" />
+
+                        <Spinner
+                            android:id="@+id/select_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space50"
+                            android:layout_marginTop="@dimen/space6"
+                            android:background="@drawable/bg_dropdown_field"
+                            android:gravity="center_vertical|start"
+                            android:paddingHorizontal="@dimen/space12"
+                            android:hint="2026" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="@dimen/space10"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Intake"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_marginStart="@dimen/space4" />
+
+                        <TextView
+                            android:id="@+id/select_intake"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space50"
+                            android:layout_marginTop="@dimen/space6"
+                            android:background="@drawable/bg_dropdown_field"
+                            android:gravity="center_vertical|start"
+                            android:paddingHorizontal="@dimen/space12"
+                            android:hint="Select" />
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- Proceed Button -->
+                <TextView
+                    android:id="@+id/btn_create_application"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="@dimen/space10"
+                    android:layout_marginBottom="@dimen/space20"
+                    android:background="@drawable/bg_btn_proceed"
+                    android:gravity="center"
+                    android:text="Proceed"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

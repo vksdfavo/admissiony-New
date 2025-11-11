@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".fragments.LeadsFilterFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:id="@+id/fabAc_back"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="6dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_back"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabCustomSize="32dp"
+            app:maxImageSize="16dp"
+            app:rippleColor="@color/rippleColor"
+            app:tint="@color/tintColorToolbar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Leads"
+            android:textColor="@color/tintColorToolbar"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Source Country"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/source_country"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_source_country"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Source State"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/source_state"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_source_state"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Destination Country"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/destination_country"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/destination_country"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="@string/utm_source"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/utm_source"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_utm_source"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Has Document?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+
+            <RadioGroup
+                android:id="@+id/has_document"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radio_yes"
+                    android:layout_width="wrap_content"
+                    android:text="@string/yes"
+                    android:buttonTint="@color/black"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:id="@+id/radio_no"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:text="@string/no"
+                    android:buttonTint="@color/black"
+                    android:layout_height="wrap_content"/>
+            </RadioGroup>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="@string/create_at"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/create_at"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/pick_create_at"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="@string/converted_at"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/converted_at"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/pick_converted_at"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Has Application?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+
+            <RadioGroup
+                android:id="@+id/has_application"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/yes_application"
+                    android:layout_width="wrap_content"
+                    android:text="@string/yes"
+                    android:buttonTint="@color/black"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:id="@+id/no_application"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:text="@string/no"
+                    android:buttonTint="@color/black"
+                    android:layout_height="wrap_content"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Has Counseling?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+
+            <RadioGroup
+                android:id="@+id/has_counseling"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/yes_counseling"
+                    android:layout_width="wrap_content"
+                    android:text="@string/yes"
+                    android:buttonTint="@color/black"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:id="@+id/no_counseling"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:text="@string/no"
+                    android:buttonTint="@color/black"
+                    android:layout_height="wrap_content"/>
+
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/btn_create_application"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="@dimen/dp_30"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+                android:elevation="2dp"
+                android:foreground="@drawable/ripple"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/apply_filter"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+package com.student.Compass_Abroad.modal.PostLeadNotesResponse
+
+data class Record(
+    val color: String,
+    val content: String,
+    val content_key: String,
+    val created_at: String,
+    val created_by_id: Int,
+    val created_by_info: CreatedByInfo,
+    val created_by_role_id: Int,
+    val created_by_role_info: CreatedByRoleInfo,
+    val deleted_at: Any,
+    val id: Int,
+    val identifier: String,
+    val is_public: Boolean,
+    val is_remark: Boolean,
+    val title: String,
+    val updated_at: String
+)

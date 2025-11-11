@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragments.setPrefrences.StudyLevelFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:id="@+id/fabAc_back"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="6dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_back"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                app:fabCustomSize="32dp"
+                app:maxImageSize="16dp"
+                app:rippleColor="@color/rippleColor"
+                app:tint="@color/tintColorToolbar" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Study Level"
+                android:textColor="@color/tintColorToolbar"
+                android:textSize="16sp" />
+
+
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/toolbar"
+        android:weightSum="3"
+        android:layout_height="@dimen/_20dp">
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/space5"
+            android:layout_weight="1"
+            android:background="@color/secondary_color"
+            android:layout_height="@dimen/space3"/>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/space5"
+            android:background="@color/bottom_nav_grey"
+            android:layout_height="@dimen/space3"/>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/bottom_nav_grey"
+            android:layout_height="@dimen/space3"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_above="@id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/header_title"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFaActive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_scheduled_layout" />
+        <ProgressBar
+            android:id="@+id/pbFaActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/llFaActive_NoApplications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/no_record" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="No Counselling Found"
+                android:textColor="#151522"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+        android:elevation="1dp"
+        android:layout_alignParentBottom="true"
+        android:padding="12dp"
+        android:text="@string/save_proceed"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</RelativeLayout>

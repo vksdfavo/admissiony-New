@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+   <TextView
+       android:id="@+id/tvstudylevel"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="10sp"
+       android:text="Unsjsjsmssskksjsg"
+       android:paddingStart="20dp"
+       android:paddingEnd="20dp"
+       android:paddingTop="2dp"
+       android:paddingBottom="2dp"
+       android:background="@drawable/ic_studylevel"
+       android:textStyle="bold"
+       android:maxLines="1"
+       android:ellipsize="end" android:textColor="@color/white"
+       android:gravity="center_vertical"
+       android:layout_margin="8dp"/>
+
+
+   <TextView
+       android:id="@+id/tvData"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="12sp"
+       android:text="Unsjsjsmssskksjsg"
+       android:paddingStart="20dp"
+       android:paddingEnd="20dp"
+       android:paddingTop="2dp"
+       android:paddingBottom="2dp"
+       android:textStyle="bold"
+       android:gravity="center_vertical"
+       android:layout_margin="8dp"/>
+
+
+
+
+</LinearLayout>

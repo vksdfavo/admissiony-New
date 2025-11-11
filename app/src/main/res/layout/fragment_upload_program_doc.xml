@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_success_pattern"
+    android:padding="26dp"
+    tools:context=".fragments.program.UploadProgramDocFragment">
+
+    <!-- Center Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Tick Icon -->
+        <ImageView
+            android:id="@+id/tickView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/tick"
+            android:layout_gravity="center"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:alpha="0" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/textFd_youHaveSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Application Created"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/tvFi_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Your application has been created\nSuccessfully. Our representative will contact you shortly"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Description Text -->
+    <TextView
+        android:id="@+id/tv22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/upload_document"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:text="To submit relevant document kindly upload documents"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
+
+    <!-- Upload Documents Button -->
+    <TextView
+        android:id="@+id/upload_document"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@id/skip"
+        android:gravity="center"
+        android:text="Upload Documents"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_button_teal" />
+
+    <!-- Skip -->
+    <TextView
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Skip"
+        android:textColor="#558B6E"
+        android:textStyle="bold" />
+</RelativeLayout>

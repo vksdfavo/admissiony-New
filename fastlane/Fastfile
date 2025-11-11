@@ -1,0 +1,34 @@
+# Fastfile
+default_platform(:android)
+
+platform :android do
+  desc "Build and upload Evergreen flavor with auto versioning"
+  lane :evergreen do
+    # Automatically increment versionCode
+    increment_version_code(
+      gradle_file_path: "app/build.gradle"
+    )
+
+    # Automatically increment versionName (bump patch version)
+    increment_version_name(
+      bump_type: "patch", # "patch", "minor", or "major"
+      gradle_file_path: "app/build.gradle"
+    )
+
+    # Build AAB for Evergreen flavor
+    gradle(
+      task: "bundle",
+      build_type: "Release",
+      flavor: "Evergreen"
+    )
+
+    # Upload to Google Play
+    upload_to_play_store(
+      track: "production", # or "production", "beta", "alpha"
+      aab: "app/build/outputs/bundle/evergreenRelease/app-evergreen-release.aab",
+      json_key: "fastlane/keys/google-services-Evergreen.json"
+    )
+  end
+end
+
+

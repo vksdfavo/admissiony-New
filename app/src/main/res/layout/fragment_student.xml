@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlFsSu_base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/ablFd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rlYouHaveSaved"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/civFs"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:elevation="2dp"
+                            android:visibility="gone"
+                            android:src="@drawable/test_image" />
+
+                        <TextView
+                            android:id="@+id/tvApd_collegeName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/civFs"
+                            android:layout_alignBottom="@id/civFs"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:text="@string/student"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fabFs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/ic_notification"
+                            app:borderWidth="0dp"
+                            android:visibility="gone"
+                            app:elevation="0dp"
+                            app:fabCustomSize="32dp"
+                            app:maxImageSize="21dp"
+                            app:rippleColor="@color/hint"
+                            app:tint="@color/tintColorToolbar" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <RelativeLayout
+                android:id="@+id/rl1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/shape_rectangle_all_radius_et_search">
+
+                <EditText
+                    android:id="@+id/etSerach"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="-8dp"
+                    android:layout_toStartOf="@id/ibFd_searchStudent"
+                    android:backgroundTint="@color/white"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:hint="Search"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintApp"
+                    android:textCursorDrawable="@drawable/cursor_black_et"
+                    android:textSize="12sp" />
+
+                <ImageButton
+                    android:id="@+id/ibFd_searchStudent"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/shape_rectangle_all_radius_btn_search"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/white" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStudent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ablFd"
+        android:layout_marginTop="-2dp"
+        android:clipToPadding="false"
+        android:paddingBottom="90dp"
+        tools:listitem="@layout/item_students" />
+
+    <ProgressBar
+        android:id="@+id/pbFtPagination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/llFa_NoStudents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_students" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="No Students Found"
+            android:textColor="#151522"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Woo...\nits time to add Students"
+            android:textColor="#151522"
+            android:textSize="13sp" />
+
+        <!--  <TextView
+              android:id="@+id/tvFaActive_addApplication"
+              android:layout_width="220dp"
+              android:layout_height="48dp"
+              android:layout_marginTop="26dp"
+              android:background="@drawable/shape_rectangle_all_radius_btn_green"
+              android:elevation="1dp"
+              android:gravity="center"
+              android:padding="12dp"
+              android:text="Add Students"
+              android:textAllCaps="false"
+              android:textColor="@color/white"
+              android:textStyle="bold" />-->
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pbDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <LinearLayout
+        android:id="@+id/llFsSu_noData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_students" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="No Student Found"
+            android:textColor="#151522"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Share your referral code and\nadd students as a scout."
+            android:textColor="#151522"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvFs_addStudent"
+            android:layout_width="220dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/shape_rectangle_all_radius_btn_green"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Add Student"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

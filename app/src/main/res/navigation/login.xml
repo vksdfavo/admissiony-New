@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login"
+    android:label="LoginSignUpFragment"
+    app:startDestination="@id/placeholderFragment"
+    >
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password">
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_verifyOtpFragment"
+            app:destination="@id/verifyOtpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyOtpFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.VerifyOtpFragment"
+        android:label="fragment_verify_otp"
+        tools:layout="@layout/fragment_verify_otp">
+        <action
+            android:id="@+id/action_verifyOtpFragment_to_newPassordFragment22"
+            app:destination="@id/newPassordFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPassordFragment2"
+        android:name="com.student.Compass_Abroad.fragments.login.NewPassordFragment"
+        android:label="fragment_new_passord"
+        tools:layout="@layout/fragment_new_passord" />
+    <fragment
+        android:id="@+id/loginSignUpFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.LoginSignUpFragment"
+        android:label="LoginSignUpFragment">
+        <action
+            android:id="@+id/action_loginSignUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginSignUpFragment_to_signInEmailFragment"
+            app:destination="@id/signInEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.SignInFragment"
+        android:label="SignInFragment" />
+    <fragment
+        android:id="@+id/signInEmailFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.SignInEmailFragment"
+        android:label="fragment_sign_in_email"
+        tools:layout="@layout/fragment_sign_in_email" />
+    <fragment
+        android:id="@+id/signInPhoneNoFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.SignInPhoneNoFragment"
+        android:label="fragment_sign_in_phone_no"
+        tools:layout="@layout/fragment_sign_in_phone_no" />
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="com.student.Compass_Abroad.fragments.login.PasswordFragment"
+        android:label="PasswordFragment" />
+    <fragment
+        android:id="@+id/leadFormFragment2"
+        android:name="com.student.Compass_Abroad.fragments.home.LeadFormFragment"
+        android:label="LeadFormFragment" />
+
+    <fragment
+        android:id="@+id/signUpFragment2"
+        android:name="com.student.Compass_Abroad.fragments.login.SignUpFragment"
+        android:label="SignUpFragment">
+
+        <argument
+            android:name="referral"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <deepLink
+            app:uri="https://f116.firmli.com/t/{referral}"/>
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/agentSignupFragment"
+        android:name="com.student.Compass_Abroad.agent.AgentSignupFragment"
+        android:label="fragment_agent_signup"
+        tools:layout="@layout/fragment_agent_signup"
+
+        />
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.student.Compass_Abroad.fragments.PrivacyPolicyFragment"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+    <fragment
+        android:id="@+id/termsAndConditionsFragment"
+        android:name="com.student.Compass_Abroad.fragments.TermsAndConditionsFragment"
+        android:label="fragment_terms_and_conditions"
+        tools:layout="@layout/fragment_terms_and_conditions" />
+    <fragment
+        android:id="@+id/placeholderFragment"
+        android:name="com.student.Compass_Abroad.PlaceholderFragment"
+        android:label="fragment_placeholder"
+        tools:layout="@layout/fragment_placeholder" />
+
+</navigation>

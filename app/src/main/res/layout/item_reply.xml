@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="40dp"
+    android:layout_marginEnd="5dp"
+    android:paddingBottom="6dp">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:paddingBottom="6dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civItemComments"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12sp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/test_image2" />
+
+        <TextView
+            android:id="@+id/tvItemComments_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/civItemComments"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/ibCommunityMenu"
+            android:layout_toEndOf="@id/civItemComments"
+            android:text="Eztna Malachy"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvItemComments_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignTop="@+id/ibCommunityMenu"
+            android:layout_alignBottom="@+id/ibCommunityMenu"
+            android:layout_toLeftOf="@+id/ibCommunityMenu"
+            android:text="3 min ago"
+            android:textSize="11sp" />
+
+        <ImageButton
+            android:id="@+id/ibCommunityMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tvItemComments_name"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_vertical_menu" />
+
+        <TextView
+            android:id="@+id/tvItemComments_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvItemComments_name"
+            android:layout_alignStart="@id/tvItemComments_name"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="2dp"
+            android:textStyle="bold"
+            android:text="Hi I am from Punjab, WGTK WGTF"
+            android:textSize="13sp" />
+
+
+
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/space5"
+    android:background="@drawable/error_back"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/error_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        android:textSize="16sp"
+        android:layout_marginTop="@dimen/space5" />
+
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space10"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:layout_below="@+id/error_name"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/app_name"
+        android:fontFamily="@font/popins_medium"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_name"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/app_name"
+        android:layout_marginStart="@dimen/dp_10"
+        android:fontFamily="@font/popins_medium"
+        android:textColor="@color/theme_color"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_below="@id/content"
+        android:background="@color/text_color"
+        android:layout_centerHorizontal="true"
+        android:layout_height="@dimen/space1"/>
+
+    <TextView
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/view"
+        android:fontFamily="@font/popins_extra_bold"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="10dp"
+        android:src="@drawable/ic_cross" />
+
+</RelativeLayout>

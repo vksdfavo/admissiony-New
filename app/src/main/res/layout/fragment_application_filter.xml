@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.ApplicationFilterFragment">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10dp"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/tvApd_programName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/filters"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Collage"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/student_list"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_collage"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="@string/destination_country"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/destination_country"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_destination_country"
+                android:padding="@dimen/sp_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space10"
+                        android:layout_marginTop="@dimen/space10"
+                        android:text="@string/source_country"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space16" />
+
+                    <TextView
+                        android:id="@+id/prefer_collage"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space50"
+                        android:layout_marginEnd="@dimen/space5"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:hint="Select Source Country"
+                        android:padding="@dimen/sp_10" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space10"
+                        android:layout_marginTop="@dimen/space10"
+                        android:text="Status"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space16" />
+
+                    <TextView
+                        android:id="@+id/select_campus"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space50"
+                        android:layout_marginStart="@dimen/space5"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:hint="Select Status"
+                        android:padding="@dimen/sp_10" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Intake"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/select_intake"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginStart="@dimen/space5"
+                android:layout_marginEnd="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_intake"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Intake"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/select_intake_year"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_intake_year"
+                android:padding="@dimen/sp_10" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Counselling"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/select_counselling"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_counselling"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Has Documents?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/has_document"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_an_option"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="@string/vendor"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/vendor"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_vendor"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Channel Partner"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/channel_partner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="Selct channel partner"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Staff Role"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/staff_role"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="Selct Role"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Staff"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/staff"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="Selct Staff"
+                android:padding="@dimen/sp_10" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Action On"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/action_on"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="Selct an option"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="On Hold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/on_hold"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="Selct an option"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Is Deferred?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space16" />
+
+            <TextView
+                android:id="@+id/is_Deferred"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="Selct an option"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:id="@+id/btn_create_application"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="@dimen/dp_30"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+                android:elevation="2dp"
+                android:foreground="@drawable/ripple"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/apply_filter"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

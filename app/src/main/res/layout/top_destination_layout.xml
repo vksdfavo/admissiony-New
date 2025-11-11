@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_margin="@dimen/space5"
+    android:layout_height="wrap_content"
+    android:id="@+id/itemContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgDestination"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:civ_border_width="0.5dp"
+        app:civ_border_color="@color/bottom_nav_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10dp"
+        android:src="@drawable/circle_img" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/flag"
+        android:layout_width="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:layout_marginTop="-20dp"
+        android:layout_below="@id/imgDestination"
+        android:src="@drawable/flag_united_kingdom" />
+
+
+    <TextView
+        android:id="@+id/country_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/united_states"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:textSize="14sp"
+        android:layout_below="@id/flag"
+        android:drawablePadding="@dimen/space5"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/total_ins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/country_name"
+        android:layout_centerHorizontal="true"
+        android:text="@string/_136_institutions"
+        android:textSize="12sp" />
+</RelativeLayout>

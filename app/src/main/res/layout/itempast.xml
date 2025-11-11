@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:strokeColor="@color/snackFilterTextColor"
+    app:strokeWidth="2dp">
+
+    <RelativeLayout
+        android:id="@+id/rlItemStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="0dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="0dp">
+
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Lead"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="reminder"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:textSize="12sp"
+                android:paddingStart="@dimen/sp_10"
+                android:paddingEnd="@dimen/sp_10"
+                android:paddingTop="@dimen/sp_5"
+                android:paddingBottom="@dimen/sp_5"
+                android:background="@drawable/ic_reminder"
+                android:textColor="@color/black"
+                />
+
+
+            <TextView
+                android:id="@+id/tvtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvname"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="rohit jaura-lead reminder"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/tvLeadId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvtitle"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Lead Id:121"
+                android:textColor="@color/text_color"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvLeadId"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Create date:17 july 2024 11:31 AM"
+                android:textColor="@color/text_color"
+                android:textSize="12sp" />
+
+
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/rl"
+            android:layout_marginTop="8dp"
+            android:background="@color/dividerBackgroundColor" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

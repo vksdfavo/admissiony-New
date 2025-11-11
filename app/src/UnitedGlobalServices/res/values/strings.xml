@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Welcome to United Global Services the foremost consultancy elevating your global educational pursuits.</string>
+    <string name="page_3">Be a part of\nUnited Global Services</string>
+    <string name="base_url">https://c134h25spicy03-api.firmli.com/v1/</string>
+    <string name="fiClientNumber">C134H25SPICY03</string>
+    <string name="socket_base_url">https://C134H25SPICY03-api.firmli.com</string>
+    <string name="base_url_image">https://c134h25spicy03-store.firmli.com/v1/</string>
+    <string name="privacy_policy_url">https://uglobalis.com/privacy</string>
+    <string name="terms_and_condition_url">https://uglobalis.com/terms</string>
+    <string name="contact_us_url">https://uglobalis.com/contact-us</string>
+    <string name="unideft_pdf">AAECGlobal%1$s.pdf</string>
+</resources>

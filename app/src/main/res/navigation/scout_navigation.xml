@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scout_navigation"
+    app:startDestination="@id/scout_home_fragment">
+
+
+    <fragment
+        android:id="@+id/fragmentViewDetail2"
+        android:name="com.student.Compass_Abroad.fragments.home.FragmentViewDetail"
+        android:label="fragment_view_detail"
+        tools:layout="@layout/fragment_view_detail" />
+    <fragment
+        android:id="@+id/scout_home_fragment"
+        android:name="com.student.Compass_Abroad.Scout.fragment.Scout_home_fragment"
+        android:label="Scout_home_fragment" />
+    <fragment
+        android:id="@+id/fragScoutAllProgram"
+        android:name="com.student.Compass_Abroad.Scout.fragment.FragScoutAllProgram"
+        android:label="FragScoutAllProgram" />
+    <fragment
+        android:id="@+id/fragScoutShortlistedProgram"
+        android:name="com.student.Compass_Abroad.Scout.fragment.FragScoutShortlistedProgram"
+        android:label="FragScoutShortlistedProgram" />
+    <fragment
+        android:id="@+id/fragStudent"
+        android:name="com.student.Compass_Abroad.Scout.fragment.FragStudent"
+        android:label="FragStudent" />
+    <fragment
+        android:id="@+id/scoutApplicationDetail"
+        android:name="com.student.Compass_Abroad.Scout.fragment.ScoutApplicationDetail"
+        android:label="ScoutApplicationDetail" />
+    <fragment
+        android:id="@+id/fragmentScoutApplication"
+        android:name="com.student.Compass_Abroad.Scout.fragment.FragmentScoutApplication"
+        android:label="fragment_scout_application"
+        tools:layout="@layout/fragment_scout_application" />
+    <fragment
+        android:id="@+id/fragmentScoutMessage"
+        android:name="com.student.Compass_Abroad.Scout.fragment.FragmentScoutMessage"
+        android:label="FragmentScoutMessage" />
+    <fragment
+        android:id="@+id/fragProgramAllProg2"
+        android:name="com.student.Compass_Abroad.fragments.home.FragProgramAllProg"
+        android:label="FragProgramAllProg" />
+    <fragment
+        android:id="@+id/programDetails2"
+        android:name="com.student.Compass_Abroad.fragments.home.ProgramDetails"
+        android:label="ProgramDetails" />
+    <fragment
+        android:id="@+id/programFilterFragment2"
+        android:name="com.student.Compass_Abroad.fragments.home.ProgramFilterFragment"
+        android:label="ProgramFilterFragment" />
+    <fragment
+        android:id="@+id/applicationActiveFragment3"
+        android:name="com.student.Compass_Abroad.fragments.home.ApplicationActiveFragment"
+        android:label="ApplicationActiveFragment" />
+    <fragment
+        android:id="@+id/applicationDetail2"
+        android:name="com.student.Compass_Abroad.fragments.home.ApplicationDetail"
+        android:label="ApplicationDetail" />
+    <fragment
+        android:id="@+id/fragmentAgentChat2"
+        android:name="com.student.Compass_Abroad.fragments.home.FragmentAgentChat"
+        android:label="FragmentAgentChat" />
+    <fragment
+        android:id="@+id/viewReviewFragment2"
+        android:name="com.student.Compass_Abroad.fragments.home.ViewReviewFragment"
+        android:label="fragment_view_review"
+        tools:layout="@layout/fragment_view_review" />
+    <fragment
+        android:id="@+id/viewDocFragment2"
+        android:name="com.student.Compass_Abroad.fragments.home.ViewDocFragment"
+        android:label="fragment_view_doc"
+        tools:layout="@layout/fragment_view_doc" />
+    <fragment
+        android:id="@+id/webViewFragment3"
+        android:name="com.student.Compass_Abroad.fragments.home.WebViewFragment"
+        android:label="activity_web_view"
+        tools:layout="@layout/activity_web_view" />
+    <fragment
+        android:id="@+id/paymentDetailFragment2"
+        android:name="com.student.Compass_Abroad.fragments.PaymentDetailFragment"
+        android:label="fragment_payment_detail"
+        tools:layout="@layout/fragment_payment_detail" />
+    <fragment
+        android:id="@+id/qrFragment2"
+        android:name="com.student.Compass_Abroad.fragments.home.QrFragment"
+        android:label="fragment_qr"
+        tools:layout="@layout/fragment_qr" />
+    <fragment
+        android:id="@+id/viewAttachmentFragment2"
+        android:name="com.student.Compass_Abroad.fragments.ViewAttachmentFragment"
+        android:label="fragment_view_attachment"
+        tools:layout="@layout/fragment_view_attachment" />
+    <fragment
+        android:id="@+id/fragProgramDetailDetails2"
+        android:name="com.student.Compass_Abroad.fragments.home.FragProgramDetailDetails"
+        android:label="FragProgramDetailDetails" />
+</navigation>

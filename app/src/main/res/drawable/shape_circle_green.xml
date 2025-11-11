@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/hint">
+
+    <item>
+        <layer-list>
+
+            <!-- 🟢 Oval green background -->
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#25CF94" />
+                </shape>
+            </item>
+
+            <!-- ✅ Tick icon centered on top -->
+            <item android:gravity="center">
+                <bitmap
+                    android:src="@drawable/shape_green_circle_tick"
+                android:gravity="center" />
+            </item>
+
+        </layer-list>
+    </item>
+
+</ripple>

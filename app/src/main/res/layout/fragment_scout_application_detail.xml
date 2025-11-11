@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/ablSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_color"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rlYouHaveSaved"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/fabFad_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="10dp"
+                        android:layout_marginStart="6dp"
+                        android:src="@drawable/ic_back"
+                        app:rippleColor="@color/rippleColor"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="@string/application_details"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/strock_back"
+                        android:layout_marginEnd="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="30dp">
+
+                        <ImageView
+                            android:id="@+id/civItemAa_chat"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/chat"
+                            app:rippleColor="@color/hint"
+                            app:tint="@color/secondary_color" />
+
+                    </RelativeLayout>
+
+
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:background="#FAF3F3"
+                    android:layout_below="@id/rlYouHaveSaved"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvIADetail_id"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:text="@string/application_id_123456789"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvApd_programName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:drawablePadding="8dp"
+                        android:ellipsize="end"
+                        android:text="Atlantic Business College, Canada"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:drawableStartCompat="@drawable/ic_college"
+                        app:drawableTint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/programName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:drawablePadding="8dp"
+                        android:ellipsize="end"
+                        android:text="Atlantic Business College, Canada"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:drawableTint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tvIADetail_intake"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvApd_programName"
+                        android:layout_alignStart="@id/tvIADetail_id"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="10dp"
+                        android:text="Intake: May 2023 - Application Fee: $ 12495 CAD"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <com.student.Compass_Abroad.fragments.widgets.CustomTabLayout
+                    android:id="@+id/tlTa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line1"
+                    app:tabBackground="@color/white"
+                    app:tabIndicatorColor="@color/secondary_color"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMaxWidth="0dp"
+                    app:tabMode="fixed"
+                    app:tabGravity="fill"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextColor="@color/viewAllTextColor">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/timeline" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/assigned_staff" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/conversations" />
+                </com.student.Compass_Abroad.fragments.widgets.CustomTabLayout>
+
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

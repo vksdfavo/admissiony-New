@@ -1,0 +1,33 @@
+<!-- YourRelativeLayout.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/sp_5"
+    android:id="@+id/rr2"
+    android:background="@drawable/border_background">
+
+    <RelativeLayout
+        android:id="@+id/rrl1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/sp_5"
+        android:background="@drawable/shape_rectangle_all_radius_layout_category"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/tvCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            android:layout_marginStart="@dimen/sp_5"
+            android:layout_marginEnd="@dimen/sp_5"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/category" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

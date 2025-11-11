@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/white" android:orientation="vertical">
+    <TextView android:id="@+id/tvfulltime" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="10dp" android:text="Full Time" android:paddingStart="20dp" android:textSize="14sp"/>
+    <View android:id="@+id/tvView" android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/hint"/>
+    <TextView android:id="@+id/tvparttime" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="10dp" android:text="Part Time" android:paddingStart="20dp" android:textSize="14sp"/>
+</LinearLayout>

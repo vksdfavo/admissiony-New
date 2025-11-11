@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cd_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_320"
+        android:layout_margin="@dimen/dp_2"
+        app:cardCornerRadius="@dimen/space8"
+        app:cardElevation="@dimen/dp_4">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/space10"
+                android:layout_marginStart="@dimen/space10"
+                android:layout_marginEnd="@dimen/space10"
+                android:src="@drawable/test_image2" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space10"
+                android:layout_toEndOf="@id/profile_image"
+                android:text="@string/vikas_kumar"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tvMyProfile_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_toEndOf="@id/profile_image"
+                android:drawablePadding="@dimen/space5"
+                android:text="@string/_26th_sep_2012"
+                android:textSize="@dimen/sp_12"
+                app:drawableStartCompat="@drawable/ic_calender" />
+
+            <TextView
+                android:id="@+id/tvItemStudents_studentId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="@dimen/space5"
+                android:gravity="center"
+                android:padding="@dimen/space6"
+                android:background="@drawable/ic_application_back"
+                android:backgroundTint="@color/student_id"
+                android:text="@string/student_id_12345"
+                android:layout_margin="@dimen/space10"
+                android:textSize="@dimen/sp_12"
+                app:drawableStartCompat="@drawable/ic_calender" />
+
+            <LinearLayout
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/profile_image"
+                android:layout_marginTop="@dimen/space5"
+                android:layout_marginBottom="@dimen/space5">
+
+                <TextView
+                    android:id="@+id/number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space5"
+                    android:padding="@dimen/space5"
+                    android:text="@string/_91_7896541235"
+                    android:textSize="@dimen/sp_12"
+                    app:drawableStartCompat="@drawable/ic_call" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space5"
+                    android:padding="@dimen/space5"
+                    android:text="@string/vikas_gmail_com"
+                    android:textSize="@dimen/sp_12"
+                    app:drawableStartCompat="@drawable/ic_email2" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space5"
+                    android:padding="@dimen/space5"
+                    android:text="Punjab/India"
+                    android:textSize="@dimen/sp_12"
+                    app:drawableStartCompat="@drawable/ic_location" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_offset_helper"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@id/line1"
+                android:background="@color/hint"
+                android:layout_marginHorizontal="@dimen/space10" />
+
+                <TextView
+                    android:id="@+id/tv_Qualification"
+                    android:layout_width="@dimen/dp_200"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="marquee"
+                    android:maxLines="1"
+                    android:layout_below="@id/view_offset_helper"
+                    android:layout_marginStart="@dimen/space10"
+                    android:text="@string/qualification_12"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:drawableStartCompat="@drawable/_9_qualification" />
+
+                <TextView
+                    android:id="@+id/tv_testScore"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space10"
+                    android:layout_below="@id/tv_Qualification"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                     android:maxLines="1"
+                    android:drawablePadding="10dp"
+                    android:text="English Test Score: IELTS(5.5)5"
+                    app:drawableStartCompat="@drawable/score_details"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_area_of_interest"
+                    android:layout_width="@dimen/dp_200"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space10"
+                    android:layout_below="@id/tv_testScore"
+                    android:textColor="@color/black"
+                     android:ellipsize="marquee"
+                     android:maxLines="1"
+                     app:drawableStartCompat="@drawable/interest"
+                    android:drawablePadding="10dp"
+                   android:text="Area Of Interest: Computer Science"
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tv_want_to_study_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space10"
+                    android:layout_below="@id/tv_area_of_interest"
+                    android:textColor="@color/black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:ellipsize="marquee"
+                    android:maxLines="1"
+                    android:drawableStart="@drawable/ic_location"
+                    android:text="Want to Study In: Canada"
+                    android:textSize="12sp" />
+
+            <RelativeLayout
+                android:id="@+id/rrl4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/status_background"
+                android:layout_below="@+id/tv_want_to_study_in"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="@dimen/sp_5"
+                android:paddingBottom="@dimen/sp_5"
+                >
+
+                <ImageView
+                    android:id="@+id/circleImageView"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/flame"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/circleImageView"
+                    android:layout_centerVertical="true"
+                    android:text="Hot"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="5dp" />
+
+                <!-- Other TextViews or Views in the RelativeLayout -->
+
+            </RelativeLayout>
+
+
+
+            <TextView
+                android:id="@+id/tv_create_counselling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="@dimen/space5"
+                android:gravity="center"
+                android:padding="@dimen/space6"
+                android:layout_below="@id/view_offset_helper"
+                android:backgroundTint="#fefece"
+                android:background="@drawable/report_btn"
+                android:text="Create Counselling"
+                android:layout_margin="@dimen/space10"
+                android:textSize="@dimen/sp_12"
+                app:drawableStartCompat="@drawable/ic_calender" />
+
+
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_220"
+                    android:layout_height="@dimen/space40"
+                    android:layout_margin="@dimen/space10"
+                    android:layout_below="@+id/rrl4"
+                    android:background="@drawable/status_back">
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/space10"
+                        android:text="@string/status"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/stumit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/space10"
+                    android:text="@string/started_amp_submitted"
+                    android:textAllCaps="true"
+                    android:layout_toEndOf="@id/status"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/chat"
+                android:layout_width="@dimen/dp_90"
+                android:layout_margin="@dimen/space10"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="#fefece"
+                android:layout_below="@+id/tv_want_to_study_in"
+                android:background="@drawable/report_btn"
+                android:layout_height="@dimen/space40">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space5"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/chat"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/sp_12"
+                    app:drawableEndCompat="@drawable/chat"
+                    app:drawableTint="@color/black" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+

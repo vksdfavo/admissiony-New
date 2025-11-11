@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10dp">
+
+        <!-- Transaction ID Label -->
+        <TextView
+            android:id="@+id/tvTransactionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transaction ID"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvTransactionId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTransactionLabel"
+            android:layout_marginBottom="8dp"
+            android:text="txn_220603105914-28470-43815"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- Date Label -->
+        <TextView
+            android:id="@+id/tvDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTransactionId"
+            android:text="Completed At"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <!-- Date Value -->
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDateLabel"
+            android:layout_marginBottom="8dp"
+            android:text="07-03-2025 | 5:26 AM"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- Payment Type Label -->
+        <TextView
+            android:id="@+id/tvPaymentTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDate"
+            android:text="Payment Type"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <!-- Payment Type Value -->
+        <TextView
+            android:id="@+id/tvPaymentType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPaymentTypeLabel"
+            android:layout_marginBottom="8dp"
+            android:text="Type"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- Paid By Label -->
+        <TextView
+            android:id="@+id/tvPaidByLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPaymentType"
+            android:text="Paid By"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <!-- Paid By Value -->
+        <TextView
+            android:id="@+id/tvPaidBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPaidByLabel"
+            android:layout_marginBottom="16dp"
+            android:text="Person Name"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPaidBy"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="4dp"
+                android:text="USD"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$100"
+                android:textColor="@android:color/black"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+        <!-- Failed Status -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="100sp"
+            android:layout_height="30dp"
+            android:layout_below="@id/linear"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_bank"
+            android:gravity="center"
+            android:text="Failed"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

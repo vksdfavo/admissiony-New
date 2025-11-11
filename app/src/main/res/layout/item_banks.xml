@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="330dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#FAF3F3"
+    android:background="#d7cdc1"> <!-- Card background color -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#FAF3F3"> <!-- Background color -->
+
+            <!-- Country Name -->
+            <TextView
+                android:id="@+id/tvCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="India"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Bank Name -->
+            <TextView
+                android:id="@+id/tvBankName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HDFC Bank"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#000000"/>
+
+            <!-- Bank Address -->
+            <TextView
+                android:id="@+id/tvBankAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bank Address: Mohali 160015"
+                android:maxLines="2"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:textSize="14sp"
+                android:textColor="#333333"/>
+
+            <!-- Divider Line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Account Holder Name -->
+            <TextView
+                android:id="@+id/tvAccountHolderLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Holder Name"
+                android:textSize="14sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:id="@+id/tvAccountHolderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meera Arora"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#333333"/>
+
+            <!-- Account Number -->
+            <TextView
+                android:id="@+id/tvAccountNumberLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Number"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                />
+
+            <TextView
+                android:id="@+id/tvAccountNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1323456799"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#333333"/>
+
+            <!-- IFSC Code -->
+            <TextView
+                android:id="@+id/tvIfscCodeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IFSC Code"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                />
+
+            <TextView
+                android:id="@+id/tvIfscCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CC214501"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:id="@+id/swift_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swift Code"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                />
+
+            <TextView
+                android:id="@+id/tvSwiftCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CC214501"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#333333"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/isPrimary"
+            android:layout_width="@dimen/dp_90"
+            android:background="@drawable/ic_bank"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/secondary_color"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_height="@dimen/dp_30">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:text="@string/primary"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/setIsPrimary"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_vertical_menu"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/dp_10"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

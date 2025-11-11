@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:background="#FFF7F7"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_5"
+        >
+
+
+        <RelativeLayout
+            android:id="@+id/relate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingTop="12dp"
+            android:background="@drawable/card_border_bg"
+            android:paddingEnd="4dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:id="@+id/tv_applied"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space5"
+                android:gravity="center"
+                android:padding="@dimen/space6"
+                android:textStyle="bold"
+                android:background="@drawable/ic_preference_back"
+                android:text="@string/applied"
+                android:layout_margin="@dimen/space10"
+                android:textSize="@dimen/sp_10"
+                />
+
+
+            <ImageView
+                android:id="@+id/ivItemProgramRecom"
+                android:layout_marginTop="@dimen/space10"
+                android:layout_width="25dp"
+                android:visibility="gone"
+                android:layout_height="25dp"
+                android:layout_below="@+id/tv_applied"
+                android:src="@drawable/home_one" />
+
+            <TextView
+                android:id="@+id/tvApd_programName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="48dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:layout_below="@+id/ivItemProgramRecom"
+                android:text="B.A. in classical studies"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvApd_programName"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/space10"
+                android:layout_toEndOf="@id/ivItemProgramRecom"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/home_one" />
+
+                <TextView
+                    android:id="@+id/tv_collgeName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="@dimen/space10"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:text="Acadia University"
+                    android:textSize="12sp"
+                    android:textColor="@color/black" />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_location"
+                    app:tint="@color/secondary_color" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space5"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxEms="10"
+                    android:text="Canada"
+                    android:textSize="12sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_intake_fee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/light"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_marginVertical="@dimen/dp_5"
+                android:background="@drawable/app_detail_background"
+                android:layout_toEndOf="@id/ivItemProgramRecom"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space10"
+                        android:text="@string/application_fee"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_application"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:maxLines="2"
+                        android:text="~ $19407 CAD"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space10"
+                        android:text="@string/duration"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:background="@color/disabledTextColor"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:layout_marginVertical="@dimen/space10"
+                android:layout_below="@+id/linear_intake_fee"
+                android:layout_height="0.5dp"/>
+
+            <TextView
+                android:id="@+id/click_view_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space10"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/view_details"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/view"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

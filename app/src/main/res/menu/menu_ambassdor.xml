@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/scout_home_fragment"
+        android:icon="@drawable/ic_dashboard"
+        android:title="@string/dashboard1" />
+    <item
+        android:id="@+id/fragProgramAllProg2"
+        android:icon="@drawable/ic_program"
+        android:title="@string/programs" />
+
+
+
+    <item
+        android:id="@+id/fragStudent"
+        android:icon="@drawable/ic_student"
+        android:title="@string/students" />
+
+</menu>

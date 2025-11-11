@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/courseCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_rectangle_all_radius_tv_courses"
+        android:elevation="1dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="3dp"
+        android:text="Course"
+        android:textColor="@color/white"
+        android:textSize="9sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="-16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_rectangle_all_radius_layout_courses"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <TextView
+            android:id="@+id/start_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="10sp"
+            android:text="Start Date" />
+
+
+        <TextView
+            android:id="@+id/start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="10sp"
+            android:text="Course" />
+
+        <TextView
+            android:id="@+id/tv_program_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bachelor of Engineering and Applied Sciences"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="10sp"
+            android:text="Duration" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="48 Months"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="10sp"
+            android:text="Tuition Fee" />
+
+        <TextView
+            android:id="@+id/tv_tution_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="~ $19407 CAD"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Application Fee" />
+
+        <TextView
+            android:id="@+id/tv_application_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$40 CAD"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/labelIntakes"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Intake" />
+
+        <TextView
+            android:id="@+id/tv_intake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sep 2023"
+            android:visibility="gone"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/labelWeeklyHours"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Weekly Hours" />
+
+        <TextView
+            android:id="@+id/tv_hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sep 2023"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+
+
+        <TextView
+            android:id="@+id/age_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="10sp"
+            android:text="Age" />
+
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:id="@+id/labelTestScore"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ETS" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="IELTS-6.5(6), PTE-61(60), TOEFL-90(20)"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/labelEnglishLevel"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="English Level" />
+
+        <TextView
+            android:id="@+id/tv_englishLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="IELTS-6.5(6), PTE-61(60), TOEFL-90(20)"
+            android:textColor="#344955"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

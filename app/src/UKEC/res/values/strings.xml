@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Welcome to UKEC the foremost consultancy elevating your global educational pursuits.</string>
+    <string name="page_3">Be a part of UKEC</string>
+    <string name="base_url">https://c127w25photo71-api.firmli.com/v1/</string>
+    <string name="fiClientNumber">C127W25PHOTO71</string>
+    <string name="socket_base_url">https://C127W25PHOTO71-api.firmli.com</string>
+    <string name="base_url_image">https://c127w25photo71-store.firmli.com/v1/</string>
+    <string name="privacy_policy_url">https://www.uk-education-centre.com/privacy-cookies/</string>
+    <string name="terms_and_condition_url">"https://evergreenopportunities.com/terms-and-conditions/</string>
+    <string name="contact_us_url">https://www.uk-education-centre.com/contact/</string>
+    <string name="unideft_pdf">Ukec%1$s.pdf</string>
+
+</resources>

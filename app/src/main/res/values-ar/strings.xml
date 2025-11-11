@@ -1,0 +1,571 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="ResourceCycle">@string/app_name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">مرحبا بالجزء الفارغ</string>
+    <string name="log_in_to_firmli_s_staff">تسجيل الدخول</string>
+    <string name="please_enter_your_credentials_to_securely_log_in_to_your_firmli_s_staff_account">املأ التفاصيل للمتابعة.</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="example_frimli_com">أدخل بريدك الإلكتروني</string>
+    <string name="fast_acceptance">القبول السريع</string>
+    <string name="potentialEarned"><font color="#215898">المحتمل\nكسبه </font></string>
+    <string name="potentialEarnedInfoSU">هذا هو المبلغ المحتمل الذي يمكنك كسبه إذا التحق جميع طلابك بالمؤسسات المختارة.</string>
+    <string name="preferredLocation"><font color="#344955">موقع اختبار الآيلتس </font></string>
+    <string name="earnedAmount"><font color="#215898">المبلغ\nالمكتسب </font></string>
+
+    <string name="password">كلمة المرور</string>
+    <string name="hint">***********</string>
+    <string name="forgot_passcode">نسيت كلمة المرور؟</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="by_student_source">حسب مصدر الطالب</string>
+    <string name="leads_to_application">العملاء المحتملون للتطبيق</string>
+    <string name="insights">رؤى</string>
+    <string name="copyAndShareCode"><u>نسخ ومشاركة الكود</u></string>
+    <string name="haven_t_received_a_code">إذا لم تتلق كود التحقق، يرجى</string>
+    <string name="byClicking">بالمتابعة، أنت توافق على <b><font color='#212121'>الشروط والأحكام</font></b> و <b><font color='#212121'>سياسة الخصوصية</font></b>.</string>
+    <string name="forgot_password">نسيت كلمة المرور</string>
+    <string name="please_enter_your_registered_email_id">يرجى إدخال بريدك الإلكتروني المسجل</string>
+    <string name="next">التالي</string>
+    <string name="verify_otp">التحقق من كود التحقق</string>
+
+    <string name="a_6_digit_verification_code_has_been_sent_to_n9u738338838">تم إرسال كود تحقق مكون من 6 أرقام إلى \n9738338838</string>
+    <string name="verify">التحقق</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="submit">إرسال</string>
+    <string name="dashboard">لوحة القيادة</string>
+    <string name="yourProfileIs">ملفك الشخصي مكتمل بنسبة <b><font color='#000000'>20% </font></b>، أكمل ملفك الشخصي للحصول على نتائج بحث أفضل.</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="call_logs">سجل المكالمات</string>
+    <string name="countryWhereYouWant"><font color='#344955'>الفئة </font> <font color='#999999'>(إلى أين تريد الذهاب؟) </font></string>
+    <string name="students">الطلاب</string>
+    <string name="applications">التطبيقات</string>
+    <string name="dashboard1">لوحة القيادة</string>
+    <string name="letgetstarted">لنبدأ!</string>
+    <string name="sign_up">إنشاء حساب</string>
+    <string name="log_in">تسجيل الدخول</string>
+    <string name="next_button">التالي</string>
+    <string name="login_">تسجيل الدخول</string>
+    <string name="don_t_have_an_account_sign_up">ليس لديك حساب؟<b>إنشاء حساب</b> </string>
+    <string name="mobile_number">رقم الجوال</string>
+    <string name="fill_details_to_proceed">املأ التفاصيل للمتابعة</string>
+    <string name="enter_your_password_to_proceed_with_login">أدخل كلمة المرور للمتابعة مع تسجيل الدخول</string>
+    <string name="_8699339451">أدخل رقم الجوال</string>
+    <string name="don_t_have_an_account_sign_up1">ليس لديك حساب؟ إنشاء حساب</string>
+    <string name="email_tab">البريد الإلكتروني</string>
+    <string name="no_webinar_found">لم يتم العثور على ندوة إلكترونية</string>
+
+    <string name="phone_tab">الهاتف</string>
+    <string name="save_and_proceed">حفظ ومتابعة</string>
+    <string name="programs">البرامج</string>
+    <string name="compare">مقارنة</string>
+    <string name="view_comparison">عرض المقارنة</string>
+    <string name="community">المجتمع</string>
+    <string name="edit_post">تعديل المنشور</string>
+    <string name="ok">موافق\n</string>
+    <string name="cancel">إلغاء</string>
+    <string name="search_here">البحث هنا...</string>
+    <string name="vikas_kumar">فيكاس كومار</string>
+    <string name="_26th_sep_2012">26 سبتمبر 2012</string>
+    <string name="student_id_12345">هوية الطالب: 12345</string>
+    <string name="_91_7896541235">+91 7896541235</string>
+    <string name="vikas_gmail_com">vikas@gmail.com</string>
+    <string name="atlantic_business_college_canada">كلية الأطلسي للأعمال</string>
+    <string name="intake_may_2023_application_fee_12495_cad">القبول: مايو 2023 - رسوم التطبيق: 12495 دولار كندي</string>
+    <string name="loyalist_college_in_toronto_canada">كلية لويالست في تورونتو، كندا</string>
+    <string name="status">الحالة:</string>
+    <string name="started_amp_submitted"><![CDATA[بدأ ومقدم]]></string>
+    <string name="Lead_Status">حالة العميل المحتمل:</string>
+    <string name="Working"><![CDATA[يعمل]]></string>
+    <string name="chat">محادثة</string>
+    <string name="qualification_12">المؤهل:12</string>
+    <string name="be_certified">احصل على شهادة</string>
+    <string name="be_certified11">احصل على شهادة</string>
+    <string name="no_record_found">لم يتم العثور على سجل</string>
+    <string name="you_don_t_have_nany_transactions_yet">ليس لديك\nأي معاملات حتى الآن.</string>
+
+
+    <string-array name="currencies">
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>INR</item>
+        <item>NZD</item>
+        <item>USD</item>
+    </string-array>
+
+
+    <string-array name="admissionStatus">
+        <item>موجود بالفعل في الحرم الجامعي</item>
+        <item>تم استلام خطاب القبول</item>
+        <item>في انتظار القرار</item>
+        <item>في قائمة الانتظار</item>
+        <item>لم يتم التقديم بعد</item>
+    </string-array>
+
+    <string-array name="targetIntake">
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>INR</item>
+        <item>NZD</item>
+        <item>USD</item>
+    </string-array>
+
+
+    <!--range slider-->
+    <array name="initial_slider_values_1">
+        <item>0.0</item>
+        <item>40000000</item>
+    </array>
+
+    <array name="initial_slider_values_2">
+        <item>0.0</item>
+        <item>5000000</item>
+    </array>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">الجزء الأول</string>
+    <string name="second_fragment_label">الجزء الثاني</string>
+    <string name="previous">السابق</string>
+
+    <string name="lorem_ipsum"  translatable="false">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat
+    </string>
+    <string name="payments">المدفوعات</string>
+    <string name="payment_for">دفع مقابل</string>
+    <string name="currency">العملة</string>
+    <string name="amount">المبلغ</string>
+    <string name="enter_amount">أدخل المبلغ</string>
+    <string name="generate_link">إنشاء رابط</string>
+    <string name="mode_of_payment">طريقة الدفع</string>
+    <string name="applied">مطبق</string>
+    <string name="bsc_entrepreneurship_and_management">بكالوريوس ريادة الأعمال والإدارة</string>
+    <string name="duration_48_months_tution_fee_3500_eur">المدة: 48 شهر | رسوم التعليم: 3500 يورو</string>
+    <string name="view_details">عرض التفاصيل</string>
+    <string name="set_reminder">تعيين تذكير</string>
+    <string name="date">التاريخ</string>
+    <string name="select_date">اختر التاريخ</string>
+    <string name="time">الوقت</string>
+    <string name="select_time">اختر الوقت</string>
+    <string name="notes">الملاحظات</string>
+    <string name="enter_note">أدخل ملاحظة..</string>
+    <string name="destination_manager">مدير الوجهة</string>
+    <string name="lorem_ispum_is_dummy_text">لوريم إيبسوم هو نص وهمي</string>
+    <string name="date_25_july_2024_time_14_30">التاريخ: 25 يوليو 2024 | الوقت: 14:30</string>
+    <string name="disciplines">التخصصات</string>
+    <string name="architecture">الهندسة المعمارية</string>
+    <string name="graduate">خريج</string>
+    <string name="want_to_study_in">أريد الدراسة في</string>
+    <string name="overdue">متأخر</string>
+    <string name="write_something_here">اكتب شيئا هنا</string>
+    <string name="visa_fee">رسوم التأشيرة</string>
+    <string name="cad_45">45 دولار كندي</string>
+    <string name="view_detail"><u>عرض التفاصيل</u></string>
+    <string name="change_status"><u>تغيير الحالة</u></string>
+    <string name="enter_title">أدخل العنوان</string>
+    <string name="notess">الملاحظات</string>
+    <string name="create_notes">إنشاء ملاحظات</string>
+    <string name="_20">20</string>
+    <string name="category">الفئة</string>
+    <string name="view_review"><u>عرض المراجعة</u></string>
+    <string name="packagename">com.learn.overseas</string>
+    <string name="please_contact_to_respective_assigned_staff_for_the_confirmation_of_payment">يرجى الاتصال بالموظف المعين المعني لتأكيد الدفع</string>
+    <string name="please_submit_the_cash_payment_to_the_assigned_staff">يرجى تقديم الدفع النقدي\n للموظف المعين.</string>
+    <string name="ensure_to_obtain_a_reciept_for_your_records_thank_you">تأكد من الحصول على إيصال لسجلاتك\n شكرا لك.</string>
+    <string name="do_not_forget_to_update_on_chat_when_you_paid_amount">لا تنس التحديث في المحادثة عندما تدفع\n المبلغ.</string>
+    <string name="delete_account">حذف الحساب</string>
+    <string name="no_assigned_staff_found">لم يتم العثور على موظف معين</string>
+    <string name="no_payment_found">لم يتم العثور على دفع</string>
+    <string name="create_application">إنشاء تطبيق</string>
+    <string name="select_student">اختر الطالب</string>
+    <string name="prefer_colage">الكلية المفضلة <font color='#FF0000'>*</font></string>
+    <string name="campus">الحرم الجامعي <font color='#FF0000'>*</font></string>
+    <string name="select_campus">اختر الحرم الجامعي</string>
+    <string name="select_intake">اختر القبول</string>
+    <string name="intake_yearr">القبول <font color='#FF0000'>*</font></string>
+    <string name="year">السنة <font color='#FF0000'>*</font></string>
+    <string name="select_year">اختر السنة <font color='#FF0000'>*</font></string>
+    <string name="select_destination_country">اختر بلد الوجهة</string>
+    <string name="destination_country">بلد الوجهة <font color='#FF0000'>*</font></string>
+    <string name="student">الطالب</string>
+    <string name="select_source_country">اختر بلد المصدر</string>
+    <string name="select_source_state">اختر ولاية المصدر</string>
+    <string name="utm_source">مصدر UTM</string>
+    <string name="select_utm_source">اختر مصدر UTM</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="create_at">إنشاء في</string>
+    <string name="pick_create_at">اختر إنشاء في</string>
+    <string name="converted_at">تحويل في</string>
+    <string name="pick_converted_at">اختر تحويل في</string>
+    <string name="filters">المرشحات</string>
+    <string name="select_collage">اختر الكلية</string>
+    <string name="source_country">بلد المصدر</string>
+    <string name="select_intake_year">اختر سنة القبول</string>
+    <string name="select_counselling">اختر الاستشارة</string>
+    <string name="select_an_option">اختر خيارا</string>
+    <string name="vendor">البائع</string>
+    <string name="select_vendor">اختر البائع</string>
+    <string name="apply_filter">تطبيق المرشح</string>
+    <string name="workli">وركلي</string>
+    <string name="comparison">المقارنة</string>
+    <string name="apply_program">تطبيق البرنامج</string>
+    <string name="program_details">تفاصيل البرنامج</string>
+    <string name="add_attachment">إضافة مرفق</string>
+    <string name="files">الملفات</string>
+    <string name="select_files_to_upload">اختر الملفات للتحميل</string>
+    <string name="view_attachment">عرض المرفق</string>
+    <string name="set_password">تعيين كلمة المرور</string>
+    <string name="counselling">الاستشارة</string>
+    <string name="destination">الوجهة</string>
+    <string name="counselling_by">الاستشارة بواسطة</string>
+    <string name="my_profile">ملفي الشخصي</string>
+    <string name="we_are_working_on_to_upgrade_your_experience">نحن نعمل على ترقية\n تجربتك</string>
+    <string name="recommended_programs">البرامج الموصى بها</string>
+    <string name="based_on_your_likes">بناء على إعجاباتك</string>
+    <string name="register_yourself">سجل نفسك</string>
+    <string name="no_chat_found">لم يتم العثور على محادثة</string>
+    <string name="privacy_policy">سياسة الخصوصية.</string>
+    <string name="contact_us">اتصل بنا</string>
+    <string name="client_events">أحداث العميل</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="new_password">كلمة المرور الجديدة</string>
+    <string name="confirm_new_password">تأكيد كلمة المرور الجديدة</string>
+    <string name="search_for_any_keyword">البحث عن أي كلمة مفتاحية</string>
+    <string name="chnage_status">تغيير الحالة</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="edit_profile">تعديل الملف الشخصي</string>
+    <string name="maritial_status">الحالة الاجتماعية</string>
+    <string name="date_of_birth">تاريخ الميلاد</string>
+    <string name="enter_first_name">أدخل الاسم الأول</string>
+    <string name="update">تحديث</string>
+    <string name="create_an_account">إنشاء حساب</string>
+    <string name="welcome">مرحبا بك في، يونيدفت الاستشارة الرائدة التي ترقي مساعيك التعليمية العالمية.</string>
+    <string name="page_3">كن جزءا من\nمجتمع يونيدفت</string>
+
+    <string name="privacy_policy_url">https://www.firmli.com/privacy-policy</string>
+    <string name="terms_and_condition_url">https://www.firmli.com/terms-and-condition</string>
+    <string name="contact_us_url">https://unideft.com/</string>
+    <string name="unideft_pdf">يونيدفت%1$s.pdf</string>
+    <string name="assign_tags">العلامات المعينة</string>
+    <string name="tags">العلامات</string>
+    <string name="payment_icon">https://studiepoint.com/wp-content/uploads/2023/09/2-e1696114819520.png</string>
+    <string name="intake">القبول <font color='#FF0000'>*</font></string>
+    <string name="prefer_course">الدورة المفضلة <font color='#FF0000'>*</font></string>
+    <string name="assigned_by_staff">معين من قبل الموظف</string>
+    <string name="self_shortlisted">القائمة المختصرة الذاتية</string>
+    <string name="already_have_an_account_login">لديك حساب بالفعل؟ <b><font color="#000000">تسجيل الدخول</font></b></string>
+    <string name="terms_and_conditions">بالمتابعة، أنت توافق على <b><font color='#000000'>الشروط والأحكام</font></b> و <b><font color='#000000'>سياسة الخصوصية</font></b>.</string>
+    <string name="payment_type_gateway"><![CDATA[نوع الدفع والبوابة]]></string>
+    <string name="payment_details">تفاصيل المعاملات</string>
+    <string name="search">البحث</string>
+    <string name="update_downloaded">تحديث التنزيل\n</string>
+    <string name="restart">إعادة تشغيل</string>
+    <string name="start_date">تاريخ البداية</string>
+    <string name="weekly_hours">الساعات الأسبوعية</string>
+    <string name="vouchers">القسائم</string>
+    <string-array name="gender_spinner">
+        <item>اختر الجنس</item>
+        <item>ذكر</item>
+        <item>أنثى</item>
+        <item>آخر</item>
+    </string-array>
+
+
+    <string-array name="marital_status">
+        <item>اختر الحالة الاجتماعية</item>
+        <item>أعزب</item>
+        <item>متزوج</item>
+        <item>آخر</item>
+    </string-array>
+
+
+    <string-array name="payment_options">
+        <item>اختر الدفع مقابل</item>
+        <item>رسوم التطبيق</item>
+        <item>رسوم التعليم</item>
+    </string-array>
+
+    <string-array name="select_spinner">
+        <item>اختر العملة</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>INR</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>NZD</item>
+    </string-array>
+
+
+    <string-array name="payment_mode">
+        <item>اختر طريقة الدفع</item>
+        <item>نقدي</item>
+        <item>شيك</item>
+        <item>بطاقة ائتمان</item>
+        <item>بطاقة خصم</item>
+        <item>الخدمات المصرفية عبر الإنترنت</item>
+    </string-array>
+
+    <string name="area_of_interest">مجال الاهتمام</string>
+    <string name="you_can_choose_multiple_interests">يمكنك اختيار عدة اهتمامات</string>
+    <string name="skip">تخطي</string>
+    <string name="where_are_you_planning_to_go">اختر بلد وجهتك</string>
+    <string name="save_proceed"><![CDATA[حفظ ومتابعة]]></string>
+    <string name="no_area_of_interest_found">لم يتم العثور على مجال اهتمام</string>
+    <string name="no_history_found">لم يتم العثور على تاريخ</string>
+    <string name="bank_details">تفاصيل البنك</string>
+    <string name="basic_information">المعلومات الأساسية</string>
+    <string name="emails">البريد الإلكتروني:</string>
+    <string name="gender">الجنس:</string>
+    <string name="date_of_births">تاريخ الميلاد:</string>
+    <string name="marital_status">الحالة الاجتماعية:</string>
+    <string name="country">البلد:</string>
+    <string name="state">الولاية:</string>
+    <string name="city">المدينة:</string>
+    <string name="old_password">كلمة المرور القديمة</string>
+    <string name="first_name">الاسم الأول</string>
+    <string name="last_name">الاسم الأخير</string>
+    <string name="enter_last_name">أدخل الاسم الأخير</string>
+    <string name="genders">الجنس</string>
+    <string name="subject">الموضوع</string>
+    <string name="enter_subject">أدخل الموضوع</string>
+    <string name="message">الرسالة</string>
+    <string name="write_message_here">اكتب الرسالة هنا</string>
+    <string name="my_documents">مستنداتي</string>
+    <string name="notifications_details">تفاصيل الإشعارات</string>
+    <string name="student_id">هوية الطالب</string>
+    <string name="contact_number">رقم الاتصال</string>
+    <string name="email_address">عنوان البريد الإلكتروني</string>
+    <string name="change_preferences">تغيير التفضيلات</string>
+    <string name="ambassador">السفير</string>
+    <string name="ambassador_id">هوية السفير</string>
+    <string name="settings">الإعدادات</string>
+    <string name="deactivate_account">إلغاء تنشيط الحساب</string>
+    <string name="no_internet_title">عذرا! \nلا يوجد اتصال بالإنترنت</string>
+    <string name="no_internet_message">تأكد من تشغيل الواي فاي أو البيانات الخلوية\n ثم حاول مرة أخرى.</string>
+    <string name="try_again">حاول مرة أخرى</string>
+    <string name="title_buy_coupon">شراء قسيمة</string>
+    <string name="course_name">الآيلتس</string>
+    <string name="course_description">اختبار الآيلتس يختبر إتقان اللغة الإنجليزية للدراسة أو العمل أو الهجرة في البلدان الناطقة بالإنجليزية في جميع أنحاء العالم.</string>
+    <string name="unit_price_per_unit">2,000.00 دولار كندي لكل وحدة</string>
+    <string name="available_voucher">القسيمة المتاحة - 315</string>
+    <string name="unit_price">سعر الوحدة</string>
+    <string name="quantity">الكمية</string>
+    <string name="total">الإجمالي</string>
+    <string name="default_quantity">101</string>
+    <string name="payment_gateway_required">بوابة الدفع *</string>
+    <string name="select_gateway">اختر</string>
+    <string name="buy_now">اشتر الآن</string>
+    <string name="confirm">تأكيد</string>
+    <string name="leave_a_review_for_name">اترك مراجعة للاسم</string>
+    <string name="title">العنوان</string>
+    <string name="please_tell_us_about_your_experience">يرجى إخبارنا عن تجربتك</string>
+    <string name="save">حفظ</string>
+    <string name="add_comment">إضافة تعليق</string>
+    <string name="send">إرسال</string>
+    <string name="write_comment_here">اكتب تعليقا هنا</string>
+    <string name="add_reply">إضافة رد</string>
+    <string name="type_a_message">اكتب رسالة...</string>
+    <string name="timeline">الجدول الزمني</string>
+    <string name="application_details">تفاصيل الطلب</string>
+    <string name="assigned_staff">الموظف المعين</string>
+    <string name="documents">المستندات</string>
+    <string name="prefer_college">الكلية المفضلة</string>
+    <string name="select_up_to_3_courses">اختر حتى 3 دورات</string>
+    <string name="edit_comment">تعديل التعليق</string>
+    <string name="comments">التعليقات</string>
+    <string name="compare_program">مقارنة البرنامج</string>
+    <string name="download_comparison">تحميل المقارنة</string>
+    <string name="counsellings">الاستشارات</string>
+    <string name="scheduled">مجدول</string>
+    <string name="completed">مكتمل</string>
+    <string name="edit_reply">تعديل الرد</string>
+    <string name="search_for_programs_institutes_interests">ابحث عن البرامج، المعاهد، الاهتمامات</string>
+    <string name="attachments">المرفقات</string>
+    <string name="download">تحميل</string>
+    <string name="view_documents">عرض المستندات</string>
+    <string name="file_name">اسم الملف</string>
+    <string name="delete">حذف</string>
+    <string name="update_status">تحديث الحالة</string>
+    <string name="reviews">المراجعات</string>
+    <string name="requirements">المتطلبات</string>
+    <string name="additional_info">معلومات إضافية</string>
+    <string name="checklist">قائمة التحقق</string>
+    <string name="verify_amp_continue"><![CDATA[تحقق واستمر]]></string>
+    <string name="congratulations">تهانينا</string>
+    <string name="your_application_has_been_created_n_our_representative_will_contact_you_shortly">تم إنشاء طلبك.\n سيتواصل معك ممثلنا قريبًا</string>
+    <string name="to_submit_relavent_document_kindly_nupload_documents">لإرسال المستندات ذات الصلة، يرجى\nتحميل المستندات</string>
+    <string name="upload_documents">تحميل المستندات</string>
+    <string name="document_category">فئة المستند</string>
+    <string name="select_a_category">اختر فئة</string>
+    <string name="save_document">حفظ المستند</string>
+    <string name="full_time">دوام كامل:</string>
+    <string name="attendance">الحضور:</string>
+    <string name="study_level">مستوى الدراسة:</string>
+    <string name="discipline">التخصص:</string>
+    <string name="education">التعليم</string>
+    <string name="english_test">اختبار اللغة الإنجليزية</string>
+    <string name="shortlisted_programs">البرامج المختارة</string>
+    <string name="compare_shortlisted_programs"><![CDATA[قارن البرامج المختارة >]]></string>
+    <string name="compare_shortlisted_programss">قارن البرامج المختارة</string>
+    <string name="favourites">المفضلة</string>
+    <string name="signed_up_nstudents">الطلاب المسجلين\n</string>
+    <string name="total_napplications">إجمالي\nالطلبات</string>
+    <string name="latest_study_abroad_updates">آخر تحديثات الدراسة في الخارج</string>
+    <string name="view_all">عرض الكل</string>
+    <string name="refer_amp_earn"><![CDATA[قم بالإحالة واربح]]></string>
+    <string name="ambassador_community_manager">مدير مجتمع السفراء</string>
+    <string name="contact_your_coordinator">اتصل بمنسقك</string>
+    <string name="application_id_123456789">معرف الطلب: 123456789</string>
+    <string name="conversations">سفيري</string>
+    <string name="location">الموقع</string>
+    <string name="qr_code">رمز الاستجابة السريعة</string>
+    <string name="select">اختر</string>
+    <string name="destination_state">الولاية المستهدفة</string>
+    <string name="destination_city">المدينة المستهدفة</string>
+    <string name="institution">المؤسسة</string>
+    <string name="is_pgwp_available">هل PGWP متاح؟</string>
+    <string name="accomodation">السكن</string>
+    <string name="english_level">مستوى اللغة الإنجليزية</string>
+    <string name="age">العمر</string>
+    <string name="program_type">نوع البرنامج</string>
+    <string name="tuition_fee_usd">رسوم التعليم (دولار أمريكي)</string>
+    <string name="selected_range_0_0">النطاق المحدد: 0-0</string>
+    <string name="application_fee_usd">رسوم الطلب (دولار أمريكي)</string>
+    <string name="apply">تقديم</string>
+    <string name="details">التفاصيل</string>
+    <string name="recommended">موصى به</string>
+    <string name="all_programs">جميع البرامج</string>
+    <string name="sarah_johnson">سارة جونسون</string>
+    <string name="last_message">آخر رسالة</string>
+    <string name="your_counsellor">مستشارك</string>
+    <string name="invite_a_friend">ادعُ صديقًا</string>
+    <string name="my_conversations">محادثاتي</string>
+    <string name="my_students">طلابي</string>
+    <string name="new_students">طلاب جدد</string>
+    <string name="sop_nguidance">إرشادات SOP</string>
+    <string name="ielts_test_nbooking">حجز اختبار IELTS</string>
+    <string name="visa_napplication">طلب التأشيرة</string>
+    <string name="active_devices">الأجهزة النشطة</string>
+    <string name="manage_notifications">إدارة الإشعارات</string>
+    <string name="promotional">ترويجي</string>
+    <string name="transactional">المعاملات</string>
+    <string name="turn_off_notifications_you_no_longer_want_to_receive">قم بإيقاف الإشعارات التي لم تعد ترغب في استلامها.</string>
+    <string name="sms">رسائل قصيرة</string>
+    <string name="whatsapp">واتساب</string>
+    <string name="push">إشعارات</string>
+    <string name="unsubscribe">إلغاء الاشتراك</string>
+    <string name="select_reason">اختر السبب</string>
+    <string name="last_login">آخر تسجيل دخول</string>
+    <string name="logged_out">تم تسجيل الخروج</string>
+    <string name="buy">شراء</string>
+    <string name="history">السجل</string>
+    <string name="logout_confirmation">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
+    <string name="add_napplication">إضافة\nطلب</string>
+    <string name="find_naccommodstion">البحث عن\nسكن</string>
+    <string name="education_nloan">قرض\nتعليمي</string>
+    <string name="upload_document_s">تحميل المستندات</string>
+    <string name="use_camera">استخدام الكاميرا</string>
+    <string name="or">أو</string>
+    <string name="select_documents_from_gallery">اختر مستندات من المعرض</string>
+    <string name="accepted_max_file_size_is_4mb_naccepted_file_types_are_jpg_png_and_pdf">الحد الأقصى لحجم الملف هو 4 ميغابايت.\nالأنواع المقبولة هي .jpg، .png و .pdf</string>
+    <string name="enter_message">يرجى إدخال رسالة</string>
+    <string name="file_size_limit">يجب أن يكون حجم الملف أقل من 4 ميغابايت</string>
+    <string name="uniteli">Uniteli</string>
+    <string name="status_scheduled">مجدول</string>
+    <string name="status_completed">مكتمل</string>
+    <string name="no_counselling_found">لم يتم العثور على استشارات</string>
+    <string name="tab_my_ambassadors">سفرائي</string>
+    <string name="tab_find_ambassadors">البحث عن سفراء</string>
+    <string name="no_program_found">لم يتم العثور على برنامج</string>
+    <string name="select_your_favourite_course_apply"><![CDATA[اختر دورتك المفضلة\nوقدّم]]></string>
+    <string name="timeline_to_track_your_nwhole_journey">الجدول الزمني لتتبع\nرحلتك الكاملة</string>
+    <string name="page2">باستخدام منصتنا المتقدمة التي تركز على الويب، نصمم خطة دراسة ديناميكية وشخصية لدفع طموحاتك إلى الأمام.</string>
+    <string name="page3">نلتزم بتعزيز طموحاتك وضمان أن تكون تجربتك في الدراسة بالخارج استثنائية بكل المقاييس</string>
+    <string name="get_started">ابدأ الآن</string>
+    <string name="turkish">التركية</string>
+    <string name="sign_up_text_only">التسجيل</string>
+    <string name="no_application_found">لم يتم العثور على طلب</string>
+    <string name="no_ambassador_found">لم يتم العثور على سفير</string>
+    <string name="no_student_found">لم يتم العثور على طالب</string>
+    <string name="help_amp_support"><![CDATA[المساعدة والدعم]]></string>
+    <string name="add_new">أضف جديد</string>
+    <string name="no_documents_found">لم يتم العثور على مستندات</string>
+    <string name="transaction_details">تفاصيل المعاملة</string>
+    <string name="by_proceeding_you_accept_our">بالمتابعة، فإنك تقبل</string>
+    <string name="terms_amp_conditions"><![CDATA[الشروط والأحكام]]></string>
+    <string name="and">و</string>
+    <string name="mark_all_as_read">تمييز الكل كمقروء</string>
+    <string name="let_s_get_started">لنبدأ!</string>
+    <string name="login_to_enjoy_the_features_nwe_have_provided">قم بتسجيل الدخول للاستفادة من الميزات\nالتي نوفرها.</string>
+    <string name="create_account">إنشاء حساب</string>
+    <string name="need_help">تحتاج مساعدة؟</string>
+    <string name="offers_updates"><![CDATA[العروض والتحديثات]]></string>
+    <string name="no_shortlisted_program_found">لم يتم العثور على برنامج موصى به</string>
+    <string name="no_shorlisted_program_found">لم يتم العثور على برنامج مختار</string>
+    <string name="view_program">عرض البرنامج</string>
+    <string name="set_your_preferences">قم بتعيين تفضيلاتك</string>
+    <string name="quick_actions">إجراءات سريعة</string>
+    <string name="scholarships">المنح الدراسية</string>
+    <string name="no_scholarships_found">لم يتم العثور على منح دراسية</string>
+    <string name="no_voucher_found">لم يتم العثور على قسيمة</string>
+    <string name="webinar">ندوة عبر الإنترنت</string>
+    <string name="top_preferred_countries">أكثر الدول تفضيلاً</string>
+    <string name="interests">الاهتمامات</string>
+    <string name="universities">الجامعات</string>
+    <string name="tuition_fee">رسوم التعليم</string>
+    <string name="application_fee">رسوم التقديم</string>
+    <string name="intakes">المواعيد الدراسية</string>
+    <string name="duration">المدة</string>
+    <string name="ets">ETS</string>
+    <string name="official_website">الموقع الرسمي</string>
+    <string name="visit">زيارة</string>
+    <string name="apply_for_this_program">قدم لهذا البرنامج</string>
+    <string name="all_feeds">جميع المنشورات</string>
+    <string name="my_post">منشوراتي</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="english">الإنجليزية</string>
+    <string name="hindi">الهندية</string>
+    <string name="my_applications">طلباتي</string>
+    <string name="my_transactions">معاملاتي</string>
+    <string name="refer_a_friend">أوصي بصديق</string>
+    <string name="edit">تعديل</string>
+    <string name="report_user">الإبلاغ عن المستخدم</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="usd">(دولار أمريكي)</string>
+    <string name="add_bank_account">إضافة حساب بنكي</string>
+    <string name="select_country">اختر الدولة</string>
+    <string name="bank_name">اسم البنك</string>
+    <string name="add_bank_name">أضف اسم البنك</string>
+    <string name="account_holder_name">اسم صاحب الحساب</string>
+    <string name="add_account_holder_name">أضف اسم صاحب الحساب</string>
+    <string name="account_number">رقم الحساب</string>
+    <string name="add_account_number">أضف رقم الحساب</string>
+    <string name="bank_address">عنوان البنك</string>
+    <string name="add_bank_address">أضف عنوان البنك</string>
+    <string name="swift_code">رمز SWIFT</string>
+    <string name="add_swift_code">أضف رمز SWIFT</string>
+    <string name="please_select_country_first">يرجى اختيار الدولة أولاً</string>
+    <string name="no_bank_account_added_yet">لم تتم إضافة حساب بنكي بعد</string>
+    <string name="kindly_add_bank_account_detail">يرجى إضافة تفاصيل الحساب البنكي</string>
+    <string name="error">⚠ خطأ</string>
+    <string name="primary">رئيسي</string>
+    <string name="set_primary_account">تعيين كحساب رئيسي</string>
+    <string name="select_as_primary_account">تعيين كحساب رئيسي</string>
+    <string name="please_select_an_option">يرجى تحديد خيار</string>
+    <string name="become_a_scout">كن كشافًا</string>
+    <string name="accomodations">الإقامات</string>
+    <string name="webinars">الندوات</string>
+    <string name="current">الحالي</string>
+    <string name="upcoming">القادم</string>
+    <string name="ambassadors">السفراء</string>
+    <string name="new_ambassador">ابحث عن سفير</string>
+    <string name="ongoing">قيد التنفيذ</string>
+    <string name="recommended1">موصى به</string>
+    <string name="all_program">جميع البرامج</string>
+    <string name="arbic">العربية</string>
+
+
+</resources>

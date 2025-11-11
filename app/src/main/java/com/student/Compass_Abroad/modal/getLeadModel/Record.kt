@@ -1,0 +1,30 @@
+package com.student.firmliagent.modal.getLeadModel
+
+data class Record(
+    val agent_id: Any,
+    val birthday: String,
+    var status: String,
+    val city: String,
+    val country: String,
+    val country_code: String,
+    val created_at: String,
+    val destination_country: String,
+    val discipline: String,
+    val email: String,
+    val first_name: String,
+    val gender: String,
+    val id: Int,
+    val identifier: String,
+    val last_name: String,
+    val lead_source_id: Any,
+    val lead_stage_id: Any,
+    val mobile: String,
+    val note: String,
+    val preferred_counselling_date_time: String,
+    val sample_checkbox: String,
+    val state: String,
+    val study_level: String,
+    val tags: List<Tag>,
+    val testscore: String,
+    val user_profile_id: Int
+)

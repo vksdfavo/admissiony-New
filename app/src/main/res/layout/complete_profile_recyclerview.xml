@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/space5">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_rectangle_all_radius_et_login"
+        android:elevation="@dimen/space10"> <!-- Add this line -->
+
+
+        <ImageView
+            android:id="@+id/imageview_data"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/z_india" />
+
+
+        <ImageView
+            android:id="@+id/selected_image"
+            android:layout_width="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_centerVertical="true"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp" />
+
+        <TextView
+            android:id="@+id/country_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_toEndOf="@id/imageview_data"
+            android:paddingTop="5dp"
+            android:text="Vikas"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+</RelativeLayout>

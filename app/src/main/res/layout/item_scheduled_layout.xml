@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:layout_margin="@dimen/_10dp"
+        app:cardCornerRadius="@dimen/_10dp"
+        app:cardElevation="@dimen/dp_5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/staff_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:src="@drawable/test_image2"
+                app:civ_border_color="@color/secondary_color"
+                app:civ_border_width="@dimen/dp_1" />
+
+
+            <TextView
+                android:id="@+id/counselling_by"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/dp_16"
+                android:layout_toEndOf="@+id/staff_img"
+                android:layout_marginTop="@dimen/space15"
+                android:layout_marginStart="@dimen/space5"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="@string/destination"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_below="@id/staff_img"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:textSize="@dimen/dp_14"
+                    android:textColor="@color/black"
+                    android:drawablePadding="@dimen/space5"
+                    android:text="@string/counselling"
+                    android:layout_height="wrap_content"
+                    app:drawableStartCompat="@drawable/outline_calendar_month_24"
+                    app:drawableTint="@color/secondary_color" />
+
+                <TextView
+                    android:id="@+id/destination"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:textSize="@dimen/dp_12"
+                    android:drawablePadding="@dimen/space5"
+                    app:drawableStartCompat="@drawable/ic_location"
+                    app:drawableTint="@color/secondary_color"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="@string/destination"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/strock_back"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:backgroundTint="#A7ECF1F2"
+                android:layout_marginVertical="@dimen/space5"
+                android:layout_height="@dimen/space40">
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:id="@+id/completed_id"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:text="ID: 1234444"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/plateform"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/dp_12"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dp_5"
+                        android:textColor="@color/PopUpcolorPrimary"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="Meet Link"
+                        android:drawableStart="@drawable/link"
+                        android:layout_height="wrap_content"
+                        app:drawableTint="@color/PopUpcolorPrimary"
+                        />
+
+                    <TextView
+                        android:id="@+id/walkin"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/dp_12"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dp_5"
+                        android:drawableStart="@drawable/walk_in"
+                        android:textColor="@color/black"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:visibility="gone"
+                        android:text="Walkin"
+                        android:layout_height="wrap_content"
+                        />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_margin="@dimen/dp_10"
+        app:cardCornerRadius="@dimen/dp_16"
+        app:cardElevation="@dimen/space5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_margin="@dimen/space15"
+                android:elevation="2dp"
+                android:src="@drawable/test_image"
+                app:civ_border_color="@color/secondary_color"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_toEndOf="@id/profile_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space10"
+                android:text="Sarah Johnson"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Computer Science"
+                android:layout_toEndOf="@id/profile_image"
+                android:layout_below="@id/name"
+                android:layout_gravity="center"
+                android:textColor="@color/text_color"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/linear_data"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/ic_paid_back"
+                android:layout_below="@id/address"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:backgroundTint="#E4E7E9"
+                android:layout_marginTop="@dimen/space10"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/institution_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space15"
+                    android:text="Stanford University"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space15"
+                    android:layout_marginBottom="@dimen/space5"
+                    android:layout_below="@+id/institution_data"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/flag"
+                        android:layout_width="25dp"
+                        android:layout_height="@dimen/space20"
+                        android:elevation="1dp"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center"
+                        android:src="@drawable/book" />
+
+                    <TextView
+                        android:id="@+id/program_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:maxLines="2"
+                        android:text="Computer Science"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <RelativeLayout
+                android:id="@+id/rr_chat"
+                android:layout_width="@dimen/dp_80"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/space5"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/application_chat"
+                android:layout_height="@dimen/space40">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/chat"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/sp_12" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rr_bio"
+                android:layout_width="@dimen/dp_80"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="110dp"
+                android:layout_marginBottom="@dimen/space5"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/bio"
+                android:layout_height="@dimen/space40">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/view_bio"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/sp_12" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

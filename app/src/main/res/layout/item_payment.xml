@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cd_created"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tv_visa_fee_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/visa_fee"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_applicationfee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cad_45"
+                    android:layout_marginStart="20dp"
+                    android:textSize="12sp"
+                    android:layout_below="@+id/tv_visa_fee_label"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tvpaid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓ Paid"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:textSize="12sp"
+                    android:paddingStart="@dimen/sp_10"
+                    android:paddingEnd="@dimen/sp_10"
+                    android:paddingTop="@dimen/sp_5"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/sp_5"
+                    android:background="@drawable/ic_paid_back"
+                    android:layout_alignTop="@+id/tv_visa_fee_label"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Created"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:textSize="12sp"
+                    android:paddingStart="@dimen/sp_10"
+                    android:paddingEnd="@dimen/sp_10"
+                    android:paddingTop="@dimen/sp_5"
+                    android:paddingBottom="@dimen/sp_5"
+                    android:background="@drawable/ic_paid_back"
+                    android:layout_alignTop="@+id/tv_visa_fee_label"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_rectangle_bottom_radius_btn2">
+
+                <TextView
+                    android:id="@+id/tv_date_Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="28-10-2001 10:12:56"
+                    android:visibility="gone"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_payNow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_centerVertical="true"
+                    android:text="Pay Now"
+                    android:visibility="gone"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_view_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textColor="@color/PopUpcolorPrimary"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cd_others"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tv_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/visa_fee"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tvapplicationfee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cad_45"
+                    android:layout_marginStart="20dp"
+                    android:textSize="12sp"
+                    android:layout_below="@+id/tv_label"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓ Paid"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:textSize="12sp"
+                    android:paddingStart="@dimen/sp_10"
+                    android:paddingEnd="@dimen/sp_10"
+                    android:paddingTop="@dimen/sp_5"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/sp_5"
+                    android:background="@drawable/ic_paid_back"
+                    android:layout_alignTop="@+id/tv_label"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    />
+
+                <TextView
+                    android:id="@+id/tvname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paid"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:textSize="12sp"
+                    android:drawableStart="@drawable/tick_svgrepo_com"
+                    android:drawableTint="@color/hyperlinkTextColor"
+                    android:paddingStart="@dimen/sp_10"
+                    android:drawablePadding="5dp"
+                    android:paddingEnd="@dimen/sp_10"
+                    android:paddingTop="@dimen/sp_5"
+                    android:paddingBottom="@dimen/sp_5"
+                    android:background="@drawable/ic_paid_back"
+                    android:layout_alignTop="@+id/tv_label"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_rectangle_bottom_radius_btn2">
+
+                <TextView
+
+                    android:id="@+id/tvdateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="28-10-2001 10:12:56"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+
+
+                <TextView
+                    android:id="@+id/tvviewdetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                   android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/view_detail"
+                    android:textColor="@color/PopUpcolorPrimary"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

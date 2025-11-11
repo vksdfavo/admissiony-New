@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_270"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/cdLayoutLR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="@dimen/dp_5"
+        android:layout_margin="@dimen/dp_5"
+        android:background="@drawable/card_strock">
+
+        <ImageView
+            android:id="@+id/ivItemProgramRecom"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@drawable/shape_rectangle_all_radius_et_login"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_college" />
+
+        <TextView
+            android:id="@+id/tvApd_programName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ivItemProgramRecom"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginStart="@dimen/space10"
+            android:text="@string/atlantic_business_college_canada"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/name_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space10"
+            android:layout_toRightOf="@+id/ivItemProgramRecom"
+            android:layout_below="@id/tvApd_programName"
+            android:textColor="@color/black"
+            android:text="@string/loyalist_college_in_toronto_canada"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginVertical="@dimen/_10dp"
+            android:layout_below="@+id/name_country"
+            android:background="@color/dividerBackgroundColor" />
+
+        <TextView
+            android:id="@+id/app_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/space5"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_below="@id/view"
+            android:text="App Id: 100"
+            android:layout_marginStart="@dimen/space10"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/programName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:drawablePadding="8dp"
+            android:layout_below="@+id/app_id"
+            android:ellipsize="end"
+            android:textStyle="bold"
+
+            android:text="Atlantic Business College, Canada"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:drawableTint="@color/black" />
+
+
+
+
+        <LinearLayout
+            android:id="@+id/linear_intake_fee"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_below="@id/programName"
+            android:layout_marginHorizontal="@dimen/dp_20"
+            android:layout_marginVertical="@dimen/dp_5"
+            android:weightSum="2"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space10"
+                    android:textColor="@color/black"
+                    android:text="@string/intakes"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/tvItemAa_intakeFee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space10"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/intakes"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space10"
+                    android:textColor="@color/black"
+                    android:text="@string/application_fee"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/application_fee_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space10"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/intakes"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/status_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_below="@id/linear_intake_fee"
+            android:text="Application Status"
+            android:layout_marginStart="@dimen/space10"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:textSize="@dimen/sp_12" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/status_txt"
+            android:layout_toStartOf="@+id/rr_chat"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/status_back_scout"
+            android:layout_height="@dimen/space50">
+
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:visibility="gone"
+                android:maxLines="1"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/space10"
+                android:text="@string/status"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/space5"
+                android:text="@string/started_amp_submitted"
+                android:textAllCaps="false"
+                android:layout_toEndOf="@id/status"
+                android:textColor="@color/db_statusProgressBarFill"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rr_chat"
+            android:layout_width="@dimen/dp_80"
+            android:layout_below="@+id/linear_intake_fee"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/application_chat"
+            android:layout_height="@dimen/space40">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="@string/chat"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/sp_12" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

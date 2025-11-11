@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative"
+    android:layout_width="@dimen/dp_100"
+    android:layout_height="@dimen/dp_130"
+    android:layout_margin="@dimen/space5">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="@dimen/dp_130"
+        android:elevation="@dimen/space10">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="@dimen/dp_80"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/space5"
+            android:layout_height="@dimen/dp_80"
+            app:cardCornerRadius="@dimen/dp_100">
+
+            <ImageView
+                android:id="@+id/imageview_data"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="10dp"
+                android:src="@drawable/z_india" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <ImageView
+            android:id="@+id/selected_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignEnd="@+id/card"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp" />
+
+        <TextView
+            android:id="@+id/country_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card"
+            android:text="Vikas\nname"
+            android:ellipsize="end"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="14sp"
+            android:autoSizeStepGranularity="1sp"
+            android:maxLines="2"
+            android:layout_centerInParent="true"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+</RelativeLayout>

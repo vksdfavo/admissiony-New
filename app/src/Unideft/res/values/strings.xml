@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Welcome to Unideft the foremost consultancy elevating your global educational pursuits.</string>
+    <string name="page_3">Be a part of\nUnideft</string>
+    <string name="base_url">https://c107k24green10-api.firmli.com/v1/</string>
+    <string name="fiClientNumber">C107K24GREEN10</string>
+    <string name="socket_base_url">https://C107K24GREEN10-api.firmli.com</string>
+    <string name="base_url_image">https://grapes-store.firmli.com/v1/</string>
+
+
+    <string name="privacy_policy_url">https://unideft.com/privacy-policy/</string>
+    <string name="terms_and_condition_url">https://unideft.com/terms-and-conditions/</string>
+    <string name="contact_us_url">https://unideft.com/</string>
+    <string name="unideft_pdf">Unideft%1$s.pdf</string>
+
+</resources>

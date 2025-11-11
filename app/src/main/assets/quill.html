@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor</title>
+    <link href="file:///android_asset/quill.snow.css" rel="stylesheet">
+    <style>
+        /* Add this style block to control the height of the editor */
+        #editor {
+            height: 170px; /* You can adjust this value to the desired height */
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1 id="loading"></h1>
+<!-- Include stylesheet -->
+<!-- Create the editor container -->
+<div id="editor"></div>
+<div id="sendButton" style="display:none; margin-top: 10px; padding:10px; color:white; background-color: blue;" >Send</div>
+
+<!-- Include the Quill library -->
+<script src="file:///android_asset/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var sendButton = document.getElementById("sendButton");
+        var toolbarOptions = [
+             ['bold', 'italic','underline', 'strike','blockquote'],
+             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+             ['link'],
+        ];
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+
+        sendButton.addEventListener('click', function () {
+            getTextFromTextArea();
+        });
+
+       window.setQuillContent = function(htmlContent) {
+           quill.clipboard.dangerouslyPasteHTML(htmlContent);
+       };
+
+       function getTextFromTextArea() {
+           var content = quill.root.innerHTML;
+           Android.getTextFromTextArea(content);
+       }
+
+       function insertLink() {
+           var url = prompt("Insert a hyperlink (starting with 'https://'):", "https://");
+           if (url !== null) {
+               if (url.startsWith("https://")) {
+                   quill.focus();
+                   var selection = quill.getSelection();
+                   quill.insertText(selection.index, "Visit Link", { link: url });
+               } else {
+                   alert("Please enter a valid URL starting with 'https://'.");
+               }
+           }
+       }
+
+   });
+</script>
+</body>
+</html>

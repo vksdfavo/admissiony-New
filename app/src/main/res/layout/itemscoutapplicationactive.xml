@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cd_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            >
+
+            <ImageView
+                android:id="@+id/ivItemProgramRecom"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_college" />
+
+            <TextView
+                android:id="@+id/tvApd_programName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ivItemProgramRecom"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_toStartOf="@+id/app_id"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/atlantic_business_college_canada"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/name_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/tvApd_programName"
+                android:textColor="@color/black"
+                android:layout_marginTop="6dp"
+                android:text="@string/loyalist_college_in_toronto_canada"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvItemAa_intakeFee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/name_country"
+                android:textColor="@color/black"
+                android:text="@string/intake_may_2023_application_fee_12495_cad"
+                android:textSize="10sp" />
+
+
+            <TextView
+                android:id="@+id/app_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="6dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@drawable/ic_application_back"
+                android:backgroundTint="#fdeeeb"
+                android:text="App Id: 100"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="12sp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tvItemAa_intakeFee"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toStartOf="@+id/rr_chat"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#F0FAFF"
+                android:background="@drawable/status_back"
+                android:layout_height="40dp">
+
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/status"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/started_amp_submitted"
+                    android:textAllCaps="false"
+                    android:layout_toEndOf="@id/status"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rr_chat"
+                android:layout_width="90dp"
+                android:layout_below="@+id/tvItemAa_intakeFee"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/application_chat"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/chat"
+                    android:layout_centerInParent="true"
+                    android:textSize="12dp"
+                    app:drawableEndCompat="@drawable/chat"
+                    app:drawableTint="@color/black" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

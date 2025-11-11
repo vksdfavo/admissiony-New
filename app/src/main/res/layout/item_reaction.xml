@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        tools:ignore="MissingConstraints">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civItemComments"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12sp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/test_image2" />
+
+        <TextView
+            android:id="@+id/tvItemComments_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/civItemComments"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/ibLiked"
+            android:layout_toEndOf="@id/civItemComments"
+            android:text="Eztna Malachy"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+
+        <ImageButton
+            android:id="@+id/ibLiked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tvItemComments_name"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_liked" />
+
+        <TextView
+            android:id="@+id/dv"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/civItemComments"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/dividerBackgroundColor"
+            tools:ignore="MissingConstraints" />
+
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

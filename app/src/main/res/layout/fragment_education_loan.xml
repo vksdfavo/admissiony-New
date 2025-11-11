@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".EducationLoanFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarDa"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_gravity="center"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_20dp"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/education_loan_application"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/first_name"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/firstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space10"
+                        android:autofillHints="name"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/first_name"
+                        android:inputType="textPersonName"
+                        android:paddingStart="14dp"
+                        android:paddingTop="15dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="15dp"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="13sp"
+                        tools:ignore="TextFields" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_name"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/lastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space10"
+                        android:autofillHints="name"
+                        android:background="@drawable/shape_rectangle_all_radius_et_login"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/last_name"
+                        android:inputType="textPersonName"
+                        android:paddingStart="14dp"
+                        android:paddingTop="15dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="15dp"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="13sp"
+                        tools:ignore="TextFields" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llLa_mobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space10"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/shape_rectangle_all_radius_et_login"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:hint="@string/example_frimli_com"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="14dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="15dp"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textSize="13sp"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_marginTop="@dimen/space10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mobile_number"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/country_code"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rectangle_all_radius_et_country_code_no"
+                        app:ccp_autoDetectCountry="true"
+                        app:ccp_defaultNameCode="IND"
+                        app:ccp_showFlag="true"
+                        app:ccp_showFullName="true"
+                        app:ccp_showNameCode="true" />
+
+
+                    <EditText
+                        android:id="@+id/etPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:autofillHints="phone"
+                        android:background="@drawable/shape_rectangle_all_radius_et_phone_no"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/_8699339451"
+                        android:inputType="number"
+                        android:paddingStart="14dp"
+                        android:paddingTop="15dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="15dp"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="13sp"
+                        tools:ignore="TextFields" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_marginTop="@dimen/space10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loan_amount"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinnerCurrency"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rectangle_all_radius_et_country_code_no"
+                        app:ccp_autoDetectCountry="true"
+                        app:ccp_defaultNameCode="IND"
+                        app:ccp_showFlag="true"
+                        app:ccp_showFullName="true"
+                        app:ccp_showNameCode="true" />
+
+
+                    <EditText
+                        android:id="@+id/amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rectangle_all_radius_et_phone_no"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:hint="@string/enter_amount"
+                        android:inputType="number"
+                        android:paddingStart="14dp"
+                        android:paddingTop="15dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="15dp"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="13sp"
+                        tools:ignore="TextFields" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:visibility="gone"
+                android:text="Destination Country"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space14" />
+
+            <TextView
+                android:id="@+id/destination_country"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:visibility="gone"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select_destination_country"
+                android:padding="@dimen/sp_10" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space10"
+                android:layout_marginTop="@dimen/space10"
+                android:text="@string/admission_status"
+                android:textColor="@color/black"
+                android:textSize="@dimen/space14" />
+
+            <TextView
+                android:id="@+id/admission_status"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space50"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:background="@drawable/shape_rectangle_all_radius_et_login"
+                android:hint="@string/select"
+                android:padding="@dimen/sp_10" />
+
+            <TextView
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="@dimen/dp_80"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+                android:elevation="2dp"
+                android:foreground="@drawable/ripple"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/submit_request"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/svFpdr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFpdr_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:text="-" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="6dp"
+        android:visibility="gone"
+        android:paddingBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabFpdr_shortlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:elevation="0dp"
+                android:src="@drawable/ic_heart"
+                android:tint="@color/tintColorToolbar"
+                app:backgroundTint="#151522"
+                app:borderWidth="1dp"
+                app:elevation="0dp"
+                app:fabCustomSize="48dp"
+                app:maxImageSize="20sp"
+                app:rippleColor="@color/hint" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabFpdr_shortlisted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:elevation="0dp"
+                android:src="@drawable/ic_heart2"
+                android:tint="#FF8A8A"
+                android:visibility="gone"
+                app:backgroundTint="#151522"
+                app:borderWidth="1dp"
+                app:elevation="0dp"
+                app:fabCustomSize="48dp"
+                app:maxImageSize="20sp"
+                app:rippleColor="@color/hint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvFpdr_apply"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/ll"
+            android:background="@drawable/shape_rectangle_all_radius_btn_dark"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Apply for this program"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</RelativeLayout>

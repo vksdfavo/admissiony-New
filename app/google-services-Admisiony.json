@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "561789083765",
+    "firebase_url": "https://admissiony-com-default-rtdb.firebaseio.com",
+    "project_id": "admissiony-com",
+    "storage_bucket": "admissiony-com.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561789083765:android:00c6a87058c76f214e183c",
+        "android_client_info": {
+          "package_name": "com.student.Admissiony"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyvCn1gCcJ8kmmFiR-6E2Ycq2NaBps1pU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
