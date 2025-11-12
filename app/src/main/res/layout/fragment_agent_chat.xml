@@ -130,6 +130,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#1A2B2A29"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -137,6 +138,7 @@
                 android:id="@+id/messageBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
@@ -151,8 +153,7 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="12dp"
                 android:src="@drawable/link"
-                android:visibility="visible"
-                app:tint="#676767" />
+                android:visibility="visible" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -167,7 +168,8 @@
         android:background="@drawable/ic_studylevel"
         android:padding="10dp"
         android:layout_alignParentEnd="true"
-        android:backgroundTint="@color/theme_color"
+        android:rotation="-50"
+        android:backgroundTint="@color/black"
         android:layout_alignParentBottom="true"
         app:srcCompat="@drawable/ic_send" />
 

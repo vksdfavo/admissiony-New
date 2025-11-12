@@ -1,40 +1,33 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardView"
-    android:layout_width="@dimen/dp_90"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardViews"
+    android:layout_width="@dimen/space100"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="@dimen/space2"
-    card_view:cardBackgroundColor="@color/white"
+    android:background="@drawable/strock_date"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/dateLabel"
-            android:text="@string/today"
-            android:textSize="14sp"
-            android:textColor="#727271"
-            android:layout_marginBottom="4dp"
-            android:gravity="center"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/today"
+            android:textColor="#727271"
+            android:textSize="14sp" />
+
+        <TextView
             android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/_05_aug"
-            android:textSize="14sp"
             android:textColor="@color/black"
-            android:gravity="center"/>
+            android:textSize="14sp" />
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>

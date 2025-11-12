@@ -320,7 +320,7 @@ class SignUpFragment : BaseFragment() {
         )
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                findNavController().navigate(R.id.signInFragment)
+                findNavController().navigate(R.id.signInEmailFragment)
             }
 
             override fun updateDrawState(ds: TextPaint) {

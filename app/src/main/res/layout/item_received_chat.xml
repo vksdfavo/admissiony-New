@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-8dp"
                 android:text=""
+                android:visibility="gone"
                 android:textColor="#666666"
                 android:textSize="12sp" />
 
@@ -62,9 +63,9 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="2dp"
         android:elevation="3dp"
+        android:backgroundTint="#FFE7E5"
         android:paddingStart="@dimen/space10"
         android:background="@drawable/shape_rectangle_3_radius_opponent"
-        android:backgroundTint="#fff2f1"
         android:orientation="horizontal">
 
 

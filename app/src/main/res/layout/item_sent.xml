@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-8dp"
                 android:text=""
+                android:visibility="gone"
                 android:textColor="#666666"
                 android:textSize="12sp" />
 
@@ -69,6 +70,7 @@
             android:layout_width="14dp"
             android:layout_height="18dp"
             android:scaleType="fitXY"
+            android:visibility="gone"
             android:src="@drawable/bubble_opp"
             app:tint="#fff2f1" />
 
@@ -76,12 +78,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="-1dp"
-            android:background="@drawable/shape_rectangle_3_radius_opponent"
+            android:background="@drawable/strock_date"
             android:orientation="vertical"
-            android:backgroundTint="#fff2f1"
+            android:backgroundTint="#FFE7E5"
             android:paddingVertical="10dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="12dp">
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 <!--
             <TextView
                 android:id="@+id/tvItemCo_title1"
@@ -96,9 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
-                android:justificationMode="inter_word"
                 android:lineSpacingExtra="2dp"
-                android:layout_marginStart="@dimen/space15"
+                android:layout_marginStart="@dimen/space5"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 

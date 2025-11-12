@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +55,13 @@ class ScheduledFragment : BaseFragment() {
         binding.fabFaActive.setOnClickListener {
             binding.root.findNavController().navigate(R.id.bookCounsellingFragment)
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
+
 
         return binding.root
     }
@@ -112,10 +121,19 @@ class ScheduledFragment : BaseFragment() {
             response?.let {
                 if (it.statusCode == 200 && it.success) {
                     val programResponse = it.data?.records ?: emptyList()
-                    applicationList.addAll(programResponse)
-                    adapterScheduledAdapter?.notifyDataSetChanged()
 
-                    Log.d("fetchDataFromApi", "$programResponse")
+                    if (currentPage == 1) {
+                        // Clear data only when loading the first page
+                        applicationList.clear()
+                    }
+
+                    // ✅ Avoid adding duplicates by filtering
+                    val newItems = programResponse.filterNot { new ->
+                        applicationList.any { existing -> existing.id == new.id }
+                    }
+
+                    applicationList.addAll(newItems)
+                    adapterScheduledAdapter?.notifyDataSetChanged()
 
                     hasNextPage = it.data?.metaInfo?.hasNextPage ?: false
                     if (hasNextPage) {
@@ -138,6 +156,7 @@ class ScheduledFragment : BaseFragment() {
             binding.pbFaActivePagination.visibility = View.GONE
         }
     }
+
 
     private fun updateUIVisibility() {
         if (applicationList.isEmpty()) {

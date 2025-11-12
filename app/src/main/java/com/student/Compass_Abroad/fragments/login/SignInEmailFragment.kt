@@ -345,7 +345,6 @@ class SignInEmailFragment : Fragment() {
         App.singleton?.statusValidation = 0
 
         // ✅ Set status & navigation bar colors
-        requireActivity().window.statusBarColor = requireActivity().getColor(R.color.white)
         requireActivity().window.navigationBarColor =
             requireActivity().getColor(R.color.bottom_gradient_one)
 

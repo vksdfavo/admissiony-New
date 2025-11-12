@@ -63,7 +63,7 @@ class TimeSlotAdapter(
 //                binding.cardTimeSlot.setCardBackgroundColor(Color.WHITE) // default white
 //            }
 
-            binding.cardTimeSlot.setOnClickListener {
+            binding.cardTimeSlots.setOnClickListener {
                 // Toggle selection
                 selectedPosition = if (selectedPosition == position) -1 else position
                 notifyDataSetChanged()

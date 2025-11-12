@@ -167,7 +167,7 @@
         android:background="@drawable/ic_studylevel"
         android:padding="10dp"
         android:layout_alignParentEnd="true"
-        android:backgroundTint="@color/theme_color"
+        android:backgroundTint="@color/black"
         android:layout_alignParentBottom="true"
         app:srcCompat="@drawable/ic_send" />
 
