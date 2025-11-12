@@ -28,10 +28,13 @@ import com.student.Compass_Abroad.modal.createTimeSlots.SlotRequest
 import com.student.Compass_Abroad.modal.createTimeSlots.SlotResponse
 import com.student.Compass_Abroad.modal.createTimeSlots.StatusInfo
 import com.student.Compass_Abroad.modal.documentType.DocumentTypeModal
+import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.getErrorMessage
+import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.parseError
 import com.student.Compass_Abroad.modal.getApplicationAssignedStaff.getApplicationAssignedStaff
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import com.student.Compass_Abroad.modal.getStaffList.StaffDropdownResponse
 import com.student.Compass_Abroad.modal.getStaffSlots.GetStaffSlots
+import com.student.Compass_Abroad.modal.getStudentPref.GetStudentPreferences
 import com.student.Compass_Abroad.modal.getTestimonials.getTestimonials
 import com.student.Compass_Abroad.modal.in_demandInstitution.InDemandInstitution
 import com.student.Compass_Abroad.modal.top_destinations.TopDestinations
@@ -43,98 +46,6 @@ class LoginViewModal : ViewModel() {
     var apiInterface = retrofitCallerObject!!.create(ApiInterface::class.java)
 
     /** for check User**/
-
-    var checkUserModalMutableLiveData: MutableLiveData<CheckUserModel?>? = null
-
-    fun checkUserModelLiveData(
-        activity: Activity?,
-        content: String
-    ): LiveData<CheckUserModel?> {
-        checkUserModalMutableLiveData = MutableLiveData()
-        activity?.let {
-
-            val apiErrorHandler = ApiErrorHandler(it.applicationContext)
-
-            if (CommonUtils.isNetworkConnected(it)) {
-
-                CommonUtils.showProgress(it)
-
-                apiInterface.checkUser(AppConstants.fiClientNumber, content)!!
-                    .enqueue(object : Callback<CheckUserModel?> {
-                        override fun onResponse(
-                            call: Call<CheckUserModel?>,
-                            response: Response<CheckUserModel?>
-                        ) {
-                            CommonUtils.dismissProgress()
-
-                            if (response.isSuccessful && response.body() != null) {
-                                checkUserModalMutableLiveData!!.postValue(response.body())
-                            } else {
-                                val errorMessage =
-                                    apiErrorHandler.handleError(HttpException(response))
-                                errorDialogOpen(activity, errorMessage)
-                            }
-                        }
-
-                        override fun onFailure(call: Call<CheckUserModel?>, t: Throwable) {
-                            CommonUtils.dismissProgress()
-                            val errorMessage = apiErrorHandler.handleError(t)
-                            errorDialogOpen(activity, errorMessage.toString())
-                        }
-                    })
-            } else {
-                apiErrorHandler.handleError(IOException("No internet connection"))
-            }
-        }
-
-        return checkUserModalMutableLiveData!!
-    }
-
-
-    /**For Login**/
-
-    var loginModalMutableLiveData: MutableLiveData<LoginResponseModel?>? = null
-
-    fun loginModalLiveData(
-        activity: Activity?,
-        client_number: String,
-        device_number: String,
-        content: String
-    ): LiveData<LoginResponseModel?> {
-        loginModalMutableLiveData = MutableLiveData()
-        activity?.let {
-            val apiErrorHandler = ApiErrorHandler(it.applicationContext)
-            if (CommonUtils.isNetworkConnected(it)) {
-                CommonUtils.showProgress(it)
-                apiInterface.loginUser(client_number, device_number, content)
-                    .enqueue(object : Callback<LoginResponseModel?> {
-                        override fun onResponse(
-                            call: Call<LoginResponseModel?>,
-                            response: Response<LoginResponseModel?>
-                        ) {
-                            CommonUtils.dismissProgress()
-
-                            if (response.isSuccessful && response.body() != null) {
-                                loginModalMutableLiveData!!.postValue(response.body())
-                            } else {
-                                apiErrorHandler.handleError(HttpException(response))
-                            }
-                        }
-
-                        override fun onFailure(call: Call<LoginResponseModel?>, t: Throwable) {
-                            CommonUtils.dismissProgress()
-                            apiErrorHandler.handleError(t)
-                        }
-                    })
-            } else {
-
-                apiErrorHandler.handleError(IOException("No internet connection"))
-            }
-        }
-
-        return loginModalMutableLiveData!!
-    }
-
 
     /** For Check OTP **/
 
@@ -1303,5 +1214,198 @@ class LoginViewModal : ViewModel() {
 
         return liveData
     }
+
+
+
+    /**For Login**/
+    fun loginModalLiveData(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        content: String
+    ): LiveData<LoginResponseModel?> {
+
+        val liveData = MutableLiveData<LoginResponseModel?>()
+
+        activity?.let { act ->
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+                CommonUtils.showProgress(act)
+                apiInterface.loginUser(client_number, device_number, content)
+                    .enqueue(object : Callback<LoginResponseModel?> {
+                        override fun onResponse(
+                            call: Call<LoginResponseModel?>,
+                            response: Response<LoginResponseModel?>
+                        ) {
+                            CommonUtils.dismissProgress()
+
+                            if (response.isSuccessful && response.body() != null) {
+                                liveData.postValue(response.body())
+                            } else {
+                                val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                                liveData.postValue(
+                                    LoginResponseModel(
+                                        statusCode = response.code(),
+                                        message = errorMsg
+                                    )
+                                )
+                            }
+                        }
+
+                        override fun onFailure(call: Call<LoginResponseModel?>, t: Throwable) {
+                            CommonUtils.dismissProgress()
+                            val errorMsg = apiErrorHandler.handleError(t)
+                            liveData.postValue(
+                                LoginResponseModel(
+                                    statusCode = 0,
+                                    message = errorMsg
+                                )
+                            )
+                        }
+                    })
+            } else {
+                val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
+                liveData.postValue(
+                    LoginResponseModel(
+                        statusCode = 0,
+                        message = errorMsg
+                    )
+                )
+            }
+        }
+
+        return liveData
+    }
+
+
+    fun getPreferencesDataList(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        accessToken: String
+    ): LiveData<GetStudentPreferences?> {
+
+        val liveData = MutableLiveData<GetStudentPreferences?>()
+
+        activity?.let { act ->
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+                apiInterface.getPreferences(
+                    client_number,
+                    device_number,
+                    accessToken
+                )?.enqueue(object : Callback<GetStudentPreferences?> {
+                    override fun onResponse(
+                        call: Call<GetStudentPreferences?>,
+                        response: Response<GetStudentPreferences?>
+                    ) {
+                        if (response.isSuccessful && response.body() != null) {
+                            val body = response.body()!!
+                            liveData.postValue(body)
+
+                            if (body.statusCode != 200) {
+                                CommonUtils.toast(activity, body.message ?: "Not Found")
+                            }
+                        } else {
+                            val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                            liveData.postValue(
+                                GetStudentPreferences(
+                                    statusCode = response.code(),
+                                    message = errorMsg
+                                )
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<GetStudentPreferences?>, t: Throwable) {
+                        val errorMsg = apiErrorHandler.handleError(t)
+                        liveData.postValue(
+                            GetStudentPreferences(
+                                statusCode = 0,
+                                message = errorMsg
+                            )
+                        )
+                    }
+                })
+            } else {
+                val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
+                liveData.postValue(
+                    GetStudentPreferences(
+                        statusCode = 0,
+                        message = errorMsg
+                    )
+                )
+            }
+        }
+
+        return liveData
+    }
+
+
+    fun checkUserModelLiveData(
+        activity: Activity?,
+        content: String
+    ): LiveData<CheckUserModel?> {
+
+        val liveData = MutableLiveData<CheckUserModel?>()
+
+        activity?.let { act ->
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+                CommonUtils.showProgress(act)
+
+                apiInterface.checkUser(AppConstants.fiClientNumber, content)
+                    ?.enqueue(object : Callback<CheckUserModel?> {
+                        override fun onResponse(
+                            call: Call<CheckUserModel?>,
+                            response: Response<CheckUserModel?>
+                        ) {
+                            CommonUtils.dismissProgress()
+
+                            if (response.isSuccessful && response.body() != null) {
+                                liveData.postValue(response.body())
+                            } else {
+                                val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                                liveData.postValue(
+                                    CheckUserModel(
+                                        statusCode = response.code(),
+                                        message = errorMsg,
+                                        data = null
+                                    )
+                                )
+                            }
+                        }
+
+                        override fun onFailure(call: Call<CheckUserModel?>, t: Throwable) {
+                            CommonUtils.dismissProgress()
+                            val errorMsg = apiErrorHandler.handleError(t)
+                            liveData.postValue(
+                                CheckUserModel(
+                                    statusCode = 0,
+                                    message = errorMsg,
+                                    data = null
+                                )
+                            )
+                        }
+                    })
+            } else {
+                val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
+                liveData.postValue(
+                    CheckUserModel(
+                        statusCode = 0,
+                        message = errorMsg,
+                        data = null
+                    )
+                )
+            }
+        }
+
+        return liveData
+    }
+
+
 
 }

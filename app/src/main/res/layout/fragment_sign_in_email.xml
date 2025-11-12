@@ -14,17 +14,10 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/ablSelect"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/white"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarDa"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="300dp"
                 android:layout_gravity="center"
                 android:background="@color/secondary_color"
                 app:contentInsetStart="0dp"
@@ -69,13 +62,9 @@
                         android:id="@+id/corner2"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:layout_alignParentBottom="true">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/home_back"
-                            app:tint="@color/white" />
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/home_back"
+                        android:backgroundTint="@color/white">
 
                         <TextView
                             android:id="@+id/logintext"
@@ -93,9 +82,8 @@
                             android:layout_below="@id/logintext"
                             android:layout_marginStart="20dp"
                             android:text="@string/get_started_with_email_or_phone_number"
-                            android:textColor="@color/bottom_nav_grey"
+                            android:textColor="#8086878B"
                             android:textSize="12sp" />
-
 
                     </RelativeLayout>
                 </RelativeLayout>
@@ -103,12 +91,13 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-        </com.google.android.material.appbar.AppBarLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
+            android:elevation="@dimen/space5"
             android:orientation="vertical">
 
             <LinearLayout
@@ -153,9 +142,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
                 android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:paddingEnd="20dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -223,9 +212,11 @@
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginHorizontal="@dimen/dp_80"
+                    android:layout_marginHorizontal="@dimen/dp_20"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="@dimen/space5"
                     android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+                    android:backgroundTint="@color/black"
                     android:elevation="2dp"
                     android:foreground="@drawable/ripple"
                     android:gravity="center"
@@ -238,17 +229,18 @@
                     android:id="@+id/bt_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/button_height"
-                    android:visibility="gone"
-                    android:layout_marginHorizontal="@dimen/space80"
+                    android:layout_marginHorizontal="@dimen/space20"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+                    android:backgroundTint="@color/black"
                     android:elevation="2dp"
                     android:foreground="@drawable/ripple"
                     android:gravity="center"
                     android:padding="12dp"
                     android:text="@string/login"
                     android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -277,8 +269,8 @@
                 android:id="@+id/relativeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_above="@id/tv_dont_have_account"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp">
 
                 <TextView
@@ -290,7 +282,7 @@
                     android:justificationMode="inter_word"
                     android:linksClickable="true"
                     android:text="@string/by_proceeding_you_accept_our"
-                    android:textColor="#212121"
+                    android:textColor="#802B2A29"
                     android:textSize="12sp" />
 
                 <TextView
@@ -300,49 +292,70 @@
                     android:layout_marginStart="@dimen/space5"
                     android:layout_toEndOf="@id/tvAccept"
                     android:gravity="center_horizontal"
-                    android:text="@string/terms_amp_conditions"
+                    android:text="@string/terms_of_service"
                     android:textColor="@color/secondary_color"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/and"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvAccept"
-                    android:gravity="center_horizontal"
-                    android:justificationMode="inter_word"
-                    android:text="@string/and"
-                    android:textColor="#212121"
-                    android:textSize="12sp" />
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/privacy_policy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvAccept"
-                    android:layout_marginStart="@dimen/space5"
-                    android:layout_toEndOf="@id/and"
-                    android:text="@string/privacy_policy"
-                    android:textColor="@color/secondary_color"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/and"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:justificationMode="inter_word"
+                        android:text="@string/and"
+                        android:textColor="#802B2A29"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/privacy_policy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space5"
+                        android:layout_toEndOf="@id/and"
+                        android:text="@string/privacy_policy"
+                        android:textColor="@color/secondary_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
 
             </RelativeLayout>
 
+            <View
+
+                android:layout_below="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:background="#332B2A29"
+                android:layout_marginVertical="@dimen/space10"
+                android:layout_height="@dimen/dp_1"/>
+
 
             <TextView
                 android:id="@+id/tv_dont_have_account"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
                 android:justificationMode="inter_word"
                 android:text="@string/don_t_have_an_account_sign_up1"
-                android:textColor="@color/appSecondaryColor"
-                android:textSize="12sp" />
+                android:textColor="#802B2A29"
+                android:textSize="12sp"
+                android:drawablePadding="3dp"
+                app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
+                app:drawableTint="@color/secondary_color" />
 
         </RelativeLayout>
 

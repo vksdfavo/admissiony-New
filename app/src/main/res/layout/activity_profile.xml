@@ -225,6 +225,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="26dp"
+                    android:text="@string/email_address"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvMyProfile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="-4dp"
+                    android:text="-----------------" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/contact_number"
                     android:textSize="12sp" />
 
@@ -237,21 +253,7 @@
                     android:text="+XX XXXXX-XXXXX"
                     android:textSize="13sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/email_address"
-                    android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/tvMyProfile_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="-4dp"
-                    android:text="-----------------" />
 
                 <TextView
                     android:layout_width="wrap_content"

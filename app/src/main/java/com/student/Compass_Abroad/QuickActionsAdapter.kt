@@ -23,7 +23,7 @@ class QuickActionsAdapter(
 
             binding.image.setImageResource(item.imageRes)
 
-            binding.cvBase.setOnClickListener {
+            binding.name.setOnClickListener {
                 listener.onQuickActionClick(item)
             }
         }

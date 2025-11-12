@@ -54,6 +54,7 @@ class NewPassordFragment : BaseFragment() {
 
         }
 
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -66,6 +67,10 @@ class NewPassordFragment : BaseFragment() {
     }
 
     private fun onClicks() {
+
+        binding!!.backBtn.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
 
         binding?.tvSp2Save?.setOnClickListener{
             val new_passcode = binding!!.etPasscode.text.toString().trim()

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_270"
+
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -11,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="@dimen/dp_5"
-        android:layout_margin="@dimen/dp_5"
+        android:layout_marginHorizontal="@dimen/sp15"
+        android:layout_marginVertical="@dimen/dp_8"
         android:background="@drawable/card_strock">
 
         <ImageView
@@ -95,7 +97,9 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_below="@id/programName"
-            android:layout_marginHorizontal="@dimen/dp_20"
+            android:background="@drawable/status_background"
+            android:backgroundTint="#A7ECF1F2"
+            android:layout_marginHorizontal="@dimen/sp15"
             android:layout_marginVertical="@dimen/dp_5"
             android:weightSum="2"
             android:layout_height="wrap_content">
@@ -122,8 +126,11 @@
                     android:layout_marginStart="@dimen/space10"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="@string/intakes"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/circle_shape_intake" />
 
 
             </LinearLayout>

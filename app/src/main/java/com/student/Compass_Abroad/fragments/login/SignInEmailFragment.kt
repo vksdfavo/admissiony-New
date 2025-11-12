@@ -24,6 +24,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
@@ -41,6 +42,7 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import com.student.Compass_Abroad.activities.MainActivity
@@ -132,6 +134,7 @@ class SignInEmailFragment : Fragment() {
 
             if (isAdded) {
                 try {
+                    App.singleton?.statusValidation = 1
                     binding!!.root.findNavController().navigate(R.id.signUpFragment2)
                 } catch (e: Exception) {
                     Log.e("SignUpFragment", "Navigation error: ${e.message}", e)
@@ -157,7 +160,7 @@ class SignInEmailFragment : Fragment() {
 
     private fun setText() {
         val spannableText = SpannableStringBuilder("Don't have an account? Sign Up")
-        val yellowColor = ContextCompat.getColor(requireActivity(), R.color.theme_color)
+        val yellowColor = ContextCompat.getColor(requireActivity(), R.color.secondary_color)
         val yellowColorSpan = ForegroundColorSpan(yellowColor)
         spannableText.setSpan(yellowColorSpan, 22, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val boldSpan = StyleSpan(Typeface.BOLD)
@@ -426,138 +429,153 @@ class SignInEmailFragment : Fragment() {
                 println("Encryption failed.")
 
             }
-            ViewModalClass().loginModalLiveData(
+            LoginViewModal().loginModalLiveData(
                 requireActivity(),
                 AppConstants.fiClientNumber,
                 sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
                 contentKeyPassword
             ).observe(requireActivity()) { loginModal: LoginResponseModel? ->
                 loginModal?.let { nonNullLoginModal ->
-                    if (nonNullLoginModal.statusCode == 200) {
+                    when (nonNullLoginModal.statusCode) {
+                        200 -> {
+                            with(sharedPre ?: return@observe) {
+                                saveString(
+                                    AppConstants.USER_EMAIL,
+                                    nonNullLoginModal.data?.userInfo?.email
+                                )
+                                saveString(
+                                    AppConstants.USER_NAME,
+                                    "${nonNullLoginModal.data?.userInfo?.first_name} ${nonNullLoginModal.data?.userInfo?.last_name}"
+                                )
 
-                        with(sharedPre ?: return@observe) {
+                                sharedPre?.saveString(
+                                    AppConstants.FIRST_NAME,
+                                    "${nonNullLoginModal.data?.userInfo?.first_name}"
+                                )
+                                sharedPre?.saveString(
+                                    AppConstants.LAST_NAME,
+                                    "${nonNullLoginModal.data?.userInfo?.last_name}"
+                                )
+                                saveString(
+                                    AppConstants.ACCESS_TOKEN,
+                                    nonNullLoginModal.data?.tokensInfo?.accessToken
+                                )
+                                saveString(
+                                    AppConstants.REFRESH_TOKEN,
+                                    nonNullLoginModal.data?.tokensInfo?.refreshToken
+                                )
 
-                            saveString(
-                                AppConstants.USER_EMAIL,
-                                nonNullLoginModal.data?.userInfo?.email
-                            )
-                            saveString(
-                                AppConstants.USER_NAME,
-                                "${nonNullLoginModal.data?.userInfo?.first_name} ${nonNullLoginModal.data?.userInfo?.last_name}"
-                            )
+                                saveString(
+                                    AppConstants.User_IDENTIFIER,
+                                    nonNullLoginModal.data?.userInfo?.identifier
+                                )
+                                saveString(
+                                    AppConstants.PHONE,
+                                    nonNullLoginModal.data?.userInfo?.mobile.toString()
+                                )
+                                saveModel(
+                                    AppConstants.USER_ROLE,
+                                    nonNullLoginModal.data?.activeIdentityInfo!!.identifier
+                                )
 
-                            sharedPre?.saveString(
-                                AppConstants.FIRST_NAME,
-                                "${nonNullLoginModal.data?.userInfo?.first_name}"
-                            )
-                            sharedPre?.saveString(
-                                AppConstants.LAST_NAME,
-                                "${nonNullLoginModal.data?.userInfo?.last_name}"
-                            )
-                            saveString(
-                                AppConstants.ACCESS_TOKEN,
-                                nonNullLoginModal.data?.tokensInfo?.accessToken
-                            )
-                            saveString(
-                                AppConstants.REFRESH_TOKEN,
-                                nonNullLoginModal.data?.tokensInfo?.refreshToken
-                            )
+                                saveString(
+                                    AppConstants.COUNTRY_CODE,
+                                    nonNullLoginModal.data.userInfo.country_code.toString()
+                                )
 
-                            saveString(
-                                AppConstants.User_IDENTIFIER,
-                                nonNullLoginModal.data?.userInfo?.identifier
-                            )
-                            saveString(
-                                AppConstants.PHONE,
-                                nonNullLoginModal.data?.userInfo?.mobile.toString()
-                            )
-                            saveModel(
-                                AppConstants.USER_ROLE,
-                                nonNullLoginModal.data?.activeIdentityInfo!!.identifier
-                            )
+                                saveModel(AppConstants.SAVE_MODAL, nonNullLoginModal.data)
+                            }
 
-                            saveString(
-                                AppConstants.COUNTRY_CODE,
-                                nonNullLoginModal.data.userInfo.country_code.toString()
-                            )
+                            LoginViewModal().getPreferencesDataList(
+                                requireActivity(),
+                                AppConstants.fiClientNumber,
+                                sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
+                                "Bearer " + CommonUtils.accessToken,
+                            ).observe(requireActivity()) { getPreferences ->
+                                getPreferences?.let {
+                                    when (it.statusCode) {
+                                        200 -> {
+                                            sharedPre?.saveString(
+                                                AppConstants.USER_PREFERENCES,
+                                                it.data!!.preferencesInfo.destination_country
+                                            )
+                                            sharedPre?.saveString(
+                                                AppConstants.USER_DISCIPLINES,
+                                                it.data!!.preferencesInfo.disciplines.toString()
+                                            )
 
-                            saveModel(AppConstants.SAVE_MODAL, nonNullLoginModal.data)
-                        }
+                                            if (!it.data!!.hasAllPreferencesSet) {
+                                                sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
 
+                                                val intent = Intent(requireActivity(), SetPreferencesActivity::class.java)
+                                                startActivity(intent)
+                                                requireActivity().finish()
+                                            } else {
+                                                FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
+                                                    if (!task.isSuccessful) {
+                                                        Log.w(
+                                                            ContentValues.TAG,
+                                                            "Fetching FCM registration token failed",
+                                                            task.exception
+                                                        )
+                                                        return@addOnCompleteListener
+                                                    }
 
-                        ViewModalClass().getPreferencesDataList(
-                            requireActivity(),
-                            AppConstants.fiClientNumber,
-                            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
-                            "Bearer " + CommonUtils.accessToken,
-                        ).observe(requireActivity()) { getPreferences ->
-                            getPreferences?.let {
-                                if (it.statusCode == 200) {
-                                    sharedPre?.saveString(
-                                        AppConstants.USER_PREFERENCES,
-                                        getPreferences.data!!.preferencesInfo.destination_country
-                                    )
-                                    sharedPre?.saveString(
-                                        AppConstants.USER_DISCIPLINES,
-                                        getPreferences.data!!.preferencesInfo.disciplines.toString()
-                                    )
+                                                    token = task.result
+                                                    Log.d("onCreateViewLoginToken", token)
+                                                    sendFcmToken(token, requireActivity())
+                                                }
 
-                                    if (!getPreferences.data!!.hasAllPreferencesSet) {
-                                        sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
-
-
-                                        val intent = Intent(
-                                            requireActivity(),
-                                            SetPreferencesActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                        requireActivity().finish()
-
-                                    } else {
-                                        FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
-                                            if (!task.isSuccessful) {
-                                                Log.w(
-                                                    ContentValues.TAG,
-                                                    "Fetching FCM registration token failed",
-                                                    task.exception
-                                                )
-                                                return@addOnCompleteListener
+                                                val intent = Intent(requireActivity(), MainActivity::class.java)
+                                                startActivity(intent)
+                                                requireActivity().finish()
+                                                sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
                                             }
-                                            token = task.result
-                                            Log.d("onCreateViewLoginToken", token)
-
-                                            sendFcmToken(token, requireActivity())
-
-                                            Log.d("onCreateViewLoginToken", token)
                                         }
 
+                                        422 -> {
+                                            // Handle invalid or missing preference data (session expired / data issue)
+                                            App.singleton?.SHOW_PASSCODE_SECTION = false
+                                            Log.w("getPreferencesDataList", "Received 422, refreshing fragment...")
 
+                                            CommonUtils.toast(
+                                                requireActivity(),
+                                                it.message ?: "Something went wrong"
+                                            )
+                                            // Optionally clear login session to be safe
+                                            sharedPre?.clearString(AppConstants.ISLOggedIn)
 
-                                        val intent =
-                                            Intent(requireActivity(), MainActivity::class.java)
-                                        startActivity(intent)
-                                        requireActivity().finish()
-                                        sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
+                                            // Refresh fragment via Navigation Component
+                                            findNavController().navigate(findNavController().currentDestination!!.id)
+                                        }
 
+                                        else -> {
+                                            CommonUtils.toast(
+                                                requireActivity(),
+                                                it.message ?: "Something went wrong"
+                                            )
+                                        }
                                     }
-
-
-                                } else {
-                                    CommonUtils.toast(
-                                        requireActivity(),
-                                        it.message ?: "Something went wrong"
-                                    )
                                 }
-                            }
+                        }
+                        }
+                        422 -> {
+                            // Handle 422 status code
+                            App.singleton?.SHOW_PASSCODE_SECTION = false
+
+                            // Refresh fragment using Navigation Component
+                            findNavController().navigate(
+                                findNavController().currentDestination!!.id
+                            )
                         }
 
-
-                    } else {
-
-                        errorDialogOpen(requireActivity(), nonNullLoginModal.message.toString())
+                        else -> {
+                            errorDialogOpen(requireActivity(), nonNullLoginModal.message.toString())
+                        }
                     }
                 }
             }
+
         }
     }
 
@@ -589,7 +607,7 @@ class SignInEmailFragment : Fragment() {
             println("Encryption failed.")
         }
 
-        ViewModalClass().checkUserModelLiveData(requireActivity(), contentKeyPassword)
+        LoginViewModal().checkUserModelLiveData(requireActivity(), contentKeyPassword)
             .observe(requireActivity()) { loginModal: CheckUserModel? ->
                 loginModal?.let { nonNullLoginModal ->
                     if (nonNullLoginModal.statusCode == 200) {
@@ -699,7 +717,7 @@ class SignInEmailFragment : Fragment() {
             println("Encryption failed.")
         }
 
-        ViewModalClass().checkUserModelLiveData(requireActivity(), contentKeyPassword)
+        LoginViewModal().checkUserModelLiveData(requireActivity(), contentKeyPassword)
             .observe(requireActivity()) { loginModal: CheckUserModel? ->
                 loginModal?.let { nonNullLoginModal ->
                     if (nonNullLoginModal.statusCode == 200) {

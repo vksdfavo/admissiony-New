@@ -202,62 +202,7 @@ class ViewModalClass : ViewModel() {
 
     //For Login
 
-    var loginModalMutableLiveData: MutableLiveData<LoginResponseModel?>? = null
 
-    fun loginModalLiveData(
-        activity: Activity?,
-        client_number: String,
-        device_number: String,
-        content: String
-    ): LiveData<LoginResponseModel?> {
-        loginModalMutableLiveData = MutableLiveData()
-
-        if (activity?.let { CommonUtils.isNetworkConnected(it) } == true) {
-            CommonUtils.showProgress(activity)
-            apiInterface.loginUser(client_number, device_number, content)
-                .enqueue(object : Callback<LoginResponseModel?> {
-                    override fun onResponse(
-                        call: Call<LoginResponseModel?>,
-                        response: Response<LoginResponseModel?>
-                    ) {
-                        CommonUtils.dismissProgress()
-                        if (response.isSuccessful && response.body() != null) {
-                            loginModalMutableLiveData!!.postValue(response.body())
-                        } else {
-                            val apiError = parseError(response)
-                            handleError3(response.code(), getErrorMessage(apiError))
-                        }
-                    }
-
-                    override fun onFailure(call: Call<LoginResponseModel?>, t: Throwable) {
-                        CommonUtils.dismissProgress()
-                        handleError3(0, "Network error: " + t.message)
-                    }
-                })
-        } else {
-
-            handleError3(0, "No internet connection.")
-
-        }
-
-        return loginModalMutableLiveData!!
-
-    }
-
-    private fun handleError3(code: Int, backendMessage: String?) {
-        var loginResponse = LoginResponseModel()
-        loginResponse.statusCode = code
-        val errorMessage: String = when (code) {
-            401 -> backendMessage ?: "Please check your credentials."
-            500 -> backendMessage ?: "$code"
-            422 -> "$backendMessage"
-            else -> backendMessage ?: "Error $code"
-        }
-        loginResponse.message = errorMessage
-        Log.e("API Error", loginResponse.message!!)
-        loginModalMutableLiveData!!.postValue(loginResponse)
-
-    }
 
 
     //verifyOTP
@@ -7815,74 +7760,6 @@ class ViewModalClass : ViewModel() {
     // save-preferences
 
 
-    var getPreferencesModelListMutable: MutableLiveData<GetStudentPreferences?>? = null
-
-    fun getPreferencesDataList(
-        activity: Activity?,
-        client_number: String,
-        device_number: String,
-        accessToken: String,
-    ): LiveData<GetStudentPreferences?> {
-
-        getPreferencesModelListMutable = MutableLiveData()
-
-        if (activity?.let { CommonUtils.isNetworkConnected(it) } == true) {
-            apiInterface.getPreferences(
-                client_number,
-                device_number,
-                accessToken,
-            )!!.enqueue(object : Callback<GetStudentPreferences?> {
-                override fun onResponse(
-                    call: Call<GetStudentPreferences?>,
-                    response: Response<GetStudentPreferences?>
-                ) {
-                    if (response.isSuccessful && response.body() != null) {
-                        getPreferencesModelListMutable!!.postValue(response.body())
-
-                        if (response.body()!!.statusCode == 200) {
-
-                        } else {
-                            CommonUtils.toast(activity, "Not Found")
-                        }
-                    } else {
-                        val apiError = parseError(response)
-                        handleResponseCategoryDispline(
-                            response.code(),
-                            getErrorMessage(apiError)
-                        )
-                    }
-                }
-
-                override fun onFailure(call: Call<GetStudentPreferences?>, t: Throwable) {
-                    handleResponseCategoryGetPrefrences(
-                        0,
-                        "Network error: ${t.message}"
-                    )
-                }
-            })
-        } else {
-            handleResponseCategoryGetPrefrences(
-                0,
-                "No internet connection."
-            )
-        }
-
-        return getPreferencesModelListMutable!!
-    }
-
-
-    private fun handleResponseCategoryGetPrefrences(code: Int, backendMessage: String?) {
-        val getProgramCategoryResponse = GetStudentPreferences()
-        getProgramCategoryResponse.statusCode = code
-        val errorMessage: String = when (code) {
-            401 -> backendMessage ?: "Please check your credentials."
-            500 -> backendMessage ?: "$code"
-            else -> backendMessage ?: "Error $code"
-        }
-        getProgramCategoryResponse.message = errorMessage
-        Log.e("API Error", getProgramCategoryResponse.message!!)
-        getPreferencesModelListMutable?.postValue(getProgramCategoryResponse)
-    }
 
     var getVouchersMutableLiveData1: MutableLiveData<getVouchers?>? = null
     fun getVouchersModalLiveData(

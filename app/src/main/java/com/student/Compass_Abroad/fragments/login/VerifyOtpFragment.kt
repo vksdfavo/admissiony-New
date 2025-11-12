@@ -55,7 +55,7 @@ class VerifyOtpFragment : BaseFragment() {
         email = sharedPre?.getString(AppConstants.USER_EMAIL, "")
 
         timerForOtp(binding)
-        binding!!.tvResend.text = "Resend"
+        binding!!.tvResend.text = "Resend Code"
 
         otpFunction()
 

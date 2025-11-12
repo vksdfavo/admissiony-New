@@ -1,6 +1,7 @@
 package com.student.Compass_Abroad.uniteli.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,8 @@ class FindAmbassadorChatAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = AmbassadorChatLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            AmbassadorChatLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -56,8 +58,19 @@ class FindAmbassadorChatAdapter(
 
             binding.name.text = fullName
 
-            binding.institutionData.text = data.institution_data?.name ?:"----"
-            binding.programData.text = data.program_data?.name ?: "----"
+            val institutionName = data.institution_data?.name
+            val programName = data.program_data?.name
+
+            binding.institutionData.text = institutionName ?: "----"
+            binding.programData.text = programName ?: "----"
+
+            if (institutionName.isNullOrBlank() && programName.isNullOrBlank()) {
+                binding.linearData.visibility = View.GONE
+            } else {
+                binding.linearData.visibility = View.VISIBLE
+            }
+
+
             Glide.with(requireActivity)
                 .load(data.userInfo.profile_picture_url)
                 .placeholder(R.drawable.test_image)
@@ -66,7 +79,11 @@ class FindAmbassadorChatAdapter(
 
 
             val iconUrl = data.institution_data?.country_data?.icon_url
-            val addressParts = listOf(data.country_of_origin?.name, data.state_of_origin?.name, data.city_of_origin?.name).filterNotNull().filter { it.isNotBlank() }
+            val addressParts = listOf(
+                data.country_of_origin?.name,
+                data.state_of_origin?.name,
+                data.city_of_origin?.name
+            ).filterNotNull().filter { it.isNotBlank() }
 
             val address = addressParts.joinToString(" / ")
             binding.address.text = if (address.isNotBlank()) address else "----"
