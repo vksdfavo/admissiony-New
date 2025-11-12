@@ -36,6 +36,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
@@ -86,8 +88,16 @@ class SignUpFragment : BaseFragment() {
     ): View {
 
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(requireActivity())[ViewModalClass::class.java]
 
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE //
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
+
+        viewModel = ViewModelProvider(requireActivity())[ViewModalClass::class.java]
 
 
         statusValidation = App.singleton!!.statusValidation
@@ -112,7 +122,8 @@ class SignUpFragment : BaseFragment() {
            val activity = activity ?: return
            val window = activity.window ?: return
 
-           window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teall)
+           requireActivity().window.statusBarColor =
+               requireActivity().getColor(R.color.teall)
            window.navigationBarColor =
                ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
 
@@ -173,7 +184,7 @@ class SignUpFragment : BaseFragment() {
         val referralCode = arguments?.getString("referral") ?: ""
 
         val referralLabelText = if (referralCode.isNullOrEmpty()) {
-            "Do you have any referral code?*"
+            "Do you have any referral code?"
         } else {
             "Referral Code"
         }

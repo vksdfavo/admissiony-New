@@ -14,83 +14,84 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarDa"
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarDa"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:background="@color/secondary_color"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+            <RelativeLayout
+                android:id="@+id/rlYouHaveSaved"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_gravity="center"
-                android:background="@color/secondary_color"
-                app:contentInsetStart="0dp"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/space30"
+                    android:src="@drawable/back"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/space50"
+                    android:src="@drawable/logo" />
 
 
                 <RelativeLayout
-                    android:id="@+id/rlYouHaveSaved"
+                    android:id="@+id/corner1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="50dp"
+                    android:layout_below="@id/back"
+                    android:layout_marginHorizontal="@dimen/space10"
+                    android:layout_marginTop="@dimen/space150"
+                    android:background="@drawable/home_back_fade">
 
-                    <ImageView
-                        android:id="@+id/back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10dp"
-                        android:layout_marginTop="@dimen/space30"
-                        android:src="@drawable/back"
-                        app:tint="@color/white" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="@dimen/_10dp"
-                        android:layout_marginTop="@dimen/space50"
-                        android:src="@drawable/logo" />
-
-
-                    <RelativeLayout
-                        android:id="@+id/corner1"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@id/back"
-                        android:layout_marginHorizontal="@dimen/space10"
-                        android:layout_marginTop="@dimen/space150"
-                        android:background="@drawable/home_back_fade">
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/corner2"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/home_back"
-                        android:backgroundTint="@color/white">
-
-                        <TextView
-                            android:id="@+id/logintext"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/login"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/logintext"
-                            android:layout_marginStart="20dp"
-                            android:text="@string/get_started_with_email_or_phone_number"
-                            android:textColor="#8086878B"
-                            android:textSize="12sp" />
-
-                    </RelativeLayout>
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/corner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/home_back"
+                    android:backgroundTint="@color/white">
 
-            </androidx.appcompat.widget.Toolbar>
+                    <TextView
+                        android:id="@+id/logintext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/login"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/logintext"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/get_started_with_email_or_phone_number"
+                        android:textColor="#8086878B"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
 
 
         <LinearLayout
@@ -333,12 +334,12 @@
 
             <View
 
-                android:layout_below="@+id/relativeLayout"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@+id/relativeLayout"
                 android:layout_marginHorizontal="20dp"
-                android:background="#332B2A29"
                 android:layout_marginVertical="@dimen/space10"
-                android:layout_height="@dimen/dp_1"/>
+                android:background="#332B2A29" />
 
 
             <TextView
@@ -346,14 +347,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="3dp"
+                android:gravity="center"
                 android:justificationMode="inter_word"
                 android:text="@string/don_t_have_an_account_sign_up1"
                 android:textColor="#802B2A29"
                 android:textSize="12sp"
-                android:drawablePadding="3dp"
                 app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
                 app:drawableTint="@color/secondary_color" />
 

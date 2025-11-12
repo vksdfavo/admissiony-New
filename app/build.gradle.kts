@@ -26,7 +26,7 @@ android {
             versionName = "1.0.9"
             versionCode = 9
             resValue("string", "app_name", "Admissiony.com")
-            buildConfigField("String", "BASE_URL", "\"https://c101b24stone10-api.firmli.com/v1\"")
+            buildConfigField("String", "BASE_URL", "\"https://c120h25steps19-api.firmli.com/v1\"")
         }
 
     }

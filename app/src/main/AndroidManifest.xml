@@ -30,45 +30,73 @@
         tools:targetApi="31">
         <activity
             android:name=".activities.OnBoardingNewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".Scout.activities.AddBankAccountActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.SetPreferencesActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".Scout.activities.BankDetails"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".Scout.activities.BasicScoutInformationActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".Scout.activities.ScoutProfileActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".Scout.activities.ScoutMainActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.NotificationDetailsActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.DownLoadDocActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.ContactUsActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.HelpandSupport"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.EditProfileActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.WebViewActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.MyDocumentActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".activities.BasicInformationActivity"
