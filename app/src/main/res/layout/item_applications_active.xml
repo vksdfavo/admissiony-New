@@ -4,17 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_270"
 
-    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/cdLayoutLR"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="@dimen/dp_5"
+        android:elevation="@dimen/dp_2"
         android:layout_marginHorizontal="@dimen/space10"
         android:layout_marginVertical="@dimen/dp_8"
-        android:background="@drawable/card_strock">
+        android:background="@drawable/card_strock_pro">
 
         <ImageView
             android:id="@+id/ivItemProgramRecom"

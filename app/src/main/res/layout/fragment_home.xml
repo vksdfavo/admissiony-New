@@ -129,6 +129,7 @@
                         android:background="@drawable/home_back">
 
                         <TextView
+                            android:id="@+id/program_navigation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -162,7 +163,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFAFB"
+            android:background="@drawable/gradient_home_new"
             android:orientation="vertical"
             android:paddingBottom="80dp">
 
@@ -933,7 +934,7 @@
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
+                app:spanCount="2"
                 tools:listitem="@layout/item_area_of_interest_layout" />
 
             <LinearLayout

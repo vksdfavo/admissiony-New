@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/dp_5"
         android:layout_marginHorizontal="@dimen/space10"
-        android:background="@drawable/card_strock"
-        android:elevation="@dimen/dp_5">
+        android:background="@drawable/card_strock_pro"
+        android:elevation="@dimen/dp_2">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_new"
@@ -152,14 +152,13 @@
             <LinearLayout
                 android:id="@+id/linear_intake_fee"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_below="@id/light"
+                android:layout_centerHorizontal="true"
                 android:padding="@dimen/dp_5"
                 android:background="@drawable/status_background"
                 android:backgroundTint="#A7ECF1F2"
-                android:layout_marginHorizontal="@dimen/space5"
-                android:layout_marginTop="@dimen/space15"
-                android:layout_marginBottom="@dimen/dp_5"
+                android:layout_marginTop="@dimen/space25"
                 android:layout_toEndOf="@id/ivItemProgramRecom"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -226,11 +225,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/relate"
+            android:visibility="gone"
             android:background="@color/card_color" />
 
         <RelativeLayout
             android:id="@+id/recycler_lay"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_below="@id/view">
 

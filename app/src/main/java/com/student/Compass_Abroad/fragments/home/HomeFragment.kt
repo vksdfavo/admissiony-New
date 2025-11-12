@@ -201,6 +201,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private val sliderItems = mutableListOf<String>()
     private val sliderRunnable: Runnable =
         Runnable { binding!!.viewPagerImageSlider.currentItem += 1 }
+    private var adapter: AdaptorWebinarRecyclerview? = null
+    private val webinarsList = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -218,6 +220,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             insets
         }
 
+        binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
+        binding?.rvWebinars?.adapter = adapter
 
 
         setupRecyclerViewTopDestination()
@@ -226,6 +231,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         setupRecyclerViewStudentTestimonials()
         setupRecyclerLatestUpdates()
         setQuickActionsAdapter()
+
+        binding!!.programNavigation.setOnClickListener {
+            AppConstants.PROGRAM_STATUS = "1"
+
+            findNavController().navigate(R.id.fragProgramAllProg)
+        }
 
         return binding!!.root
     }
@@ -457,7 +468,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         onGetVouchers(requireActivity(), dataPerPage1, presentPage1)
         getOffersandUpdatesIn(requireActivity())
         getScholarships(requireActivity())
-        GetWebinars(requireActivity(), dataPerPage2, presentPage2)
+        //GetWebinars(requireActivity(), dataPerPage2, presentPage2)
+
+
 
         arrayList1.clear()
 

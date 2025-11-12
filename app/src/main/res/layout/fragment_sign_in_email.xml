@@ -42,11 +42,12 @@
                     app:tint="@color/white" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/space50"
-                    android:src="@drawable/logo" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_50"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/dp_80"
+                    android:src="@drawable/signup_logo" />
 
 
                 <RelativeLayout

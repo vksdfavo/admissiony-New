@@ -70,7 +70,7 @@ import org.json.JSONObject
 import java.util.Locale
 import kotlin.random.Random
 
-class SignUpFragment : BaseFragment() {
+class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: ViewModalClass
     private val dependentSpinners: MutableMap<String, Spinner> = mutableMapOf()
@@ -84,8 +84,7 @@ class SignUpFragment : BaseFragment() {
     val list = ArrayList<String>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
 
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
@@ -93,7 +92,7 @@ class SignUpFragment : BaseFragment() {
 
         ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
             insets
         }
 
@@ -318,7 +317,7 @@ class SignUpFragment : BaseFragment() {
         val termsTextView = TextView(requireContext()).apply {
             text = spannableText
             movementMethod = LinkMovementMethod.getInstance()
-            setTextColor(resources.getColor(R.color.hint))
+            setTextColor(resources.getColor(R.color.signup_hint))
             textSize = 14f
             typeface = Typeface.DEFAULT_BOLD
             layoutParams = LinearLayout.LayoutParams(
@@ -373,7 +372,7 @@ class SignUpFragment : BaseFragment() {
             movementMethod = LinkMovementMethod.getInstance()  // Enable clickability
             gravity = Gravity.CENTER
             textSize = 14f
-            setTextColor(resources.getColor(R.color.hint))  // Set overall text color
+            setTextColor(resources.getColor(R.color.signup_hint))  // Set overall text color
             setPadding(0, resources.getDimensionPixelSize(R.dimen.dp_10), 0, 0)
         }
 

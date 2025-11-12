@@ -204,7 +204,7 @@ class NewPassordFragment : BaseFragment() {
                         requireActivity(), "password created successfully"
                     )
 
-                    Navigation.findNavController(binding!!.getRoot()).navigate(R.id.signInFragment)
+                    Navigation.findNavController(binding!!.getRoot()).navigate(R.id.signInEmailFragment)
                 } else {
                     CommonUtils.toast(
                         requireActivity(),

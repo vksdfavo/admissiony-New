@@ -5,10 +5,12 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#FFF7F7"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="#FFF7F7"
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar

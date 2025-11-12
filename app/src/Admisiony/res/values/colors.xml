@@ -21,13 +21,14 @@
     <color name="unselected_circleindicator">@color/bottom_nav_grey</color>
     <color name="splash_color">#ED4758</color>
 
-    <color name="bottom_gradient_one">#FAF5EB</color>
+    <color name="bottom_gradient_one">@color/white</color>
     <color name="bottom_gradient_two">#F1F5FA</color>
 
     <color name="bottom_nav_scout">@color/theme_color</color>
     <color name="teall">#4BC788</color>
     <color name="black">#0F0305</color>
-    <color name="hint">#802B2A29</color>
+    <color name="hint">#332B2A29</color>
+    <color name="signup_hint">#802B2A29</color>
     <color name="light_yellow">#FFF3E0</color>
     <color name="viewAllTextColor">#757575</color>
 
