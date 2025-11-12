@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.databinding.ItemWebinarBinding
 import com.bumptech.glide.Glide
+import com.student.Compass_Abroad.databinding.ItemStaticWebinarBinding
 import com.student.Compass_Abroad.modal.getWebinars.Record
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -32,7 +33,7 @@ class AdaptorWebinarRecyclerview(
 ) : RecyclerView.Adapter<AdaptorWebinarRecyclerview.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemWebinarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemStaticWebinarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -41,7 +42,7 @@ class AdaptorWebinarRecyclerview(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentItem = arrayList1[position]
+       /* val currentItem = arrayList1[position]
 
         // Set event title and host
         // holder.binding.tvStatus.text = currentItem.status.replaceFirstChar { it.uppercase() } ?: "Not Available"
@@ -162,7 +163,7 @@ class AdaptorWebinarRecyclerview(
                 }
             } ?: Toast.makeText(requireActivity, "Meeting link not available", Toast.LENGTH_SHORT)
                 .show()
-        }
+        }*/
 
     }
 
@@ -210,7 +211,7 @@ class AdaptorWebinarRecyclerview(
 
 
     override fun getItemCount(): Int {
-        return arrayList1.size
+        return 10
     }
 
     // Extension function to parse date from string and convert to UTC
@@ -226,7 +227,7 @@ class AdaptorWebinarRecyclerview(
     }
 
 
-    class ViewHolder(var binding: ItemWebinarBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(var binding: ItemStaticWebinarBinding) : RecyclerView.ViewHolder(binding.root)
 
 
 }

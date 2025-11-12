@@ -520,7 +520,7 @@ class SignUpFragment : BaseFragment() {
                         contentKey = "$publicKey^#^$encryptedString"
                         Log.d("loginUser", contentKey)
 
-                        //apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
+                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
                     } else {
                         Log.e("loginUser", "Encryption failed.")
                     }
@@ -584,7 +584,7 @@ class SignUpFragment : BaseFragment() {
                         contentKey = "$publicKey^#^$encryptedString"
                         Log.d("loginUser", contentKey)
 
-                       // apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
+                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
                     } else {
                         Log.e("loginUser", "Encryption failed.")
                     }
