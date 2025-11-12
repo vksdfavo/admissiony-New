@@ -88,22 +88,7 @@ class SignUpFragment : BaseFragment() {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity())[ViewModalClass::class.java]
 
-        val window = requireActivity().window
-        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teall)
-        window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Android 11+
-            val controller = window.insetsController
-            controller?.setSystemBarsAppearance(
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            )
-        } else {
-            // Below Android 11
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+
 
         statusValidation = App.singleton!!.statusValidation
 
@@ -118,6 +103,31 @@ class SignUpFragment : BaseFragment() {
         fetchLeadForm()
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // ✅ Safe to access window here
+       if(isAdded){
+           val activity = activity ?: return
+           val window = activity.window ?: return
+
+           window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teall)
+           window.navigationBarColor =
+               ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+               val controller = window.insetsController
+               controller?.setSystemBarsAppearance(
+                   WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                   WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+               )
+           } else {
+               @Suppress("DEPRECATION")
+               window.decorView.systemUiVisibility =
+                   View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+           }
+       }
     }
 
     private fun fetchLeadForm() {
@@ -253,6 +263,7 @@ class SignUpFragment : BaseFragment() {
 // 2. Create clickable text separately
         val termsText = "I accept the Terms & Conditions and Privacy Policy."
         val spannableText = SpannableString(termsText)
+        val linkColor = ContextCompat.getColor(requireContext(), R.color.black)
 
         val termsStart = termsText.indexOf("Terms & Conditions")
         val termsEnd = termsStart + "Terms & Conditions".length
@@ -265,6 +276,13 @@ class SignUpFragment : BaseFragment() {
                 if (fragmentManager.findFragmentByTag(TermsAndConditionsFragment::class.java.simpleName) == null) {
                     TermsAndConditionsFragment().show(fragmentManager, TermsAndConditionsFragment::class.java.simpleName)
                 }
+
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = linkColor          // 👈 set your custom color here
+                ds.isUnderlineText = false    // optional: remove underline
             }
         }, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
@@ -274,6 +292,14 @@ class SignUpFragment : BaseFragment() {
                 if (fragmentManager.findFragmentByTag(PrivacyPolicyFragment::class.java.simpleName) == null) {
                     PrivacyPolicyFragment().show(fragmentManager, PrivacyPolicyFragment::class.java.simpleName)
                 }
+
+
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = linkColor          // 👈 set your custom color here
+                ds.isUnderlineText = false    // optional: remove underline
             }
         }, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
@@ -281,7 +307,7 @@ class SignUpFragment : BaseFragment() {
         val termsTextView = TextView(requireContext()).apply {
             text = spannableText
             movementMethod = LinkMovementMethod.getInstance()
-            setTextColor(Color.BLACK)
+            setTextColor(resources.getColor(R.color.hint))
             textSize = 14f
             typeface = Typeface.DEFAULT_BOLD
             layoutParams = LinearLayout.LayoutParams(
@@ -313,7 +339,7 @@ class SignUpFragment : BaseFragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         spannable.setSpan(
-            ForegroundColorSpan(Color.BLACK),
+            ForegroundColorSpan(Color.GRAY),
             loginStart,
             loginEnd,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -325,7 +351,8 @@ class SignUpFragment : BaseFragment() {
 
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.isUnderlineText = false  // Remove underline
+                ds.color = linkColor          // 👈 set your custom color here
+                ds.isUnderlineText = false    // optional: remove underline
             }
         }
         spannable.setSpan(clickableSpan, loginStart, loginEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -335,7 +362,7 @@ class SignUpFragment : BaseFragment() {
             movementMethod = LinkMovementMethod.getInstance()  // Enable clickability
             gravity = Gravity.CENTER
             textSize = 14f
-            setTextColor(Color.BLACK)  // Set overall text color
+            setTextColor(resources.getColor(R.color.hint))  // Set overall text color
             setPadding(0, resources.getDimensionPixelSize(R.dimen.dp_10), 0, 0)
         }
 

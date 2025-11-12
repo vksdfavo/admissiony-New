@@ -1,15 +1,18 @@
 package com.student.Compass_Abroad.fragments
 
 import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -27,9 +30,7 @@ class PrivacyPolicyFragment : BottomSheetDialogFragment() {
     ): View {
         binding = FragmentPrivacyPolicyBinding.inflate(inflater, container, false)
 
-        requireActivity().window.statusBarColor = requireActivity().getColor(android.R.color.white)
-        requireActivity().window.navigationBarColor = requireActivity().getColor(android.R.color.white)
-        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+
         val url = getString(R.string.privacy_policy_url)
         App.singleton?.statusValidation = 0
 
@@ -39,6 +40,31 @@ class PrivacyPolicyFragment : BottomSheetDialogFragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // ✅ Safe to access window here
+        if(isAdded){
+            val activity = activity ?: return
+            val window = activity.window ?: return
+
+            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teall)
+            window.navigationBarColor =
+                ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val controller = window.insetsController
+                controller?.setSystemBarsAppearance(
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                window.decorView.systemUiVisibility =
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
     }
 
     override fun onStart() {
