@@ -77,12 +77,20 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/ablFd"
+            android:background="@color/card_color" />
+
+
 
         <RelativeLayout
             android:id="@+id/rrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ablFd"
+            android:layout_below="@+id/view"
             android:background="@color/white"
             android:visibility="gone">
 

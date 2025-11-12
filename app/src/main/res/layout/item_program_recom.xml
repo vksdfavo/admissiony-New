@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_5"
+        android:layout_marginVertical="@dimen/dp_5"
+        android:layout_marginHorizontal="@dimen/space10"
         android:background="@drawable/card_strock"
         android:elevation="@dimen/dp_5">
 

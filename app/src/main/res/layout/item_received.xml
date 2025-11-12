@@ -37,6 +37,7 @@
                 android:id="@+id/tvItemCo_designation0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Student"
                 android:textColor="#666666"
                 android:textSize="12sp" />
@@ -69,10 +70,9 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_rectangle_3_radius_mine"
+            android:background="@drawable/strock_date"
             android:orientation="vertical"
             android:paddingVertical="10dp"
-            android:backgroundTint="#f2f2f2"
             android:paddingStart="16dp"
             android:gravity="center_vertical"
             android:paddingEnd="12dp"
@@ -94,6 +94,7 @@
         <ImageView
             android:layout_width="14dp"
             android:layout_height="18dp"
+            android:visibility="gone"
             android:scaleType="fitXY"
             android:src="@drawable/bubble_mine"
             app:tint="#f2f2f2" />

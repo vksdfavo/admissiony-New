@@ -157,20 +157,18 @@ class BookCounsellingFragment : BaseFragment() {
             dateAdapter.notifyDataSetChanged()
 
             val selectedDate = dateList[selectedIndex]
-            Log.d("BookCounselling", "BranchId: $branch_id, StaffId: $staffId, Date: ${selectedDate.apiDate}")
-
-            if (!branch_id.isNullOrEmpty() || !staffId.isNullOrEmpty()) {
-                //getSlotesData(selectedDate.apiDate)
-            } else {
-                showNoSlotsMessage(getString(R.string.staff_and_date_are_required_for_time_slots))
-            }
+            Log.d("BookCounselling", "Selected Date: ${selectedDate.apiDate}")
         }
 
         binding.recyclerViewDates.apply {
-            layoutManager = GridLayoutManager(requireActivity(), 2, GridLayoutManager.HORIZONTAL, false)
+            // 🔹 2 rows with horizontal scroll
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
             adapter = dateAdapter
+            setHasFixedSize(true)
         }
     }
+
+
 
     // ---------------------- Date Setup ----------------------
     private fun setupDates() {
@@ -317,11 +315,13 @@ class BookCounsellingFragment : BaseFragment() {
         arrayListSlots.clear()
 
         val staticSlots = listOf(
-            Slot("",start_time = "09:00", end_time = "09:30", is_booked = 0, is_available = 1),
-            Slot("",start_time = "09:30", end_time = "10:00", is_booked = 0, is_available = 1),
+
             Slot("",start_time = "10:00", end_time = "10:30", is_booked = 1, is_available = 1), // booked
             Slot("",start_time = "10:30", end_time = "11:00", is_booked = 0, is_available = 0), // unavailable
             Slot("",start_time = "11:00", end_time = "11:30", is_booked = 0, is_available = 1),
+            Slot("", start_time = "11:30", end_time = "12:00", is_booked = 0, is_available = 1),
+            Slot("", start_time = "11:30", end_time = "12:00", is_booked = 0, is_available = 1),
+            Slot("", start_time = "11:30", end_time = "12:00", is_booked = 0, is_available = 1),
             Slot("", start_time = "11:30", end_time = "12:00", is_booked = 0, is_available = 1)
         )
 

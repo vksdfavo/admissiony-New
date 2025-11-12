@@ -12,21 +12,21 @@ class DateAdapter( private val dates: List<DateItem>, private val onDateClick: (
         fun bind(item: DateItem, position: Int) {
             binding.dateLabel.text = item.label
             binding.dateText.text = item.date
-            binding.cardView.isSelected = item.isSelected
+            binding.cardViews.isSelected = item.isSelected
 
             val selectedColor = "#DDEEFF".toColorInt()
             val defaultColor = android.graphics.Color.WHITE
             val sundayColor = "#FFEEEE".toColorInt()
 
-            when {
-                item.isSelected -> binding.cardView.setCardBackgroundColor(selectedColor)
+//            when {
+//                item.isSelected -> binding.cardView.setCardBackgroundColor(selectedColor)
+//
+//                item.isSunday -> binding.cardView.setCardBackgroundColor(sundayColor)
+//
+//                else -> binding.cardView.setCardBackgroundColor(defaultColor)
+//            }
 
-                item.isSunday -> binding.cardView.setCardBackgroundColor(sundayColor)
-
-                else -> binding.cardView.setCardBackgroundColor(defaultColor)
-            }
-
-            binding.cardView.setOnClickListener {
+            binding.cardViews.setOnClickListener {
 
                 onDateClick(position)
 
