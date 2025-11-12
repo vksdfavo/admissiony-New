@@ -78,6 +78,12 @@
                             android:layout_height="80dp"
                             android:layout_alignParentBottom="true">
 
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/home_back"
+                                app:tint="@color/white" />
+
                             <TextView
                                 android:id="@+id/logintext"
                                 android:layout_width="wrap_content"
@@ -100,14 +106,6 @@
 
 
                         </RelativeLayout>
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="0dp"
-                            android:src="@drawable/home_back"
-                            app:tint="@color/white" />
                     </RelativeLayout>
 
 
