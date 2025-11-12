@@ -487,6 +487,8 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
             "Bearer " + CommonUtils.accessToken,
         ).observe(this) { createCounsellingModel: Logout? ->
             createCounsellingModel?.let { nonNullEditPostModal ->
+                App.singleton?.SHOW_PASSCODE_SECTION = false
+
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                 finish()
                 sharedPre?.clearPreferences()

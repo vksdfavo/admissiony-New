@@ -37,6 +37,7 @@ import com.student.Compass_Abroad.fragments.TermsAndConditionsFragment
 import com.student.Compass_Abroad.modal.LoginResponseModel.LoginResponseModel
 import com.student.Compass_Abroad.modal.TokenFcmData.TokenFcmData
 import com.student.Compass_Abroad.modal.checkUserModel.CheckUserModel
+import com.student.Compass_Abroad.retrofit.LoginViewModal
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
@@ -180,7 +181,7 @@ class PasswordFragment : BaseFragment() {
                 println("Encryption failed.")
 
             }
-            ViewModalClass().loginModalLiveData(
+            LoginViewModal().loginModalLiveData(
                 requireActivity(),
                 AppConstants.fiClientNumber,
                 sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
@@ -239,7 +240,7 @@ class PasswordFragment : BaseFragment() {
                         }
 
 
-                        ViewModalClass().getPreferencesDataList(
+                        LoginViewModal().getPreferencesDataList(
                             requireActivity(),
                             AppConstants.fiClientNumber,
                             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,

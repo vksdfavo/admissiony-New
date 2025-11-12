@@ -725,7 +725,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             "firmli", "admisiony", "Compass Abroad" -> {
 
                 binding?.quickActions?.visibility = View.VISIBLE
-                binding?.tvWebinars?.visibility = View.VISIBLE
+                binding?.btnWebinars?.visibility = View.VISIBLE
                 binding?.btnWebinars?.visibility = View.VISIBLE
                 binding?.rvWebinars?.visibility = View.VISIBLE
 
@@ -738,7 +738,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 binding?.cdBecomeaScout?.visibility = View.GONE
                 binding?.quickActions?.visibility = View.GONE
                 binding?.quickActions?.visibility = View.GONE
-                binding?.tvWebinars?.visibility = View.GONE
                 binding?.btnWebinars?.visibility = View.GONE
                 binding?.rvWebinars?.visibility = View.GONE
 
@@ -790,7 +789,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
         }
 
-        binding!!.btnFdStudentViewAllRecomPro.setOnClickListener {
+        binding!!.ViewAllRecomPro.setOnClickListener {
             AppConstants.PROGRAM_STATUS = "1"
 
             binding!!.root.findNavController().navigate(R.id.fragProgramAllProg)
@@ -811,11 +810,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             binding!!.root.findNavController().navigate(R.id.topDestinationFragment)
         }
 
-        binding!!.viewAllIndemand.setOnClickListener {
+        binding!!.viewAllIndemandTextView.setOnClickListener {
             binding!!.root.findNavController().navigate(R.id.inDemandCoursesFragment)
         }
 
-        binding!!.viewAllIndemandIntuitions.setOnClickListener {
+        binding!!.viewAllIndemandIntuitionsTextView.setOnClickListener {
             binding!!.root.findNavController().navigate(R.id.inDemandInstitution)
         }
 

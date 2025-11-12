@@ -339,8 +339,8 @@ class FragProgramDetailDetails : BaseFragment() {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            binding!!.rvFpddEts.visibility=View.VISIBLE
-            binding!!.tvEts.visibility=View.VISIBLE
+            binding!!.rvFpddEts.visibility=View.GONE
+            binding!!.tvEts.visibility=View.GONE
             adapterProgramDetailDetailsets =
                 AdapterProgramDetailDetailsETS(requireActivity(), testScores)
             binding!!.rvFpddEts.adapter = adapterProgramDetailDetailsets

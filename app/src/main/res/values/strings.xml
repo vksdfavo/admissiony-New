@@ -24,13 +24,13 @@
     <string name="leads_to_application">Leads to Application</string>
     <string name="insights">Insights</string>
     <string name="copyAndShareCode"><u>Copy &amp; Share Code</u></string>
-    <string name="haven_t_received_a_code">If you didn\'t receive the OTP, Please</string>
+    <string name="haven_t_received_a_code">Haven’t received a code?</string>
 
     <string name="byClicking">By Proceeding, you accept our <b><font color='#212121'>Terms &amp; Conditions</font></b> and <b><font color='#212121'>Privacy Policy</font></b>.</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="please_enter_your_registered_email_id">Please enter your registered email ID</string>
     <string name="next">Next</string>
-    <string name="verify_otp">Verify Otp</string>
+    <string name="verify_otp">Verification</string>
 
     <string name="a_6_digit_verification_code_has_been_sent_to_n9u738338838">A 6 digit verification code has been sent to \n9738338838</string>
     <string name="verify">Verify</string>
@@ -266,7 +266,7 @@
     <string name="files">Files</string>
     <string name="select_files_to_upload">Select files to upload</string>
     <string name="view_attachment">View attachment</string>
-    <string name="set_password">Set Password</string>
+    <string name="set_password">New Password</string>
     <string name="counselling">Counselling</string>
     <string name="destination">Destination</string>
     <string name="counselling_by">Counselling By</string>
@@ -657,6 +657,7 @@
     <string name="in_demand_coursed">In Demand Coursed</string>
     <string name="in_demand_institutions">In Demand Institutions</string>
     <string name="talk_to_your_advisor">Talk to your advisor</string>
+    <string name="terms_of_service">Terms of Service</string>
 
 
 </resources>

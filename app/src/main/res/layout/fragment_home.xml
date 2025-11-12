@@ -9,146 +9,154 @@
     android:orientation="vertical"
     tools:context=".fragments.home.HomeFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/ablSelect"
+    <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/secondary_color"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarDa"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/ablSelect"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_150"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
             android:background="@color/secondary_color"
-            app:contentInsetStart="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
-            <RelativeLayout
-                android:id="@+id/rlYouHaveSaved"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarDa"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/dp_150"
+                android:layout_gravity="center"
+                android:background="@color/secondary_color"
+                app:contentInsetStart="0dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civProfileImageFd2"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="@dimen/_20dp"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:src="@drawable/menu1" />
-
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchStu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="23dp"
-                    android:layout_toEndOf="@+id/civProfileImageFd2"
-                    android:background="@color/blank"
-                    android:buttonTint="@color/hint"
-                    android:elevation="4dp"
-                    android:scaleX="1"
-                    android:scaleY="1.1"
-                    android:thumb="@drawable/switch_thumb"
-                    android:visibility="gone"
-                    app:elevation="4dp"
-                    app:track="@drawable/switch_track" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabFp_heart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_toStartOf="@id/fabFp_notificationStu"
-                    android:backgroundTint="@color/trasnsparent"
-                    android:src="@drawable/ic_heart"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    app:fabCustomSize="32dp"
-                    app:maxImageSize="20dp"
-                    app:rippleColor="@color/white"
-                    app:tint="@color/white" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabFp_notificationStu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:layout_marginEnd="@dimen/_10dp"
-                    android:backgroundTint="@color/trasnsparent"
-                    android:src="@drawable/ic_notification"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    app:fabCustomSize="32dp"
-                    app:maxImageSize="21dp"
-                    app:rippleColor="@color/white"
-                    app:tint="@color/white" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civFp_unreadBadge"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/text22"
-                    android:layout_marginEnd="15dp"
-                    android:elevation="2dp"
-                    android:src="@drawable/shape_circle_red"
-                    android:tint="@color/theme_color" />
 
                 <RelativeLayout
-                    android:id="@+id/corner1"
+                    android:id="@+id/rlYouHaveSaved"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/fabFp_notificationStu"
-                    android:layout_marginHorizontal="@dimen/space10"
-                    android:layout_marginTop="@dimen/space20"
-                    android:layout_marginBottom="@dimen/space50"
-                    android:background="@drawable/home_back_fade">
+                    android:orientation="horizontal">
 
-                </RelativeLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civProfileImageFd2"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="@dimen/_20dp"
+                        android:layout_marginTop="@dimen/_20dp"
+                        android:src="@drawable/menu1" />
 
-                <RelativeLayout
-                    android:id="@+id/corner2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/fabFp_notificationStu"
-                    android:layout_marginTop="@dimen/space30"
-                    android:background="@drawable/home_back">
 
-                    <TextView
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchStu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="16dp"
-                        android:drawableEnd="@drawable/baseline_arrow_forward_24"
-                        android:drawableTint="@color/secondary_color"
-                        android:text="@string/get_university_admit_just_in_2_weeks"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="normal"
-                        tools:ignore="UseCompatTextViewDrawableXml" />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_toEndOf="@+id/civProfileImageFd2"
+                        android:background="@color/blank"
+                        android:buttonTint="@color/hint"
+                        android:elevation="4dp"
+                        android:scaleX="1"
+                        android:scaleY="1.1"
+                        android:thumb="@drawable/switch_thumb"
+                        android:visibility="gone"
+                        app:elevation="4dp"
+                        app:track="@drawable/switch_track" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabFp_heart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_toStartOf="@id/fabFp_notificationStu"
+                        android:backgroundTint="@color/trasnsparent"
+                        android:src="@drawable/ic_heart"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabCustomSize="32dp"
+                        app:maxImageSize="20dp"
+                        app:rippleColor="@color/white"
+                        app:tint="@color/white" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabFp_notificationStu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_20dp"
+                        android:layout_marginEnd="@dimen/_10dp"
+                        android:backgroundTint="@color/trasnsparent"
+                        android:src="@drawable/ic_notification"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabCustomSize="32dp"
+                        app:maxImageSize="21dp"
+                        app:rippleColor="@color/white"
+                        app:tint="@color/white" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civFp_unreadBadge"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/text22"
+                        android:layout_marginEnd="15dp"
+                        android:elevation="2dp"
+                        android:src="@drawable/shape_circle_red"
+                        android:tint="@color/theme_color" />
+
+                    <RelativeLayout
+                        android:id="@+id/corner1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/fabFp_notificationStu"
+                        android:layout_marginHorizontal="@dimen/space10"
+                        android:layout_marginTop="@dimen/space18"
+                        android:layout_marginBottom="@dimen/space50"
+                        android:background="@drawable/home_back_fade">
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/corner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/fabFp_notificationStu"
+                        android:layout_marginTop="@dimen/space30"
+                        android:background="@drawable/home_back">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="16dp"
+                            android:drawableEnd="@drawable/baseline_arrow_forward_24"
+                            android:drawableTint="@color/secondary_color"
+                            android:text="@string/get_university_admit_just_in_2_weeks"
+                            android:textColor="@color/text_color"
+                            android:textSize="12sp"
+                            android:textStyle="normal"
+                            tools:ignore="UseCompatTextViewDrawableXml" />
 
 
+                    </RelativeLayout>
                 </RelativeLayout>
-            </RelativeLayout>
 
 
-        </androidx.appcompat.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ablSelect"
+        android:layout_below="@id/linear"
         android:fillViewport="true">
 
         <LinearLayout
@@ -158,20 +166,30 @@
             android:orientation="vertical"
             android:paddingBottom="80dp">
 
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:drawablePadding="@dimen/space5"
-                android:gravity="center"
-                android:text="@string/offers_updates"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_star"
-                app:drawableTint="@color/secondary_color" />
+                android:layout_marginTop="@dimen/sp15"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_star" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
+                    android:text="@string/offers_updates"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/layoutSlider"
@@ -366,7 +384,8 @@
                             android:layout_toEndOf="@id/staff_img"
                             android:maxLines="1"
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/emailId"
@@ -439,18 +458,50 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:drawablePadding="@dimen/space5"
-                android:text="@string/recommended_programs"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_program"
-                app:drawableTint="@color/secondary_color" />
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_program"
+                    android:tint="@color/secondary_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
+                    android:text="@string/recommended_programs"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/ViewAllRecomPro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
+                    android:textAllCaps="false"
+                    android:textColor="@color/viewAllTextColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -460,17 +511,6 @@
                 android:text="@string/based_on_your_likes"
                 android:textSize="10sp" />
 
-            <Button
-                android:id="@+id/btnFdStudent_viewAllRecomPro"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-48dp"
-                android:text="View All"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -562,21 +602,53 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/space5"
+                android:layout_marginHorizontal="@dimen/space18"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
-            <TextView
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:drawablePadding="@dimen/space5"
-                android:text="@string/top_destinations"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/map_pin"
-                app:drawableTint="@color/secondary_color" />
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/map_pin"
+                    android:tint="@color/secondary_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
+                    android:text="@string/top_destinations"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/viewAlldestination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
+                    android:textAllCaps="false"
+                    android:textColor="@color/viewAllTextColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -586,17 +658,6 @@
                 android:text="@string/based_on_last_6_month_applications"
                 android:textSize="10sp" />
 
-            <Button
-                android:id="@+id/viewAlldestination"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-48dp"
-                android:text="@string/view_all"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTopDestination"
@@ -612,21 +673,53 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/space5"
+                android:layout_marginHorizontal="@dimen/space18"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:drawablePadding="@dimen/space5"
-                android:text="@string/in_demand_courses"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_program"
-                app:drawableTint="@color/secondary_color" />
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_program"
+                    app:tint="@color/secondary_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
+                    android:text="@string/in_demand_courses"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/viewAllIndemandTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
+                    android:textAllCaps="false"
+                    android:textColor="@color/viewAllTextColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -635,18 +728,6 @@
                 android:layout_marginTop="-6dp"
                 android:text="@string/based_on_last_2_month_applications"
                 android:textSize="10sp" />
-
-            <Button
-                android:id="@+id/viewAllIndemand"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-48dp"
-                android:text="@string/view_all"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIndemand"
@@ -662,35 +743,52 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/space5"
+                android:layout_marginVertical="@dimen/space5"
+                android:layout_marginHorizontal="@dimen/space18"
                 android:background="@color/hint" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:drawablePadding="@dimen/space5"
-                android:text="@string/in_demand_intuitions"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/home_new"
-                app:drawableTint="@color/secondary_color" />
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/home_new"
+                    />
 
-            <Button
-                android:id="@+id/viewAllIndemandIntuitions"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-48dp"
-                android:text="@string/view_all"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
+                    android:text="@string/in_demand_intuitions"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/viewAllIndemandIntuitionsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
+                    android:textAllCaps="false"
+                    android:textColor="@color/viewAllTextColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIndemandIntuitions"
@@ -752,43 +850,56 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/space5"
+                android:layout_marginHorizontal="@dimen/space20"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
-            <RelativeLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/outline_book_4_24"
+                    app:tint="@color/secondary_color" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="16dp"
-                    android:drawablePadding="@dimen/space5"
-                    android:padding="@dimen/space5"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
                     android:text="@string/area_of_interest"
-                    android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/outline_book_4_24"
-                    app:drawableTint="@color/secondary_color" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/btnFdStudentDes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/view_all"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp" />
-            </RelativeLayout>
+
+
+            </LinearLayout>
+
 
 
             <TextView
@@ -807,7 +918,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/space5"
+                android:visibility="invisible"
+                android:layout_marginHorizontal="@dimen/space20"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
 
@@ -823,20 +936,42 @@
                 app:spanCount="3"
                 tools:listitem="@layout/item_area_of_interest_layout" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:drawablePadding="@dimen/space5"
-                android:padding="@dimen/space5"
-                android:text="@string/quick_actions"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/zap"
-                app:drawableTint="@color/secondary_color" />
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/zap"
+                    app:tint="@color/secondary_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
+                    android:text="@string/quick_actions"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+
 
 
             <LinearLayout
@@ -844,19 +979,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_10dp"
-                android:background="@drawable/strock"
+                android:background="@drawable/strock_qucik"
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvQuciAction"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:clipToPadding="false"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="horizontal"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
                     tools:listitem="@layout/quick_action_layout" />
@@ -873,45 +1007,54 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/space5"
+                android:layout_marginHorizontal="@dimen/space20"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
 
-            <RelativeLayout
-                android:id="@+id/relative_testimonials"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/testi"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="16dp"
-                    android:drawablePadding="@dimen/space5"
-                    android:padding="@dimen/space5"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
                     android:text="@string/student_testimonials"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/testi"
-                    app:drawableTint="@color/secondary_color" />
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/btn_testimonials"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/view_all"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp" />
-            </RelativeLayout>
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTestimonials"
@@ -930,7 +1073,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="@dimen/_20dp"
-                android:layout_marginVertical="@dimen/_10dp"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
             <TextView
@@ -969,41 +1112,50 @@
                 tools:listitem="@layout/item_top_pref_countries" />
 
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/relative_voucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/voucherss"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="16dp"
-                    android:drawablePadding="@dimen/space5"
-                    android:padding="@dimen/space5"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
                     android:text="@string/vouchers"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/vouchers"
-                    app:drawableTint="@color/secondary_color" />
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/btnVoucher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/view_all"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp" />
-            </RelativeLayout>
+            </LinearLayout>
+
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -1022,45 +1174,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="@dimen/_20dp"
-                android:layout_marginVertical="@dimen/_10dp"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
-            <RelativeLayout
-                android:id="@+id/relative_Webinars"
+            <LinearLayout
+                android:id="@+id/relativeWebinars"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/airplay"
+                    />
 
                 <TextView
-                    android:id="@+id/tvWebinars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="16dp"
-                    android:drawablePadding="@dimen/space5"
-                    android:padding="@dimen/space5"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
                     android:text="@string/webinars"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/airplay"
-                    app:drawableTint="@color/secondary_color" />
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/btnWebinars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/view_all"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp" />
-            </RelativeLayout>
+            </LinearLayout>
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -1081,44 +1240,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="@dimen/_20dp"
-                android:layout_marginVertical="@dimen/_10dp"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
-            <RelativeLayout
-                android:id="@+id/relative_latest_updates"
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="@dimen/sp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/space18"
+                    android:layout_height="@dimen/space18"
+                    android:layout_gravity="center"
+                    android:src="@drawable/globe"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="16dp"
-                    android:drawablePadding="@dimen/space5"
-                    android:padding="@dimen/space5"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/space5"
+                    android:gravity="center"
                     android:text="@string/latest_updates"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/globe"
-                    app:drawableTint="@color/secondary_color" />
+                    android:textStyle="bold" />
+
+                <!-- Spacer pushes next item (View All) to right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/btn_latest_updates"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/view_all"
+                    android:layout_marginEnd="15dp"
+                    android:text="View All"
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp" />
-            </RelativeLayout>
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_latest_updates"

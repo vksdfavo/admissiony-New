@@ -193,6 +193,7 @@ class ProfileActivity : AppCompatActivity() {
             "Bearer " + CommonUtils.accessToken,
         ).observe(this) { createCounsellingModel: Logout? ->
             createCounsellingModel?.let { nonNullEditPostModal ->
+                App.singleton?.SHOW_PASSCODE_SECTION = false
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
                 sharedPre?.clearPreferences()

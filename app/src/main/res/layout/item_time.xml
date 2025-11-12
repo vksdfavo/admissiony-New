@@ -5,15 +5,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    card_view:cardElevation="@dimen/space2"
     card_view:cardCornerRadius="8dp"
     card_view:cardBackgroundColor="@color/white"
-    android:padding="8dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="wrap_content"
-        android:background="@drawable/strock"
         android:layout_gravity="center"
         android:padding="@dimen/dp_5"
         android:layout_height="wrap_content">

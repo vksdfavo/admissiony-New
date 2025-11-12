@@ -62,15 +62,15 @@
             <TextView
                 android:id="@+id/btnBuy"
                 android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:background="@drawable/shape_rectangle_all_radius_btn_gradient"
-                android:backgroundTint="#FBE9E7"
+                android:layout_height="35dp"
+                android:background="@drawable/vouchers_back"
+                android:backgroundTint="#1FED4758"
                 android:gravity="center"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:paddingHorizontal="16dp"
                 android:text="Buy"
-                android:textColor="#D84315"
+                android:textColor="#46403E"
                 android:textSize="12sp" />
 
         </RelativeLayout>
