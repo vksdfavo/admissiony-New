@@ -40,7 +40,7 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
     private var lastPage = 1
     private var isScrolling = false
     private var isLoading = false
-    private val webinarsList = ArrayList<Record>()
+    private val webinarsList = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
     private var adapter: AdaptorWebinarRecyclerview? = null
 
     override fun onCreateView(
@@ -65,11 +65,20 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
             window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        setupTabLayout()
+        //setupTabLayout()
         setupClickListeners()
-        setupRecyclerView()
-        fetchWebinars()
+        setupRecyclerView1()
+
+        //fetchWebinars()
         return binding!!.root
+    }
+
+
+
+    private fun setupRecyclerView1() {
+        binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext())
+        adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
+        binding?.rvWebinars?.adapter = adapter
     }
 
     private fun setupClickListeners() {
@@ -89,7 +98,7 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
                 }
 
                 resetWebinarList()
-                fetchWebinars()
+                ///fetchWebinars()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -121,7 +130,7 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
                         isScrolling = false
                         presentPage++
                         binding?.pbPagination?.visibility = View.VISIBLE
-                        fetchWebinars()
+                        //fetchWebinars()
                     }
                 }
             }
@@ -197,11 +206,11 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onclick(currentItem: Record) {
+    override fun onclick(currentItem: com.student.Compass_Abroad.modal.getWebinars.Record) {
         postAttendee(currentItem)
     }
 
-    private fun postAttendee(currentItem: Record) {
+    private fun postAttendee(currentItem: com.student.Compass_Abroad.modal.getWebinars.Record) {
         val deviceIdentifier = App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
         val token = "Bearer ${CommonUtils.accessToken}"
         val firstName = App.sharedPre?.getString(AppConstants.FIRST_NAME, "")?.takeIf { it.isNotBlank() }
@@ -250,5 +259,17 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
         super.onDestroyView()
         binding = null
     }
+
+    data class Record(
+        val identifier: String,
+        val title: String,
+        val country: String,
+        val date: String,
+        val time: String,
+        val status: String,
+        val flag: Int,
+        val event_detail: String
+    )
+
 }
 

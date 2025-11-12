@@ -173,7 +173,7 @@ class SignUpFragment : BaseFragment() {
         val referralCode = arguments?.getString("referral") ?: ""
 
         val referralLabelText = if (referralCode.isNullOrEmpty()) {
-            "Do you have any referral code?*"
+            "Do you have any referral code?"
         } else {
             "Referral Code"
         }
@@ -346,7 +346,7 @@ class SignUpFragment : BaseFragment() {
         )
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                findNavController().navigate(R.id.signInFragment)
+                findNavController().navigate(R.id.signInEmailFragment)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -509,7 +509,7 @@ class SignUpFragment : BaseFragment() {
                         contentKey = "$publicKey^#^$encryptedString"
                         Log.d("loginUser", contentKey)
 
-                        //apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
+                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
                     } else {
                         Log.e("loginUser", "Encryption failed.")
                     }
@@ -573,7 +573,7 @@ class SignUpFragment : BaseFragment() {
                         contentKey = "$publicKey^#^$encryptedString"
                         Log.d("loginUser", contentKey)
 
-                       // apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
+                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
                     } else {
                         Log.e("loginUser", "Encryption failed.")
                     }
