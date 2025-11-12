@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.student.Compass_Abroad.R
@@ -85,7 +86,10 @@ private lateinit var binding: FragmentStudentTestimonialsBinding
 
         binding?.rvTestimonials?.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = StudentStaticTestimonialsAdapter(staticList)
+            adapter = StudentStaticTestimonialsAdapter(staticList) { selectedItem ->
+                // navigate to another fragment
+                Navigation.findNavController(binding!!.root).navigate(R.id.hybridPlayerActivity)
+            }
         }
 
 //        val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""

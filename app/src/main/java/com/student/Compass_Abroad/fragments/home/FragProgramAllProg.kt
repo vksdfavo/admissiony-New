@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -99,6 +100,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
     private var recyclerViewPosition: Int = 0
     private var isBottomNavVisible = true
     private var isRecommended = "true"
+    private var isSearchVisible = false
 
     companion object {
 
@@ -127,11 +129,11 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
 
         if (sharedPre!!.getString(AppConstants.SCOUtLOGIN, "") == "true") {
             binding.fabFpHeart.visibility = View.GONE
-            binding.fabFpNotificationStu.visibility = View.GONE
+           // binding.fabFpNotificationStu.visibility = View.GONE
             binding.tlFc.visibility = View.GONE
         } else {
             binding.fabFpHeart.visibility = View.VISIBLE
-            binding.fabFpNotificationStu.visibility = View.VISIBLE
+            //binding.fabFpNotificationStu.visibility = View.VISIBLE
             binding.tlFc.visibility = View.VISIBLE
         }
 
@@ -581,17 +583,51 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
 
 
         }
+
+        binding.fabFpSearchIcon.setOnClickListener {
+            toggleSearchBar()
+        }
+
+
         binding.fabFpHeart.setOnClickListener {
 
             Navigation.findNavController(binding.root).navigate(R.id.shortListedFragment)
 
         }
 
-        binding.fabFpNotificationStu.setOnClickListener {
+        /*binding.fabFpNotificationStu.setOnClickListener {
 
             Navigation.findNavController(binding.root).navigate(R.id.fragmentNotification)
 
+        }*/
+    }
+
+    private fun toggleSearchBar() {
+        if (isSearchVisible) {
+            // Hide with fade-out and slide-up
+            binding.headerTitle2.animate()
+                .translationY(- binding.headerTitle2.height.toFloat())
+                .alpha(0f)
+                .setInterpolator(AccelerateDecelerateInterpolator())
+                .setDuration(250)
+                .withEndAction {
+                    binding.headerTitle2.visibility = View.GONE
+                }
+                .start()
+        } else {
+            // Show with fade-in and slide-down
+            binding.headerTitle2.visibility = View.VISIBLE
+            binding.headerTitle2.translationY = - binding.headerTitle2.height.toFloat()
+            binding.headerTitle2.alpha = 0f
+            binding.headerTitle2.animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(AccelerateDecelerateInterpolator())
+                .setDuration(250)
+                .start()
         }
+
+        isSearchVisible = !isSearchVisible
     }
 
 

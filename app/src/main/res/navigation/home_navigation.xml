@@ -373,6 +373,10 @@
         android:id="@+id/latestUpdateFragment"
         android:name="com.student.Compass_Abroad.fragments.LatestUpdateFragment"
         android:label="LatestUpdateFragment" />
+    <fragment
+        android:id="@+id/hybridPlayerActivity"
+        android:name="com.student.Compass_Abroad.fragments.HybridPlayerActivity"
+        android:label="HybridPlayerActivity" />
 
 
 </navigation>

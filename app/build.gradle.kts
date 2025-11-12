@@ -151,6 +151,16 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.3.0")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+
+    // ExoPlayer (for normal URLs)
+    implementation("androidx.media3:media3-exoplayer:1.4.1")
+    implementation("androidx.media3:media3-ui:1.4.1")
+    implementation("androidx.media3:media3-exoplayer-hls:1.4.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.4.1")
+// YouTube Player (for YouTube URLs)
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
+
     // firebase
 
     implementation(platform(libs.firebase.bom))

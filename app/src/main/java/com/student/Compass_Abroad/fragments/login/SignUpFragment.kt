@@ -5,6 +5,7 @@ package com.student.Compass_Abroad.fragments.login
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.text.Spannable
@@ -21,6 +22,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -35,6 +37,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
@@ -85,9 +88,26 @@ class SignUpFragment : BaseFragment() {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity())[ViewModalClass::class.java]
 
+        val window = requireActivity().window
+        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teall)
+        window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+
+            val controller = window.insetsController
+            controller?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            // Below Android 11
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
         statusValidation = App.singleton!!.statusValidation
 
-        binding.fabBack.setOnClickListener {
+        binding.back.setOnClickListener {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -143,7 +163,7 @@ class SignUpFragment : BaseFragment() {
         val referralCode = arguments?.getString("referral") ?: ""
 
         val referralLabelText = if (referralCode.isNullOrEmpty()) {
-            "Is Referral Code Available? *"
+            "Do you have any referral code?*"
         } else {
             "Referral Code"
         }
@@ -168,25 +188,7 @@ class SignUpFragment : BaseFragment() {
             setPadding(0, resources.getDimensionPixelSize(R.dimen.dp_10), 0, 0)
             typeface = Typeface.DEFAULT_BOLD
         }
-        val referralGroup = RadioGroup(requireContext()).apply {
-            orientation = RadioGroup.HORIZONTAL
-            gravity = Gravity.CENTER_VERTICAL
-        }
 
-        val yesButton = RadioButton(requireContext()).apply {
-            text = "Yes"
-            id = View.generateViewId()
-            setPadding(16, 0, 16, 0)
-        }
-
-        val noButton = RadioButton(requireContext()).apply {
-            text = "No"
-            id = View.generateViewId()
-            setPadding(16, 0, 16, 0)
-        }
-
-        referralGroup.addView(yesButton)
-        referralGroup.addView(noButton)
 
 // Space after radio buttons
         val spaceAfterRadioButtons = View(requireContext()).apply {
@@ -199,32 +201,20 @@ class SignUpFragment : BaseFragment() {
 // Referral EditText
         val referralEditText = EditText(requireContext()).apply {
             hint = "Enter Referral Code"
-            setPadding(16, 16, 16, 16)
+            setHintTextColor(Color.GRAY)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
+            setPadding(padding, padding, padding, padding)
             background = ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.shape_rectangle_all_radius_et_login
             )
-            visibility = View.GONE
         }
-
-
 
         if (referralCode.isNotEmpty()) {
-            yesButton.isChecked = true
             referralEditText.setText(referralCode)
-            referralEditText.visibility = View.VISIBLE
-            referralGroup.visibility = View.GONE
-            referralEditText.isEnabled = false
-
         } else {
-            noButton.isChecked = true
-            referralEditText.visibility = View.GONE
-            referralGroup.visibility = View.VISIBLE
-        }
 
-        referralGroup.setOnCheckedChangeListener { _, checkedId ->
-
-            referralEditText.visibility = if (checkedId == yesButton.id) View.VISIBLE else View.GONE
         }
 
         val currentFlavor = BuildConfig.FLAVOR.lowercase()
@@ -232,8 +222,7 @@ class SignUpFragment : BaseFragment() {
         when (currentFlavor) {
             "admisiony", "firmli","eeriveurope", "unitedglobalservices" -> {
                 binding.formContainer.addView(referralLabel)
-                binding.formContainer.addView(referralGroup)
-                binding.formContainer.addView(spaceAfterRadioButtons)
+                 binding.formContainer.addView(spaceAfterRadioButtons)
                 binding.formContainer.addView(referralEditText)
 
 
@@ -359,7 +348,7 @@ class SignUpFragment : BaseFragment() {
 
         val submitButton = Button(requireActivity()).apply {
             text = formName
-            setBackgroundResource(R.drawable.shape_rectangle_all_radius_btn_dark)
+            setBackgroundResource(R.drawable.shape_rectangle_all_radius_signup_button)
             setTextColor(Color.WHITE)
             setOnClickListener {
 
@@ -493,7 +482,7 @@ class SignUpFragment : BaseFragment() {
                         contentKey = "$publicKey^#^$encryptedString"
                         Log.d("loginUser", contentKey)
 
-                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
+                        //apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
                     } else {
                         Log.e("loginUser", "Encryption failed.")
                     }
@@ -557,7 +546,7 @@ class SignUpFragment : BaseFragment() {
                         contentKey = "$publicKey^#^$encryptedString"
                         Log.d("loginUser", contentKey)
 
-                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
+                       // apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
                     } else {
                         Log.e("loginUser", "Encryption failed.")
                     }
@@ -720,6 +709,7 @@ class SignUpFragment : BaseFragment() {
             }
     }
 
+    @SuppressLint("ResourceType")
     private fun createEditText(field: LeadField) {
         val container = LinearLayout(requireActivity()).apply {
             orientation = LinearLayout.VERTICAL
@@ -732,7 +722,7 @@ class SignUpFragment : BaseFragment() {
             }
         }
 
-        val label = TextView(requireActivity()).apply {
+       /* val label = TextView(requireActivity()).apply {
             val labelText = field.label.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
             }
@@ -751,7 +741,7 @@ class SignUpFragment : BaseFragment() {
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setTypeface(typeface, Typeface.BOLD)
             setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-        }
+        }*/
 
         val editText = EditText(requireActivity()).apply {
             hint = field.lead_form_field.placeholder
@@ -760,6 +750,7 @@ class SignUpFragment : BaseFragment() {
                 "number" -> InputType.TYPE_CLASS_NUMBER
                 else -> InputType.TYPE_CLASS_TEXT
             }
+            setHintTextColor(Color.GRAY)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setBackgroundResource(R.drawable.shape_rectangle_all_radius_et_login)
             val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
@@ -773,7 +764,7 @@ class SignUpFragment : BaseFragment() {
         }
         editTextFields[field.name] = editText
 
-        container.addView(label)
+        //container.addView(label)
         container.addView(editText)
         binding.formContainer.addView(container)
     }
@@ -849,7 +840,7 @@ class SignUpFragment : BaseFragment() {
             ).apply { topMargin = resources.getDimensionPixelSize(R.dimen.dp_10) }
         }
 
-        val label = TextView(requireActivity()).apply {
+        /*val label = TextView(requireActivity()).apply {
             val labelText = field.label.capitalize(Locale.ROOT)
             val spannableLabel =
                 SpannableString("$labelText${if (field.is_required == 1) " *" else ""}")
@@ -871,7 +862,7 @@ class SignUpFragment : BaseFragment() {
             text = spannableLabel
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setTextColor(ContextCompat.getColor(context, R.color.black))
-        }
+        }*/
 
         val searchableSpinner = SearchableSpinner(requireActivity()).apply {
             setBackgroundResource(R.drawable.shape_rectangle_all_radius_et_login)
@@ -898,7 +889,7 @@ class SignUpFragment : BaseFragment() {
             }
         }
 
-        container.addView(label)
+        //container.addView(label)
         container.addView(searchableSpinner)
         binding.formContainer.addView(container)
         dependentSpinners[field.name] = searchableSpinner
@@ -936,14 +927,43 @@ class SignUpFragment : BaseFragment() {
     }
 
     private fun setupSpinnerAdapter(spinner: Spinner, options: List<String>) {
+        val adapter = object : ArrayAdapter<String>(
+            requireActivity(),
+            android.R.layout.simple_spinner_item,
+            options
+        ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent)
 
-        spinner.adapter =
-            ArrayAdapter(
-                requireActivity(),
-                android.R.layout.simple_spinner_dropdown_item,
-                options
-            )
+                if (position == 0) {
+                    (view as TextView).setTextColor(Color.GRAY)
+                } else {
+                    (view as TextView).setTextColor(Color.BLACK)
+                }
+                val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
+                (view as TextView).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+
+                (view as TextView).setPadding(padding, padding, padding, padding)
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent)
+                if (position == 0) {
+                    (view as TextView).setTextColor(Color.GRAY)
+                } else {
+                    (view as TextView).setTextColor(Color.BLACK)
+                }
+                (view as TextView).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
+                (view as TextView).setPadding(padding, padding, padding, padding)
+                return view
+            }
+        }
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
     }
+
 
     private fun updateDependentSpinner(selectedOption: String, field: LeadField) {
         fieldValues[field.name] = selectedOption

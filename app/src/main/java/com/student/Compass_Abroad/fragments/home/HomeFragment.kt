@@ -2585,7 +2585,10 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
         binding?.rvTestimonials?.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = StudentStaticTestimonialsAdapter(staticList)
+            adapter = StudentStaticTestimonialsAdapter(staticList){ selectedItem ->
+                // navigate to another fragment
+                Navigation.findNavController(binding!!.root).navigate(R.id.hybridPlayerActivity)
+            }
         }
 
 

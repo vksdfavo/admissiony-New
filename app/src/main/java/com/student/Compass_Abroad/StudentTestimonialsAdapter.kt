@@ -44,9 +44,9 @@ class StudentTestimonialsAdapter(
         }
 
         // Handle click on the card
-       /* holder.binding.cvBase.setOnClickListener {
+        holder.binding.cvBase.setOnClickListener {
             onItemClick?.invoke(item)
-        }*/
+        }
     }
 
     override fun getItemCount(): Int = testimonialList.size

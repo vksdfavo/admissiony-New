@@ -7,7 +7,8 @@ import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.databinding.TestimonialsLayoutBinding
 
 class StudentStaticTestimonialsAdapter(
-    private val testimonialList: List<StaticTestimonial>
+    private val testimonialList: List<StaticTestimonial>,
+    private val onItemClick: ((StaticTestimonial) -> Unit)? = null
 ) : RecyclerView.Adapter<StudentStaticTestimonialsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: TestimonialsLayoutBinding) :
@@ -31,6 +32,10 @@ class StudentStaticTestimonialsAdapter(
         Glide.with(holder.itemView.context)
             .load(item.imageResId)
             .into(holder.binding.iv)
+
+        holder.binding.cvBase.setOnClickListener {
+            onItemClick?.invoke(item)
+        }
     }
 
     override fun getItemCount(): Int = testimonialList.size
