@@ -6,14 +6,14 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_10"
         app:cardCornerRadius="@dimen/dp_16"
         app:cardElevation="@dimen/space5">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
@@ -104,10 +104,11 @@
             <RelativeLayout
                 android:id="@+id/rr_chat"
                 android:layout_width="@dimen/dp_80"
-                android:layout_alignParentBottom="true"
                 android:layout_marginEnd="@dimen/_10dp"
                 android:layout_marginBottom="@dimen/space5"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/linear_data"
                 android:background="@drawable/application_chat"
                 android:layout_height="@dimen/space40">
 
@@ -123,11 +124,11 @@
             <RelativeLayout
                 android:id="@+id/rr_bio"
                 android:layout_width="@dimen/dp_80"
-                android:layout_alignParentBottom="true"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginEnd="110dp"
                 android:layout_marginBottom="@dimen/space5"
                 android:layout_alignParentEnd="true"
+                android:layout_below="@+id/linear_data"
                 android:background="@drawable/bio"
                 android:layout_height="@dimen/space40">
 

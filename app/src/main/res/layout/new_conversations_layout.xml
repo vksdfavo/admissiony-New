@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_80"
+        android:layout_height="@dimen/dp_120"
         android:elevation="@dimen/dp_5"
         android:layout_marginBottom="@dimen/dp_5"
         android:layout_margin="@dimen/space5"
@@ -33,18 +33,44 @@
             android:layout_toEndOf="@id/profile_image"
             android:textColor="@color/black"
             android:textSize="14sp" />
-
-
         <TextView
-            android:id="@+id/last_message"
+            android:id="@+id/college"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/last_message"
-            android:layout_toEndOf="@id/profile_image"
+            android:text="@string/bow_valley_college_e"
             android:layout_below="@id/name"
+            android:layout_toEndOf="@id/profile_image"
             android:layout_gravity="center"
             android:textColor="@color/text_color"
             android:textSize="12sp" />
+
+        <LinearLayout
+            android:id="@+id/linear_intake_fee"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/status_background"
+            android:backgroundTint="#A7ECF1F2"
+            android:layout_below="@id/college"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="@dimen/dp_5"
+            android:layout_marginTop="5dp"
+            android:weightSum="2"
+            android:layout_height="50dp">
+
+
+            <TextView
+                android:id="@+id/last_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_message"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:textColor="@color/text_color"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
 
 
         <TextView
@@ -53,12 +79,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10dp"
             android:text="10:10 am"
+            android:layout_marginTop="@dimen/_10dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_below="@id/name"
             android:layout_marginEnd="@dimen/_10dp"
-            android:layout_gravity="center"
             android:textColor="@color/text_color"
             android:textSize="12sp" />
+
+
     </RelativeLayout>
 </LinearLayout>

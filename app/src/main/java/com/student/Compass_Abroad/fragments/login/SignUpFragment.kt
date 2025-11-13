@@ -385,7 +385,7 @@ class SignUpFragment : Fragment() {
 
         val submitButton = Button(requireActivity()).apply {
             text = formName
-            setBackgroundResource(R.drawable.shape_rectangle_all_radius_signup_button)
+            setBackgroundResource(R.drawable.shape_rectangle_all_radius_btn_yellow)
             setTextColor(Color.WHITE)
             setOnClickListener {
 
