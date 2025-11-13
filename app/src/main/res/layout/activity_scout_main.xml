@@ -118,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/gradient"
+        android:background="@drawable/gradient_home"
         >
 
         <RelativeLayout
@@ -178,7 +178,7 @@
                 android:drawableStart="@drawable/ic_nav1"
                 android:drawableEnd="@drawable/ic_next3"
                 android:drawablePadding="8dp"
-                android:drawableTint="@color/black"
+                android:drawableTint="@color/secondary_color"
                 android:padding="10sp"
                 android:paddingStart="26dp"
                 android:paddingEnd="18dp"
@@ -193,7 +193,7 @@
                 android:drawableStart="@drawable/ic_student"
                 android:drawableEnd="@drawable/ic_next3"
                 android:drawablePadding="8dp"
-                android:drawableTint="@color/black"
+                android:drawableTint="@color/secondary_color"
                 android:padding="10sp"
                 android:paddingStart="26dp"
                 android:paddingEnd="18dp"
@@ -236,7 +236,7 @@
                 android:text="@string/help_amp_support"
                 android:textColor="@color/black"
                 app:drawableStartCompat="@drawable/ic_nav5"
-                app:drawableTint="@color/black" />
+                android:drawableTint="@color/secondary_color" />
 
 
             <TextView
@@ -253,7 +253,7 @@
                 android:textColor="@color/black"
                 app:drawableEndCompat="@drawable/ic_next3"
                 app:drawableStartCompat="@drawable/ic_logout"
-                app:drawableTint="@color/black" />
+                app:drawableTint="@color/secondary_color" />
 
             <TextView
                 android:id="@+id/tv1111"
@@ -318,6 +318,22 @@
                 android:text=""
                 android:textColor="#151522"
                 android:textSize="10sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/admissiony"
+                    android:visibility="visible" />
+
+
+            </RelativeLayout>
         </RelativeLayout>
     </com.google.android.material.navigation.NavigationView>
 

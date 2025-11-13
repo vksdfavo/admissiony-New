@@ -565,7 +565,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         sharedPre?.saveString(AppConstants.SCOUtLOGIN, "false")
         binding!!.switchStu.isChecked = false
         var isCurrentRoleScout = false
-       /* binding!!.switchStu.setOnCheckedChangeListener { _, isChecked ->
+        binding!!.switchStu.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked == isCurrentRoleScout) {
                 binding!!.switchStu.isChecked = isCurrentRoleScout
@@ -630,7 +630,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 Toast.makeText(requireContext(), "Identity info not found", Toast.LENGTH_SHORT)
                     .show()
             }
-        }*/
+        }
 
 
     }
