@@ -305,6 +305,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_above="@id/tv66"
+                android:visibility="gone"
                 android:background="@color/dividerBackgroundColor" />
 
             <TextView
@@ -315,6 +316,7 @@
                 android:padding="10sp"
                 android:paddingStart="26dp"
                 android:paddingEnd="26dp"
+                android:visibility="gone"
                 android:text=""
                 android:textColor="#151522"
                 android:textSize="10sp" />
