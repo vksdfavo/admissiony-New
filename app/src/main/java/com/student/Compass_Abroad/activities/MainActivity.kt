@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ComponentActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
@@ -121,6 +122,8 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         setupWithNavController(bottomNav!!, navController!!)
         setSupportActionBar(binding!!.toolbarDa)
+
+
 
         binding?.tvMyApplicationsNav?.setOnClickListener {
             binding!!.drawerLayout.close()

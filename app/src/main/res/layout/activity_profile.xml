@@ -254,7 +254,6 @@
                     android:textSize="13sp" />
 
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -390,7 +389,6 @@
                 app:drawableEndCompat="@drawable/ic_next3" />
 
 
-
             <TextView
                 android:id="@+id/change_languange"
                 android:layout_width="match_parent"
@@ -435,7 +433,6 @@
                 android:id="@+id/tvmyTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/_20dp"
                 android:background="@drawable/shape_rectangle_pressed_white"
                 android:drawableEnd="@drawable/ic_next3"
@@ -444,14 +441,15 @@
                 android:padding="10sp"
                 android:paddingEnd="18dp"
                 android:text="@string/transactions"
-                android:textColor="#151522" />
+                android:textColor="#151522"
+                android:visibility="gone" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
-                android:background="@color/dividerBackgroundColor" />
+                android:background="@color/dividerBackgroundColor"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/change_password"
@@ -488,7 +486,6 @@
                 android:text="@string/contact_us"
                 android:textColor="#151522"
                 tools:ignore="UseCompatTextViewDrawableXml" />
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -551,7 +548,7 @@
                 android:paddingEnd="18dp"
                 android:text="@string/logout"
                 android:textColor="@color/red"
-                tools:ignore="UseCompatTextViewDrawableXml" />
+                tools:ignore="RtlSymmetry,UseCompatTextViewDrawableXml" />
 
             <TextView
                 android:id="@+id/version"
