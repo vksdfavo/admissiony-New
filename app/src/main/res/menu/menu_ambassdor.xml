@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/fragStudent"
-        android:icon="@drawable/ic_student"
+        android:icon="@drawable/ic_users"
         android:title="@string/students" />
 
 </menu>

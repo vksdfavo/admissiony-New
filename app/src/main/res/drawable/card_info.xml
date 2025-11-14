@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pressed state -->
+    <item android:state_pressed="true">
+        <layer-list>
+
+            <!-- Circle border -->
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/transparent" />
+                    <stroke
+                        android:width="2dp"
+                        android:color="#F2F2F2" />
+                    <size android:width="80dp" android:height="80dp" />
+                </shape>
+            </item>
+
+            <!-- Center icon (bigger by reducing insets) -->
+            <item
+                android:drawable="@drawable/infooo"
+                android:gravity="center"
+                android:top="16dp"
+                android:bottom="16dp"
+                android:left="16dp"
+                android:right="16dp" />
+        </layer-list>
+    </item>
+
+    <!-- Default (normal) state -->
+    <item>
+        <layer-list>
+
+            <!-- Circle border -->
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/transparent" />
+                    <stroke
+                        android:width="2dp"
+                        android:color="#F2F2F2" />
+                    <size android:width="80dp" android:height="80dp" />
+                </shape>
+            </item>
+
+            <!-- Center icon -->
+            <item
+                android:drawable="@drawable/infooo"
+                android:gravity="center"
+                android:top="16dp"
+                android:bottom="16dp"
+                android:left="16dp"
+                android:right="16dp" />
+        </layer-list>
+    </item>
+
+</selector>

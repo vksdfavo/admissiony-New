@@ -173,6 +173,9 @@ class Scout_home_fragment : Fragment() {
             requireActivity().window.navigationBarColor =
                 requireActivity().getColor(R.color.bottom_gradient_one)
 
+            requireActivity().window.statusBarColor =
+                requireActivity().getColor(R.color.secondary_color)
+
         } else {
             requireActivity().window.navigationBarColor =
                 requireActivity().getColor(R.color.theme_color)
@@ -363,16 +366,16 @@ class Scout_home_fragment : Fragment() {
             scoutSummary?.let { scoutSummary ->
                 if (view != null) {
                     if (scoutSummary.statusCode == 200) {
-
+/*
                         binding.tvFiStatus.text = scoutSummary.data.leads_count.toString()
-                        binding.tv22.text = scoutSummary.data.applications_count.toString()
+                        binding.tvTotalAppCount.text = scoutSummary.data.applications_count.toString()
                         binding.tv33.text = scoutSummary.data.potential_payout_amount.toString()
                         binding.civItemAaAsShort.text =
                             scoutSummary.data.actual_payout_amount.toString()
-                        binding.potentialEarnedCurrency.text =
+                        binding.tvPotentialCount.text =
                             "(${scoutSummary.data.potential_payout_currency})"
                         binding.earnedAmountCurrency.text =
-                            "(${scoutSummary.data.actual_payout_currency})"
+                            "(${scoutSummary.data.actual_payout_currency})"*/
 
                     }
                 }
@@ -459,7 +462,7 @@ class Scout_home_fragment : Fragment() {
 
     private fun onClicks() {
 
-        binding.ibFdU1.setOnClickListener {
+       /* binding.ibFdU1.setOnClickListener {
             showInfoBottomSheet(
                 "Signed Up Students - No. of students signed up by scout",
                 "This is the total number of students that have signed up using your code or has been manually assigned to you."
@@ -486,7 +489,7 @@ class Scout_home_fragment : Fragment() {
                 "This is the amount you have earned in USD by recommending other students to study abroad and achieve their dreams."
             )
         }
-
+*/
 
     }
 

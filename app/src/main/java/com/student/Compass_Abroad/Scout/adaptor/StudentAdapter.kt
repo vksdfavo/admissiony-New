@@ -12,27 +12,28 @@ import androidx.navigation.R
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.databinding.ItemStudentBinding
+import com.student.Compass_Abroad.databinding.ItemStudentsBinding
 import com.student.Compass_Abroad.fragments.home.ApplicationActiveFragment
 import com.student.Compass_Abroad.modal.getLeads.Record
 
 class StudentAdapter(var context:Context,private var leadList: ArrayList<Record> = ArrayList()) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
-        val binding = ItemStudentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemStudentsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StudentViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        holder.bind(leadList[position])
+       // holder.bind(leadList[position])
     }
 
-    override fun getItemCount(): Int = leadList.size
+    override fun getItemCount(): Int = 10
 
     // You can directly modify leadList and call notifyDataSetChanged() from your Fragment or Activity
-    inner class StudentViewHolder(private val binding: ItemStudentBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class StudentViewHolder(private val binding: ItemStudentsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Record) {
             // Handle null safety with Elvis operator and safe calls
-            val fullName = "${item.first_name.orEmpty()} ${item.last_name.orEmpty()}"
+            /*val fullName = "${item.first_name.orEmpty()} ${item.last_name.orEmpty()}"
             binding.tvName.text = if (fullName.isNotBlank()) fullName else "N/A"
             binding.tvEmail.text = item.email ?: "N/A"
             binding.number.text = item.mobile ?: "N/A"
@@ -47,7 +48,7 @@ class StudentAdapter(var context:Context,private var leadList: ArrayList<Record>
             val mobile = item.mobile ?: ""
             val fullNumber = "$countryCode$mobile"
 
-
+*/
 
           /*  binding.fabFdStuCoordinatorCall.setOnClickListener {
                 if (fullNumber.trim().isNotEmpty()) {
