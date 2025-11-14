@@ -378,14 +378,14 @@
                 android:id="@+id/tv_bank_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_p2"
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/black"
+                android:layout_marginHorizontal="@dimen/_20dp"
                 android:padding="10dp"
                 android:paddingEnd="22sp"
+                android:visibility="gone"
                 android:text="Bank Details"
                 android:textColor="@color/black"
-                android:visibility="gone"
                 app:drawableEndCompat="@drawable/ic_next3" />
 
 

@@ -310,11 +310,13 @@ class ApplicationActiveFragment : Fragment() {
             if(App.sharedPre!!.getString(AppConstants.SCOUtLOGIN,"")=="true"){
                 ScoutMainActivity.bottomNav!!.isVisible = false
                 binding?.ablFd?.visibility=View.GONE
+                binding?.rrl?.visibility=View.VISIBLE
                 binding?.fabCreateApplication?.isVisible=false
 
             }else{
                 MainActivity.bottomNav!!.isVisible = true
                 binding?.ablFd?.visibility=View.VISIBLE
+                binding?.rrl?.visibility=View.GONE
                 binding?.fabCreateApplication?.isVisible=true
 
             }

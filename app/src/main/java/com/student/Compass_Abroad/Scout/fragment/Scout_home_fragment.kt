@@ -69,6 +69,12 @@ class Scout_home_fragment : Fragment() {
             createReferandShare(requireActivity())
         }
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
+
 
         if (getString(R.string.app_name).trim().equals("Admissiony.com", ignoreCase = true)) {
 

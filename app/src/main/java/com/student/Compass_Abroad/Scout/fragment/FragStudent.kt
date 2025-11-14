@@ -52,7 +52,7 @@ class FragStudent : Fragment() {
         }
 
         setupRecyclerView() // Set up the RecyclerView and Adapter
-        //setupPagination() // Set up pagination for infinite scrolling
+        setupPagination() // Set up pagination for infinite scrolling
 
         return binding!!.root
     }
@@ -69,7 +69,7 @@ class FragStudent : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        //getLead(currentPage)
+        getLead(currentPage)
 
         val currentFlavor = BuildConfig.FLAVOR.lowercase()
 

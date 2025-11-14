@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="welcome">Welcome to Admissiony the foremost consultancy elevating your global educational pursuits.</string>
-    <string name="page_3">Be a part of Admissiony</string>
-    <string name="base_url">https://c120h25steps19-api.firmli.com/v1/</string>
-    <string name="fiClientNumber">C120H25STEPS19</string>
-    <string name="socket_base_url">https://C120H25STEPS19-api.firmli.com</string>
-    <string name="base_url_image">https://pear-store.firmli.com/v1/</string>
-
-    <string name="privacy_policy_url">https://www.admissiony.com/privacy-policy/</string>
-    <string name="terms_and_condition_url">https://www.admissiony.com/terms-and-conditions/</string>
-    <string name="contact_us_url">https://www.admissiony.com/</string>
-    <string name="unideft_pdf">Admissiony%1$s.pdf</string>
+    <string name="welcome">Welcome to Firmli the foremost consultancy elevating your global educational pursuits.</string>
+    <string name="page_3">Be a part of\nFirmli</string>
+    <string name="base_url">https://c101b24stone10-api.firmli.com/v1/</string>
+    <string name="base_url_image">https://blueberry-store.firmli.com/v1/</string>
+    <string name="fiClientNumber">C101B24STONE10</string>
+    <string name="socket_base_url">https://C101B24STONE10-api.firmli.com</string>
+    <string name="privacy_policy_url">https://firmli.com/privacy-policy/</string>
+    <string name="terms_and_condition_url">https://firmli.com/terms-and-condition/</string>
+    <string name="contact_us_url">https://firmli.com/book-a-demo/</string>
+    <string name="unideft_pdf">Firmli%1$s.pdf</string>
 
 
 </resources>
