@@ -284,7 +284,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_signed_up_title"
                             android:layout_marginTop="10dp"
-                            android:text="50"
+                            android:text=""
                             android:textColor="#000000"
                             android:textSize="20dp" />
                     </RelativeLayout>
@@ -329,7 +329,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_total_app_title"
                             android:layout_marginTop="10dp"
-                            android:text="50"
+                            android:text=""
                             android:textColor="#000000"
                             android:textSize="20dp" />
                     </RelativeLayout>
@@ -381,7 +381,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_potential_title"
                             android:layout_marginTop="10dp"
-                            android:text="50"
+                            android:text=""
                             android:textColor="#000000"
                             android:textSize="20dp" />
                     </RelativeLayout>
@@ -426,7 +426,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_earned_title"
                             android:layout_marginTop="10dp"
-                            android:text="50"
+                            android:text=""
                             android:textColor="#000000"
                             android:textSize="20dp" />
                     </RelativeLayout>
