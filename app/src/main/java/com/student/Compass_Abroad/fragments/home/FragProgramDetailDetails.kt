@@ -2,11 +2,13 @@ package com.student.Compass_Abroad.fragments.home
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
@@ -59,6 +61,18 @@ class FragProgramDetailDetails : BaseFragment() {
             it.findNavController().popBackStack()
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = requireActivity().window.insetsController
+            controller?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            requireActivity().window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
         binding!!.tvFpddApply.setOnClickListener{
 
             binding!!.root.findNavController().navigate(R.id.applyProgramFragment)
@@ -70,7 +84,6 @@ class FragProgramDetailDetails : BaseFragment() {
 
         }else{
             binding?.linkWeb!!.visibility=View.VISIBLE
-
         }
 
 
@@ -81,9 +94,7 @@ class FragProgramDetailDetails : BaseFragment() {
         }else if (App.singleton?.assignStaffFav =="0")
 
         {
-
             binding!!.ll.visibility=View.VISIBLE
-
         }
 
         if(sharedPre!!.getString(AppConstants.SCOUtLOGIN,"")=="true"){
@@ -94,7 +105,6 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.rlh.visibility=View.VISIBLE
             binding!!.tvFpddApply.visibility=View.VISIBLE
             binding!!.ll.visibility=View.VISIBLE
-
 
         }
 
