@@ -24,33 +24,35 @@ class StudentAdapter(var context:Context,private var leadList: ArrayList<Record>
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-       // holder.bind(leadList[position])
+       holder.bind(leadList[position])
     }
 
-    override fun getItemCount(): Int = 10
+    override fun getItemCount(): Int {
+        return leadList.size
+    }
+
 
     // You can directly modify leadList and call notifyDataSetChanged() from your Fragment or Activity
     inner class StudentViewHolder(private val binding: ItemStudentsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Record) {
             // Handle null safety with Elvis operator and safe calls
-            /*val fullName = "${item.first_name.orEmpty()} ${item.last_name.orEmpty()}"
-            binding.tvName.text = if (fullName.isNotBlank()) fullName else "N/A"
+            val fullName = "${item.first_name.orEmpty()} ${item.last_name.orEmpty()}"
+            binding.tvStudentName.text = if (fullName.isNotBlank()) fullName else "N/A"
             binding.tvEmail.text = item.email ?: "N/A"
-            binding.number.text = item.mobile ?: "N/A"
+            //binding.number.text = item.mobile ?: "N/A"
             val country = item.country ?: "N/A"
             val state = item.state ?: "N/A"
             val city = item.city ?: "N/A"
 
-            binding.loc.text = "$country, $state, $city"
-            binding.tvItemStudentsStudentId.text = "Student ID: ${item.id ?: "N/A"}"
+            //binding.tvStude.text = "$country, $state, $city"
+            binding.tvStudentId.text = "Student ID: ${item.id ?: "N/A"}"
 
             val countryCode = item.country_code ?: ""
             val mobile = item.mobile ?: ""
             val fullNumber = "$countryCode$mobile"
 
-*/
 
-          /*  binding.fabFdStuCoordinatorCall.setOnClickListener {
+            /*binding.fabFdStuCoordinatorCall.setOnClickListener {
                 if (fullNumber.trim().isNotEmpty()) {
                     val intent = Intent(Intent.ACTION_DIAL) // or ACTION_CALL (requires permission)
                     intent.data = Uri.parse("tel:+$fullNumber")

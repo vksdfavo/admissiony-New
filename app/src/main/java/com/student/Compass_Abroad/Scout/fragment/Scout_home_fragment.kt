@@ -69,6 +69,12 @@ class Scout_home_fragment : Fragment() {
             createReferandShare(requireActivity())
         }
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
+
 
         if (getString(R.string.app_name).trim().equals("Admissiony.com", ignoreCase = true)) {
 
@@ -366,16 +372,16 @@ class Scout_home_fragment : Fragment() {
             scoutSummary?.let { scoutSummary ->
                 if (view != null) {
                     if (scoutSummary.statusCode == 200) {
-/*
-                        binding.tvFiStatus.text = scoutSummary.data.leads_count.toString()
+                        binding.tvSignedUpCount.text = scoutSummary.data.leads_count.toString()
                         binding.tvTotalAppCount.text = scoutSummary.data.applications_count.toString()
-                        binding.tv33.text = scoutSummary.data.potential_payout_amount.toString()
-                        binding.civItemAaAsShort.text =
+                        binding.tvPotentialCount.text = scoutSummary.data.potential_payout_amount.toString()
+                        binding.tvEarnedCount.text =
                             scoutSummary.data.actual_payout_amount.toString()
-                        binding.tvPotentialCount.text =
-                            "(${scoutSummary.data.potential_payout_currency})"
-                        binding.earnedAmountCurrency.text =
-                            "(${scoutSummary.data.actual_payout_currency})"*/
+                        binding.tvPotentialTitle.text =
+                            "Earned\nAmount (${scoutSummary.data.potential_payout_currency})"
+                        binding.tvEarnedTitle.text =
+                            "Earned \nAmount (${scoutSummary.data.actual_payout_currency})"
+
 
                     }
                 }

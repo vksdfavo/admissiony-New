@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="Student ID: 1234"
                     android:textColor="#808080"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/tvStudentName"
@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:text="example@gmail.com"
                         android:textColor="@color/hintApp"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:layout_marginStart="6dp" />
                 </LinearLayout>
 
@@ -117,15 +117,15 @@
                         android:layout_height="wrap_content"
                         android:text="Canada"
                         android:textColor="@color/hintApp"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:layout_marginStart="6dp" />
                 </LinearLayout>
 
             </LinearLayout>
             <ImageView
                 android:id="@+id/ivNext"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:src="@drawable/ic_next3"
                 android:layout_gravity="center_vertical"
                 app:tint="@color/black"
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:text="Status"
             android:textColor="@color/hintApp"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:layout_marginTop="10dp" />
 
         <!-- Green Pill Status -->

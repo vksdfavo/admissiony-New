@@ -56,7 +56,6 @@ class ScoutMainActivity : AppCompatActivity() {
 
 
         activity = WeakReference(this)
-        window.statusBarColor = getColor(android.R.color.white)
 
         val versionCode = BuildConfig.VERSION_NAME.takeIf { it?.isNotEmpty() == true } ?: "N/A"
         binding?.tv66?.text = "App Version  $versionCode"

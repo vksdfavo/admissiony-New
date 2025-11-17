@@ -70,6 +70,12 @@ class ChangePasswordActivity : AppCompatActivity() {
 
 
     private fun onClicks() {
+
+        binding?.backBtn?.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+
         binding?.tvSp2Save?.setOnClickListener { v: View ->
             val old_passcode = binding!!.etOldPasscode.text.toString().trim()
             val new_passcode = binding!!.etPasscode.text.toString().trim()

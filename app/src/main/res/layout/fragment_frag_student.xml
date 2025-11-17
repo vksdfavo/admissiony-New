@@ -9,7 +9,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFF7F7"
+        >
 
         <RelativeLayout
             android:id="@+id/header_title"
@@ -18,6 +20,7 @@
             android:orientation="horizontal"
             android:paddingStart="16dp"
             android:paddingTop="10dp"
+            android:background="@color/white"
             android:paddingEnd="16dp"
             android:paddingBottom="10dp">
 
@@ -113,6 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/lineColor"
+                android:visibility="gone"
                 android:layout_marginBottom="8dp"/>
 
             <!-- Search Bar Section -->
