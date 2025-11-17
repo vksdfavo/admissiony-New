@@ -133,6 +133,7 @@ import com.student.Compass_Abroad.StaticLatestUpdateAdapter
 import com.student.Compass_Abroad.StaticTestimonial
 import com.student.Compass_Abroad.StudentStaticTestimonialsAdapter
 import com.student.Compass_Abroad.databinding.DialogBuyCouponBinding
+import com.student.Compass_Abroad.retrofit.HomeViewModal
 
 @Suppress("DEPRECATION")
 class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
@@ -149,11 +150,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         ArrayList<com.student.Compass_Abroad.modal.top_destinations.Data>()
     var arrayListInDemandInstitution =
         ArrayList<com.student.Compass_Abroad.modal.in_demandInstitution.Data>()
-    var arrayListInStudentTestimonials =
-        ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
-
-    var arrayListInLatestUpdate =
-        ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
+    var arrayListInStudentTestimonials = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
+    var arrayListInLatestUpdate = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
     var arrayListInDemand = ArrayList<com.student.Compass_Abroad.modal.inDemandCourse.Data>()
     private val modeOfPaymentList: MutableList<com.student.Compass_Abroad.modal.getVoucherPaymentMode.RecordsInfo> =
         mutableListOf()
@@ -204,6 +202,10 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private var adapter: AdaptorWebinarRecyclerview? = null
     private val webinarsList = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
 
+    private val viewModelHome: HomeViewModal by lazy {
+        ViewModelProvider(requireActivity())[HomeViewModal::class.java]
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -666,7 +668,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         sharedPrefs.clearStringList("${keyPrefix}Label")
     }
     private fun getDisciplineList() {
-        ViewModalClass().getDisciplineDataList(
+        viewModelHome.getDisciplineDataList(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -898,7 +900,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         presentPage: Int,
         dataPerPage: Int,
     ) {
-        ViewModalClass().clientEventsModalLiveData(
+        viewModelHome.clientEventsModalLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
@@ -934,7 +936,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         // show loading state if you have one (optional)
         // binding?.progressVoucher?.visibility = View.VISIBLE
 
-        ViewModalClass().getVouchersModalLiveData(
+        viewModelHome.getVouchersModalLiveData(
             activity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -1273,7 +1275,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         Log.e("Access Token", "Bearer ${CommonUtils.accessToken}")
 
 
-        ViewModalClass().getStaffProfileData(
+        viewModelHome.getStaffProfileData(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
@@ -1504,8 +1506,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     override fun onCLick(record: com.student.Compass_Abroad.modal.AllProgramModel.Record) {
-        ProgramDetails.details = record
-        binding!!.root.findNavController().navigate(R.id.programDetails)
+        FragProgramDetailDetails.details = record
+        binding!!.root.findNavController().navigate(R.id.fragProgramDetailDetails)
 
     }
 
@@ -1641,7 +1643,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
      }*/
 
     private fun addToShortlist(requireActivity: FragmentActivity, content: String) {
-        ViewModalClass().getshorListModalLiveData(
+        viewModelHome.getShortListModalLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -1669,7 +1671,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun getOffersandUpdatesIn(requireActivity: FragmentActivity) {
-        ViewModalClass().getOffersUpdatesTabsLiveData(
+        viewModelHome.getOffersUpdatesTabsLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
@@ -1723,7 +1725,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun getScholarships(requireActivity: FragmentActivity) {
-        ViewModalClass().getScholarshipsTabsLiveData(
+        viewModelHome.getScholarshipsTabsLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
@@ -1871,7 +1873,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         payment_mode: TextView,
     ) {
 
-        ViewModalClass().getModeOFPaymentDropDownVoucherLiveData(
+        viewModelHome.getModeOFPaymentDropDownVoucherLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
@@ -1973,7 +1975,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     ) {
         context.let { fragmentActivity ->
             CommonUtils.accessToken?.let { accessToken ->
-                ViewModalClass().getApplicationPayLiveData(
+                viewModelHome.getApplicationPayLiveData(
                     fragmentActivity,
                     AppConstants.fiClientNumber,
                     sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -2087,7 +2089,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         dataPerPage: Int,
         presentPage: Int,
     ) {
-        ViewModalClass().getAllRecommendedProgramsModalLiveData(
+        viewModelHome.getAllRecommendedProgramsModalLiveData(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -2222,7 +2224,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
 
     private fun getBanner() {
-        ViewModalClass().getBannerModalLiveData(
+        viewModelHome.getBannerModalLiveData(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -2326,7 +2328,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         presentPage: Int,
         dataPerPage: Int,
     ) {
-        ViewModalClass().getWebinarsModalLiveData(
+        viewModelHome.getWebinarsModalLiveData(
             activity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -2445,7 +2447,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
 // Validation
 
-        ViewModalClass().postAttendeLiveData(
+        viewModelHome.postAttendeLiveData(
             activity1,
             AppConstants.fiClientNumber,
             deviceIdentifier,
@@ -2482,7 +2484,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         val deviceIdentifier =
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
         val token = "Bearer ${CommonUtils.accessToken}"
-        ViewModalClass().postBecomeaScoutData(
+        viewModelHome.postBecomeaScoutData(
             activity1,
             AppConstants.fiClientNumber,
             deviceIdentifier,
@@ -2511,7 +2513,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private fun createReferandShare(activity1: Activity) {
         val deviceIdentifier = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
         val token = "Bearer ${CommonUtils.accessToken}"
-        ViewModalClass().postReferLinkLiveData(
+        viewModelHome.postReferLinkLiveData(
             activity1,
             AppConstants.fiClientNumber,
             deviceIdentifier,

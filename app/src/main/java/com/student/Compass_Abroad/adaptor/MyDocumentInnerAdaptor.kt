@@ -1,17 +1,22 @@
 package com.student.Compass_Abroad.adaptor
 
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.activities.DownLoadDocActivity
 import com.student.Compass_Abroad.activities.WebViewActivity
 import com.student.Compass_Abroad.databinding.IteminnermydocumentsBinding
+import java.util.Locale
 
 class MyDocumentInner(var context: Context, var myDocumentList: List<com.student.Compass_Abroad.modal.getLeadsDocuments.File>):
     RecyclerView.Adapter<MyDocumentInner.MyViewHolder>() {
@@ -47,30 +52,68 @@ class MyDocumentInner(var context: Context, var myDocumentList: List<com.student
 
     ) {
         fun bind(context: Context, file: com.student.Compass_Abroad.modal.getLeadsDocuments.File) {
-            binding.textViewFileName.text = "${file.filename}.${file.file_extension}"
+            binding.textViewFileName.text = "${file.filealias}"
 
-            Glide.with(context)
-                .load(file.thumb_info.view_page)
-                .into(binding.imageViewPdf)
+            val context = binding.root.context
+            val fileExt = file.file_extension?.lowercase(Locale.ROOT)?.trim() ?: ""
+
+            if (fileExt in listOf("jpg", "jpeg", "png")) {
+                binding.imageViewPdf.setImageResource(R.drawable.image)
+            } else {
+                when (fileExt) {
+                    "pdf" -> binding.imageViewPdf.setImageResource(R.drawable.z_pdf)
+                    "doc", "docx" -> binding.imageViewPdf.setImageResource(R.drawable.docx)
+                    "xls", "xlsx", "csv" -> binding.imageViewPdf.setImageResource(R.drawable.csv)
+                    else -> binding.imageViewPdf.setImageResource(R.drawable.folder)
+                }
+            }
 
 
-                binding.tvViewDocument.setOnClickListener { v: View ->
-                    val intent = Intent(v.context, WebViewActivity::class.java).apply {
-                        putExtra("view_page", file.view_page)
-                        putExtra("file_extension", file.file_extension)
+
+
+            binding.ivViewDocument.setOnClickListener { v: View ->
+                val intent = Intent(context, WebViewActivity::class.java).apply {
+                    putExtra("url", file.view_page)
+                    putExtra("extension", file.file_extension)
+                }
+                context.startActivity(intent)
+
+            }
+            binding.ivDownload.setOnClickListener { v: View ->
+                val context = v.context
+                val url = file.view_page
+
+                if (url.isNullOrEmpty()) {
+                    Toast.makeText(context, "Invalid file URL", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                try {
+                    val fileName = file.filealias ?: "downloaded_file.${file.file_extension}"
+
+                    val request = DownloadManager.Request(Uri.parse(url)).apply {
+                        setTitle(fileName)
+                        setDescription("Downloading $fileName...")
+                        setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        setAllowedNetworkTypes(
+                            DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE
+                        )
+                        setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+                        allowScanningByMediaScanner()
                     }
-                    v.context.startActivity(intent)
+
+                    val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                    downloadManager.enqueue(request)
+
+                    Toast.makeText(context, "Downloading $fileName", Toast.LENGTH_SHORT).show()
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(context, "Download failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
 
             }
-            binding.tvDownload.setOnClickListener {v: View ->
 
-                DownLoadDocActivity.data=file.view_page
-                DownLoadDocActivity.extension=file.file_extension
-
-                val intent = Intent(v.context, DownLoadDocActivity::class.java)
-                v.context.startActivity(intent)
-
-            }
         }
         private fun openUrl(url: String?, context: Context) {
             url?.let {

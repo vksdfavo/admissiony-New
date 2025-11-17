@@ -33,6 +33,7 @@ android {
 
     namespace = "com.student.Compass_Abroad"
     compileSdk = 35
+
     defaultConfig {
         minSdk = 26
         targetSdk = 35
