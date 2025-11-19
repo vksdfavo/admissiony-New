@@ -24,6 +24,7 @@ import com.student.Compass_Abroad.databinding.ItemReceivedBinding
 import com.student.Compass_Abroad.databinding.ItemSentBinding
 import com.student.Compass_Abroad.databinding.ItemwithbadgeBinding
 import com.student.Compass_Abroad.modal.getChatResponse.Record
+import androidx.navigation.findNavController
 
 class AdapterApplicationDetailConversation(
     private val context: Context?,
@@ -143,7 +144,7 @@ class AdapterApplicationDetailConversation(
                 )
             )
 
-            binding.tvItemCoTime0.text = formatToLocalTime(record.published_at.toString())
+            binding.tvItemCoTime0.text = getTimeAgo(record.published_at.toString())
 
             record.userInfo.profile_picture_url?.let { url ->
                 Glide.with(binding.root.context)
@@ -176,7 +177,7 @@ class AdapterApplicationDetailConversation(
             binding.rvAttachmentsReceived.setOnClickListener {
                 App.singleton?.chatidentifier = record.identifier
                 App.singleton?.idetity = entity
-                Navigation.findNavController(binding.root).navigate(R.id.viewAttachmentFragment)
+                binding.root.findNavController().navigate(R.id.viewAttachmentFragment)
             }
 
             val fullName = "${record.userInfo?.first_name ?: ""} ${record.userInfo?.last_name ?: ""}"
@@ -197,7 +198,7 @@ class AdapterApplicationDetailConversation(
                 )
             )
 
-            binding.tvItemCoTime1.text = formatToLocalTime(record.published_at.toString())
+            binding.tvItemCoTime1.text = getTimeAgo(record.published_at.toString())
 
 
             Log.d("get_time", record.published_at.toString())

@@ -150,8 +150,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         ArrayList<com.student.Compass_Abroad.modal.top_destinations.Data>()
     var arrayListInDemandInstitution =
         ArrayList<com.student.Compass_Abroad.modal.in_demandInstitution.Data>()
-    var arrayListInStudentTestimonials = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
-    var arrayListInLatestUpdate = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
     var arrayListInDemand = ArrayList<com.student.Compass_Abroad.modal.inDemandCourse.Data>()
     private val modeOfPaymentList: MutableList<com.student.Compass_Abroad.modal.getVoucherPaymentMode.RecordsInfo> =
         mutableListOf()
@@ -179,12 +177,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         mutableListOf<com.student.Compass_Abroad.modal.preferCountryList.Data>()
     private var isLoading = false
 
-    private var scrollYPosition = 0
-    private lateinit var nestedScrollView: NestedScrollView
     private var contentKey = ""
     private var dataPerPage1 = 6
     private var presentPage1 = 1
-    private var dataPerPage2 = 6
     private var presentPage2 = 1
     private var nextPage1 = 0
 
@@ -417,7 +412,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private fun setupRecyclerViewTopDestination() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-
         LoginViewModal().get_topdestination(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -470,6 +464,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         onGetVouchers(requireActivity(), dataPerPage1, presentPage1)
         getOffersandUpdatesIn(requireActivity())
         getScholarships(requireActivity())
+
         //GetWebinars(requireActivity(), dataPerPage2, presentPage2)
 
 
@@ -1486,17 +1481,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = requireActivity().window.insetsController
-            controller?.setSystemBarsAppearance(
-                0, // clear light status bar flag
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            )
+            controller?.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
         } else {
             @Suppress("DEPRECATION")
             requireActivity().window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         }
-
-
 
         hitApiUserDetails()
         AppConstants.PROGRAM_STATUS = "0"
@@ -1581,7 +1571,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         dialog.window!!.decorView.setPadding(margin, 0, margin, 0)
         dialog.window!!.attributes = layoutParams
 
-
         itemBinding.backBtn.setOnClickListener {
             dialog.dismiss()
         }
@@ -1591,7 +1580,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
 
         if (!record.program.tags.isNullOrEmpty()) {
-
             itemBinding.recyclerLay.visibility = View.VISIBLE
             val tagsAdapter = ProgramTagAdapter(record.program.tags)
             itemBinding.recyclerTags.layoutManager =
@@ -1823,7 +1811,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     override fun listener(record: com.student.Compass_Abroad.modal.getScholarships.Record) {
-
         val itemBinding = SliderDataLayoutBinding.inflate(requireActivity().layoutInflater)
         val dialog = Dialog(requireActivity())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -1870,8 +1857,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
     private fun getModeOfPaymentDropdown(
         requireActivity: FragmentActivity,
-        payment_mode: TextView,
-    ) {
+        payment_mode: TextView, ) {
 
         viewModelHome.getModeOFPaymentDropDownVoucherLiveData(
             requireActivity,
@@ -2222,7 +2208,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         })
     }
 
-
     private fun getBanner() {
         viewModelHome.getBannerModalLiveData(
             requireActivity(),
@@ -2276,7 +2261,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             null
         }
     }
-
 
     private fun handleRefreshTokenError(code: Int?, errorBody: String?) {
         if (code == 422) {
@@ -2429,7 +2413,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     override fun onclick(currentItem: com.student.Compass_Abroad.modal.getWebinars.Record) {
+
         postAteende(requireActivity(), currentItem)
+
     }
 
     private fun postAteende(

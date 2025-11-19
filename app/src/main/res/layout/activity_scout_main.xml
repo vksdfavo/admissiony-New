@@ -118,8 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/gradient_home"
-        >
+        android:background="@drawable/gradient_home">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -230,13 +229,13 @@
                 android:layout_below="@id/tvMyApplications_nav"
                 android:drawableEnd="@drawable/ic_next3"
                 android:drawablePadding="8dp"
+                android:drawableTint="@color/secondary_color"
                 android:padding="10sp"
                 android:paddingStart="26dp"
                 android:paddingEnd="18dp"
                 android:text="@string/help_amp_support"
                 android:textColor="@color/black"
-                app:drawableStartCompat="@drawable/ic_nav5"
-                android:drawableTint="@color/secondary_color" />
+                app:drawableStartCompat="@drawable/ic_nav5" />
 
 
             <TextView
@@ -305,8 +304,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_above="@id/tv66"
-                android:visibility="gone"
-                android:background="@color/dividerBackgroundColor" />
+                android:background="@color/dividerBackgroundColor"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv66"
@@ -316,10 +315,10 @@
                 android:padding="10sp"
                 android:paddingStart="26dp"
                 android:paddingEnd="26dp"
-                android:visibility="gone"
                 android:text=""
                 android:textColor="#151522"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -328,9 +327,9 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_margin="@dimen/dp_10"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_margin="@dimen/dp_10"
                     android:src="@drawable/admissiony"
                     android:visibility="visible" />
 

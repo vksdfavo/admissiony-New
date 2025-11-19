@@ -42,9 +42,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center"
+                    android:layout_toRightOf="@id/fabFad_back"
                     android:text="@string/conversation"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -169,7 +169,7 @@
         android:background="@drawable/ic_studylevel"
         android:padding="10dp"
         android:layout_alignParentEnd="true"
-        android:rotation="-20"
+        android:rotation="-18"
         android:backgroundTint="@color/black"
         android:layout_alignParentBottom="true"
         app:srcCompat="@drawable/send" />

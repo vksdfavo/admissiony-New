@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="end"
@@ -107,7 +106,7 @@
     <LinearLayout
         android:id="@+id/rvAttachments"
         android:layout_width="wrap_content"
-        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginEnd="@dimen/space50"
         android:layout_height="wrap_content">
 
         <TextView
@@ -115,6 +114,7 @@
             android:text="@string/view_attachment"
             android:textColor="@color/PopUpcolorPrimary"
             android:textSize="@dimen/dp_12"
+
             android:drawablePadding="@dimen/_10dp"
             android:layout_height="wrap_content"
             app:drawableStartCompat="@drawable/link"
@@ -126,11 +126,11 @@
     <!-- Timestamp -->
     <TextView
         android:id="@+id/tvItemCo_time0"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="50dp"
         android:gravity="end"
         android:maxLines="1"
         android:paddingStart="10dp"

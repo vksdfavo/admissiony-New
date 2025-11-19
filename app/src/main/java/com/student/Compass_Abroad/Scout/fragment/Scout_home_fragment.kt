@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -57,9 +59,18 @@ class Scout_home_fragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentScoutHomeFragmentBinding.inflate(inflater, container, false)
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+
+            insets
+
+        }
 
         binding.civProfileImageFd2.setOnClickListener {
             ScoutMainActivity.drawer!!.open()
@@ -69,21 +80,10 @@ class Scout_home_fragment : Fragment() {
             createReferandShare(requireActivity())
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
-        }
-
-
         if (getString(R.string.app_name).trim().equals("Admissiony.com", ignoreCase = true)) {
-
             saveSelectedToSharedPreferences(AppConstants.CountryList, "230", "United Kingdom")
-
-
         } else {
             clearFilter()
-
         }
 
         setScoutDataSummary()
@@ -96,6 +96,7 @@ class Scout_home_fragment : Fragment() {
                 binding.switchStu.isChecked = isCurrentRoleScout
                 return@setOnCheckedChangeListener
             }
+
             clearFilter()
 
             val message =
@@ -125,10 +126,10 @@ class Scout_home_fragment : Fragment() {
                                     val isStudent =
                                         identity.name.contains("Student", ignoreCase = true)
                                     val intent = if (isStudent) {
-                                        FragProgramAllProg.selectedTab="recommended"
+                                        FragProgramAllProg.selectedTab = "recommended"
                                         Intent(requireActivity(), MainActivity::class.java)
                                     } else {
-                                        FragProgramAllProg.selectedTab="all"
+                                        FragProgramAllProg.selectedTab = "all"
                                         Intent(requireActivity(), ScoutMainActivity::class.java)
                                     }
 
@@ -161,30 +162,19 @@ class Scout_home_fragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         val currentFlavor = BuildConfig.FLAVOR.lowercase()
 
         if (currentFlavor == "admisiony") {
-            requireActivity().window.navigationBarColor =
-                requireActivity().getColor(R.color.bottom_gradient_one)
 
-            requireActivity().window.statusBarColor =
-                requireActivity().getColor(R.color.secondary_color)
+            requireActivity().window.statusBarColor = requireActivity().getColor(R.color.secondary_color)
+            requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.white)
 
         } else {
-            requireActivity().window.navigationBarColor =
-                requireActivity().getColor(R.color.theme_color)
+
+            requireActivity().window.statusBarColor = requireActivity().getColor(R.color.secondary_color)
+            requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.secondary_color)
 
         }
 
@@ -192,12 +182,7 @@ class Scout_home_fragment : Fragment() {
         onClicks()
         ScoutMainActivity.bottomNav!!.isVisible = true
 
-        val imageUrl = sharedPre!!.getString(AppConstants.USER_IMAGE, "")!!.trim('"')
-
-//        Glide.with(requireActivity())
-//            .load(imageUrl).error(R.drawable.test_image)
-//            .into(binding!!.civProfileImageFd2)
-
+        sharedPre!!.getString(AppConstants.USER_IMAGE, "")!!.trim('"')
     }
 
     private fun hitApiUserDetails() {
@@ -209,7 +194,6 @@ class Scout_home_fragment : Fragment() {
         ).observe(requireActivity()) { staffData: StaffProfileModal? ->
             staffData?.let { nonNullForgetModal ->
                 if (staffData.statusCode == 200) {
-
 
                     setUserData(staffData)
                     val firstName =
@@ -227,7 +211,6 @@ class Scout_home_fragment : Fragment() {
                     identityInfo = staffData.data
                     binding?.tvFdStuCoordinatorName?.text = fullName
 
-
                     binding!!.fabFdStuCoordinatorcall.setOnClickListener {
                         val phoneNumber =
                             staffData.data?.studentProfileInfo?.assignedStaffInfo?.mobile?.toString()
@@ -235,7 +218,6 @@ class Scout_home_fragment : Fragment() {
                             staffData.data?.studentProfileInfo?.assignedStaffInfo?.country_code?.toString()
 
                         if (!phoneNumber.isNullOrEmpty() && !countryCode.isNullOrEmpty()) {
-                            // Ensure the country code starts with '+'
                             val formattedCountryCode =
                                 if (countryCode.startsWith("+")) countryCode else "+$countryCode"
                             val fullNumber = formattedCountryCode + phoneNumber
@@ -245,7 +227,6 @@ class Scout_home_fragment : Fragment() {
                             if (phoneIntent.resolveActivity(requireActivity().packageManager) != null) {
                                 startActivity(phoneIntent)
                             } else {
-
                                 Toast.makeText(
                                     requireActivity(),
                                     "No app available to place a call",
@@ -255,7 +236,6 @@ class Scout_home_fragment : Fragment() {
                         }
 
                         identityInfo = staffData.data
-
 
                         App.singleton?.studentIdentifier =
                             staffData.data?.studentProfileInfo?.identifier
@@ -281,15 +261,8 @@ class Scout_home_fragment : Fragment() {
         sharedPre!!.saveString(AppConstants.LAST_NAME, staffData.data!!.userInfo.last_name)
         sharedPre!!.saveString(AppConstants.DOB, staffData.data!!.userInfo.birthday)
 
-        /* val firstName = staffData.data?.userInfo?.first_name ?: ""
-        val lastName = staffData.data?.userInfo?.last_name ?: ""
-
-        binding!!.name.text = "Hi, " + "$firstName $lastName"*/
-
         val profilePictureUrl = staffData.data?.userInfo?.profile_picture_url
-
         sharedPre!!.saveModel(AppConstants.USER_IMAGE, profilePictureUrl)
-
     }
 
     fun refreshTokenApi(list: String, context: Context?): RefreshTokenResonse? {
@@ -299,12 +272,10 @@ class Scout_home_fragment : Fragment() {
                 device_number = sharedPre?.getString(AppConstants.Device_IDENTIFIER, ""),
                 authorization = "Bearer ${sharedPre?.getString(AppConstants.REFRESH_TOKEN, "")}",
                 identity = list
-            )!!.execute() // Assuming you are using a suspend function
+            )!!.execute()
 
             if (response.isSuccessful) {
-
                 response.body()
-
             } else {
                 Log.e(
                     "ProfileActivity",
@@ -321,7 +292,6 @@ class Scout_home_fragment : Fragment() {
         }
     }
 
-
     private fun handleRefreshTokenError(code: Int?, errorBody: String?) {
         if (code == 422) {
             Log.e("AuthInterceptor", "Unprocessable Entity: $errorBody")
@@ -331,7 +301,6 @@ class Scout_home_fragment : Fragment() {
     }
 
     private fun clearFilter() {
-
         sharedPre!!.clearKeyLabelValue(AppConstants.PGWP_KEY)
         sharedPre!!.clearKeyLabelValue(AppConstants.ATTENDANCE_KEY)
         sharedPre!!.clearKeyLabelValue(AppConstants.Accomodation)
@@ -373,16 +342,16 @@ class Scout_home_fragment : Fragment() {
                 if (view != null) {
                     if (scoutSummary.statusCode == 200) {
                         binding.tvSignedUpCount.text = scoutSummary.data.leads_count.toString()
-                        binding.tvTotalAppCount.text = scoutSummary.data.applications_count.toString()
-                        binding.tvPotentialCount.text = scoutSummary.data.potential_payout_amount.toString()
+                        binding.tvTotalAppCount.text =
+                            scoutSummary.data.applications_count.toString()
+                        binding.tvPotentialCount.text =
+                            scoutSummary.data.potential_payout_amount.toString()
                         binding.tvEarnedCount.text =
                             scoutSummary.data.actual_payout_amount.toString()
                         binding.tvPotentialTitle.text =
                             "Earned\nAmount (${scoutSummary.data.potential_payout_currency})"
                         binding.tvEarnedTitle.text =
                             "Earned \nAmount (${scoutSummary.data.actual_payout_currency})"
-
-
                     }
                 }
             }
@@ -401,7 +370,7 @@ class Scout_home_fragment : Fragment() {
 
     private fun createReferandShare(activity1: Activity) {
         val deviceIdentifier =
-            App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
+            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
         val token = "Bearer ${CommonUtils.accessToken}"
         ViewModalClass().postReferLinkLiveData(
             activity1,
@@ -420,21 +389,13 @@ class Scout_home_fragment : Fragment() {
                 "Status Code: ${response.statusCode}, Message: ${response.message}"
             )
 
-            // Check if status code is 201 (Created) meaning the referral link was generated successfully
             if (response.statusCode == 201) {
                 val shortUrl = response.data?.shortUrl
 
                 if (!shortUrl.isNullOrEmpty()) {
-                    // Show success message
-                    //Toast.makeText(activity1, response.message ?: "Referral link generated successfully!", Toast.LENGTH_SHORT).show()
-
-                    // Log the short URL for debugging
                     Log.e("ReferralLink", shortUrl)
-
-                    // Share the referral link
                     shareReferralLink(activity1, shortUrl)
                 } else {
-                    // Handle case when the short URL is null or empty
                     Toast.makeText(
                         activity1,
                         "Failed to generate referral link",
@@ -452,7 +413,6 @@ class Scout_home_fragment : Fragment() {
     }
 
     private fun shareReferralLink(activity1: Activity, shortUrl: String) {
-        // Create an Intent to share the referral link
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(
@@ -461,42 +421,11 @@ class Scout_home_fragment : Fragment() {
             )
         }
 
-        // Start the share activity
         activity1.startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
-
     private fun onClicks() {
-
-       /* binding.ibFdU1.setOnClickListener {
-            showInfoBottomSheet(
-                "Signed Up Students - No. of students signed up by scout",
-                "This is the total number of students that have signed up using your code or has been manually assigned to you."
-            )
-        }
-
-        binding.ibFdU2.setOnClickListener {
-            showInfoBottomSheet(
-                "Total Applications - Scout's student applications",
-                "This metric represents the total number of student applications submitted through Scout’s platform. Each application reflects a step taken by a student toward their educational journey abroad, facilitated with your support. The number serves as an indicator of your engagement and effectiveness in guiding students through the application process."
-            )
-        }
-
-        binding.ibFdU3.setOnClickListener {
-            showInfoBottomSheet(
-                "Potential Earned - Potential amount earned by Scout",
-                "This is the potential amount you can earn if all of your students enrol to their selected institutions."
-            )
-        }
-
-        binding.ibFdU4.setOnClickListener {
-            showInfoBottomSheet(
-                "Earned Amount - Earning of Scout",
-                "This is the amount you have earned in USD by recommending other students to study abroad and achieve their dreams."
-            )
-        }
-*/
-
+        // Your click handlers
     }
 
     private fun showInfoBottomSheet(title: String, description: String) {
@@ -509,7 +438,5 @@ class Scout_home_fragment : Fragment() {
         val bottomSheetDialog = BottomSheetDialog(requireActivity(), R.style.BottomSheet2)
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
         bottomSheetDialog.show()
-
-
     }
 }

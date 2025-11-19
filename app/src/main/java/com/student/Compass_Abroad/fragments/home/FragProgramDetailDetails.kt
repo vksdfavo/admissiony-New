@@ -108,7 +108,6 @@ class FragProgramDetailDetails : BaseFragment() {
 
         }
 
-
         if(BuildConfig.FLAVOR == "MavenConsulting"){
             binding!!.rlh.visibility=View.GONE
         }else{
@@ -119,10 +118,9 @@ class FragProgramDetailDetails : BaseFragment() {
         binding!!.svFpdd.post { binding!!.svFpdd.fullScroll(View.FOCUS_DOWN) }
         val isLanguageProgram = details?.program?.additional_items?.duration_range != null
         val isCareer = details?.program?.additional_items?.duration != null
-        val symbol = details?.program?.institution?.country?.currency_symbol
+        details?.program?.institution?.country?.currency_symbol
         val symbolCode = details?.program?.institution?.country?.currency_code
-        val isHigherEducation = details?.program?.duration != null
-
+        details?.program?.duration != null
 
 
         val applicationFee = if (isLanguageProgram) {
@@ -134,7 +132,6 @@ class FragProgramDetailDetails : BaseFragment() {
         else {
             details?.application_fee?.toString() ?: ""
         }
-
 
         val tuitionFee = if (isLanguageProgram) {
             details?.program?.additional_items?.tuition_fee ?: ""
@@ -213,7 +210,7 @@ class FragProgramDetailDetails : BaseFragment() {
             details?.program?.additional_items?.duration ?: ""
         }
         else {
-            details?.program?.duration?.toString() ?: ""
+            details?.program?.duration ?: ""
         }
 
         val durationType = if (!isLanguageProgram) {
@@ -231,7 +228,7 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.weeklyHoursView.visibility = View.GONE
             binding!!.weeklyHours.visibility = View.GONE
             binding!!.weeklyHoursText.visibility = View.GONE
-        }else if (App.sharedPre?.getString(AppConstants.CATEGORY,"") =="language_program"){
+        }else if (sharedPre?.getString(AppConstants.CATEGORY,"") =="language_program"){
 
             binding!!.startDate.visibility = View.GONE
             binding!!.startDateView.visibility = View.GONE
@@ -240,7 +237,7 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.weeklyHours.visibility = View.VISIBLE
             binding!!.weeklyHoursText.visibility = View.VISIBLE
 
-        }else if (App.sharedPre?.getString(AppConstants.CATEGORY,"") =="summer_school"){
+        }else if (sharedPre?.getString(AppConstants.CATEGORY,"") =="summer_school"){
 
             binding!!.startDate.visibility = View.VISIBLE
             binding!!.startDateView.visibility = View.VISIBLE
@@ -250,7 +247,7 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.weeklyHours.visibility = View.VISIBLE
             binding!!.weeklyHoursText.visibility = View.VISIBLE
         }
-        else if (App.sharedPre?.getString(AppConstants.CATEGORY,"") =="career_program"){
+        else if (sharedPre?.getString(AppConstants.CATEGORY,"") =="career_program"){
 
             binding!!.startDate.visibility = View.GONE
             binding!!.startDateView.visibility = View.GONE
@@ -267,7 +264,6 @@ class FragProgramDetailDetails : BaseFragment() {
         val startDate = details?.program?.additional_items?.start_date ?: ""
         val weekly_hours = details?.program?.additional_items?.weekly_hours ?: ""
 
-// Set application fee with currency symbol or placeholder
         binding!!.tvFpddApplicationFee.text = when {
             applicationFee != null && symbolCode != null -> "$applicationFee $symbolCode"
             applicationFee != null -> "$applicationFee"
@@ -301,14 +297,13 @@ class FragProgramDetailDetails : BaseFragment() {
             // Set placeholder if intakes is null or empty
             binding!!.rvFpddIntakes.visibility=View.GONE
             binding!!.tvIntakes.visibility=View.GONE
-            binding!!.rvFpddIntakes.adapter = null // Remove any existing adapter
-            // You might also want to set a placeholder in the TextView where intakes are displayed
+            binding!!.rvFpddIntakes.adapter = null
         }
 
         if(!tvEnglishLevel.isNullOrEmpty()){
             binding!!.tvEnglishLevel.visibility=View.VISIBLE
             binding!!.tvLabelEnglishLevel.visibility=View.VISIBLE
-            binding!!.tvLabelEnglishLevel.setText(tvEnglishLevel)
+            binding!!.tvLabelEnglishLevel.text = tvEnglishLevel
 
         }else{
             binding!!.tvEnglishLevel.visibility=View.GONE
@@ -319,7 +314,7 @@ class FragProgramDetailDetails : BaseFragment() {
         if(!tvAge.isNullOrEmpty()){
             binding!!.tvAge.visibility=View.VISIBLE
             binding!!.tvLabelAge.visibility=View.VISIBLE
-            binding!!.tvLabelAge.setText(tvAge)
+            binding!!.tvLabelAge.text = tvAge
 
         }else{
             binding!!.tvAge.visibility=View.GONE
@@ -330,7 +325,7 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.tvAccomodation.visibility=View.VISIBLE
             binding!!.tvLabelAccomodation.visibility=View.VISIBLE
             binding!!.tvDividerAccomodation.visibility=View.VISIBLE
-            binding!!.tvLabelAccomodation.setText(tvAccomodation)
+            binding!!.tvLabelAccomodation.text = tvAccomodation
 
         }else{
             binding!!.tvAccomodation.visibility=View.GONE
@@ -386,11 +381,11 @@ class FragProgramDetailDetails : BaseFragment() {
 
 
         if (details?.is_shortlisted == 0) {
-            binding!!.fabFpddShortlist.setVisibility(View.VISIBLE)
-            binding!!.fabFpddShortlisted.setVisibility(View.GONE)
+            binding!!.fabFpddShortlist.visibility = View.VISIBLE
+            binding!!.fabFpddShortlisted.visibility = View.GONE
         } else {
-            binding!!.fabFpddShortlist.setVisibility(View.GONE)
-            binding!!.fabFpddShortlisted.setVisibility(View.VISIBLE)
+            binding!!.fabFpddShortlist.visibility = View.GONE
+            binding!!.fabFpddShortlisted.visibility = View.VISIBLE
         }
         setShorlisted()
         setValues()
@@ -441,20 +436,20 @@ class FragProgramDetailDetails : BaseFragment() {
 
     private fun setShorlisted() {
         binding!!.fabFpddShortlist.setOnClickListener { _: View ->
-            binding!!.fabFpddShortlist.setVisibility(View.GONE)
-            binding!!.fabFpddShortlisted.setVisibility(View.VISIBLE)
+            binding!!.fabFpddShortlist.visibility = View.GONE
+            binding!!.fabFpddShortlisted.visibility = View.VISIBLE
             val hexString = generateRandomHexString(16)
             var publicKey = hexString
             var privateKey = AppConstants.privateKey
 
             //form data with email login code start
-            val formData = JSONObject();
+            val formData = JSONObject()
 
             formData.put(
                 "program_campus_identifier",
                 details?.identifier
             ) //email or phone
-            val data = formData.toString();
+            val data = formData.toString()
             val dataToEncrypt = data
             val app_secret = AppConstants.appSecret
 
@@ -475,16 +470,16 @@ class FragProgramDetailDetails : BaseFragment() {
 
         }
         binding!!.fabFpddShortlisted.setOnClickListener { v: View ->
-            binding!!.fabFpddShortlisted.setVisibility(View.GONE)
-            binding!!.fabFpddShortlist.setVisibility(View.VISIBLE)
+            binding!!.fabFpddShortlisted.visibility = View.GONE
+            binding!!.fabFpddShortlist.visibility = View.VISIBLE
             val hexString = generateRandomHexString(16)
             var publicKey = hexString
             var privateKey = AppConstants.privateKey
 
-            val formData = JSONObject();
+            val formData = JSONObject()
 
             formData.put("program_campus_identifier", details?.identifier) //email or phone
-            val data = formData.toString();
+            val data = formData.toString()
             val dataToEncrypt = data
             val app_secret = AppConstants.appSecret
 
@@ -515,7 +510,7 @@ class FragProgramDetailDetails : BaseFragment() {
         ViewModalClass().getshorListModalLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
-            App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
+            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
             "Bearer " + CommonUtils.accessToken, content
         ).observe(requireActivity) { allShorListModal: ShortListResponse? ->
             allShorListModal?.let { nonNullForgetModal ->
@@ -542,7 +537,7 @@ class FragProgramDetailDetails : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-       if(App.sharedPre?.getString(AppConstants.SCOUtLOGIN,"")=="true"){
+       if(sharedPre?.getString(AppConstants.SCOUtLOGIN,"")=="true"){
            ScoutMainActivity.bottomNav!!.isVisible = false
        }else{
            MainActivity.bottomNav!!.isVisible = false

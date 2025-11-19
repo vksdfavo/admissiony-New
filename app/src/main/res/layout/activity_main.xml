@@ -120,7 +120,6 @@
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <fragment
             android:id="@+id/main_nav"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -147,15 +146,12 @@
             app:menu="@menu/menu_bnv_firmli_agent" />
 
     </RelativeLayout>
-
-
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:background="@drawable/gradient_home">
-
+        android:background="@drawable/gradient_home"
+        android:fitsSystemWindows="true">
 
 
         <RelativeLayout
@@ -481,9 +477,9 @@
                     <ImageView
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        android:layout_margin="@dimen/dp_10"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
+                        android:layout_margin="@dimen/dp_10"
                         android:src="@drawable/admissiony"
                         android:visibility="visible" />
 
@@ -525,12 +521,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:padding="10sp"
-                android:visibility="gone"
                 android:paddingStart="26dp"
                 android:paddingEnd="26dp"
                 android:text=""
                 android:textColor="#151522"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="gone" />
         </RelativeLayout>
     </com.google.android.material.navigation.NavigationView>
 

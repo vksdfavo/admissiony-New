@@ -19,8 +19,8 @@
             android:id="@+id/ablSelect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/secondary_color"
             android:fitsSystemWindows="true"
+            android:background="@color/secondary_color"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <androidx.appcompat.widget.Toolbar
@@ -75,6 +75,7 @@
                         android:src="@drawable/ic_heart"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
+                        android:visibility="gone"
                         app:fabCustomSize="32dp"
                         app:maxImageSize="20dp"
                         app:rippleColor="@color/white"

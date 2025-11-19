@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="10dp"
             android:layout_toEndOf="@id/civItemCo_image1"
             android:orientation="vertical">
@@ -77,7 +77,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
             android:background="@drawable/strock_date"
             android:orientation="vertical"
             android:backgroundTint="#FFE7E5"
@@ -110,7 +110,7 @@
     <LinearLayout
         android:id="@+id/rvAttachments_received"
         android:layout_width="wrap_content"
-        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginStart="@dimen/space50"
         android:layout_height="wrap_content">
 
         <TextView
@@ -129,9 +129,9 @@
     <!--    -->
     <TextView
         android:id="@+id/tvItemCo_time1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
         android:maxLines="1"

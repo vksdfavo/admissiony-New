@@ -51,7 +51,6 @@ class ScoutMainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         navController = this.findNavController(R.id.main_nav)
         bottomNav = findViewById(R.id.bottom_navigation)
-
         drawer = findViewById(R.id.drawerLayout)
 
 
@@ -62,17 +61,6 @@ class ScoutMainActivity : AppCompatActivity() {
 
         onClicks()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.navigationBarColor = getColor(android.R.color.black)
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-
-        }
-
         NavigationUI.setupWithNavController(bottomNav!!, navController!!)
 
         setSupportActionBar(binding!!.toolbarDa)
@@ -82,14 +70,14 @@ class ScoutMainActivity : AppCompatActivity() {
         bottomNav!!.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.scout_home_fragment -> {
-                    ApplicationActiveFragment.Companion.data = null
+                    ApplicationActiveFragment.data = null
                     AppConstants.PROGRAM_STATUS = "1"
                     navController?.navigate(R.id.scout_home_fragment)
                     true
                 }
 
                 R.id.fragProgramAllProg2 -> {
-                    ApplicationActiveFragment.Companion.data = null
+                    ApplicationActiveFragment.data = null
                     AppConstants.PROGRAM_STATUS = "1"
                     navController?.navigate(R.id.fragProgramAllProg2)
                     true
@@ -107,14 +95,13 @@ class ScoutMainActivity : AppCompatActivity() {
     }
 
     override fun attachBaseContext(newBase: Context?) {
-        val lang = SharedPrefs.Companion.getLang(newBase ?: return) ?: "en"
-        val context = App.Companion.updateBaseContextLocale(newBase, lang)
+        val lang = SharedPrefs.getLang(newBase ?: return) ?: "en"
+        val context = App.updateBaseContextLocale(newBase, lang)
         super.attachBaseContext(context)
     }
 
 
     companion object {
-
         var bottomNav: BottomNavigationView? = null
         var drawer: DrawerLayout? = null
         @SuppressLint("RestrictedApi")
@@ -151,8 +138,7 @@ class ScoutMainActivity : AppCompatActivity() {
             binding!!.drawerLayout.close()
         }
 
-        val versionCode =
-            BuildConfig.VERSION_NAME?.toString().takeIf { it?.isNotEmpty() == true } ?: "N/A"
+        val versionCode = BuildConfig.VERSION_NAME.takeIf { it?.isNotEmpty() == true } ?: "N/A"
         binding?.tv66?.text = "App Version  $versionCode"
 
     }
@@ -164,7 +150,7 @@ class ScoutMainActivity : AppCompatActivity() {
         builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
             startActivity(Intent(this@ScoutMainActivity, LoginActivity::class.java))
             finish()
-            App.Companion.sharedPre?.clearPreferences()
+            App.sharedPre?.clearPreferences()
         }
         builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
             dialog.dismiss()
@@ -173,14 +159,42 @@ class ScoutMainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-
     override fun onResume() {
         super.onResume()
 
-        val imageUrl = App.Companion.sharedPre!!.getString(AppConstants.USER_IMAGE, "")!!.trim('"')
+        setupStatusBar()
+
+        val imageUrl = App.sharedPre!!.getString(AppConstants.USER_IMAGE, "")!!.trim('"')
 
         Glide.with(this)
             .load(imageUrl).error(R.drawable.test_image)
             .into(binding!!.civNavDrawer)
+    }
+
+    private fun setupStatusBar() {
+        val currentFlavor = BuildConfig.FLAVOR.lowercase()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        }
+
+        // Set status bar appearance
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.setSystemBarsAppearance(
+                android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
+        if (currentFlavor == "admisiony") {
+            window.navigationBarColor = getColor(R.color.white)
+            window.statusBarColor = getColor(R.color.secondary_color)
+        } else {
+            window.navigationBarColor = getColor(R.color.secondary_color)
+            window.statusBarColor = getColor(R.color.secondary_color)
+        }
     }
 }

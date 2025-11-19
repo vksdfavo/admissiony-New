@@ -1107,7 +1107,6 @@ class LoginViewModal : ViewModel() {
         )?.enqueue(object : Callback<InDemandInstitution?> {
 
             override fun onResponse(
-
                 call: Call<InDemandInstitution?>,
                 response: Response<InDemandInstitution?>
             ) {
@@ -1218,6 +1217,7 @@ class LoginViewModal : ViewModel() {
 
 
     /**For Login**/
+
     fun loginModalLiveData(
         activity: Activity?,
         client_number: String,
@@ -1405,7 +1405,5 @@ class LoginViewModal : ViewModel() {
 
         return liveData
     }
-
-
 
 }

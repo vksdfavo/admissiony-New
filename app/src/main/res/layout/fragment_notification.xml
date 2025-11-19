@@ -35,11 +35,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/white"
-                    android:src="@drawable/ic_back"
+                    android:src="@drawable/baseline_arrow_forward_24"
+                    android:rotation="180"
                     app:borderWidth="0dp"
                     app:elevation="0dp"
-                    app:fabCustomSize="32dp"
-                    app:maxImageSize="16dp"
+                    app:fabCustomSize="45dp"
+                    app:maxImageSize="25dp"
                     app:rippleColor="@color/rippleColor"
                     app:tint="@color/tintColorToolbar" />
 
@@ -47,9 +48,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="@string/notifications"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/fabAc_back"
                     android:textColor="@color/tintColorToolbar"
                     android:textSize="18sp" />
 

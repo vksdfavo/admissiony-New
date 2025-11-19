@@ -1618,7 +1618,6 @@ interface ApiInterface {
         @Header("Authorization") authorization: String?,
     ): Call<InDemandCourse>
 
-
     @GET("program-finder/dashboard-widget/in-demandInstitution/HighDemand")
     fun get_InDemandInstitution(
         @Header("fi-client-number") fiClientNumber: String?,

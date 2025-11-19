@@ -76,8 +76,6 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         navController = findNavController(this, R.id.main_nav)
         bottomNav = findViewById(R.id.bottom_navigation)
 
-
-
         drawer = findViewById(R.id.drawerLayout)
 
         activity = WeakReference(this)

@@ -44,6 +44,7 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import kotlin.random.Random
+import androidx.navigation.findNavController
 
 class ShortListedFragment : BaseFragment(), AdapterProgramsShortListedProgram.select {
     private var binding: FragmentShortListedBinding? = null
@@ -82,7 +83,7 @@ class ShortListedFragment : BaseFragment(), AdapterProgramsShortListedProgram.se
             if (arrayList1.isNotEmpty()) {
                 CompareProgram.detail = arrayList1
                 if (isAdded && isResumed) {
-                    Navigation.findNavController(binding!!.root).navigate(R.id.compareProgram)
+                    binding!!.root.findNavController().navigate(R.id.compareProgram)
 
                 }
             } else {
@@ -97,7 +98,6 @@ class ShortListedFragment : BaseFragment(), AdapterProgramsShortListedProgram.se
 
         binding!!.tabSelfShortlisted.setOnClickListener {
             binding?.pbFpAp?.visibility = View.VISIBLE
-
             presentPage=1
             nextPage=0
             arrayList1.clear()
@@ -340,8 +340,8 @@ class ShortListedFragment : BaseFragment(), AdapterProgramsShortListedProgram.se
     }
 
     override fun onCLick(record: Record) {
-        ProgramDetails.details = record
-        Navigation.findNavController(binding!!.root).navigate(R.id.programDetails)
+        FragProgramDetailDetails.details = record
+        Navigation.findNavController(binding!!.root).navigate(R.id.fragProgramDetailDetails)
 
     }
 

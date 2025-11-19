@@ -126,6 +126,7 @@
                         android:layout_height="match_parent"
                         android:layout_below="@id/fabFp_notificationStu"
                         android:layout_marginTop="@dimen/space30"
+                        android:backgroundTint="#F3F4F5"
                         android:background="@drawable/home_back">
 
                         <TextView
@@ -473,7 +474,7 @@
                     android:layout_height="@dimen/space18"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_program"
-                    android:tint="@color/secondary_color" />
+                    app:tint="@color/secondary_color" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -621,7 +622,7 @@
                     android:layout_height="@dimen/space18"
                     android:layout_gravity="center"
                     android:src="@drawable/map_pin"
-                    android:tint="@color/secondary_color" />
+                    app:tint="@color/secondary_color" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -744,8 +745,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/space5"
                 android:layout_marginHorizontal="@dimen/space18"
+                android:layout_marginVertical="@dimen/space5"
                 android:background="@color/hint" />
 
             <LinearLayout
@@ -760,8 +761,7 @@
                     android:layout_width="@dimen/space18"
                     android:layout_height="@dimen/space18"
                     android:layout_gravity="center"
-                    android:src="@drawable/home_new"
-                    />
+                    android:src="@drawable/home_new" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -878,8 +878,8 @@
                     android:layout_marginStart="@dimen/space5"
                     android:gravity="center"
                     android:text="@string/area_of_interest"
-                    android:textSize="14sp"
                     android:textColor="@color/black"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <!-- Spacer pushes next item (View All) to right -->
@@ -894,15 +894,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:text="View All"
-                    android:visibility="gone"
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
-
-
 
             <TextView
                 android:id="@+id/no_area_of_interest_found"
@@ -920,10 +917,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="invisible"
                 android:layout_marginHorizontal="@dimen/space20"
                 android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
+                android:background="@color/hint"
+                android:visibility="invisible" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -974,14 +971,12 @@
             </LinearLayout>
 
 
-
-
             <LinearLayout
                 android:id="@+id/quickActions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10dp"
                 android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:background="@drawable/strock_qucik"
                 android:orientation="vertical">
@@ -990,8 +985,8 @@
                     android:id="@+id/rvQuciAction"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:clipToPadding="false"
                     android:layout_gravity="center_horizontal"
+                    android:clipToPadding="false"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
@@ -1026,8 +1021,7 @@
                     android:layout_width="@dimen/space18"
                     android:layout_height="@dimen/space18"
                     android:layout_gravity="center"
-                    android:src="@drawable/testi"
-                    />
+                    android:src="@drawable/testi" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1127,8 +1121,7 @@
                     android:layout_width="@dimen/space18"
                     android:layout_height="@dimen/space18"
                     android:layout_gravity="center"
-                    android:src="@drawable/voucherss"
-                    />
+                    android:src="@drawable/voucherss" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1157,7 +1150,6 @@
                     android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp" />
             </LinearLayout>
-
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -1192,8 +1184,7 @@
                     android:layout_width="@dimen/space18"
                     android:layout_height="@dimen/space18"
                     android:layout_gravity="center"
-                    android:src="@drawable/airplay"
-                    />
+                    android:src="@drawable/airplay" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1246,7 +1237,6 @@
                 android:background="@color/hint" />
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1259,8 +1249,7 @@
                     android:layout_width="@dimen/space18"
                     android:layout_height="@dimen/space18"
                     android:layout_gravity="center"
-                    android:src="@drawable/globe"
-                    />
+                    android:src="@drawable/globe" />
 
                 <TextView
                     android:layout_width="wrap_content"
