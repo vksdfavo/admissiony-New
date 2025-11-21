@@ -1,13 +1,21 @@
 package com.student.Compass_Abroad.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.AppConstants
@@ -65,10 +73,17 @@ class AreaOfInterestFragment : BaseFragment() {
                         },allDisciplineList.size
                     )
 
-                    binding.rvAreaOfInterest.apply {
-                        layoutManager = GridLayoutManager(requireContext(), 3)
-                        adapter = disciplineAdapter
+                    val layoutManager = FlexboxLayoutManager(requireContext()).apply {
+                        flexDirection = FlexDirection.ROW          // items left → right
+                        flexWrap = FlexWrap.WRAP                   // move to next line automatically
+                        justifyContent = JustifyContent.FLEX_START // align items to start
+                        alignItems = AlignItems.FLEX_START         // align properly vertically
                     }
+
+                    binding.rvAreaOfInterest.layoutManager = layoutManager
+                    binding.rvAreaOfInterest.adapter = disciplineAdapter
+
+
                 }
             }
         }
@@ -77,5 +92,17 @@ class AreaOfInterestFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         MainActivity.bottomNav!!.isVisible = false
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = requireActivity().window.insetsController
+            controller?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            requireActivity().window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
     }
 }

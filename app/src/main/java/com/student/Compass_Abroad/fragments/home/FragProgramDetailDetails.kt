@@ -44,7 +44,7 @@ class FragProgramDetailDetails : BaseFragment() {
     private var adapterProgramDetailDetailsets: AdapterProgramDetailDetailsETS? = null
     var contentKey = ""
 
-    companion object{
+    companion object {
 
         var details: Record?=null
 
@@ -114,14 +114,12 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.rlh.visibility=View.VISIBLE
         }
 
-
         binding!!.svFpdd.post { binding!!.svFpdd.fullScroll(View.FOCUS_DOWN) }
         val isLanguageProgram = details?.program?.additional_items?.duration_range != null
         val isCareer = details?.program?.additional_items?.duration != null
         details?.program?.institution?.country?.currency_symbol
         val symbolCode = details?.program?.institution?.country?.currency_code
         details?.program?.duration != null
-
 
         val applicationFee = if (isLanguageProgram) {
             details?.program?.additional_items?.application_fee ?: ""
@@ -228,6 +226,7 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.weeklyHoursView.visibility = View.GONE
             binding!!.weeklyHours.visibility = View.GONE
             binding!!.weeklyHoursText.visibility = View.GONE
+
         }else if (sharedPre?.getString(AppConstants.CATEGORY,"") =="language_program"){
 
             binding!!.startDate.visibility = View.GONE

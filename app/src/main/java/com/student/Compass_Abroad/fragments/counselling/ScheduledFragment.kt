@@ -53,7 +53,9 @@ class ScheduledFragment : BaseFragment() {
         }
 
         binding.fabFaActive.setOnClickListener {
+
             binding.root.findNavController().navigate(R.id.bookCounsellingFragment)
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->

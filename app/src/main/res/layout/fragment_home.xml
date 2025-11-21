@@ -897,7 +897,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp"
-                    android:visibility="gone" />
+                    />
 
             </LinearLayout>
 
@@ -1010,6 +1010,7 @@
 
 
             <LinearLayout
+                android:id="@+id/relativeTestimonials"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -1238,6 +1239,7 @@
 
 
             <LinearLayout
+                android:id="@+id/relativeLatestUpdates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"

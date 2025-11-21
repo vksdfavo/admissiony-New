@@ -45,9 +45,10 @@ class ApplicationDetail : Fragment() {
             ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
 
         binding = FragmentApplicationDetailBinding.inflate(inflater, container, false)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(0, 0, 0, systemBars.bottom)
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
             insets
         }
 

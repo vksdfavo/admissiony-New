@@ -24,6 +24,7 @@ import com.student.Compass_Abroad.modal.preferCountryList.GetPreferCountryList
 import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
 import com.student.Compass_Abroad.modal.staffProfile.StaffProfileModal
 import com.student.Compass_Abroad.retrofit.RetrofitClient.retrofitCallerObject
+import com.student.Compass_Abroad.retrofit.RetrofitClient2.retrofitCallerObject2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -32,6 +33,7 @@ import java.io.IOException
 
 class HomeViewModal : ViewModel(){
     var apiInterface = retrofitCallerObject!!.create(ApiInterface::class.java)
+    var apiInterface2 = retrofitCallerObject2!!.create(ApiInterface::class.java)
 
     private val _clientEventsCache = MutableLiveData<ClientEventResponse?>()
     private val _bannersCache = MutableLiveData<getBannerModel?>()
@@ -65,7 +67,7 @@ class HomeViewModal : ViewModel(){
             if (CommonUtils.isNetworkConnected(act)) {
                 CommonUtils.showProgress(act)
 
-                apiInterface.getDisciplineList(clientNumber, deviceNumber, accessToken)
+                apiInterface2.getDisciplineList(clientNumber, deviceNumber, accessToken)
                     ?.enqueue(object : Callback<GetPreferCountryList?> {
                         override fun onResponse(
                             call: Call<GetPreferCountryList?>,

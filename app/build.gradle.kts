@@ -8,7 +8,6 @@ plugins {
 }
 
 android {
-
     flavorDimensions("FirmliTest")
     productFlavors {
         create("Firmli") {

@@ -1,6 +1,9 @@
 package com.student.Compass_Abroad
 
+import android.graphics.Bitmap
+import android.media.MediaMetadataRetriever
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -25,31 +28,91 @@ class LatestUpdateAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // ✅ safety check — avoid crash if list is empty or index invalid
-        if (position < 0 || position >= destinationList.size) return
-
         val item = destinationList[position]
+        val url = item.media_url ?: ""
 
-        // Bind description text
-//        holder.binding.btnTestimonials.text = item.description ?: ""
-//
-//        // Bind date safely
-//        holder.binding.date.text = item.created_at?.takeIf { it.length >= 10 }?.take(10) ?: ""
-//
-//        // Bind image safely using Glide
-//        val imageUrl = item.media_url
-//        Glide.with(holder.itemView.context)
-//            .load(imageUrl?.takeIf { it.isNotBlank() })
-//            .placeholder(R.drawable.test_banner)
-//            .error(R.drawable.test_banner)
-//            .into(holder.binding.iv)
-//
-//        // Handle click
-//        holder.binding.cvBase.setOnClickListener {
-//            onItemClick?.invoke(item)
-//        }
+        holder.binding.btnTestimonials.text = item.description ?: ""
+        holder.binding.tvTitle.text = item.title ?: ""
+        holder.binding.date.text = item.created_at?.take(10) ?: ""
+
+        // ---------- IMAGE / VIDEO HANDLING ----------
+        when (item.media_type) {
+
+            "video" -> {
+                holder.binding.player.visibility = View.VISIBLE
+
+                if (url.contains("youtube.com") || url.contains("youtu.be")) {
+
+                    val videoId = extractYouTubeId(url)
+                    val thumbnailUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg"
+
+                    Glide.with(holder.itemView.context)
+                        .load(thumbnailUrl)
+                        .placeholder(R.drawable.test_banner)
+                        .error(R.drawable.test_banner)
+                        .into(holder.binding.iv)
+
+                } else {
+                    val thumb = getVideoFrame(url)
+
+                    if (thumb != null) {
+                        Glide.with(holder.itemView.context)
+                            .load(thumb)
+                            .placeholder(R.drawable.test_banner)
+                            .error(R.drawable.test_banner)
+                            .into(holder.binding.iv)
+                    } else {
+                        holder.binding.iv.setImageResource(R.drawable.test_banner)
+                    }
+                }
+            }
+
+            "image" -> {
+                holder.binding.player.visibility = View.GONE
+
+                Glide.with(holder.itemView.context)
+                    .load(url)
+                    .placeholder(R.drawable.test_banner)
+                    .error(R.drawable.test_banner)
+                    .into(holder.binding.iv)
+            }
+
+            else -> {
+                holder.binding.player.visibility = View.GONE
+                holder.binding.iv.setImageResource(R.drawable.test_banner)
+            }
+        }
+
+        // ---------- CLICK ----------
+        holder.binding.player.setOnClickListener {
+            onItemClick?.invoke(item)
+        }
     }
 
-    // ✅ Always return actual list size
     override fun getItemCount(): Int = destinationList.size
+
+
+    // ---------- Helper Functions ----------
+
+    private fun extractYouTubeId(url: String): String {
+        return when {
+            url.contains("v=") -> url.substringAfter("v=").substringBefore("&")
+            url.contains("youtu.be/") -> url.substringAfter("youtu.be/").substringBefore("?")
+            url.contains("embed/") -> url.substringAfter("embed/").substringBefore("?")
+            else -> ""
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun getVideoFrame(videoUrl: String): Bitmap? {
+        return try {
+            val retriever = MediaMetadataRetriever()
+            retriever.setDataSource(videoUrl, HashMap())
+            val bitmap = retriever.getFrameAtTime(1_000_000) // 1 sec frame
+            retriever.release()
+            bitmap
+        } catch (e: Exception) {
+            null
+        }
+    }
 }

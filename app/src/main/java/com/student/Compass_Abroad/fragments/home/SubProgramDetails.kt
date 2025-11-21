@@ -22,15 +22,10 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 
 
 class SubProgramDetails : BaseFragment() {
-
-
     private lateinit var binding: FragmentSubProgramDetailsBinding
-
     var value: Int = 0
-
     private val applicationProgram: ArrayList<ProgramInfo> = ArrayList()
     private val applicationProgramCheckListInfo: ArrayList<ProgramChecklistInfo> = ArrayList()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,8 +86,7 @@ class SubProgramDetails : BaseFragment() {
             binding.tvDuration.text = if (duration > 0) "Duration: $duration months" else "-----"
             binding.tvCampus.text = "Campus Name: $campus"
             binding.tvTutionFee.text = "Tuition Fee: $tuitionFee $currencySymbol ($currency)"
-            binding.tvApplicationFee.text =
-                "Application Fee: $applicationFee $currencySymbol ($currency)"
+            binding.tvApplicationFee.text = "Application Fee: $applicationFee $currencySymbol ($currency)"
 
             binding.tvApplied.setBackgroundResource(R.drawable.ic_preference_back)
              value =  App.singleton!!.position!!.toInt()

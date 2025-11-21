@@ -16,14 +16,31 @@
         android:orientation="vertical"
         android:paddingBottom="8dp">
 
-        <!-- Image Section -->
-        <ImageView
-            android:id="@+id/iv"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/latest"
-            android:contentDescription="@string/app_name" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/player"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/space5"
+                android:layout_centerInParent="true"
+                android:elevation="@dimen/space5"
+                android:src="@drawable/player_icon"
+                />
+
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/test_banner"
+                android:background="@drawable/top_rounded"
+                />
+
+        </RelativeLayout>
+
 
         <!-- Title -->
         <TextView

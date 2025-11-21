@@ -66,9 +66,6 @@ class FragmentPrograms : BaseFragment() {
         }
     }
 
-
-
-
     private fun fetchDataFromApi(record: Record?, position1: Int) {
         App.singleton!!.institution_id = data!!.latestInstitutionInfo.institution_id.toString()
         App.singleton!!.programId = data!!.allProgramInfo[position1].program_id.toString()

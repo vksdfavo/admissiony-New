@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".fragments.AreaOfInterestFragment">
 
@@ -24,18 +25,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_gravity="center"
+            android:layout_toEndOf="@id/back_btn"
             android:maxLines="1"
             android:singleLine="true"
+            android:layout_marginStart="@dimen/space10"
             android:text="@string/area_of_interest"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-
     </RelativeLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAreaOfInterest"
@@ -44,8 +44,9 @@
         android:layout_below="@id/header_title"
         android:layout_marginTop="-10dp"
         android:clipToPadding="false"
-        android:visibility="gone"
         android:paddingTop="10dp"
+        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+        app:spanCount="3"
         android:paddingBottom="80dp"
         android:scrollbars="vertical"
         tools:listitem="@layout/item_area_of_interest_layout" />
@@ -63,6 +64,5 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="gone" />
-
 
 </RelativeLayout>

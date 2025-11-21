@@ -128,6 +128,11 @@ import java.io.IOException
 import kotlin.math.abs
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.widget.NestedScrollView
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.student.Compass_Abroad.StaticLatestUpdate
 import com.student.Compass_Abroad.StaticLatestUpdateAdapter
 import com.student.Compass_Abroad.StaticTestimonial
@@ -189,6 +194,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private var arrayListBanner =
         ArrayList<com.student.Compass_Abroad.modal.getBannerModel.Record>()
     private var identityInfo: com.student.Compass_Abroad.modal.staffProfile.Data? = null
+    var arrayListInLatestUpdate = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
+
+
+    var arrayListInStudentTestimonials =
+        ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
 
     private val sliderHandler: Handler = Handler()
     private val sliderItems = mutableListOf<String>()
@@ -499,7 +509,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         setupViewModel()
         setRecyclerView()
 
-
         if (BuildConfig.FLAVOR == "MavenConsulting") {
             binding?.fabCreateApplication?.visibility = View.GONE
         } else {
@@ -507,7 +516,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         }
 
         val currentFlavor = BuildConfig.FLAVOR.lowercase()
-
 
 
         if (currentFlavor == "eduways") {
@@ -688,11 +696,15 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                         }, 9
                     )
 
-                    binding!!.rvAreaOfInterest.apply {
-                        layoutManager = GridLayoutManager(requireContext(), 3)
-                        adapter = disciplineAdapter
-
+                    val layoutManager = FlexboxLayoutManager(requireContext()).apply {
+                        flexDirection = FlexDirection.ROW          // items left → right
+                        flexWrap = FlexWrap.WRAP                   // move to next line automatically
+                        justifyContent = JustifyContent.FLEX_START // align items to start
+                        alignItems = AlignItems.FLEX_START         // align properly vertically
                     }
+
+                    binding!!.rvAreaOfInterest.layoutManager = layoutManager
+                    binding!!.rvAreaOfInterest.adapter = disciplineAdapter
                 }
             } else {
 
@@ -1046,7 +1058,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     }
                 }
             })
-
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
@@ -1857,7 +1868,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
     private fun getModeOfPaymentDropdown(
         requireActivity: FragmentActivity,
-        payment_mode: TextView, ) {
+        payment_mode: TextView,
+    ) {
 
         viewModelHome.getModeOFPaymentDropDownVoucherLiveData(
             requireActivity,
@@ -2592,142 +2604,123 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         }
 
 
-//        val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
-//        val token = "Bearer ${CommonUtils.accessToken}"
-//        LoginViewModal().getTestimonials(
-//            requireActivity(),
-//            AppConstants.fiClientNumber,
-//            deviceId,
-//            token,
-//            true,
-//            "webinar"
-//        ).observe(viewLifecycleOwner) { response ->
-//            response?.let { resp ->
-//                if (resp.statusCode == 200) {
-//                    val records = resp.data?.records?.rows
-//                    if (!records.isNullOrEmpty()) {
-//                        // ✅ Show section
-//                        binding?.relativeTestimonials?.visibility = View.VISIBLE
-//                        binding?.viewTest?.visibility = View.VISIBLE
-//
-//                        arrayListInStudentTestimonials.clear()
-//                        arrayListInStudentTestimonials.addAll(records)
-//
-//                        binding?.rvTestimonials?.apply {
-//                            layoutManager = LinearLayoutManager(
-//                                requireContext(),
-//                                LinearLayoutManager.HORIZONTAL,
-//                                false
-//                            )
-//                            adapter = StudentTestimonialsAdapter(arrayListInStudentTestimonials) { selectedItem ->
-//                                // Handle click here
-//                            }
-//                        }
-//                    } else {
-//                        // ✅ Hide section if list is empty
-//                        binding?.relativeTestimonials?.visibility = View.GONE
-//                        binding?.viewTest?.visibility = View.GONE
-//                    }
-//                } else {
-//                    // ✅ Hide section on API failure
-//                    binding?.relativeTestimonials?.visibility = View.GONE
-//                    binding?.viewTest?.visibility = View.GONE
-//
-//
-//                    val errorMsg = resp.message ?: "Failed"
-//                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
-//                        CommonUtils.toast(requireActivity(), errorMsg)
-//                    }
-//                }
-//            } ?: run {
-//                // ✅ Hide section if response is null
-//                binding?.relativeTestimonials?.visibility = View.GONE
-//                binding?.viewTest?.visibility = View.GONE
-//
-//            }
-//        }
+        val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
+        val token = "Bearer ${CommonUtils.accessToken}"
+        LoginViewModal().getTestimonials(
+            requireActivity(),
+            AppConstants.fiClientNumber,
+            deviceId,
+            token,"webinar"
+        ).observe(viewLifecycleOwner) { response ->
+            response?.let { resp ->
+                if (resp.statusCode == 200) {
+                    val records = resp.data?.records?.rows
+                    if (!records.isNullOrEmpty()) {
+                        // ✅ Show section
+                        binding?.relativeTestimonials?.visibility = View.VISIBLE
+                        binding?.viewTest?.visibility = View.VISIBLE
+
+                        arrayListInStudentTestimonials.clear()
+                        arrayListInStudentTestimonials.addAll(records)
+
+                        binding?.rvTestimonials?.apply {
+                            layoutManager = LinearLayoutManager(
+                                requireContext(),
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                            adapter = StudentTestimonialsAdapter(arrayListInStudentTestimonials) { selectedItem ->
+                                // Handle click here
+                                val bundle = Bundle().apply {
+                                    putString("media_url", selectedItem.media_url)
+                                }
+
+                                binding!!.root.findNavController()
+                                    .navigate(R.id.hybridPlayerActivity, bundle)
+
+                            }
+                        }
+                    } else {
+                        // ✅ Hide section if list is empty
+                        binding?.relativeTestimonials?.visibility = View.GONE
+                        binding?.viewTest?.visibility = View.GONE
+                    }
+                } else {
+                    // ✅ Hide section on API failure
+                    binding?.relativeTestimonials?.visibility = View.GONE
+                    binding?.viewTest?.visibility = View.GONE
+
+
+                    val errorMsg = resp.message ?: "Failed"
+                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
+                        CommonUtils.toast(requireActivity(), errorMsg)
+                    }
+                }
+            } ?: run {
+                // ✅ Hide section if response is null
+                binding?.relativeTestimonials?.visibility = View.GONE
+                binding?.viewTest?.visibility = View.GONE
+
+            }
+        }
     }
 
     private fun setupRecyclerLatestUpdates() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
+        LoginViewModal().getTestimonials(
+            requireActivity(),
+            AppConstants.fiClientNumber,
+            deviceId,
+            token,
+            "recent_update"
+        ).observe(viewLifecycleOwner) { response ->
+            response?.let { resp ->
+                if (resp.statusCode == 200) {
+                    val records = resp.data?.records?.rows
 
-        val staticUpdates = listOf(
-            StaticLatestUpdate(
-                title = "Study Visa Updates 2025",
-                description = "Canada announces new study visa rules effective January 2025.",
-                date = "2025-11-08",
-                imageResId = R.drawable.latest
-            ),
-            StaticLatestUpdate(
-                title = "UK Scholarship Alert",
-                description = "New full scholarships available for Indian students in 2025 intake.",
-                date = "2025-10-30",
-                imageResId = R.drawable.latest
-            ),
-            StaticLatestUpdate(
-                title = "Australia Intake 2026",
-                description = "Applications for the February 2026 intake now open for top universities.",
-                date = "2025-10-20",
-                imageResId = R.drawable.latest
-            )
-        )
+                    if (!records.isNullOrEmpty()) {
+                        // ✅ Show section when data available
+                        binding?.relativeLatestUpdates?.visibility = View.VISIBLE
 
-        // ✅ Show static list in RecyclerView
-        binding?.rvLatestUpdates?.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = StaticLatestUpdateAdapter(staticUpdates)
+                        arrayListInLatestUpdate.clear()
+                        arrayListInLatestUpdate.addAll(records)
+
+                        binding?.rvLatestUpdates?.apply {
+                            layoutManager = LinearLayoutManager(
+                                requireContext(),
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                            adapter = LatestUpdateAdapter(arrayListInLatestUpdate) { selectedItem ->
+                                // Handle click here
+
+                                val bundle = Bundle().apply {
+                                    putString("media_url", selectedItem.media_url)
+                                }
+
+                                binding!!.root.findNavController()
+                                    .navigate(R.id.hybridPlayerActivity, bundle)
+                            }
+                        }
+                    } else {
+                        // ✅ Hide section when list is empty
+                        binding?.relativeLatestUpdates?.visibility = View.GONE
+                    }
+                } else {
+                    // ✅ Hide section on API failure
+                    binding?.relativeLatestUpdates?.visibility = View.GONE
+
+                    val errorMsg = resp.message ?: "Failed"
+                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
+                        CommonUtils.toast(requireActivity(), errorMsg)
+                    }
+                }
+            } ?: run {
+                // ✅ Hide section if response is null
+                binding?.relativeLatestUpdates?.visibility = View.GONE
+            }
         }
-
-
-
-//        LoginViewModal().getTestimonials(
-//            requireActivity(),
-//            AppConstants.fiClientNumber,
-//            deviceId,
-//            token,
-//            true,
-//            "recent_update"
-//        ).observe(viewLifecycleOwner) { response ->
-//            response?.let { resp ->
-//                if (resp.statusCode == 200) {
-//                    val records = resp.data?.records?.rows
-//
-//                    if (!records.isNullOrEmpty()) {
-//                        // ✅ Show section when data available
-//                        binding?.relativeLatestUpdates?.visibility = View.VISIBLE
-//
-//                        arrayListInLatestUpdate.clear()
-//                        arrayListInLatestUpdate.addAll(records)
-//
-//                        binding?.rvLatestUpdates?.apply {
-//                            layoutManager = LinearLayoutManager(
-//                                requireContext(),
-//                                LinearLayoutManager.HORIZONTAL,
-//                                false
-//                            )
-//                            adapter = LatestUpdateAdapter(arrayListInLatestUpdate) { selectedItem ->
-//                                // Handle click here
-//                            }
-//                        }
-//                    } else {
-//                        // ✅ Hide section when list is empty
-//                        binding?.relativeLatestUpdates?.visibility = View.GONE
-//                    }
-//                } else {
-//                    // ✅ Hide section on API failure
-//                    binding?.relativeLatestUpdates?.visibility = View.GONE
-//
-//                    val errorMsg = resp.message ?: "Failed"
-//                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
-//                        CommonUtils.toast(requireActivity(), errorMsg)
-//                    }
-//                }
-//            } ?: run {
-//                // ✅ Hide section if response is null
-//                binding?.relativeLatestUpdates?.visibility = View.GONE
-//            }
-//        }
     }
 
 }

@@ -21,6 +21,7 @@ import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.databinding.FragmentStudentTestimonialsBinding
 import com.student.Compass_Abroad.retrofit.LoginViewModal
+import androidx.navigation.findNavController
 
 
 class StudentTestimonials : BaseFragment() {
@@ -31,7 +32,7 @@ private lateinit var binding: FragmentStudentTestimonialsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding=FragmentStudentTestimonialsBinding.inflate(layoutInflater)
         val window = requireActivity().window
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -63,72 +64,48 @@ private lateinit var binding: FragmentStudentTestimonialsBinding
     }
 
     private fun setupRecyclerViewStudentTestimonials() {
-        val staticList = listOf(
-            StaticTestimonial(
-                name = "Aarav Sharma",
-                description = "Compass Abroad helped me get admission to my dream university in Canada!",
-                date = "2025-11-01",
-                imageResId = R.drawable.test_banner
-            ),
-            StaticTestimonial(
-                name = "Priya Mehta",
-                description = "Amazing experience! The counselors were super supportive.",
-                date = "2025-10-25",
-                imageResId = R.drawable.test_banner
-            ),
-            StaticTestimonial(
-                name = "Rohan Verma",
-                description = "Very professional service. Highly recommend Compass Abroad!",
-                date = "2025-10-15",
-                imageResId = R.drawable.test_banner
-            )
-        )
+        val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
+        val token = "Bearer ${CommonUtils.accessToken}"
+        LoginViewModal().getTestimonials(
+            requireActivity(),
+            AppConstants.fiClientNumber,
+            deviceId, token,"webinar"
+        ).observe(viewLifecycleOwner) { response ->
+            response?.let { resp ->
+                if (resp.statusCode == 200) {
+                    val records = resp.data?.records?.rows
+                    if (!records.isNullOrEmpty()) {
+                        arrayListInStudentTestimonials.clear()
+                        arrayListInStudentTestimonials.addAll(records)
 
-        binding?.rvTestimonials?.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = StudentStaticTestimonialsAdapter(staticList) { selectedItem ->
-                // navigate to another fragment
-                Navigation.findNavController(binding!!.root).navigate(R.id.hybridPlayerActivity)
+                        binding?.rvTestimonials?.apply {
+                            layoutManager = LinearLayoutManager(requireContext(),
+                                LinearLayoutManager.VERTICAL
+                               ,false
+                            )
+                            adapter =
+                                StudentTestimonialsAdapter(arrayListInStudentTestimonials) { selectedItem ->
+                                    val bundle = Bundle().apply {
+                                        putString("media_url", selectedItem.media_url)
+                                    }
+
+                                    binding!!.root.findNavController()
+                                        .navigate(R.id.hybridPlayerActivity, bundle)
+
+                                }
+
+                        }
+
+
+                    }
+                } else {
+                    val errorMsg = resp.message ?: "Failed"
+                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
+                        CommonUtils.toast(requireActivity(), errorMsg)
+                    }
+                }
             }
         }
-
-//        val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
-//        val token = "Bearer ${CommonUtils.accessToken}"
-//
-//        LoginViewModal().getTestimonials(
-//            requireActivity(),
-//            AppConstants.fiClientNumber,
-//            deviceId, token,true,"webinar"
-//        ).observe(viewLifecycleOwner) { response ->
-//            response?.let { resp ->
-//                if (resp.statusCode == 200) {
-//                    val records = resp.data?.records?.rows
-//                    if (!records.isNullOrEmpty()) {
-//                        arrayListInStudentTestimonials.clear()
-//                        arrayListInStudentTestimonials.addAll(records)
-//
-//                        binding?.rvTestimonials?.apply {
-//                            layoutManager = LinearLayoutManager(requireContext(),
-//                                LinearLayoutManager.VERTICAL
-//                               ,false
-//                            )
-//                            adapter =
-//                                StudentTestimonialsAdapter(arrayListInStudentTestimonials) { selectedItem ->
-//                                    // Handle click here
-//                                }
-//
-//                        }
-//
-//
-//                    }
-//                } else {
-//                    val errorMsg = resp.message ?: "Failed"
-//                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
-//                        CommonUtils.toast(requireActivity(), errorMsg)
-//                    }
-//                }
-//            }
-//        }
     }
 
     override fun onResume() {

@@ -127,7 +127,7 @@
             android:gravity="center"
             android:background="@drawable/ic_qr_background"
             android:maxLines="1"
-            android:backgroundTint="#4F43E949"
+            android:backgroundTint="#4D43E949"
             android:ellipsize="end"
             app:layout_constraintTop_toTopOf="@id/price"
             app:layout_constraintBottom_toBottomOf="@id/price"

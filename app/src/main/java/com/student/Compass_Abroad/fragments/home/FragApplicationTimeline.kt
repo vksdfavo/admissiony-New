@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +39,11 @@ class FragApplicationTimeline : Fragment() {
     ): View? {
         binding=FragmentFragApplicationTimelineBinding.inflate(inflater,container,false)
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
 
         requireActivity().window.navigationBarColor =
             ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)

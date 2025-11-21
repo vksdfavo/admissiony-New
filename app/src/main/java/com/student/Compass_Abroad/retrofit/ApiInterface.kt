@@ -1630,8 +1630,8 @@ interface ApiInterface {
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
-        @Query("is_visible") is_visible: Boolean,
-        @Query("type") type: String,
+        @Query("type") type: String
+
     ): Call<getTestimonials>
 
 }

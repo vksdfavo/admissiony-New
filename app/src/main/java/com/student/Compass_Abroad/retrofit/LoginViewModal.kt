@@ -38,6 +38,7 @@ import com.student.Compass_Abroad.modal.getStudentPref.GetStudentPreferences
 import com.student.Compass_Abroad.modal.getTestimonials.getTestimonials
 import com.student.Compass_Abroad.modal.in_demandInstitution.InDemandInstitution
 import com.student.Compass_Abroad.modal.top_destinations.TopDestinations
+import com.student.Compass_Abroad.retrofit.RetrofitClient2.retrofitCallerObject2
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -1149,8 +1150,7 @@ class LoginViewModal : ViewModel() {
         client_number: String,
         device_number: String,
         accessToken: String,
-        is_visible:Boolean,
-        type:String
+        type: String,
     ): LiveData<getTestimonials?> {
 
         val liveData = MutableLiveData<getTestimonials?>()
@@ -1162,7 +1162,8 @@ class LoginViewModal : ViewModel() {
                 apiInterface.getTestimonials(
                     client_number,
                     device_number,
-                    accessToken,is_visible,type
+                    accessToken,
+                    type
                 )?.enqueue(object : Callback<getTestimonials?> {
                     override fun onResponse(
                         call: Call<getTestimonials?>,

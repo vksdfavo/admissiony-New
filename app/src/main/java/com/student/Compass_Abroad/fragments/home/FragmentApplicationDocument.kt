@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -22,7 +24,8 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 
 
 class FragmentApplicationDocument : BaseFragment() {
-    private val recordInfoList: MutableList<com.student.Compass_Abroad.modal.getApplicationDocuments.RecordsInfo> = mutableListOf()
+    private val recordInfoList: MutableList<com.student.Compass_Abroad.modal.getApplicationDocuments.RecordsInfo> =
+        mutableListOf()
 
     private val viewModel: ViewModalClass by lazy { ViewModalClass() }
 
@@ -39,47 +42,52 @@ class FragmentApplicationDocument : BaseFragment() {
     ): View? {
         binding = FragmentApplicationDocumentBinding.inflate(inflater, container, false)
 
-        // Initialize RecyclerView and Adapter
         requireActivity().window.navigationBarColor =
             ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+
         setRecyclerView()
-         setClickListeners()
-        // Fetch data from API
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
+
+        setClickListeners()
         fetchDataFromApi()
 
-        if(App.sharedPre!!.getString(AppConstants.SCOUtLOGIN,"")=="true"){
+        if (App.sharedPre!!.getString(AppConstants.SCOUtLOGIN, "") == "true") {
 
-           binding.fabAddDocuments.visibility=View.GONE
+            binding.fabAddDocuments.visibility = View.GONE
 
-        }else{
+        } else {
 
-            binding.fabAddDocuments.visibility=View.VISIBLE
+            binding.fabAddDocuments.visibility = View.VISIBLE
 
         }
 
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("uploadDocumentResult")?.observe(
-            viewLifecycleOwner
-        ) { result ->
-            if (result) {
-                fetchDataFromApi()
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("uploadDocumentResult")
+            ?.observe(
+                viewLifecycleOwner
+            ) { result ->
+                if (result) {
+                    fetchDataFromApi()
+                }
             }
-        }
 
 
         return binding.root
     }
 
 
-
     private fun setClickListeners() {
-        binding.fabAddDocuments.setOnClickListener { v:View->
+        binding.fabAddDocuments.setOnClickListener { v: View ->
             Navigation.findNavController(v).navigate(R.id.fragmentUploadDocuments)
         }
     }
 
     private fun setRecyclerView() {
-        documentAdaptor = DocumentAdaptor(requireActivity(),recordInfoList)
+        documentAdaptor = DocumentAdaptor(requireActivity(), recordInfoList)
         binding.rvFa.layoutManager = LinearLayoutManager(context)
         binding.rvFa.adapter = documentAdaptor
     }
