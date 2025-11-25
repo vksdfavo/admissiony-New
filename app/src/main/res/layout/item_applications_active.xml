@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_280"
-
+    android:layout_height="280dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -177,68 +176,74 @@
             android:textSize="@dimen/sp_12" />
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:layout_below="@+id/status_txt"
-            android:layout_toStartOf="@+id/rr_chat"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/status_back_scout"
-            android:layout_height="@dimen/space50">
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1.4"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/status_back_scout"
+                android:layout_height="@dimen/space40">
 
 
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:visibility="gone"
-                android:maxLines="1"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/space10"
-                android:text="@string/status"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    android:maxLines="1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/space10"
+                    android:text="@string/status"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
 
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:maxLines="1"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/space5"
-                android:text="@string/started_amp_submitted"
-                android:textAllCaps="false"
-                android:layout_toEndOf="@id/status"
-                android:textColor="@color/db_statusProgressBarFill"
-                android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/space5"
+                    android:text="@string/started_amp_submitted"
+                    android:textAllCaps="false"
+                    android:layout_toEndOf="@id/status"
+                    android:textColor="@color/db_statusProgressBarFill"
+                    android:textSize="10sp" />
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rr_chat"
-            android:layout_width="@dimen/dp_80"
-            android:layout_below="@+id/linear_intake_fee"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/application_chat"
-            android:layout_height="@dimen/space40">
+            <RelativeLayout
+                android:id="@+id/rr_chat"
+                android:layout_width="0dp"
+                android:layout_weight="0.6"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:background="@drawable/application_chat"
+                android:layout_height="@dimen/space40">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="@string/chat"
-                android:layout_centerInParent="true"
-                android:textSize="@dimen/sp_12" />
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/chat"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/sp_12" />
+            </RelativeLayout>
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

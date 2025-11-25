@@ -37,7 +37,7 @@ class TopInDemandIntuitionsAdapter(
             .load(item.country_logo)
             .into(holder.binding.countryLogo)
 
-        holder.binding.itemContainer.setOnClickListener {
+        holder.binding.itemContainers.setOnClickListener {
             onItemClick?.invoke(item)
         }
     }

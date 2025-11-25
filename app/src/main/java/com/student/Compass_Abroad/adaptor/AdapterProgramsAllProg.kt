@@ -1,7 +1,6 @@
 package com.student.Compass_Abroad.adaptor
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.R
-import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
-import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.databinding.ItemProgramRecomBinding
-
-import com.student.Compass_Abroad.databinding.ItemRecommendedProgramsBinding
+import com.student.Compass_Abroad.databinding.ItemRecommendedProgramssBinding
 import com.student.Compass_Abroad.modal.AllProgramModel.Record
 import com.student.Compass_Abroad.modal.ProgramTags.RecordsInfo
-import kotlin.toString
 
 class AdapterProgramsAllProg(
     var requireActivity: FragmentActivity,
@@ -45,16 +40,18 @@ class AdapterProgramsAllProg(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0) {
-            val binding = ItemRecommendedProgramsBinding.inflate(
+            val binding = ItemRecommendedProgramssBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
             MyRecommendedViewHolder(binding)
+
         } else {
             val binding = ItemProgramRecomBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
             MyViewHolder(binding)
         }
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -68,7 +65,9 @@ class AdapterProgramsAllProg(
     }
 
     override fun getItemCount(): Int {
+
         return arrayList1.size
+
     }
 
     class MyViewHolder(private val binding: ItemProgramRecomBinding) :
@@ -92,16 +91,6 @@ class AdapterProgramsAllProg(
 
                 binding.tvIADetailIntake.apply {
                     text = intakeText
-                    if (intakeText.length >= 25) {
-                        // If 25 or more characters → wrap to next line
-                        isSingleLine = false
-                        maxLines = 2
-                        ellipsize = null
-                    } else {
-                        // Otherwise keep it single line
-                        isSingleLine = true
-                        ellipsize = TextUtils.TruncateAt.END
-                    }
                 }
 
 
@@ -207,8 +196,7 @@ class AdapterProgramsAllProg(
             }
         }
     }
-
-    class MyRecommendedViewHolder(private val binding: ItemRecommendedProgramsBinding) :
+    class MyRecommendedViewHolder(private val binding: ItemRecommendedProgramssBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(record: Record, selectListener: select, position: Int) {
             binding.apply {

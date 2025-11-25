@@ -1,6 +1,7 @@
 package com.student.Compass_Abroad.fragments.setPrefrences
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,7 +9,11 @@ import android.view.LayoutInflater
 import android.view.PixelCopy.request
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
@@ -25,7 +30,7 @@ import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.studyLevelModel.Data
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 
-class StudyLevelFragment :  BaseFragment(), StudyLevelAdapter.SelectStudyLevel {
+class StudyLevelFragment :  Fragment(), StudyLevelAdapter.SelectStudyLevel {
     private lateinit var binding: FragmentStudyLevelBinding
     private var adapterScheduledAdapter: StudyLevelAdapter? = null
     private val studyLevelList: MutableList<Data> = mutableListOf()
@@ -41,6 +46,12 @@ class StudyLevelFragment :  BaseFragment(), StudyLevelAdapter.SelectStudyLevel {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentStudyLevelBinding.inflate(inflater, container, false)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
 
         binding.view1.setBackgroundResource(R.color.secondary_color)       // green
         binding.view2.setBackgroundResource(R.color.secondary_color)       // grey
@@ -163,4 +174,24 @@ class StudyLevelFragment :  BaseFragment(), StudyLevelAdapter.SelectStudyLevel {
     ) {
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val window = requireActivity().window
+        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+        window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+
+            val controller = window.insetsController
+            controller?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            // Below Android 11
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+    }
 }

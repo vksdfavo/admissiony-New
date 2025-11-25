@@ -31,6 +31,7 @@ import com.student.Compass_Abroad.adaptor.AdapterGetIntakeList
 import com.student.Compass_Abroad.adaptor.AdapterGetPreferCourseList
 import com.student.Compass_Abroad.databinding.FragmentApplyProgramBinding
 import com.student.Compass_Abroad.fragments.BaseFragment
+import com.student.Compass_Abroad.fragments.ProgramDetailsHomeFragment
 import com.student.Compass_Abroad.fragments.home.FragProgramDetailDetails
 import com.student.Compass_Abroad.fragments.home.ProgramDetails
 import com.student.Compass_Abroad.modal.AllProgramModel.Record
@@ -52,6 +53,10 @@ class ApplyProgramFragment : BaseFragment() {
     private var selected_year: String = ""
     private var campus_id: String = ""
     private var collage_id: String = ""
+
+    private var institution: String = ""
+    private var destination_country: String = ""
+
     private var courseId: String? = null
     private var previouslySelectedCampusId: String? = null
     private val arrayListStudents: MutableList<com.student.Compass_Abroad.modal.GetStudentsModal.Data> =
@@ -59,7 +64,10 @@ class ApplyProgramFragment : BaseFragment() {
 
     companion object {
         var details: Record? = null
+        var programDetails: com.student.Compass_Abroad.modal.getProgramDetails.Data? = null
+
     }
+
     private var fragment: Fragment? = null
     private var xLocationOfView = 0
     private var yLocationOfView = 0
@@ -73,17 +81,48 @@ class ApplyProgramFragment : BaseFragment() {
 
         onClicks()
         selectYears()
-        setData()
+
+        val status = arguments?.getString("ProgramDetailStatus") ?: "0"
 
 
-        lead_identifier = App.sharedPre!!.getString(AppConstants.USER_IDENTIFIER,"").toString()
+        if (status == "1") {
+
+            binding.destinationCountry.text =
+                ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution?.country?.name
+            binding.preferCollage.text =
+                ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution?.name
+            collage_id =
+                ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution_id?.toString()
+                    ?: ""
+
+
+            institution =
+                (ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution_id ?: 0).toString()
+            destination_country =
+                (ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution?.country_id ?: 0).toString()
+
+            Log.d("onCreateView", institution+" "+destination_country)
+        } else if (status=="0"){
+
+            setData()
+
+
+            institution =
+                (FragProgramDetailDetails.details?.program?.institution_id ?: 0).toString()
+            destination_country =
+                (FragProgramDetailDetails.details?.program?.institution?.country_id ?: 0).toString()
+
+        }
+
+        lead_identifier = App.sharedPre!!.getString(AppConstants.USER_IDENTIFIER, "").toString()
         return binding.root
     }
 
     private fun setData() {
-        binding.destinationCountry.text = FragProgramDetailDetails.details?.program?.institution?.country?.name
+        binding.destinationCountry.text =
+            FragProgramDetailDetails.details?.program?.institution?.country?.name
         binding.preferCollage.text = FragProgramDetailDetails.details?.program?.institution?.name
-        collage_id = FragProgramDetailDetails.details?.program?.institution_id?.toString()?:""
+        collage_id = FragProgramDetailDetails.details?.program?.institution_id?.toString() ?: ""
     }
 
     private fun onClicks() {
@@ -109,12 +148,15 @@ class ApplyProgramFragment : BaseFragment() {
                 prefer_course_id == "[]" -> {
                     CommonUtils.toast(requireActivity(), "Please select a preferred course")
                 }
+
                 binding.selectYear.selectedItemPosition == 0 -> {
                     CommonUtils.toast(requireActivity(), "Please select a year")
                 }
+
                 intake_id.isEmpty() -> {
                     CommonUtils.toast(requireActivity(), "Please select an intake")
                 }
+
                 else -> {
 
                     createApplication()
@@ -187,6 +229,7 @@ class ApplyProgramFragment : BaseFragment() {
             }
         }
     }
+
     private fun setGetCampusList(selectCampus: TextView) {
         val popupWindow = PopupWindow(requireActivity())
         val layout: View =
@@ -242,7 +285,6 @@ class ApplyProgramFragment : BaseFragment() {
     }
 
 
-
     private fun getPreferCourseList(requireActivity: FragmentActivity, preferCourse: TextView) {
         if (courseId.isNullOrEmpty()) {
             CommonUtils.toast(requireActivity, "Select campus first")
@@ -255,14 +297,14 @@ class ApplyProgramFragment : BaseFragment() {
                 requireActivity,
                 AppConstants.fiClientNumber,
                 App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
-                "Bearer " + CommonUtils.accessToken, courseId.toString(),it
+                "Bearer " + CommonUtils.accessToken, courseId.toString(), it
             ).observe(requireActivity) { destination: GetCampusResponse? ->
                 destination?.let { getDestinationCountry ->
                     if (getDestinationCountry.statusCode == 200) {
                         getDestinationCountry.data?.let { data ->
                             arrayListCourses.clear()
                             arrayListCourses.addAll(data)
-                            Log.e("sjsjjs",arrayListCourses.toString())
+                            Log.e("sjsjjs", arrayListCourses.toString())
 
                             /*// Set the first item in the TextView
                             if (arrayListCourses.isNotEmpty()) {
@@ -292,7 +334,7 @@ class ApplyProgramFragment : BaseFragment() {
         prefer_course_id: String
     ) {
 
-        val matchingItem = arrayListCampus.find { it.value ==prefer_course_id.toInt() }
+        val matchingItem = arrayListCampus.find { it.value == prefer_course_id.toInt() }
 
         val firstItem = matchingItem ?: arrayListCampus[0]
 
@@ -327,7 +369,8 @@ class ApplyProgramFragment : BaseFragment() {
         preferCourse.getLocationOnScreen(locationOnScreen)
         val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        val adapter = AdapterGetPreferCourseList(requireActivity(), arrayListCourses, layout, selectedCourses)
+        val adapter =
+            AdapterGetPreferCourseList(requireActivity(), arrayListCourses, layout, selectedCourses)
         recyclerView.adapter = adapter
 
         adapter.onItemClickListener = {
@@ -345,8 +388,7 @@ class ApplyProgramFragment : BaseFragment() {
                     start: Int,
                     count: Int,
                     after: Int
-                )
-                {
+                ) {
 
                 }
 
@@ -360,20 +402,21 @@ class ApplyProgramFragment : BaseFragment() {
 
 
     private fun createApplication() {
-        val programsArray = if (prefer_course_id.startsWith("[") && prefer_course_id.endsWith("]")) {
-            prefer_course_id
-                .removeSurrounding("[", "]")
-                .split(",").mapNotNull { it.trim().toIntOrNull() }
-                .filter { it > 0 }
-        } else {
-            listOfNotNull(prefer_course_id.toIntOrNull())
-        }
+        val programsArray =
+            if (prefer_course_id.startsWith("[") && prefer_course_id.endsWith("]")) {
+                prefer_course_id
+                    .removeSurrounding("[", "]")
+                    .split(",").mapNotNull { it.trim().toIntOrNull() }
+                    .filter { it > 0 }
+            } else {
+                listOfNotNull(prefer_course_id.toIntOrNull())
+            }
 
         val requestBody = CreateApplicationRequest(
             intake = intake_id.toInt(),
             intake_year = selected_year.toInt(),
-            institution = ProgramDetails.details?.program?.institution_id ?: 0,
-            destination_country = ProgramDetails.details?.program?.institution?.country_id ?: 0,
+            institution = institution.toInt(),
+            destination_country =destination_country.toInt(),
             campus = courseId?.toInt() ?: 0,
             lead_identifier = lead_identifier,
             programs = programsArray
@@ -388,8 +431,10 @@ class ApplyProgramFragment : BaseFragment() {
         ).observe(requireActivity()) { destination: CreateApplicationModal? ->
             destination?.let { getDestinationCountry ->
                 if (getDestinationCountry.statusCode == 201) {
-                    App.singleton?.createApplicationIdentifier = getDestinationCountry.data?.applicationInfo?.identifier
-                    Navigation.findNavController(binding.root).navigate(R.id.uploadProgramDocFragment)
+                    App.singleton?.createApplicationIdentifier =
+                        getDestinationCountry.data?.applicationInfo?.identifier
+                    Navigation.findNavController(binding.root)
+                        .navigate(R.id.uploadProgramDocFragment)
                 } else {
                     CommonUtils.toast(requireActivity(), getDestinationCountry.message ?: "Failed")
                 }
@@ -423,6 +468,7 @@ class ApplyProgramFragment : BaseFragment() {
             }
         }
     }
+
     private fun getSelectIntakeList(requireActivity: FragmentActivity, selectIntake: TextView) {
         ViewModalClass().getIntakeModalLiveData(
             requireActivity,

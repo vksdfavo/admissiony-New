@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.student.Compass_Abroad.databinding.TestimonialsLayoutBinding
+import com.student.Compass_Abroad.databinding.TestimonialsLayoutsBinding
 
 class StudentStaticTestimonialsAdapter(
     private val testimonialList: List<StaticTestimonial>,
     private val onItemClick: ((StaticTestimonial) -> Unit)? = null
 ) : RecyclerView.Adapter<StudentStaticTestimonialsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: TestimonialsLayoutBinding) :
+    class ViewHolder(val binding: TestimonialsLayoutsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = TestimonialsLayoutBinding.inflate(
+        val binding = TestimonialsLayoutsBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.databinding.QuickActionLayoutBinding
-import com.student.Compass_Abroad.databinding.TestimonialsLayoutBinding
 
 class QuickActionsAdapter(
     private val destinationList: List<TopDestinationModel>,
@@ -36,7 +35,9 @@ class QuickActionsAdapter(
             parent,
             false
         )
+
         return ViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

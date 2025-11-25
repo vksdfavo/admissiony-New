@@ -377,6 +377,10 @@
         android:id="@+id/hybridPlayerActivity"
         android:name="com.student.Compass_Abroad.fragments.HybridPlayerActivity"
         android:label="HybridPlayerActivity" />
+    <fragment
+        android:id="@+id/programDetailsHomeFragment"
+        android:name="com.student.Compass_Abroad.fragments.ProgramDetailsHomeFragment"
+        android:label="ProgramDetailsHomeFragment" />
 
 
 </navigation>

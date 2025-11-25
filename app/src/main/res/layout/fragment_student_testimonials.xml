@@ -71,7 +71,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/ablCa"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/testimonials_layout" />
+        tools:listitem="@layout/testimonials_layouts" />
 
 
 </RelativeLayout>

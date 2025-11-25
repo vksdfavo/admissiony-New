@@ -26,6 +26,7 @@ import com.student.Compass_Abroad.modal.LoanRequestBody
 import com.student.Compass_Abroad.modal.LoginResponseModel.LoginResponseModel
 import com.student.Compass_Abroad.modal.PostLeadNotesResponse.postLeadNotesResponse
 import com.student.Compass_Abroad.modal.PreferCollageModal.PreferCollageModal
+import com.student.Compass_Abroad.modal.getProgramDetails.ProgramDetailsModal
 import com.student.Compass_Abroad.modal.ProgramTags.ProgramTags
 import com.student.Compass_Abroad.modal.ReportReasons.ReportReasonresponse
 import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
@@ -49,7 +50,6 @@ import com.student.Compass_Abroad.modal.createAttende.CreateAttende
 import com.student.Compass_Abroad.modal.createCounsellingModel.createCounsellingModel
 import com.student.Compass_Abroad.modal.createPostResponse.CreatePostResponse
 import com.student.Compass_Abroad.modal.createRefreralLink.getRefferalLink
-import com.student.Compass_Abroad.modal.createTimeSlots.SlotRequest
 import com.student.Compass_Abroad.modal.createTimeSlots.SlotResponse
 import com.student.Compass_Abroad.modal.deleteCommentResponse.DeleteCommentResponse
 import com.student.Compass_Abroad.modal.deletePostResponse.DeletePostResponse
@@ -1633,6 +1633,18 @@ interface ApiInterface {
         @Query("type") type: String
 
     ): Call<getTestimonials>
+
+
+    @GET("program-finder/program-detail")
+    fun getProgramDetails(
+        @Header("fi-client-number") fiClientNumber: String?,
+        @Header("fi-device-number") device_number: String?,
+        @Header("Authorization") authorization: String?,
+        @Query("country_id") country_id: String,
+        @Query("institution_id") institution_id: String,
+        @Query("program_id") program_id: String,
+        @Query("campus_id") campus_id: String,
+    ): Call<ProgramDetailsModal>
 
 }
 

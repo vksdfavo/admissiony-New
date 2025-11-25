@@ -1,11 +1,16 @@
 package com.student.Compass_Abroad.fragments.setPrefrences
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -24,7 +29,7 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import com.student.Compass_Abroad.viewmodel.SetPreferencesViewModel
 import org.json.JSONArray
 
-class DisciplineFragment : BaseFragment() {
+class DisciplineFragment : Fragment() {
 
     private lateinit var binding: FragmentDisciplineBinding
     private var disciplineAdapter: DisciplineAdaptor? = null
@@ -35,6 +40,12 @@ class DisciplineFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentDisciplineBinding.inflate(inflater, container, false)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
 
         binding.view1.setBackgroundResource(R.color.secondary_color)
         binding.view2.setBackgroundResource(R.color.secondary_color)
@@ -150,6 +161,27 @@ class DisciplineFragment : BaseFragment() {
                     }
                 }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val window = requireActivity().window
+        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+        window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+
+            val controller = window.insetsController
+            controller?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            // Below Android 11
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 }

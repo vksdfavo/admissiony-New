@@ -9,6 +9,12 @@
     android:orientation="vertical"
     tools:context=".fragments.home.HomeFragment">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
@@ -571,7 +577,7 @@
                     android:paddingStart="6dp"
                     android:paddingEnd="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_recommended_programs" />
+                    tools:listitem="@layout/item_recommended_programss" />
 
                 <ProgressBar
                     android:id="@+id/pbFdStu_recommendedPro"
@@ -1062,7 +1068,7 @@
                 android:paddingStart="6dp"
                 android:paddingEnd="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/testimonials_layout" />
+                tools:listitem="@layout/testimonials_layouts" />
 
 
             <View
@@ -1427,10 +1433,9 @@
                 android:layout_height="110dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/scout"
+                android:background="@drawable/refer"
                 android:visibility="gone"
                 app:cardCornerRadius="12dp" />
-
 
             <TextView
                 android:layout_width="wrap_content"

@@ -11,10 +11,8 @@ import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.student.Compass_Abroad.BuildConfig
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
 import com.student.Compass_Abroad.Utils.App
@@ -22,7 +20,6 @@ import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
-import com.student.Compass_Abroad.adaptor.AdapterProgramDetailDetailsCampus
 import com.student.Compass_Abroad.adaptor.AdapterProgramDetailDetailsETS
 import com.student.Compass_Abroad.adaptor.AdapterProgramDetailDetailsIntakes
 import com.student.Compass_Abroad.databinding.FragmentFragProgramDetailDetailsBinding
@@ -35,6 +32,7 @@ import org.json.JSONObject
 import kotlin.random.Random
 import kotlin.toString
 import androidx.navigation.findNavController
+import com.student.Compass_Abroad.modal.getProgramDetails.Data
 
 
 class FragProgramDetailDetails : BaseFragment() {
@@ -43,6 +41,7 @@ class FragProgramDetailDetails : BaseFragment() {
     private var adapterProgramDetailDetailsIntakes: AdapterProgramDetailDetailsIntakes? = null
     private var adapterProgramDetailDetailsets: AdapterProgramDetailDetailsETS? = null
     var contentKey = ""
+    var programStatus = ""
 
     companion object {
 
@@ -55,6 +54,12 @@ class FragProgramDetailDetails : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentFragProgramDetailDetailsBinding.inflate(inflater, container, false)
+
+
+
+        Log.d("onCreateViewOkk", programStatus)
+
+
 
         binding!!.backBtn.setOnClickListener{
 
@@ -106,12 +111,6 @@ class FragProgramDetailDetails : BaseFragment() {
             binding!!.tvFpddApply.visibility=View.VISIBLE
             binding!!.ll.visibility=View.VISIBLE
 
-        }
-
-        if(BuildConfig.FLAVOR == "MavenConsulting"){
-            binding!!.rlh.visibility=View.GONE
-        }else{
-            binding!!.rlh.visibility=View.VISIBLE
         }
 
         binding!!.svFpdd.post { binding!!.svFpdd.fullScroll(View.FOCUS_DOWN) }
@@ -430,6 +429,12 @@ class FragProgramDetailDetails : BaseFragment() {
         binding?.tvApdCollegeNames?.text = institutionName ?: "---"
 
         binding?.tvApdCollegeCountry?.text = countryName ?: "---"
+    }
+
+    private fun setNewDetailsData(programDetails1: Data?)
+    {
+
+
     }
 
 

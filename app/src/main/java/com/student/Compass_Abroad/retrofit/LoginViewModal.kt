@@ -20,16 +20,13 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 import com.student.Compass_Abroad.Utils.errorDialogOpen
+import com.student.Compass_Abroad.modal.getProgramDetails.ProgramDetailsModal
 import com.student.Compass_Abroad.modal.inDemandCourse.InDemandCourse
 import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
 import com.student.Compass_Abroad.modal.admissionStatus.AdmissionStatus
-import com.student.Compass_Abroad.modal.createTimeSlots.SlotData
-import com.student.Compass_Abroad.modal.createTimeSlots.SlotRequest
 import com.student.Compass_Abroad.modal.createTimeSlots.SlotResponse
 import com.student.Compass_Abroad.modal.createTimeSlots.StatusInfo
 import com.student.Compass_Abroad.modal.documentType.DocumentTypeModal
-import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.getErrorMessage
-import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.parseError
 import com.student.Compass_Abroad.modal.getApplicationAssignedStaff.getApplicationAssignedStaff
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import com.student.Compass_Abroad.modal.getStaffList.StaffDropdownResponse
@@ -38,7 +35,6 @@ import com.student.Compass_Abroad.modal.getStudentPref.GetStudentPreferences
 import com.student.Compass_Abroad.modal.getTestimonials.getTestimonials
 import com.student.Compass_Abroad.modal.in_demandInstitution.InDemandInstitution
 import com.student.Compass_Abroad.modal.top_destinations.TopDestinations
-import com.student.Compass_Abroad.retrofit.RetrofitClient2.retrofitCallerObject2
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -1398,6 +1394,84 @@ class LoginViewModal : ViewModel() {
                     CheckUserModel(
                         statusCode = 0,
                         message = errorMsg,
+                        data = null
+                    )
+                )
+            }
+        }
+
+        return liveData
+    }
+
+
+    // program details
+
+    fun getProgramDetails(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        accessToken: String,
+        country_id: String,
+        institution_id: String,
+        program_id: String,
+        campus_id: String,
+    ): LiveData<ProgramDetailsModal?> {
+
+        val liveData = MutableLiveData<ProgramDetailsModal?>()
+
+        activity?.let { act ->
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+                apiInterface.getProgramDetails(
+                    client_number,
+                    device_number,
+                    accessToken,
+                    country_id,
+                    institution_id,
+                    program_id, campus_id
+                )?.enqueue(object : Callback<ProgramDetailsModal?> {
+                    override fun onResponse(
+                        call: Call<ProgramDetailsModal?>,
+                        response: Response<ProgramDetailsModal?>
+                    ) {
+                        if (response.isSuccessful && response.body() != null) {
+                            liveData.postValue(response.body())
+                        } else {
+                            val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                            liveData.postValue(
+                                ProgramDetailsModal(
+                                    statusCode = response.code(),
+                                    success = false,
+                                    message = errorMsg,
+                                    statusInfo = null,
+                                    data = null
+                                )
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ProgramDetailsModal?>, t: Throwable) {
+                        val errorMsg = apiErrorHandler.handleError(t)
+                        liveData.postValue(
+                            ProgramDetailsModal(
+                                statusCode = 0,
+                                success = false,
+                                message = errorMsg,
+                                statusInfo = null,
+                                data = null
+                            )
+                        )
+                    }
+                })
+            } else {
+                val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
+                liveData.postValue(
+                    ProgramDetailsModal(
+                        statusCode = 0,
+                        success = false,
+                        message = errorMsg,
+                        statusInfo = null,
                         data = null
                     )
                 )

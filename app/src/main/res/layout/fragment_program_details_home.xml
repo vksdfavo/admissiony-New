@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF7F7"
+
     android:orientation="vertical">
 
     <RelativeLayout
@@ -196,6 +197,7 @@
             <TextView
                 android:id="@+id/start_date_text"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="@string/start_date"
@@ -204,6 +206,7 @@
             <TextView
                 android:id="@+id/start_date"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:text="-" />
 
@@ -211,6 +214,7 @@
                 android:id="@+id/start_date_view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:layout_marginTop="12dp"
                 android:background="@color/dividerBackgroundColor" />
 
@@ -219,6 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:visibility="gone"
                 android:text="@string/weekly_hours"
                 android:textColor="@color/black" />
 
@@ -226,12 +231,14 @@
                 android:id="@+id/weekly_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="-" />
 
             <TextView
                 android:id="@+id/weekly_hours_view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+
                 android:layout_marginTop="12dp"
                 android:background="@color/dividerBackgroundColor" />
 
@@ -241,6 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Campus"
+
                 android:textColor="@color/black" />
 
             <TextView
@@ -545,6 +553,7 @@
                     android:backgroundTint="@color/secondary_color"
                     android:elevation="2dp"
                     android:gravity="center"
+
                     android:padding="12dp"
                     android:text="@string/apply_for_this_program"
                     android:textAllCaps="false"

@@ -42,7 +42,7 @@ class InDemandCoursesAdapter(
             .load(item.institution_logo)
             .into(holder.binding.iv)
 
-        holder.binding.cvBase.setOnClickListener {
+        holder.binding.cvBases.setOnClickListener {
             listener?.onItemClick(item, position)
 
         }
