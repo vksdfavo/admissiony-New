@@ -1,7 +1,6 @@
 package com.student.Compass_Abroad.adaptor
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,22 +9,29 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.databinding.ItemProgramRecomBinding
+import com.student.Compass_Abroad.databinding.ItemRecommendedProgramsShimmerBinding
 import com.student.Compass_Abroad.databinding.ItemRecommendedProgramssBinding
 import com.student.Compass_Abroad.modal.AllProgramModel.Record
-import com.student.Compass_Abroad.modal.ProgramTags.RecordsInfo
 
 class AdapterProgramsAllProg(
     var requireActivity: FragmentActivity,
     var arrayList1: ArrayList<Record>,
     private var selectListener: select
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var isLoading = false
 
-    var context: Context? = null
-    var contentKey = ""
+
+    companion object {
+        private const val VIEW_TYPE_RECOMMENDED = 0
+        private const val VIEW_TYPE_NORMAL = 1
+        private const val VIEW_TYPE_SHIMMER = 2
+    }
+
 
     interface select {
         fun onCLick(record: Record)
@@ -34,78 +40,100 @@ class AdapterProgramsAllProg(
         fun openDialogCLick(record: Record, position: Int)
     }
 
+    fun setLoading(loading: Boolean) {
+        isLoading = loading
+        notifyDataSetChanged()
+    }
+
+    // ----------------------------
+    // VIEW TYPE HANDLING FIXED
+    // ----------------------------
     override fun getItemViewType(position: Int): Int {
-        return if (AppConstants.PROGRAM_STATUS == "0") 0 else 1
+        return if (isLoading) {
+            VIEW_TYPE_SHIMMER
+        } else {
+            if (AppConstants.PROGRAM_STATUS == "0")
+                VIEW_TYPE_RECOMMENDED
+            else
+                VIEW_TYPE_NORMAL
+        }
+    }
+
+
+    override fun getItemCount(): Int {
+        return if (isLoading) 5 else arrayList1.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == 0) {
-            val binding = ItemRecommendedProgramssBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            MyRecommendedViewHolder(binding)
-        } else {
-            val binding = ItemProgramRecomBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            MyViewHolder(binding)
+
+        val inflater = LayoutInflater.from(parent.context)
+
+        return when (viewType) {
+
+            VIEW_TYPE_RECOMMENDED -> {
+                val binding = ItemRecommendedProgramssBinding.inflate(inflater, parent, false)
+                MyRecommendedViewHolder(binding)
+            }
+
+            VIEW_TYPE_NORMAL -> {
+                val binding = ItemProgramRecomBinding.inflate(inflater, parent, false)
+                MyViewHolder(binding)
+            }
+
+            VIEW_TYPE_SHIMMER -> {
+                val binding = ItemRecommendedProgramsShimmerBinding.inflate(inflater, parent, false)
+                ShimmerViewHolder(binding.root)
+            }
+
+            else -> throw IllegalArgumentException("Invalid viewType: $viewType")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        if (isLoading || holder is ShimmerViewHolder) return   // <<< IMPORTANT FIX
+
         val currentItem = arrayList1[position]
 
-        if (holder is MyViewHolder) {
-            holder.bind(currentItem, selectListener, position)
-        } else if (holder is MyRecommendedViewHolder) {
-            holder.bind(currentItem, selectListener, position)
+        when (holder) {
+            is MyViewHolder -> holder.bind(currentItem, selectListener, position)
+            is MyRecommendedViewHolder -> holder.bind(currentItem, selectListener, position)
         }
     }
 
-    override fun getItemCount(): Int {
-        return arrayList1.size
-    }
 
+    // ---------------------------------------
+    // SHIMMER HOLDER
+    // ---------------------------------------
+    class ShimmerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+
+    // ---------------------------------------
+    // NORMAL VIEW HOLDER
+    // ---------------------------------------
     class MyViewHolder(private val binding: ItemProgramRecomBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(record: Record, selectListener: select, position: Int) {
 
             binding.apply {
+
                 tvApdProgramName.text = record.program?.name ?: ""
 
-                if (sharedPre!!.getString(AppConstants.PROGRAM_CATEGORY, "") == "career_program") {
-                    tvIADetailIntake.visibility = View.GONE
-                    Log.d("onBindViewHolder", "hide")
-                } else {
-                    tvIADetailIntake.visibility = View.VISIBLE
-
-                    Log.d("onBindViewHolder", "show")
-
-                }
-
                 val intakeText = record.program?.intakes?.getOrNull(0)?.intake_name ?: ""
-
-                binding.tvIADetailIntake.apply {
-                    text = intakeText
-                }
-
+                tvIADetailIntake.text = intakeText
 
                 val isLanguageProgram = record.program?.additional_items?.duration_range != null
                 val isCareer = record.program?.additional_items?.duration != null
                 val isHigherEducation = record.program?.duration != null
                 val durationType = record.program.duration_type ?: ""
 
-                // Tuition Fee Based on Program Type
-                val tuitionFee = if (isLanguageProgram) {
-                    record.program?.additional_items?.tuition_fee ?: ""
-                } else if (isCareer) {
-                    record.program?.additional_items?.tuition_fee ?: ""
-                } else {
-                    record.tuition_fee?.toString() ?: ""
-                }
+                val tuitionFee =
+                    record.program?.additional_items?.tuition_fee ?: record.tuition_fee.toString()
 
                 val currencyCode = record.program?.institution?.country?.currency_code ?: ""
                 civItemAaStatus.text = "$tuitionFee $currencyCode"
+
 
                 val duration = if (isHigherEducation) {
                     "${record.program?.duration ?: ""} $durationType"
@@ -116,46 +144,28 @@ class AdapterProgramsAllProg(
                 }
                 ivItemProgramRecomDuration.text = duration
 
-                val universityName = record.program?.institution?.name ?: ""
-                val countryName = record.program?.institution?.country?.name ?: ""
-                ivItemProgramRecomCountry.text = countryName
-                tvIADetailIntake.text = universityName
+                ivItemProgramRecomCountry.text =
+                    record.program?.institution?.country?.name ?: ""
 
-//                val logoUrl = record.program?.institution?.logo
-//                if (!logoUrl.isNullOrEmpty()) {
-//                    Glide.with(binding.root)
-//                        .load(logoUrl)
-//                        .into(binding.ivItemProgramRecom)
-//                } else {
-//                    binding.ivItemProgramRecom.setImageResource(R.drawable.z_el)
-//                }
+                tvIADetailIntake.text = record.program?.institution?.name ?: ""
 
-
-
-                // Tags
+                // TAGS
                 if (!record.program?.tags.isNullOrEmpty()) {
-
                     recyclerLay.visibility = View.VISIBLE
-                    view.visibility = View.VISIBLE
                     recyclerTags.visibility = View.VISIBLE
                     val tagsAdapter = ProgramTagAdapter(record.program.tags)
                     recyclerTags.layoutManager =
-                        LinearLayoutManager(
-                            binding.root.context,
-                            LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
+                        LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
                     recyclerTags.adapter = tagsAdapter
                 } else {
                     recyclerLay.visibility = View.GONE
-                    view.visibility = View.GONE
                     recyclerTags.visibility = View.GONE
                 }
 
+                // HEART ACTIONS
                 if (sharedPre?.getString(AppConstants.SCOUtLOGIN, "") == "true") {
                     ibHeart.visibility = View.GONE
                     ibHeart2.visibility = View.GONE
-                    cardNew.visibility = View.GONE
                 } else {
                     if (record.is_shortlisted == 0) {
                         ibHeart.visibility = View.VISIBLE
@@ -168,23 +178,19 @@ class AdapterProgramsAllProg(
                     ibHeart.setOnClickListener {
                         ibHeart.visibility = View.GONE
                         ibHeart2.visibility = View.VISIBLE
-                        selectListener.likeClick(record, position)
                         record.is_shortlisted = 1
+                        selectListener.likeClick(record, position)
                     }
 
                     ibHeart2.setOnClickListener {
                         ibHeart2.visibility = View.GONE
                         ibHeart.visibility = View.VISIBLE
-                        selectListener.disLikeCLick(record, position)
                         record.is_shortlisted = 0
+                        selectListener.disLikeCLick(record, position)
                     }
                 }
 
-                itemView.setOnClickListener {
-                    selectListener.onCLick(record)
-                }
-
-
+                itemView.setOnClickListener { selectListener.onCLick(record) }
 
                 menuApplications.setOnClickListener {
                     selectListener.openDialogCLick(record, position)
@@ -193,38 +199,34 @@ class AdapterProgramsAllProg(
         }
     }
 
+
+    // ---------------------------------------
+    // RECOMMENDED VIEW HOLDER
+    // ---------------------------------------
     class MyRecommendedViewHolder(private val binding: ItemRecommendedProgramssBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(record: Record, selectListener: select, position: Int) {
+
             binding.apply {
-                // Program Name
+
                 tvApdCollegeName.text = record.program?.name ?: ""
+                location.text = record.program?.institution?.country?.name ?: ""
+                tvCollege.text = record.program?.institution?.name ?: ""
 
-
-                // University & Country
-                record.program?.institution?.name ?: ""
-                val countryName = record.program?.institution?.country?.name ?: ""
-                location.text = countryName
-
-                val college= record.program?.institution?.name ?: ""
-                tvApdCollegeName.text = college
-
-
-
-                // Load Institution Logo
                 val logoUrl = record.program?.institution?.logo
                 if (!logoUrl.isNullOrEmpty()) {
                     Glide.with(binding.root)
                         .load(logoUrl)
+                        .placeholder(R.drawable.z_el)
                         .into(binding.iv)
-                } else {
-                    binding.iv.setImageResource(R.drawable.z_el)
-                }
+                } else binding.iv.setImageResource(R.drawable.z_el)
 
                 if (sharedPre?.getString(AppConstants.SCOUtLOGIN, "") == "true") {
                     ibHeart.visibility = View.GONE
                     ibHeart2.visibility = View.GONE
                 } else {
+
                     if (record.is_shortlisted == 0) {
                         ibHeart.visibility = View.VISIBLE
                         ibHeart2.visibility = View.GONE
@@ -236,23 +238,19 @@ class AdapterProgramsAllProg(
                     ibHeart.setOnClickListener {
                         ibHeart.visibility = View.GONE
                         ibHeart2.visibility = View.VISIBLE
-                        selectListener.likeClick(record, position)
                         record.is_shortlisted = 1
+                        selectListener.likeClick(record, position)
                     }
 
                     ibHeart2.setOnClickListener {
                         ibHeart2.visibility = View.GONE
                         ibHeart.visibility = View.VISIBLE
-                        selectListener.disLikeCLick(record, position)
                         record.is_shortlisted = 0
+                        selectListener.disLikeCLick(record, position)
                     }
                 }
 
-                itemView.setOnClickListener {
-                    selectListener.onCLick(record)
-                }
-
-
+                itemView.setOnClickListener { selectListener.onCLick(record) }
             }
         }
     }

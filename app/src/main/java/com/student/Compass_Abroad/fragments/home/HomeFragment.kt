@@ -571,8 +571,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         arrayList1.clear()
 
         initPayment()
-        onGetRecommendedAllPrograms(dataPerPage, presentPage)
         setupRecyclerViewRecommended()
+
+        onGetRecommendedAllPrograms(dataPerPage, presentPage)
 
         Log.d(
             "SelectedCountry_sharepref",
@@ -1372,13 +1373,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun hitApiUserDetails() {
-
-        Log.e("Client Number", AppConstants.fiClientNumber)   // Log client number
-        Log.e("Device Identifier", sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").toString())  // Log device identifier
+        Log.e("Client Number", AppConstants.fiClientNumber)
+        Log.e("Device Identifier", sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").toString())
         Log.e("Access Token", "Bearer ${CommonUtils.accessToken}")
 
-        viewModelHome.getStaffProfileData(
-            requireActivity(),
+        viewModelHome.getStaffProfileData(requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
             "Bearer " + CommonUtils.accessToken,
@@ -1388,7 +1387,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 if (staffData.statusCode == 200) {
 
                     val size = staffData?.data!!.userInfo.identityInfo.size
-
 
                     val currentFlavor = BuildConfig.FLAVOR.lowercase()
 
@@ -1577,7 +1575,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
     override fun onResume() {
         super.onResume()
-
         requireActivity().window.statusBarColor =
             requireActivity().getColor(R.color.theme_color_light)
 
@@ -2182,6 +2179,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         dataPerPage: Int,
         presentPage: Int,
     ) {
+        // Show shimmer only on first page
+        if (presentPage == 1) {
+            adapterProgramsAllProg.setLoading(true)
+        }
+
         viewModelHome.getAllRecommendedProgramsModalLiveData(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -2189,43 +2191,65 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             "Bearer " + CommonUtils.accessToken,
             presentPage,
             dataPerPage,
-            forceRefresh = false  // Set true if you want to force refresh
-        ).observe(viewLifecycleOwner) { allProgramModal: AllProgramModel? ->
-            allProgramModal?.let { nonNullForgetModal ->
-                if (view != null) {
-                    if (allProgramModal.statusCode == 200) {
-                        nextPage = allProgramModal.data?.metaInfo?.nextPage ?: 0
-                        // Only clear list when loading the first page
-                        if (presentPage == 1) {
-                            arrayList.clear()
-                        }
-                        arrayList.addAll(allProgramModal.data?.records ?: emptyList())
-                    } else {
-                        CommonUtils.toast(requireActivity(), nonNullForgetModal.message ?: "Failed")
-                    }
-                    setRecyclerViewVisibilityRecommended()
-                }
+            forceRefresh = false
+        ).observe(viewLifecycleOwner) { response ->
+
+            // Response NULL → stop shimmer
+            if (response == null) {
+                adapterProgramsAllProg.setLoading(false)
+                setRecyclerViewVisibilityRecommended()
+                return@observe
             }
+
+            // Got data → stop shimmer
+            adapterProgramsAllProg.setLoading(false)
+
+            if (response.statusCode == 200) {
+
+                nextPage = response.data?.metaInfo?.nextPage ?: 0
+
+                // Only clear when first page
+                if (presentPage == 1) {
+                    arrayList.clear()
+                }
+
+                val newRecords = response.data?.records ?: emptyList()
+                arrayList.addAll(newRecords)
+
+                // Update page index
+                if (nextPage > 0) {
+                    this.presentPage = nextPage
+                }
+
+            } else {
+                CommonUtils.toast(requireActivity(), response.message ?: "Failed")
+            }
+
+            isLoading = false
+            setRecyclerViewVisibilityRecommended()
         }
     }
 
+
     private fun setRecyclerViewVisibilityRecommended() {
         binding!!.llFpApNoData.isVisible = arrayList.isEmpty()
-        adapterProgramsAllProg.notifyDataSetChanged()
-        isLoading = false
 
-
+        if (::adapterProgramsAllProg.isInitialized) {
+            adapterProgramsAllProg.notifyDataSetChanged()
+        }
     }
 
+
     private fun setupRecyclerViewRecommended() {
-        layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+
+        layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding!!.rvFpApp.layoutManager = layoutManager
 
         adapterProgramsAllProg = AdapterProgramsAllProg(requireActivity(), arrayList, this)
         binding!!.rvFpApp.adapter = adapterProgramsAllProg
 
         binding!!.rvFpApp.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
@@ -2236,21 +2260,32 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (dx != 0) { // dx > 0 means scrolling right, dx < 0 means scrolling left
+                if (dx != 0) {
                     applyBlinkAnimation(recyclerView)
                 }
 
-                currentVisibleItems = layoutManager.childCount
-                totalItemsInAdapter = layoutManager.itemCount
-                scrolledOutItems = layoutManager.findFirstVisibleItemPosition()
+                val visible = layoutManager.childCount
+                val total = layoutManager.itemCount
+                val scrollOut = layoutManager.findFirstVisibleItemPosition()
 
-                if (isScrolling && (scrolledOutItems + currentVisibleItems == totalItemsInAdapter)) {
+                if (
+                    isScrolling &&
+                    !isLoading &&
+                    nextPage > 0 &&
+                    (scrollOut + visible >= total - 2)
+                ) {
                     isScrolling = false
+                    isLoading = true
                     onGetRecommendedAllPrograms(dataPerPage, presentPage)
                 }
             }
         })
+
+        // FIRST LOAD
+        isLoading = true
+        onGetRecommendedAllPrograms(dataPerPage, presentPage)
     }
+
 
     private fun applyBlinkAnimation(recyclerView: RecyclerView) {
         for (i in 0 until recyclerView.childCount) {
@@ -2334,14 +2369,13 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         })
     }
 
+
     private fun getBanner() {
-        viewModelHome.getBannerModalLiveData(
+        ViewModalClass().getBannerModalLiveData(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
-            "Bearer " + CommonUtils.accessToken,
-            forceRefresh = false  // Set true if you want to force refresh
-
+            "Bearer " + CommonUtils.accessToken
         ).observe(viewLifecycleOwner) { getBannerModel: getBannerModel? ->
             getBannerModel?.let { nonNullForgetModal ->
                 if (view != null) {
@@ -2356,6 +2390,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             }
         }
     }
+
+
 
     fun refreshTokenApi(list: String, context: Context?): RefreshTokenResonse? {
         return try {

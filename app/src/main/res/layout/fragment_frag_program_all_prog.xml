@@ -131,7 +131,7 @@
                         android:backgroundTint="@color/white"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:hint="@string/search_for_any_keyword"
+                        android:hint="@string/search"
                         android:importantForAutofill="no"
                         android:inputType="text"
                         android:maxLines="1"

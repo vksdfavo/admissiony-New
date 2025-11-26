@@ -156,11 +156,10 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
             tvFEnglishLevel = null
         }
 
-        val age =
-            sharedPre!!.getLabelValue(AppConstants.AgeList) // This returns a Pair<String, String> or null if no data found
+        val age = sharedPre!!.getLabelValue(AppConstants.AgeList) // This returns a Pair<String, String> or null if no data found
 
         if (age != null) {
-            tvFAge = age.second  // Second element is the value
+            tvFAge = age.second
 
         } else {
             tvFAge = null

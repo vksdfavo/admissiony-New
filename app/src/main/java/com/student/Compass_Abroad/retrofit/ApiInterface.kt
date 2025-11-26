@@ -1631,7 +1631,6 @@ interface ApiInterface {
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
         @Query("type") type: String
-
     ): Call<getTestimonials>
 
 
