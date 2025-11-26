@@ -17,6 +17,7 @@ import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.databinding.FragmentInDemandInstitutionBinding
+import com.student.Compass_Abroad.retrofit.HomeViewModal
 import com.student.Compass_Abroad.retrofit.LoginViewModal
 
 
@@ -60,7 +61,7 @@ class InDemandInstitution : BaseFragment() {
     private fun setupRecyclerViewInDemandIntuitions() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-        LoginViewModal().get_in_demandInstitution(
+        HomeViewModal().get_in_demandInstitution(
             requireActivity(),
             AppConstants.fiClientNumber,
             deviceId, token

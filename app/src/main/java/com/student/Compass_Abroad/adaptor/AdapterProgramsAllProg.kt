@@ -1,6 +1,7 @@
 package com.student.Compass_Abroad.adaptor
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,6 @@ class AdapterProgramsAllProg(
 
     var context: Context? = null
     var contentKey = ""
-    private val applicationList: MutableList<RecordsInfo> = mutableListOf()
 
     interface select {
         fun onCLick(record: Record)
@@ -44,14 +44,12 @@ class AdapterProgramsAllProg(
                 LayoutInflater.from(parent.context), parent, false
             )
             MyRecommendedViewHolder(binding)
-
         } else {
             val binding = ItemProgramRecomBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
             MyViewHolder(binding)
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -65,9 +63,7 @@ class AdapterProgramsAllProg(
     }
 
     override fun getItemCount(): Int {
-
         return arrayList1.size
-
     }
 
     class MyViewHolder(private val binding: ItemProgramRecomBinding) :
@@ -196,6 +192,7 @@ class AdapterProgramsAllProg(
             }
         }
     }
+
     class MyRecommendedViewHolder(private val binding: ItemRecommendedProgramssBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(record: Record, selectListener: select, position: Int) {

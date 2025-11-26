@@ -15,6 +15,7 @@ import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.databinding.FragmentTopDestinationBinding
+import com.student.Compass_Abroad.retrofit.HomeViewModal
 import com.student.Compass_Abroad.retrofit.LoginViewModal
 
 
@@ -58,12 +59,11 @@ class TopDestinationFragment : BaseFragment() {
         }
     }
 
-
     private fun setupRecyclerViewTopDestination() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
 
-        LoginViewModal().get_topdestination(
+        HomeViewModal().get_topdestination(
             requireActivity(),
             AppConstants.fiClientNumber,
             deviceId,

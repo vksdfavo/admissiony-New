@@ -40,7 +40,7 @@ class TimeSlotAdapter(
             }
 
 
-//
+
 //            if (item.is_booked == 1) {
 //                binding.cardTimeSlot.setCardBackgroundColor(Color.parseColor("#E57373"))
 //                binding.cardTimeSlot.setOnClickListener {

@@ -10,16 +10,10 @@
     tools:context=".fragments.home.HomeFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/ablSelect"
@@ -29,21 +23,18 @@
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarDa"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_150"
-                android:layout_gravity="center"
-                android:background="@color/secondary_color"
-                app:contentInsetStart="0dp"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/secondary_color"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="@color/secondary_color">
 
                 <RelativeLayout
-                    android:id="@+id/rlYouHaveSaved"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/dp_150"
+                    app:layout_collapseMode="parallax">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/civProfileImageFd2"
@@ -52,7 +43,6 @@
                         android:layout_marginStart="@dimen/_20dp"
                         android:layout_marginTop="@dimen/_20dp"
                         android:src="@drawable/menu1" />
-
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switchStu"
@@ -114,462 +104,561 @@
                         android:src="@drawable/shape_circle_red"
                         android:tint="@color/theme_color" />
 
+                    <!-- This is the collapsing section -->
                     <RelativeLayout
-                        android:id="@+id/corner1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/fabFp_notificationStu"
-                        android:layout_marginHorizontal="@dimen/space10"
-                        android:layout_marginTop="@dimen/space18"
-                        android:layout_marginBottom="@dimen/space50"
-                        android:background="@drawable/home_back_fade">
+                        android:orientation="vertical"
+                        app:layout_collapseMode="parallax"
+                        app:layout_collapseParallaxMultiplier="0.7">
 
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/corner1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginHorizontal="@dimen/space10"
+                            android:layout_marginTop="@dimen/space25"
+                            android:background="@drawable/home_back_fade" />
 
-                    <RelativeLayout
-                        android:id="@+id/corner2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/fabFp_notificationStu"
-                        android:layout_marginTop="@dimen/space30"
-                        android:backgroundTint="#F3F4F5"
-                        android:background="@drawable/home_back">
-
-                        <TextView
-                            android:id="@+id/program_navigation"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:id="@+id/corner2"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="16dp"
-                            android:drawableEnd="@drawable/baseline_arrow_forward_24"
-                            android:drawableTint="@color/secondary_color"
-                            android:text="@string/get_university_admit_just_in_2_weeks"
-                            android:textColor="@color/text_color"
-                            android:textSize="12sp"
-                            android:textStyle="normal"
-                            tools:ignore="UseCompatTextViewDrawableXml" />
+                            android:layout_alignParentBottom="true"
 
+                            android:layout_marginTop="@dimen/space10"
+                            android:background="@drawable/home_back"
+                            android:backgroundTint="#F3F4F5">
 
+                            <TextView
+                                android:id="@+id/program_navigation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="15dp"
+                                android:drawableEnd="@drawable/baseline_arrow_forward_24"
+                                android:drawableTint="@color/secondary_color"
+                                android:text="@string/get_university_admit_just_in_2_weeks"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp"
+                                android:textStyle="normal"
+                                tools:ignore="UseCompatTextViewDrawableXml" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
 
-
-            </androidx.appcompat.widget.Toolbar>
-
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
-    </LinearLayout>
 
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/linear"
-        android:fillViewport="true">
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_home_new"
-            android:orientation="vertical"
-            android:paddingBottom="80dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_star" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/offers_updates"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/layoutSlider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space10"
+                android:background="@drawable/gradient_home_new"
                 android:orientation="vertical"
-                android:visibility="visible">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPagerImageSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:ignore="RtlSymmetry" />
-
-                <LinearLayout
-                    android:id="@+id/indicatorLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_marginTop="@dimen/space5"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                </LinearLayout>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <RelativeLayout
-                android:id="@+id/rl1"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/shape_rectangle_all_radius_et_search"
-                android:visibility="gone">
-
-                <EditText
-                    android:id="@+id/etsearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="-8dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableStart="@drawable/ic_search"
-                    android:drawablePadding="@dimen/_10dp"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:hint="@string/search_for_programs_institutes_interests"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintApp"
-                    android:textCursorDrawable="@drawable/cursor_black_et"
-                    android:textSize="12sp" />
-
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:id="@+id/llFdStu_offers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Offers &amp; Updates"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnFdStudent_viewAllOffers"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="-36dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPagerFdStu_offers"
-                    android:layout_width="match_parent"
-                    android:layout_height="78dp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/offers_updates"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_10dp"
-                android:visibility="gone" />
-
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/indicatorOb"
-                android:layout_width="wrap_content"
-                android:layout_height="44dp"
-                android:layout_gravity="center_horizontal"
-                android:elevation="1dp"
-                android:visibility="gone"
-                app:ci_drawable="@drawable/indicator_selected"
-                app:ci_drawable_unselected="@drawable/indicator_unselected" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="8dp"
-                android:padding="@dimen/dp_5"
-                app:cardCornerRadius="40dp">
+                android:paddingBottom="80dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_rectangle_all_radius_btn_gradient4"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="12dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/staff_img"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/test_image2"
-                            app:civ_border_color="@color/secondary_color"
-                            app:civ_border_width="@dimen/dp_1" />
-
-                        <TextView
-                            android:id="@+id/need_assistance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="@dimen/_10dp"
-                            android:layout_toEndOf="@id/staff_img"
-                            android:maxLines="1"
-                            android:text="@string/need_assistance"
-                            android:textColor="@color/secondary_color"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:id="@+id/tvFdStu_coordinator"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/need_assistance"
-                            android:layout_marginStart="10dp"
-                            android:layout_toStartOf="@+id/fabFdStu_coordinatorChat"
-                            android:layout_toEndOf="@id/staff_img"
-                            android:maxLines="1"
-                            android:text="@string/talk_to_your_advisor"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvFdStu_coordinator_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvFdStu_coordinator"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="-5dp"
-                            android:layout_toEndOf="@id/staff_img"
-                            android:maxLines="1"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/emailId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvFdStu_coordinator_name"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="-5dp"
-                            android:layout_toEndOf="@id/staff_img"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/tvName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_toStartOf="@id/fabFdStu_coordinatorChat"
-                            android:layout_toEndOf="@id/tvFdStu_coordinator"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="Fetching..."
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:visibility="gone" />
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/fabFdStu_coordinatorChat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_toStartOf="@id/fabFdStu_coordinatorCall"
-                            android:elevation="10dp"
-                            android:src="@drawable/msg"
-                            app:backgroundTint="@color/white"
-                            app:borderWidth="1dp"
-                            app:elevation="5dp"
-                            app:fabCustomSize="32dp"
-                            app:maxImageSize="15dp" />
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/fabFdStu_coordinatorCall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="2dp"
-                            android:elevation="10dp"
-                            android:src="@drawable/call1"
-                            app:backgroundTint="@color/white"
-                            app:borderWidth="1dp"
-                            app:elevation="5dp"
-                            app:fabCustomSize="32dp"
-                            app:maxImageSize="15dp" />
-                    </RelativeLayout>
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_star" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/dividerBackgroundColor" />
-
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/offers_updates"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_program"
-                    app:tint="@color/secondary_color" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutSlider"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/recommended_programs"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="@dimen/space10"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPagerImageSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="RtlSymmetry" />
 
-                <TextView
-                    android:id="@+id/ViewAllRecomPro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/indicatorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginTop="@dimen/space5"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                    </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <RelativeLayout
+                    android:id="@+id/rl1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shape_rectangle_all_radius_et_search"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/etsearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="-8dp"
+                        android:backgroundTint="@color/white"
+                        android:drawableStart="@drawable/ic_search"
+                        android:drawablePadding="@dimen/_10dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:hint="@string/search_for_programs_institutes_interests"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintApp"
+                        android:textCursorDrawable="@drawable/cursor_black_et"
+                        android:textSize="12sp" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="-6dp"
-                android:text="@string/based_on_your_likes"
-                android:textSize="10sp" />
+                </RelativeLayout>
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
 
                 <LinearLayout
-                    android:id="@+id/llFpAp_noData"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/llFdStu_offers"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/no_shortlisted_program_found"
-                        android:textColor="#151522"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Offers &amp; Updates"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnFdStudent_viewAllOffers"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="-36dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPagerFdStu_offers"
+                        android:layout_width="match_parent"
+                        android:layout_height="78dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/offers_updates"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10dp"
+                    android:visibility="gone" />
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicatorOb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="1dp"
+                    android:visibility="gone"
+                    app:ci_drawable="@drawable/indicator_selected"
+                    app:ci_drawable_unselected="@drawable/indicator_unselected" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:padding="@dimen/dp_5"
+                    app:cardCornerRadius="40dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rectangle_all_radius_btn_gradient4"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="12dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/staff_img"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/test_image2"
+                                app:civ_border_color="@color/secondary_color"
+                                app:civ_border_width="@dimen/dp_1" />
+
+                            <TextView
+                                android:id="@+id/need_assistance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:layout_toEndOf="@id/staff_img"
+                                android:maxLines="1"
+                                android:text="@string/need_assistance"
+                                android:textColor="@color/secondary_color"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tvFdStu_coordinator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/need_assistance"
+                                android:layout_marginStart="10dp"
+                                android:layout_toStartOf="@+id/fabFdStu_coordinatorChat"
+                                android:layout_toEndOf="@id/staff_img"
+                                android:maxLines="1"
+                                android:text="@string/talk_to_your_advisor"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvFdStu_coordinator_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvFdStu_coordinator"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="-5dp"
+                                android:layout_toEndOf="@id/staff_img"
+                                android:maxLines="1"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/emailId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvFdStu_coordinator_name"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="-5dp"
+                                android:layout_toEndOf="@id/staff_img"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tvName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_toStartOf="@id/fabFdStu_coordinatorChat"
+                                android:layout_toEndOf="@id/tvFdStu_coordinator"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Fetching..."
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:visibility="gone" />
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/fabFdStu_coordinatorChat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_toStartOf="@id/fabFdStu_coordinatorCall"
+                                android:elevation="10dp"
+                                android:src="@drawable/msg"
+                                app:backgroundTint="@color/white"
+                                app:borderWidth="1dp"
+                                app:elevation="5dp"
+                                app:fabCustomSize="32dp"
+                                app:maxImageSize="15dp" />
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/fabFdStu_coordinatorCall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="2dp"
+                                android:elevation="10dp"
+                                android:src="@drawable/call1"
+                                app:backgroundTint="@color/white"
+                                app:borderWidth="1dp"
+                                app:elevation="5dp"
+                                app:fabCustomSize="32dp"
+                                app:maxImageSize="15dp" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/dividerBackgroundColor" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_program"
+                        app:tint="@color/secondary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/recommended_programs"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/ViewAllRecomPro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="-6dp"
+                    android:text="@string/based_on_your_likes"
+                    android:textSize="10sp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/llFpAp_noData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/no_shortlisted_program_found"
+                            android:textColor="#151522"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/no_shortlisted_program_found"
+                            android:textColor="#151522"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/btn_login"
+                            android:layout_width="130dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+                            android:backgroundTint="@color/theme_color"
+                            android:elevation="2dp"
+                            android:foreground="@drawable/ripple"
+                            android:gravity="center"
+                            android:padding="12dp"
+                            android:text="@string/view_program"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvFpApp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_recommended_programss" />
+
+                    <ProgressBar
+                        android:id="@+id/pbFdStu_recommendedPro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
+
+
+                    <TextView
+                        android:id="@+id/tvFdStu_setPref"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_rectangle_all_radius_btn_gradient3"
+                        android:drawableEnd="@drawable/ic_next3"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="12dp"
+                        android:text="@string/set_your_preferences"
+                        android:textAllCaps="false"
+                        android:visibility="gone"
+                        app:drawableTint="@color/mainColor" />
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/space18"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/map_pin"
+                        app:tint="@color/secondary_color" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
                         android:gravity="center"
-                        android:text="@string/no_shortlisted_program_found"
-                        android:textColor="#151522"
-                        android:textSize="12sp" />
+                        android:text="@string/top_destinations"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/btn_login"
-                        android:layout_width="130dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="@dimen/dp_10"
-                        android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
-                        android:backgroundTint="@color/theme_color"
-                        android:elevation="2dp"
-                        android:foreground="@drawable/ripple"
-                        android:gravity="center"
-                        android:padding="12dp"
-                        android:text="@string/view_program"
+                        android:id="@+id/viewAlldestination"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
                         android:textAllCaps="false"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="-6dp"
+                    android:text="@string/based_on_last_6_month_applications"
+                    android:textSize="10sp" />
+
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvFpApp"
+                    android:id="@+id/rvTopDestination"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
@@ -577,945 +666,848 @@
                     android:paddingStart="6dp"
                     android:paddingEnd="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_recommended_programss" />
+                    tools:listitem="@layout/top_destination_layout" />
 
-                <ProgressBar
-                    android:id="@+id/pbFdStu_recommendedPro"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/space18"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_program"
+                        app:tint="@color/secondary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/in_demand_courses"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/viewAllIndemandTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="-6dp"
+                    android:text="@string/based_on_last_2_month_applications"
+                    android:textSize="10sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvIndemand"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_indemand_courses" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/space18"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/home_new" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/in_demand_intuitions"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/viewAllIndemandIntuitionsTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvIndemandIntuitions"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_in_demand_intuitions" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/scholarships"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_NoScolarship_dataFound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:gravity="center_horizontal"
+                    android:paddingStart="@dimen/_10dp"
+                    android:paddingEnd="@dimen/_10dp"
+                    android:paddingBottom="@dimen/_10dp"
+                    android:text="@string/no_scholarships_found"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+
+                    android:visibility="gone" />
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicatorOb1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="1dp"
+                    android:visibility="gone"
+                    app:ci_drawable="@drawable/indicator_selected"
+                    app:ci_drawable_unselected="@drawable/indicator_unselected" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/space20"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/outline_book_4_24"
+                        app:tint="@color/secondary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/area_of_interest"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/btnFdStudentDes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/no_area_of_interest_found"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/no_area_of_interest_found"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/space20"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint"
+                    android:visibility="invisible" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_area_of_interest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/space10"
+                    android:foregroundGravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_area_of_interest_layout" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/zap"
+                        app:tint="@color/secondary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/quick_actions"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/quickActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/strock_qucik"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvQuciAction"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:listitem="@layout/quick_action_layout" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_150"
+                    android:layout_marginHorizontal="@dimen/dp_10"
+                    android:src="@drawable/down" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/space20"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+
+                <LinearLayout
+                    android:id="@+id/relativeTestimonials"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/testi" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/student_testimonials"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/btn_testimonials"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTestimonials"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/testimonials_layouts" />
+
+
+                <View
+                    android:id="@+id/view_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/_20dp"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/top_preferred_countries"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="-38dp"
+                    android:text="@string/view_all"
+                    android:textAllCaps="false"
+                    android:textColor="@color/viewAllTextColor"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPreferredCountriesStu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_top_pref_countries" />
+
+
+                <LinearLayout
+                    android:id="@+id/relative_voucher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/voucherss" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/vouchers"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/btnVoucher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_Voucher"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_voucher" />
+
+                <View
+                    android:id="@+id/view122"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/_20dp"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+                <LinearLayout
+                    android:id="@+id/relativeWebinars"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/airplay" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/webinars"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/btnWebinars"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvWebinars"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_webinar" />
+
+
+                <View
+                    android:id="@+id/view_web"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/_20dp"
+                    android:layout_marginVertical="@dimen/space5"
+                    android:background="@color/hint" />
+
+
+                <LinearLayout
+                    android:id="@+id/relativeLatestUpdates"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space18"
+                        android:layout_height="@dimen/space18"
+                        android:layout_gravity="center"
+                        android:src="@drawable/globe" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space5"
+                        android:gravity="center"
+                        android:text="@string/latest_updates"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Spacer pushes next item (View All) to right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/btn_latest_updates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_latest_updates"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/latest_updates_layout" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvWebinar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/webinar"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnFdStudent_viewWeb"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="end"
+                        android:text="@string/view_all"
+                        android:textAllCaps="false"
+                        android:textColor="@color/viewAllTextColor"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/no_Wbinar_Found"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/no_webinar_found"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCE"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_webinar" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="16sp"
+                    android:text="@string/interests"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="-38dp"
+                    android:text="@string/view_all"
+                    android:textAllCaps="false"
+                    android:textColor="@color/viewAllTextColor"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvInterestsStu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_interests" />
+
+
+                <TextView
+                    android:id="@+id/tvReferEarn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="16sp"
+                    android:text="@string/refer_amp_earn"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/cdReferEarn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="10dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/refer"
                     android:visibility="gone" />
 
 
                 <TextView
-                    android:id="@+id/tvFdStu_setPref"
+                    android:id="@+id/tvBecomeaScout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:background="@drawable/shape_rectangle_all_radius_btn_gradient3"
-                    android:drawableEnd="@drawable/ic_next3"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="24dp"
-                    android:paddingVertical="12dp"
-                    android:text="@string/set_your_preferences"
-                    android:textAllCaps="false"
-                    android:visibility="gone"
-                    app:drawableTint="@color/mainColor" />
-            </RelativeLayout>
-
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/space18"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/map_pin"
-                    app:tint="@color/secondary_color" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/top_destinations"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="16sp"
+                    android:text="@string/become_a_scout"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/viewAlldestination"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="-6dp"
-                android:text="@string/based_on_last_6_month_applications"
-                android:textSize="10sp" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTopDestination"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/top_destination_layout" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/space18"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_program"
-                    app:tint="@color/secondary_color" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/in_demand_courses"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/viewAllIndemandTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="-6dp"
-                android:text="@string/based_on_last_2_month_applications"
-                android:textSize="10sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvIndemand"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_indemand_courses" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/space18"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/home_new" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/in_demand_intuitions"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/viewAllIndemandIntuitionsTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvIndemandIntuitions"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_10dp"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_in_demand_intuitions" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/_10dp"
-                android:text="@string/scholarships"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tv_NoScolarship_dataFound"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center_horizontal"
-                android:paddingStart="@dimen/_10dp"
-                android:paddingEnd="@dimen/_10dp"
-                android:paddingBottom="@dimen/_10dp"
-                android:text="@string/no_scholarships_found"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-
-                android:visibility="gone" />
-
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/indicatorOb1"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_horizontal"
-                android:elevation="1dp"
-                android:visibility="gone"
-                app:ci_drawable="@drawable/indicator_selected"
-                app:ci_drawable_unselected="@drawable/indicator_unselected" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/space20"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/outline_book_4_24"
-                    app:tint="@color/secondary_color" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/area_of_interest"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/btnFdStudentDes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
                     android:textSize="12sp"
-                    />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/no_area_of_interest_found"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="@string/no_area_of_interest_found"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/space20"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint"
-                android:visibility="invisible" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_area_of_interest"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:foregroundGravity="center"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                tools:listitem="@layout/item_area_of_interest_layout" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/zap"
-                    app:tint="@color/secondary_color" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/quick_actions"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/quickActions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="@dimen/_10dp"
-                android:layout_marginTop="@dimen/_10dp"
-                android:background="@drawable/strock_qucik"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvQuciAction"
+                    android:id="@+id/cdBecomeaScout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2"
-                    tools:listitem="@layout/quick_action_layout" />
-
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_150"
-                android:layout_marginHorizontal="@dimen/dp_10"
-                android:src="@drawable/down" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/space20"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-
-            <LinearLayout
-                android:id="@+id/relativeTestimonials"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/testi" />
+                    android:layout_height="110dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/refer"
+                    android:visibility="gone"
+                    app:cardCornerRadius="12dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/student_testimonials"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/btn_testimonials"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTestimonials"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/testimonials_layouts" />
-
-
-            <View
-                android:id="@+id/view_test"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/_20dp"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/top_preferred_countries"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="-38dp"
-                android:text="@string/view_all"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPreferredCountriesStu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_top_pref_countries" />
-
-
-            <LinearLayout
-                android:id="@+id/relative_voucher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/voucherss" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/vouchers"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/btnVoucher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_Voucher"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingBottom="10dp"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_voucher" />
-
-            <View
-                android:id="@+id/view122"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/_20dp"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-            <LinearLayout
-                android:id="@+id/relativeWebinars"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/airplay" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/webinars"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/btnWebinars"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvWebinars"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_webinar" />
-
-
-            <View
-                android:id="@+id/view_web"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/_20dp"
-                android:layout_marginVertical="@dimen/space5"
-                android:background="@color/hint" />
-
-
-            <LinearLayout
-                android:id="@+id/relativeLatestUpdates"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="@dimen/sp15"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/space18"
-                    android:layout_height="@dimen/space18"
-                    android:layout_gravity="center"
-                    android:src="@drawable/globe" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space5"
-                    android:gravity="center"
-                    android:text="@string/latest_updates"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <!-- Spacer pushes next item (View All) to right -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/btn_latest_updates"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="View All"
-                    android:textAllCaps="false"
-                    android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_latest_updates"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/latest_updates_layout" />
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tvWebinar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/webinar"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="26dp"
+                    android:text="@string/latest_study_abroad_updates"
                     android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <Button
-                    android:id="@+id/btnFdStudent_viewWeb"
+                    android:id="@+id/btnLatestTudy_viewAll"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_gravity="end"
+                    android:layout_marginTop="-40dp"
                     android:text="@string/view_all"
                     android:textAllCaps="false"
                     android:textColor="@color/viewAllTextColor"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/no_Wbinar_Found"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="@string/no_webinar_found"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLatestStudyStu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_latest_study" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCE"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_webinar" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@color/dividerBackgroundColor"
+                    android:visibility="gone" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/universities"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="16sp"
-                android:text="@string/interests"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="-40dp"
+                    android:text="@string/view_all"
+                    android:textAllCaps="false"
+                    android:textColor="@color/viewAllTextColor"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-38dp"
-                android:text="@string/view_all"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp"
-                android:visibility="gone" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvUniversitiesStu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="10dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_universities" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvInterestsStu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_interests" />
-
-
-            <TextView
-                android:id="@+id/tvReferEarn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="16sp"
-                android:text="@string/refer_amp_earn"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/cdReferEarn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="10dp"
-                android:adjustViewBounds="true"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/refer"
-                android:visibility="gone" />
-
-
-            <TextView
-                android:id="@+id/tvBecomeaScout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="16sp"
-                android:text="@string/become_a_scout"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/cdBecomeaScout"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/refer"
-                android:visibility="gone"
-                app:cardCornerRadius="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="26dp"
-                android:text="@string/latest_study_abroad_updates"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btnLatestTudy_viewAll"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-40dp"
-                android:text="@string/view_all"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLatestStudyStu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_latest_study" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="26dp"
-                android:background="@color/dividerBackgroundColor"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/universities"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="-40dp"
-                android:text="@string/view_all"
-                android:textAllCaps="false"
-                android:textColor="@color/viewAllTextColor"
-                android:textSize="12sp"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvUniversitiesStu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingStart="6dp"
-                android:paddingEnd="10dp"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_universities" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

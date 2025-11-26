@@ -57,6 +57,7 @@ import org.json.JSONObject
 import kotlin.random.Random
 import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.findNavController
+import com.student.Compass_Abroad.retrofit.HomeViewModal
 
 class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
     private lateinit var binding: FragmentFragProgramAllProgBinding
@@ -771,7 +772,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         tvFAge: String?,
         isRecommended: String
     ) {
-        ViewModalClass().getAllProgramsModalLiveData(
+        HomeViewModal().getAllProgramsModalLiveData(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -797,7 +798,9 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
             tvAccomodation,
             tvFEnglishLevel,
             tvFAge,
-            isRecommended
+            isRecommended,
+            forceRefresh = false  // Set true if you want to force refresh
+
         ).observe(viewLifecycleOwner) { allProgramModal: AllProgramModel? ->
             allProgramModal?.let { nonNullForgetModal ->
                 if (view != null) {

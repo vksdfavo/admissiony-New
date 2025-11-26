@@ -1,6 +1,7 @@
 @file:Suppress("DEPRECATED_IDENTITY_EQUALS")
 
 package com.student.Compass_Abroad.fragments.home
+import androidx.core.content.ContextCompat
 
 import android.app.Activity
 import android.app.Dialog
@@ -70,7 +71,11 @@ import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeLatestUpdateAdapt
 import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeUniversitiesAdapter
 import com.student.Compass_Abroad.adaptor.dashBoardAdapter.TopPreferCountryAdapter
 import com.student.Compass_Abroad.databinding.FragmentHomeBinding
-
+import android.animation.ObjectAnimator
+import android.animation.AnimatorSet
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import com.student.Compass_Abroad.databinding.ProgramTagsDialogBinding
 import com.student.Compass_Abroad.databinding.SliderDataLayoutBinding
 import com.student.Compass_Abroad.encrytion.encryptData
@@ -128,12 +133,15 @@ import java.io.IOException
 import kotlin.math.abs
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.student.Compass_Abroad.StaticLatestUpdate
 import com.student.Compass_Abroad.StaticLatestUpdateAdapter
 import com.student.Compass_Abroad.StaticTestimonial
@@ -147,6 +155,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     AdapterOffersandUpdate.OnClickData, AdapterScholarships.Scholarships,
     AdaptorWebinarRecyclerview.select {
     var binding: FragmentHomeBinding? = null
+    var lastX = 0
     var interestsAdapter: HomeInterestsAdapter? = null
     var fetchLatestAdapter: HomeLatestUpdateAdapter? = null
     var fetchUniversitiesAdapter: HomeUniversitiesAdapter? = null
@@ -213,6 +222,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         ViewModelProvider(requireActivity())[HomeViewModal::class.java]
     }
 
+    private val viewModelClass : HomeViewModal by activityViewModels()
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -247,6 +259,31 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
             findNavController().navigate(R.id.fragProgramAllProg)
         }
+
+        // In your Fragment's onViewCreated or Activity's onCreate
+
+        binding!!.ablSelect.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val totalScrollRange = appBarLayout.totalScrollRange
+            val percentage = Math.abs(verticalOffset).toFloat() / totalScrollRange.toFloat()
+
+            // Change status bar color based on scroll position
+            if (percentage >= 0.9f) {
+                // Fully collapsed - show your desired color
+                activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.secondary_color)
+                // Also change status bar icons to dark (for light background)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                }
+            } else {
+                // Expanded - show secondary color
+                activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.secondary_color)
+                // Change status bar icons to light (for dark background)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    activity?.window?.decorView?.systemUiVisibility = 0
+                }
+            }
+        })
+
 
         return binding!!.root
     }
@@ -284,10 +321,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private fun setupRecyclerViewInDemandIntuitions() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-        LoginViewModal().get_in_demandInstitution(
+        HomeViewModal().get_in_demandInstitution(
             requireActivity(),
             AppConstants.fiClientNumber,
-            deviceId, token
+            deviceId, token,
+            forceRefresh = false  // Set true if you want to force refresh
+
         ).observe(viewLifecycleOwner) { response ->
             response?.let { topDestinations ->
                 if (topDestinations.statusCode == 200) {
@@ -320,11 +359,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private fun setupRecyclerViewInDemand() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-        LoginViewModal().get_in_demandCourses(
+        HomeViewModal().get_in_demandCourses(
             requireActivity(),
             AppConstants.fiClientNumber,
             deviceId,
-            token
+            token,
+            forceRefresh = false
         ).observe(viewLifecycleOwner) { response ->
             response?.let { topDestinations ->
                 if (topDestinations.statusCode == 200) {
@@ -469,11 +509,13 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private fun setupRecyclerViewTopDestination() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-        LoginViewModal().get_topdestination(
+        HomeViewModal().get_topdestination(
             requireActivity(),
             AppConstants.fiClientNumber,
             deviceId,
-            token
+            token,
+            forceRefresh = false  // Set true if you want to force refresh
+
         ).observe(viewLifecycleOwner) { response ->
 
             response?.let { topDestinations ->
@@ -523,7 +565,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         getOffersandUpdatesIn(requireActivity())
         getScholarships(requireActivity())
 
-        //GetWebinars(requireActivity(), dataPerPage2, presentPage2)
+        GetWebinars(requireActivity(), dataPerPage, presentPage2)
 
 
         arrayList1.clear()
@@ -726,7 +768,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
-            "Bearer ${CommonUtils.accessToken}"
+            "Bearer ${CommonUtils.accessToken}",
+            forceRefresh = false  // Set true if you want to force refresh
         ).observe(viewLifecycleOwner) { response ->
             if (response?.success == true) {
                 response.data?.let {
@@ -1330,20 +1373,16 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
     private fun hitApiUserDetails() {
 
-
         Log.e("Client Number", AppConstants.fiClientNumber)   // Log client number
-        Log.e(
-            "Device Identifier",
-            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").toString()
-        )  // Log device identifier
+        Log.e("Device Identifier", sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").toString())  // Log device identifier
         Log.e("Access Token", "Bearer ${CommonUtils.accessToken}")
-
 
         viewModelHome.getStaffProfileData(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
-            "Bearer " + CommonUtils.accessToken
+            "Bearer " + CommonUtils.accessToken,
+            forceRefresh = false
         ).observe(requireActivity()) { staffData: StaffProfileModal? ->
             staffData?.let { nonNullForgetModal ->
                 if (staffData.statusCode == 200) {
@@ -2085,16 +2124,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
 
-    private fun initPayment(
-        context: FragmentActivity?,
-        data: com.student.Compass_Abroad.modal.getPaymentApplicationPay.Data?
-    ) {
+    private fun initPayment(context: FragmentActivity?, data: com.student.Compass_Abroad.modal.getPaymentApplicationPay.Data?) {
         val activity: FragmentActivity = context!!
         val co = Checkout()
         try {
             val options = JSONObject()
             options.put("name", context.getString(R.string.app_name))
-
             options.put("image", context.getString(R.string.payment_icon))
             options.put("theme.color", data!!.gateway_info.theme)
             options.put("currency", data.gateway_info.payment_info.currency)
@@ -2107,7 +2142,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             val prefill = JSONObject()
             prefill.put("email", data.user_info.email)
             prefill.put("contact", "${data.user_info.country_code}${data.user_info.mobile}")
-
             options.put("prefill", prefill)
             co!!.open(activity, options)
             dialog.dismiss()
@@ -2135,9 +2169,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             }
 
             is PaymentSheetResult.Failed -> {
-                val errorMessage =
-                    (paymentSheetResult as? PaymentSheetResult.Failed)?.error?.message
-                        ?: "Unknown error occurred"
+
+                val errorMessage = (paymentSheetResult as? PaymentSheetResult.Failed)?.error?.message ?: "Unknown error occurred"
+
                 CommonUtils.toast(context, "Payment Failed: $errorMessage")
 
             }
@@ -2154,7 +2188,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
             "Bearer " + CommonUtils.accessToken,
             presentPage,
-            dataPerPage
+            dataPerPage,
+            forceRefresh = false  // Set true if you want to force refresh
         ).observe(viewLifecycleOwner) { allProgramModal: AllProgramModel? ->
             allProgramModal?.let { nonNullForgetModal ->
                 if (view != null) {
@@ -2187,9 +2222,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding!!.rvFpApp.layoutManager = layoutManager
 
-
         adapterProgramsAllProg = AdapterProgramsAllProg(requireActivity(), arrayList, this)
-
         binding!!.rvFpApp.adapter = adapterProgramsAllProg
 
         binding!!.rvFpApp.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -2202,6 +2235,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+
+                if (dx != 0) { // dx > 0 means scrolling right, dx < 0 means scrolling left
+                    applyBlinkAnimation(recyclerView)
+                }
+
                 currentVisibleItems = layoutManager.childCount
                 totalItemsInAdapter = layoutManager.itemCount
                 scrolledOutItems = layoutManager.findFirstVisibleItemPosition()
@@ -2212,6 +2250,21 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 }
             }
         })
+    }
+
+    private fun applyBlinkAnimation(recyclerView: RecyclerView) {
+        for (i in 0 until recyclerView.childCount) {
+            val child = recyclerView.getChildAt(i)
+            child?.let {
+                val alphaAnimation = AlphaAnimation(1.0f, 0.4f).apply {
+                    duration = 400 // Slow, smooth blink
+                    repeatCount = 1
+                    repeatMode = Animation.REVERSE
+                    interpolator = AccelerateDecelerateInterpolator() // Smooth easing
+                }
+                it.startAnimation(alphaAnimation)
+            }
+        }
     }
 
     private fun sliderImage(arrayListBanner: ArrayList<com.student.Compass_Abroad.modal.getBannerModel.Record>) {
@@ -2286,7 +2339,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
-            "Bearer " + CommonUtils.accessToken
+            "Bearer " + CommonUtils.accessToken,
+            forceRefresh = false  // Set true if you want to force refresh
+
         ).observe(viewLifecycleOwner) { getBannerModel: getBannerModel? ->
             getBannerModel?.let { nonNullForgetModal ->
                 if (view != null) {
@@ -2475,7 +2530,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                             Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
                                 override fun run() {
                                     Handler().removeCallbacks(this, null)
-                                    //GetWebinars(requireActivity(), dataPerPage2, presentPage2)
+                                    GetWebinars(requireActivity(), dataPerPage, presentPage2)
                                 }
                             }, 2000)
                         }

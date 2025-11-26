@@ -22,6 +22,7 @@ import com.student.Compass_Abroad.adaptor.generateRandomHexString
 import com.student.Compass_Abroad.databinding.FragmentInDemandCoursesBinding
 import com.student.Compass_Abroad.encrytion.encryptData
 import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
+import com.student.Compass_Abroad.retrofit.HomeViewModal
 import com.student.Compass_Abroad.retrofit.LoginViewModal
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
@@ -74,7 +75,7 @@ class InDemandCoursesFragment : BaseFragment() {
     private fun setupRecyclerViewInDemand() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-        LoginViewModal().get_in_demandCourses(
+        HomeViewModal().get_in_demandCourses(
             requireActivity(),
             AppConstants.fiClientNumber,
             deviceId,
