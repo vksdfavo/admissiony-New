@@ -86,7 +86,7 @@ import com.student.Compass_Abroad.modal.editProfile.UploadImages
 import com.student.Compass_Abroad.modal.findAmbassadorModal.AmbassadorModal
 import com.student.Compass_Abroad.modal.generatingPaymentLinkVoucher.generatingPaymentLinkVoucher
 import com.student.Compass_Abroad.modal.getApplicationResponse.getApplicationResponse
-import com.student.Compass_Abroad.modal.getBannerModel.getBannerModel
+import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.modal.getCategoryProgramModel.getCategoryProgramModel
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import com.student.Compass_Abroad.modal.getDestintionManager.getDestinationmanager
@@ -8183,62 +8183,6 @@ class ViewModalClass : ViewModel() {
         AllRecommendedProgramMutableLiveData1!!.postValue(allProgramModel)
     }
 
-    var AllBannerMutableLiveData1: MutableLiveData<getBannerModel?>? = null
-    fun getBannerModalLiveData(
-        activity: Activity?,
-        client_number: String,
-        device_number: String,
-        accessToken: String,
-
-        ): LiveData<getBannerModel?> {
-
-        AllBannerMutableLiveData1 = MutableLiveData()
-
-        if (activity?.let { CommonUtils.isNetworkConnected(it) } == true) {
-            // CommonUtils.showProgress(activity)
-            apiInterface.getBanner(
-                client_number,
-                device_number,
-                accessToken,
-
-                )!!.enqueue(object : Callback<getBannerModel?> {
-                override fun onResponse(
-                    call: Call<getBannerModel?>,
-                    response: Response<getBannerModel?>
-                ) {
-                    //    CommonUtils.dismissProgress()
-                    if (response.isSuccessful && response.body() != null) {
-                        AllBannerMutableLiveData1!!.postValue(response.body())
-                    } else {
-                        val apiError = parseError(response)
-                        handleErrorBanner(response.code(), getErrorMessage(apiError))
-                    }
-                }
-
-                override fun onFailure(call: Call<getBannerModel?>, t: Throwable) {
-                    // CommonUtils.dismissProgress()
-                    handleErrorBanner(0, "Network error: " + t.message)
-                }
-            })
-        } else {
-            //handleError(0, "No internet connection.")
-        }
-        return AllBannerMutableLiveData1!!
-    }
-
-
-    private fun handleErrorBanner(code: Int, backendMessage: String?) {
-        var getBannerModel = getBannerModel()
-        getBannerModel.statusCode = code
-        val errorMessage: String = when (code) {
-            401 -> backendMessage ?: "Please check your credentials."
-            500 -> backendMessage ?: "$code"
-            else -> backendMessage ?: "Error $code"
-        }
-        getBannerModel.message = errorMessage
-        Log.e("API Error", getBannerModel.message!!)
-        AllBannerMutableLiveData1!!.postValue(getBannerModel)
-    }
 
 
     var getLeadMutableLiveData1: MutableLiveData<getLeadsModal?>? = null

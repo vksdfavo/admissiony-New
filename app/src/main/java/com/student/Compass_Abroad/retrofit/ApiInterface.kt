@@ -69,7 +69,7 @@ import com.student.Compass_Abroad.modal.getApplicationNotes.getApplicationNotes
 import com.student.Compass_Abroad.modal.getApplicationRemider.getApplicationReminderResponse
 import com.student.Compass_Abroad.modal.getApplicationResponse.getApplicationResponse
 import com.student.Compass_Abroad.modal.getApplicationTimelineResponse.getApplicationTimelineResponse
-import com.student.Compass_Abroad.modal.getBannerModel.getBannerModel
+import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.modal.getCategoryLeadStat.getCategoryLeadStat
 import com.student.Compass_Abroad.modal.getCategoryProgramModel.getCategoryProgramModel
 import com.student.Compass_Abroad.modal.getChatResponse.getChatResponse
@@ -1398,7 +1398,7 @@ interface ApiInterface {
         @Header("fi-client-number") client_number: String?,
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
-    ): Call<getBannerModel>
+    ): Call<GetBannerModal>
 
     @GET("leads")
     fun getLeads(

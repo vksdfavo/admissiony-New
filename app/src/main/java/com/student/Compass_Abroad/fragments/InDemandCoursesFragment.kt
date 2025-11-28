@@ -74,8 +74,19 @@ class InDemandCoursesFragment : BaseFragment() {
     }
 
     private fun setupRecyclerViewInDemand() {
+        // 1. Initialize RecyclerView with shimmer adapter
+        binding?.rvIndemand?.apply {
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            adapter = InDemandCoursesAdapter(
+                courseList = emptyList(),
+                listener = null,
+                isLoading = true
+            )
+        }
+
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
+
         HomeViewModal().get_in_demandCourses(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -86,90 +97,41 @@ class InDemandCoursesFragment : BaseFragment() {
                 if (topDestinations.statusCode == 200) {
                     val destinations = topDestinations.data
                     if (!destinations.isNullOrEmpty()) {
+
                         arrayListInDemand.clear()
                         arrayListInDemand.addAll(destinations)
-                        binding?.rvIndemand?.apply {
-                            layoutManager = StaggeredGridLayoutManager(
-                                2,
-                                StaggeredGridLayoutManager.VERTICAL
-                            )
-                            adapter = InDemandCoursesAdapter(
-                                arrayListInDemand,
-                                object : InDemandCoursesAdapter.OnCourseClickListener {
-                                    override fun onItemClick(
-                                        data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
-                                        position: Int
-                                    ) {
-                                        getDetailsApi(data)
-                                    }
 
-                                    override fun onLikeClick(
-                                        data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
-                                        position: Int
-                                    ) {
-
-                                        val hexString = generateRandomHexString(16)
-                                        val publicKey = hexString
-                                        val privateKey = AppConstants.privateKey
-
-                                        val formData = JSONObject().apply {
-                                            put(
-                                                "program_campus_identifier",
-                                                data.program_campus_identifier
-                                            )
-                                        }
-                                        val dataToEncrypt = formData.toString()
-                                        val appSecret = AppConstants.appSecret
-                                        val ivHexString = "$privateKey$publicKey"
-                                        val encryptedString =
-                                            encryptData(dataToEncrypt, appSecret, ivHexString)
-
-                                        if (encryptedString != null) {
-                                            contentKey = "$publicKey^#^$encryptedString"
-                                            Log.d("shortlisted", contentKey)
-                                            addToShortlist(requireActivity(), contentKey)
-                                        } else {
-                                            Log.d("shortlisted", "Encryption failed.")
-                                        }
-
-                                    }
-
-                                    override fun onDislikeClick(
-                                        data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
-                                        position: Int
-                                    ) {
-
-                                        val hexString = generateRandomHexString(16)
-                                        val publicKey = hexString
-                                        val privateKey = AppConstants.privateKey
-
-                                        val formData = JSONObject().apply {
-                                            put(
-                                                "program_campus_identifier",
-                                                data.program_campus_identifier
-                                            )
-                                        }
-                                        val dataToEncrypt = formData.toString()
-                                        val appSecret = AppConstants.appSecret
-                                        val ivHexString = "$privateKey$publicKey"
-                                        val encryptedString =
-                                            encryptData(dataToEncrypt, appSecret, ivHexString)
-
-                                        if (encryptedString != null) {
-                                            contentKey = "$publicKey^#^$encryptedString"
-                                            Log.d("shortlisted", contentKey)
-                                            // removeFromShortlist(data)
-                                            addToShortlist(requireActivity(), contentKey)
-                                        } else {
-                                            Log.d("shortlisted", "Encryption failed.")
-                                        }
-
-                                    }
+                        // Update adapter with actual data and click listeners
+                        binding?.rvIndemand?.adapter = InDemandCoursesAdapter(
+                            courseList = arrayListInDemand,
+                            listener = object : InDemandCoursesAdapter.OnCourseClickListener {
+                                override fun onItemClick(
+                                    data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
+                                    position: Int
+                                ) {
+                                    getDetailsApi(data)
                                 }
-                            )
-                        }
-                    }
 
+                                override fun onLikeClick(
+                                    data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
+                                    position: Int
+                                ) {
+                                    handleShortlist(data, true)
+                                }
+
+                                override fun onDislikeClick(
+                                    data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
+                                    position: Int
+                                ) {
+                                    handleShortlist(data, false)
+                                }
+                            },
+                            isLoading = false
+                        )
+
+                    } else {
+                        // If empty list, show empty state or keep shimmer
+                    }
                 } else {
                     val errorMsg = topDestinations.message ?: "Failed"
                     if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
@@ -177,6 +139,32 @@ class InDemandCoursesFragment : BaseFragment() {
                     }
                 }
             }
+        }
+    }
+
+    // Helper function to handle shortlist like/dislike
+    private fun handleShortlist(
+        data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
+        isLike: Boolean
+    ) {
+        val hexString = generateRandomHexString(16)
+        val publicKey = hexString
+        val privateKey = AppConstants.privateKey
+
+        val formData = JSONObject().apply {
+            put("program_campus_identifier", data.program_campus_identifier)
+        }
+        val dataToEncrypt = formData.toString()
+        val appSecret = AppConstants.appSecret
+        val ivHexString = "$privateKey$publicKey"
+        val encryptedString = encryptData(dataToEncrypt, appSecret, ivHexString)
+
+        if (encryptedString != null) {
+            contentKey = "$publicKey^#^$encryptedString"
+            Log.d("shortlisted", contentKey)
+            addToShortlist(requireActivity(), contentKey)
+        } else {
+            Log.d("shortlisted", "Encryption failed.")
         }
     }
 
@@ -235,5 +223,4 @@ class InDemandCoursesFragment : BaseFragment() {
         MainActivity.bottomNav?.visibility = View.GONE
 
     }
-
 }

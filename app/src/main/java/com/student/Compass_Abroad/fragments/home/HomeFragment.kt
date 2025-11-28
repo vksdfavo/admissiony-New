@@ -115,7 +115,6 @@ import com.student.Compass_Abroad.adaptor.AdapterProgramsAllProg
 import com.student.Compass_Abroad.adaptor.AdaptorWebinarRecyclerview
 import com.student.Compass_Abroad.adaptor.bannerSlider.SliderAdapter
 import com.student.Compass_Abroad.databinding.EducationloanBinding
-import com.student.Compass_Abroad.modal.getBannerModel.getBannerModel
 import com.student.Compass_Abroad.modal.getWebinars.getWebinarsResponse
 import com.student.Compass_Abroad.modal.refreshToken.RefreshTokenResonse
 import com.student.Compass_Abroad.retrofit.ApiInterface
@@ -139,6 +138,7 @@ import com.student.Compass_Abroad.StaticTestimonial
 import com.student.Compass_Abroad.StudentStaticTestimonialsAdapter
 import com.student.Compass_Abroad.databinding.DialogBuyCouponBinding
 import com.student.Compass_Abroad.fragments.ProgramDetailsHomeFragment
+import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.retrofit.HomeViewModal
 
 @Suppress("DEPRECATION")
@@ -232,11 +232,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             insets
         }
 
-        binding?.rvWebinars?.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
         binding?.rvWebinars?.adapter = adapter
-
 
         setupRecyclerViewTopDestination()
         setupRecyclerViewInDemand()
@@ -250,31 +248,26 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
             findNavController().navigate(R.id.fragProgramAllProg)
         }
-
-        // In your Fragment's onViewCreated or Activity's onCreate
-
-        binding!!.ablSelect.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        binding!!.ablSelect.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             val totalScrollRange = appBarLayout.totalScrollRange
             val percentage = Math.abs(verticalOffset).toFloat() / totalScrollRange.toFloat()
 
-            // Change status bar color based on scroll position
             if (percentage >= 0.9f) {
-                // Fully collapsed - show your desired color
-                activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.secondary_color)
+                activity?.window?.statusBarColor =
+                    ContextCompat.getColor(requireContext(), R.color.secondary_color)
                 // Also change status bar icons to dark (for light background)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    activity?.window?.decorView?.systemUiVisibility =
+                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 }
             } else {
-                // Expanded - show secondary color
-                activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.secondary_color)
-                // Change status bar icons to light (for dark background)
+                activity?.window?.statusBarColor =
+                    ContextCompat.getColor(requireContext(), R.color.secondary_color)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     activity?.window?.decorView?.systemUiVisibility = 0
                 }
             }
-        })
-
+        }
 
         return binding!!.root
     }
@@ -351,6 +344,15 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private fun setupRecyclerViewInDemand() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
+
+        // Step 1: Initialize RecyclerView with shimmer adapter
+        val shimmerAdapter = InDemandCoursesAdapter(emptyList(), isLoading = true)
+        binding?.rvIndemand?.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = shimmerAdapter
+        }
+
+        // Step 2: Fetch API data
         HomeViewModal().get_in_demandCourses(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -358,106 +360,69 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             token,
             forceRefresh = false
         ).observe(viewLifecycleOwner) { response ->
-            response?.let { topDestinations ->
-                if (topDestinations.statusCode == 200) {
-                    val destinations = topDestinations.data
-                    if (!destinations.isNullOrEmpty()) {
-                        arrayListInDemand.clear()
-                        arrayListInDemand.addAll(destinations)
-                        binding?.rvIndemand?.apply {
-                            layoutManager = LinearLayoutManager(
-                                requireContext(),
-                                LinearLayoutManager.HORIZONTAL,
-                                false
-                            )
-                            adapter = InDemandCoursesAdapter(
-                                arrayListInDemand,
-                                object : InDemandCoursesAdapter.OnCourseClickListener {
-                                    override fun onItemClick(
-                                        data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
-                                        position: Int
-                                    ) {
+            response?.let { result ->
+                if (result.statusCode == 200 && !result.data.isNullOrEmpty()) {
 
+                    arrayListInDemand.clear()
+                    arrayListInDemand.addAll(result.data)
 
-                                        getDetailsApi(data)
+                    // Step 3: Update adapter with actual data and stop shimmer
+                    val adapter = InDemandCoursesAdapter(arrayListInDemand,
+                        object : InDemandCoursesAdapter.OnCourseClickListener {
+                            override fun onItemClick(
+                                data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
+                                position: Int
+                            ) {
+                                getDetailsApi(data)
+                            }
 
-                                    }
+                            override fun onLikeClick(
+                                data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
+                                position: Int
+                            ) {
+                                handleShortlist(data)
+                            }
 
-
-                                    override fun onLikeClick(
-                                        data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
-                                        position: Int
-                                    ) {
-
-                                        val hexString = generateRandomHexString(16)
-                                        val publicKey = hexString
-                                        val privateKey = AppConstants.privateKey
-
-                                        val formData = JSONObject().apply {
-                                            put(
-                                                "program_campus_identifier",
-                                                data.program_campus_identifier
-                                            )
-                                        }
-                                        val dataToEncrypt = formData.toString()
-                                        val appSecret = AppConstants.appSecret
-                                        val ivHexString = "$privateKey$publicKey"
-                                        val encryptedString =
-                                            encryptData(dataToEncrypt, appSecret, ivHexString)
-
-                                        if (encryptedString != null) {
-                                            contentKey = "$publicKey^#^$encryptedString"
-                                            Log.d("shortlisted", contentKey)
-                                            addToShortlist(requireActivity(), contentKey)
-                                        } else {
-                                            Log.d("shortlisted", "Encryption failed.")
-                                        }
-
-                                    }
-
-                                    override fun onDislikeClick(
-                                        data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
-                                        position: Int
-                                    ) {
-
-                                        val hexString = generateRandomHexString(16)
-                                        val publicKey = hexString
-                                        val privateKey = AppConstants.privateKey
-
-                                        val formData = JSONObject().apply {
-                                            put(
-                                                "program_campus_identifier",
-                                                data.program_campus_identifier
-                                            )
-                                        }
-                                        val dataToEncrypt = formData.toString()
-                                        val appSecret = AppConstants.appSecret
-                                        val ivHexString = "$privateKey$publicKey"
-                                        val encryptedString =
-                                            encryptData(dataToEncrypt, appSecret, ivHexString)
-
-                                        if (encryptedString != null) {
-                                            contentKey = "$publicKey^#^$encryptedString"
-                                            Log.d("shortlisted", contentKey)
-                                            // removeFromShortlist(data)
-                                            addToShortlist(requireActivity(), contentKey)
-                                        } else {
-                                            Log.d("shortlisted", "Encryption failed.")
-                                        }
-
-                                    }
-                                }
-                            )
-                        }
-                    }
+                            override fun onDislikeClick(
+                                data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
+                                position: Int
+                            ) {
+                                handleShortlist(data)
+                            }
+                        }, isLoading = false
+                    )
+                    binding?.rvIndemand?.adapter = adapter
 
                 } else {
-                    val errorMsg = topDestinations.message ?: "Failed"
+                    val errorMsg = result.message ?: "Failed"
                     if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
                         CommonUtils.toast(requireActivity(), errorMsg)
                     }
                 }
             }
+        }
+    }
+
+    /** Utility function for like/dislike API handling */
+    private fun handleShortlist(data: com.student.Compass_Abroad.modal.inDemandCourse.Data) {
+        val hexString = generateRandomHexString(16)
+        val publicKey = hexString
+        val privateKey = AppConstants.privateKey
+
+        val formData = JSONObject().apply {
+            put("program_campus_identifier", data.program_campus_identifier)
+        }
+        val dataToEncrypt = formData.toString()
+        val appSecret = AppConstants.appSecret
+        val ivHexString = "$privateKey$publicKey"
+        val encryptedString = encryptData(dataToEncrypt, appSecret, ivHexString)
+
+        if (encryptedString != null) {
+            contentKey = "$publicKey^#^$encryptedString"
+            Log.d("shortlisted", contentKey)
+            addToShortlist(requireActivity(), contentKey)
+        } else {
+            Log.d("shortlisted", "Encryption failed.")
         }
     }
 
@@ -494,8 +459,14 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun setupRecyclerViewTopDestination() {
+        val shimmerAdapter = TopDestinationAdapter(emptyList(), isLoading = true)
+        binding?.rvTopDestination?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvTopDestination?.adapter = shimmerAdapter
+
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
+
         HomeViewModal().get_topdestination(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -503,37 +474,21 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             token,
             forceRefresh = false
         ).observe(viewLifecycleOwner) { response ->
-
             response?.let { topDestinations ->
+
                 if (topDestinations.statusCode == 200) {
 
-                    val destinations = topDestinations.data
+                    val destinations = topDestinations.data ?: emptyList()
 
-                    if (!destinations.isNullOrEmpty()) {
-                        arrayListTopDestinations.clear()
-                        arrayListTopDestinations.addAll(destinations)
-                        binding?.rvTopDestination?.apply {
-                            layoutManager =
-                                LinearLayoutManager(
-                                    requireContext(),
-                                    LinearLayoutManager.HORIZONTAL,
-                                    false
-                                )
-                            adapter = TopDestinationAdapter(arrayListTopDestinations) { _ ->
-
-                                }
-                        }
-                    }
+                    shimmerAdapter.updateList(destinations)
 
                 } else {
-                    val errorMsg = topDestinations.message ?: "Failed"
-                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
-                        CommonUtils.toast(requireActivity(), errorMsg)
-                    }
+                    CommonUtils.toast(requireActivity(), topDestinations.message ?: "Failed")
                 }
             }
         }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -2354,12 +2309,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun getBanner() {
-        ViewModalClass().getBannerModalLiveData(
+        HomeViewModal().getBannerModalLiveData(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
             "Bearer " + CommonUtils.accessToken
-        ).observe(viewLifecycleOwner) { getBannerModel: getBannerModel? ->
+        ).observe(viewLifecycleOwner) { getBannerModel: GetBannerModal? ->
             getBannerModel?.let { nonNullForgetModal ->
                 if (view != null) {
                     if (getBannerModel.statusCode == 200) {
@@ -2743,12 +2698,10 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                                 }
                         }
                     } else {
-                        // ✅ Hide section if list is empty
                         binding?.relativeTestimonials?.visibility = View.GONE
                         binding?.viewTest?.visibility = View.GONE
                     }
                 } else {
-                    // ✅ Hide section on API failure
                     binding?.relativeTestimonials?.visibility = View.GONE
                     binding?.viewTest?.visibility = View.GONE
 

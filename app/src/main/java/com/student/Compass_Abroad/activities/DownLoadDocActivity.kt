@@ -23,6 +23,7 @@ import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ActivityDownLoadDocBinding
 import com.student.bt_global.Utils.NeTWorkChange
 
+@Suppress("DEPRECATION")
 class DownLoadDocActivity : AppCompatActivity() {
     private lateinit var binding:ActivityDownLoadDocBinding
     var neTWorkChange: NeTWorkChange = NeTWorkChange(this)

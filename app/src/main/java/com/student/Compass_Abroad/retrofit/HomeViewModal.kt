@@ -13,7 +13,7 @@ import com.student.Compass_Abroad.modal.clientEventModel.ClientEventResponse
 import com.student.Compass_Abroad.modal.createAttende.CreateAttende
 import com.student.Compass_Abroad.modal.createRefreralLink.getRefferalLink
 import com.student.Compass_Abroad.modal.generatingPaymentLinkVoucher.generatingPaymentLinkVoucher
-import com.student.Compass_Abroad.modal.getBannerModel.getBannerModel
+import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.modal.getOffersUpdatesModel.GetOffersandUpdates
 import com.student.Compass_Abroad.modal.getPaymentApplicationPay.GetPaymentApplicationPay
 import com.student.Compass_Abroad.modal.getScholarships.GetScholarships
@@ -38,7 +38,7 @@ class HomeViewModal : ViewModel(){
     var apiInterface = retrofitCallerObject!!.create(ApiInterface::class.java)
     var apiInterface2 = retrofitCallerObject2!!.create(ApiInterface::class.java)
     private val _clientEventsCache = MutableLiveData<ClientEventResponse?>()
-    private val _bannersCache = MutableLiveData<getBannerModel?>()
+    private val _bannersCache = MutableLiveData<GetBannerModal?>()
     private val _recommendedProgramsCache = MutableLiveData<AllProgramModel?>()
     private val _vouchersCache = MutableLiveData<getVouchers?>()
     private val _webinarsCache = MutableLiveData<getWebinarsResponse?>()
@@ -1181,7 +1181,7 @@ class HomeViewModal : ViewModel(){
         device_number: String,
         accessToken: String,
         forceRefresh: Boolean = false
-    ): LiveData<getBannerModel?> {
+    ): LiveData<GetBannerModal?> {
 
         if (isBannersLoaded && !forceRefresh) {
             return _bannersCache
@@ -1197,11 +1197,11 @@ class HomeViewModal : ViewModel(){
                     client_number,
                     device_number,
                     accessToken
-                )!!.enqueue(object : Callback<getBannerModel?> {
+                )!!.enqueue(object : Callback<GetBannerModal?> {
 
                     override fun onResponse(
-                        call: Call<getBannerModel?>,
-                        response: Response<getBannerModel?>
+                        call: Call<GetBannerModal?>,
+                        response: Response<GetBannerModal?>
                     ) {
 
                         if (response.isSuccessful && response.body() != null) {
@@ -1214,7 +1214,7 @@ class HomeViewModal : ViewModel(){
 
                             val errorMsg = apiErrorHandler.handleError(HttpException(response))
                             _bannersCache.postValue(
-                                getBannerModel(
+                                GetBannerModal(
                                     statusCode = response.code(),
                                     message = errorMsg,
                                     data = null
@@ -1223,11 +1223,11 @@ class HomeViewModal : ViewModel(){
                         }
                     }
 
-                    override fun onFailure(call: Call<getBannerModel?>, t: Throwable) {
+                    override fun onFailure(call: Call<GetBannerModal?>, t: Throwable) {
 
                         val errorMsg = apiErrorHandler.handleError(t)
                         _bannersCache.postValue(
-                            getBannerModel(
+                            GetBannerModal(
                                 statusCode = 0,
                                 message = errorMsg,
                                 data = null
@@ -1240,7 +1240,7 @@ class HomeViewModal : ViewModel(){
 
                 val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
                 _bannersCache.postValue(
-                    getBannerModel(
+                    GetBannerModal(
                         statusCode = 0,
                         message = errorMsg,
                         data = null

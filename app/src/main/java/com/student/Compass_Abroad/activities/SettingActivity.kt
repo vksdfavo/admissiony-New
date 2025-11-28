@@ -22,7 +22,6 @@ import com.student.bt_global.Utils.NeTWorkChange
 
 @Suppress("DEPRECATION")
 class SettingActivity : AppCompatActivity() {
-
     private var binding:ActivitySettingBinding?=null
     var neTWorkChange: NeTWorkChange = NeTWorkChange(this)
 

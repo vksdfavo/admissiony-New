@@ -9,7 +9,7 @@ data class Data(
     val institution_id: Int,
     val institution_logo: String,
     val institution_name: String,
-    val is_shortlisted: Int,
+    var is_shortlisted: Int,
     val name: String,
     val logo: String,
     val program_campus_identifier: String,

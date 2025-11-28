@@ -60,9 +60,20 @@ class TopDestinationFragment : BaseFragment() {
     }
 
     private fun setupRecyclerViewTopDestination() {
+
+        // --- 1. Show shimmer adapter first ---
+        val shimmerAdapter = TopDestinationAdapter(emptyList(), isLoading = true)
+
+        binding?.rvTopDestination?.apply {
+            layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+            adapter = shimmerAdapter
+        }
+
+        // --- 2. Prepare request ---
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
 
+        // --- 3. API Call ---
         HomeViewModal().get_topdestination(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -70,29 +81,19 @@ class TopDestinationFragment : BaseFragment() {
             token
         ).observe(viewLifecycleOwner) { response ->
 
-            response?.let { topDestinations ->
-                if (topDestinations.statusCode == 200) {
+            if (response == null) return@observe
 
-                    val destinations = topDestinations.data
+            if (response.statusCode == 200) {
 
-                    if (!destinations.isNullOrEmpty()) {
-                        arrayListTopDestinations.clear()
-                        arrayListTopDestinations.addAll(destinations)
-                        binding?.rvTopDestination?.apply {
-                          layoutManager =
-                              StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-                            adapter =
-                                TopDestinationAdapter(arrayListTopDestinations) { _ ->
+                val destinations = response.data ?: emptyList()
 
-                                }
-                        }
-                    }
+                // --- 4. Update shimmer → real data ---
+                shimmerAdapter.updateList(destinations)
 
-                } else {
-                    val errorMsg = topDestinations.message ?: "Failed"
-                    if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
-                        CommonUtils.toast(requireActivity(), errorMsg)
-                    }
+            } else {
+                val errorMsg = response.message ?: "Failed"
+                if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
+                    CommonUtils.toast(requireActivity(), errorMsg)
                 }
             }
         }

@@ -4,56 +4,82 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.student.Compass_Abroad.databinding.ShimmerTopDestinationBinding
 import com.student.Compass_Abroad.databinding.TopDestinationLayoutBinding
 import com.student.Compass_Abroad.modal.top_destinations.Data
 
 class TopDestinationAdapter(
-    private val destinationList: List<Data>,
-    private val onItemClick: ((Data) -> Unit)? = null
-) : RecyclerView.Adapter<TopDestinationAdapter.ViewHolder>() {
+    private var destinationList: List<Data>,
+    private val onItemClick: ((Data) -> Unit)? = null,
+    private var isLoading: Boolean = true
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class ViewHolder(val binding: TopDestinationLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    private val VIEW_TYPE_SHIMMER = 0
+    private val VIEW_TYPE_DATA = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = TopDestinationLayoutBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ViewHolder(binding)
+    override fun getItemViewType(position: Int): Int {
+        return if (isLoading) VIEW_TYPE_SHIMMER else VIEW_TYPE_DATA
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    class DataViewHolder(val binding: TopDestinationLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-        val item = destinationList[position]
+    class ShimmerViewHolder(val binding: ShimmerTopDestinationBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-        holder.binding.apply {
-
-            // Text
-            countryName.text = item.country_name
-            totalIns.text = "${item.total_institutions} institutions"
-
-            // Main Image
-            Glide.with(holder.itemView.context)
-                .load(item.institution_logo)
-                .placeholder(R.drawable.circle_img)   // 🌟 better for shimmer transition
-                .error(R.drawable.circle_img)
-                .into(imgDestination)
-
-            // Flag Image
-            Glide.with(holder.itemView.context)
-                .load(item.country_logo)
-                .placeholder(R.drawable.circle_img)
-                .error(R.drawable.circle_img)
-                .into(flag)
-
-            // Click
-            itemContainers.setOnClickListener {
-                onItemClick?.invoke(item)
-            }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_TYPE_SHIMMER) {
+            val binding = ShimmerTopDestinationBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+            ShimmerViewHolder(binding)
+        } else {
+            val binding = TopDestinationLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+            DataViewHolder(binding)
         }
     }
 
-    override fun getItemCount(): Int = destinationList.size
+    override fun getItemCount(): Int {
+        return if (isLoading) 6 else destinationList.size
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        if (holder is ShimmerViewHolder) {
+            holder.binding.shimmerTopDestination.startShimmer()
+            return
+        }
+
+        holder as DataViewHolder
+        val item = destinationList[position]
+
+        holder.binding.apply {
+            countryName.text = item.country_name
+            totalIns.text = "${item.total_institutions} institutions"
+
+            Glide.with(root.context)
+                .load(item.institution_logo)
+                .placeholder(R.drawable.circle_img)
+                .into(imgDestination)
+
+            Glide.with(root.context)
+                .load(item.country_logo)
+                .placeholder(R.drawable.circle_img)
+                .into(flag)
+
+            itemContainers.setOnClickListener { onItemClick?.invoke(item) }
+        }
+    }
+
+    fun updateList(newList: List<Data>) {
+        isLoading = false
+        destinationList = newList
+        notifyDataSetChanged()
+    }
 }

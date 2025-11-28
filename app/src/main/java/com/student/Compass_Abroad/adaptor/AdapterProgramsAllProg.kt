@@ -165,10 +165,12 @@ class AdapterProgramsAllProg(
                 // HEART ACTIONS
                 if (sharedPre?.getString(AppConstants.SCOUtLOGIN, "") == "true") {
                     ibHeart.visibility = View.GONE
+                    cardNew.visibility = View.GONE
                     ibHeart2.visibility = View.GONE
                 } else {
                     if (record.is_shortlisted == 0) {
                         ibHeart.visibility = View.VISIBLE
+                        cardNew.visibility = View.VISIBLE
                         ibHeart2.visibility = View.GONE
                     } else {
                         ibHeart.visibility = View.GONE
@@ -199,10 +201,10 @@ class AdapterProgramsAllProg(
         }
     }
 
-
     // ---------------------------------------
     // RECOMMENDED VIEW HOLDER
     // ---------------------------------------
+
     class MyRecommendedViewHolder(private val binding: ItemRecommendedProgramssBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

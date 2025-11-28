@@ -10,7 +10,6 @@ plugins {
 android {
     flavorDimensions("FirmliTest")
     productFlavors {
-
         create("Firmli") {
             dimension = "FirmliTest"
             applicationId = "com.student.firmli"
