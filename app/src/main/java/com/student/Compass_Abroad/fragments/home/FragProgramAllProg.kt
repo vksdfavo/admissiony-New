@@ -302,6 +302,8 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
                 .mapNotNull { it.toIntOrNull() }.map { it.toString() }
             tvLookingFor = getSavedSelectedItems(AppConstants.disciplineList)
                 .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+            tvLookingFor = getSavedSelectedItems(AppConstants.inDemadInstitutions)
+                .mapNotNull { it.toIntOrNull() }.map { it.toString() }
             tvFStudyLevel = getSavedSelectedItems(AppConstants.studyLevelList)
                 .mapNotNull { it.toIntOrNull() }.map { it.toString() }
             tvIntakeSelector = getSavedSelectedItems(AppConstants.IntakeList)
@@ -393,7 +395,6 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         binding!!.tabAllProgram.setOnClickListener {
             arrayList1.clear()
             isRecommended = "false"
-
             selectedTab = "all"
             updateTabUI(isRecommended = false)
             binding!!.swipeRefreshLayout.setOnRefreshListener {

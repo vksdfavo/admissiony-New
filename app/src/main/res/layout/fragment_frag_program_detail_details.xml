@@ -70,8 +70,8 @@
                 app:backgroundTint="#151522"
                 app:borderWidth="1dp"
                 app:elevation="0dp"
-                app:fabCustomSize="48dp"
-                app:maxImageSize="20sp"
+                app:fabCustomSize="35dp"
+                app:maxImageSize="18sp"
                 app:rippleColor="@color/hint" />
 
         </LinearLayout>

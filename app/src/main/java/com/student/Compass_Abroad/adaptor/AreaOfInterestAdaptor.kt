@@ -1,6 +1,7 @@
 package com.student.Compass_Abroad.adaptor
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -60,7 +61,7 @@ class AreaOfInterestAdaptor(
             App.sharedPre!!.clearKey(AppConstants.MIN_APPLICATION_KEY)
             App.sharedPre!!.clearKey(AppConstants.MAX_APPLICATION_KEY)
             clearAllSelectedValues()
-            saveSelectedValuesToSharedPreferences(AppConstants.disciplineList, valueList, labelList)
+            saveSelectedValuesToSharedPreferences(AppConstants.inDemadInstitutions, valueList, labelList)
 
             callback.selectItemFilter(currentItem)
         }
@@ -84,7 +85,6 @@ class AreaOfInterestAdaptor(
         sharedPrefs.putStringList("${keyPrefix}Id", ids)
         sharedPrefs.putStringList("${keyPrefix}Label", labels)
     }
-
 
     private fun clearAllSelectedValues() {
         clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)

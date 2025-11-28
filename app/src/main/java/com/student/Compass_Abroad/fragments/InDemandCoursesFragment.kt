@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.student.Compass_Abroad.InDemandCoursesAdapter
@@ -99,7 +100,7 @@ class InDemandCoursesFragment : BaseFragment() {
                                         data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
                                         position: Int
                                     ) {
-
+                                        getDetailsApi(data)
                                     }
 
                                     override fun onLikeClick(
@@ -178,6 +179,39 @@ class InDemandCoursesFragment : BaseFragment() {
             }
         }
     }
+
+    private fun getDetailsApi(data: com.student.Compass_Abroad.modal.inDemandCourse.Data) {
+        val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
+        val token = "Bearer ${CommonUtils.accessToken}"
+        LoginViewModal().getProgramDetails(
+            requireActivity(),
+            AppConstants.fiClientNumber,
+            deviceId,
+            token, data.program_identifier
+        ).observe(viewLifecycleOwner) { response ->
+
+            if (response?.success == true) {
+                // SUCCESS
+                val programInfo = response.data?.program
+
+                val bundle = Bundle().apply {
+                    putString("ProgramDetailStatus", "1")
+                }
+
+                ProgramDetailsHomeFragment.programDetails = response.data
+
+                findNavController().navigate(R.id.programDetailsHomeFragment, bundle)
+
+                Log.d("getDetailsApi", programInfo.toString())
+
+
+            } else {
+                CommonUtils.toast(requireContext(), response?.message ?: "Something went wrong")
+            }
+        }
+
+    }
+
     private fun addToShortlist(requireActivity: FragmentActivity, content: String) {
         ViewModalClass().getshorListModalLiveData(
             requireActivity,

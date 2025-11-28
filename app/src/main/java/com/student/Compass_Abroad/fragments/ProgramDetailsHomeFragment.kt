@@ -4,23 +4,37 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
+import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
+import com.student.Compass_Abroad.adaptor.AdapterProgramDetailDetailsIntakes
+import com.student.Compass_Abroad.adaptor.AdapterProgramDetailIntakes
 import com.student.Compass_Abroad.databinding.FragmentProgramDetailsHomeBinding
+import com.student.Compass_Abroad.encrytion.encryptData
+import com.student.Compass_Abroad.fragments.home.FragProgramDetailDetails.Companion.details
 import com.student.Compass_Abroad.fragments.program.ApplyProgramFragment
+import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
+import com.student.Compass_Abroad.retrofit.ViewModalClass
+import org.json.JSONObject
+import kotlin.random.Random
 
 class ProgramDetailsHomeFragment : BaseFragment() {
+    private var adapterProgramDetailIntakes: AdapterProgramDetailIntakes? = null
+    var contentKey = ""
 
     private lateinit var binding: FragmentProgramDetailsHomeBinding
 
@@ -39,6 +53,38 @@ class ProgramDetailsHomeFragment : BaseFragment() {
         binding.backBtn.setOnClickListener {
             it.findNavController().popBackStack()
 
+        }
+
+
+        if (programDetails?.is_shortlisted == 0) {
+            binding!!.fabFpddShortlist.visibility = View.VISIBLE
+            binding!!.fabFpddShortlisted.visibility = View.GONE
+        } else {
+            binding!!.fabFpddShortlist.visibility = View.GONE
+            binding!!.fabFpddShortlisted.visibility = View.VISIBLE
+        }
+
+
+        val intakes = programDetails?.program?.intakes
+
+
+        setShorlisted()
+
+        if (!intakes.isNullOrEmpty()) {
+            binding!!.rvFpddIntakes.layoutManager = LinearLayoutManager(
+                activity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            binding!!.rvFpddIntakes.visibility=View.VISIBLE
+            binding!!.tvIntakes.visibility=View.VISIBLE
+            adapterProgramDetailIntakes = AdapterProgramDetailIntakes(requireActivity(), intakes)
+            binding!!.rvFpddIntakes.adapter = adapterProgramDetailIntakes
+        } else {
+            // Set placeholder if intakes is null or empty
+            binding!!.rvFpddIntakes.visibility=View.GONE
+            binding!!.tvIntakes.visibility=View.GONE
+            binding!!.rvFpddIntakes.adapter = null
         }
 
         binding!!.tvFpddApply.setOnClickListener{
@@ -63,16 +109,16 @@ class ProgramDetailsHomeFragment : BaseFragment() {
         if (programDetails == null) return
 
         // Extract Values
-        val programName = programDetails.programInfo.program.name
-        val institutionLogoUrl = programDetails.programInfo.program.institution.logo
-        val institutionName = programDetails.programInfo.program.institution.name
-        val countryName = programDetails.programInfo.program.institution.country?.name
-        val campusName = programDetails.programInfo.campus?.name
+        val programName = programDetails.program.name
+        val institutionLogoUrl = programDetails.program.institution.logo
+        val institutionName = programDetails.program.institution.name
+        val countryName = programDetails.program.institution.country?.name
+        val campusName = programDetails.campus?.name
 
         // NEW — Extract Fees
-        val applicationFee = programDetails.programInfo.application_fee
-        val tuitionFee = programDetails.programInfo.tuition_fee
-        val symbolCode = programDetails.programInfo.program.institution.country?.currency_symbol
+        val applicationFee = programDetails.application_fee
+        val tuitionFee = programDetails.tuition_fee
+        val symbolCode = programDetails.program.institution.country?.currency_symbol
 
 
         // Set Program Name
@@ -108,8 +154,8 @@ class ProgramDetailsHomeFragment : BaseFragment() {
         binding.tvApdCollegeCountry.text = countryName ?: "---"
         binding.tvFpddCampus.text = campusName ?: "---"
 
-        val duration = programDetails.programInfo.program.duration
-        val durationType = programDetails.programInfo.program.duration_type
+        val duration = programDetails.program.duration
+        val durationType = programDetails.program.duration_type
 
         binding.tvFpddDuration.text = when {
             duration != null && durationType != null -> {
@@ -126,7 +172,7 @@ class ProgramDetailsHomeFragment : BaseFragment() {
             else -> "---"
         }
 
-        val url = programDetails?.programInfo!!.program?.institution?.url ?: ""
+        val url = programDetails!!.program?.institution?.url ?: ""
 
 
         binding!!.tvFpddWebsite.text = url ?: "---"
@@ -163,7 +209,7 @@ class ProgramDetailsHomeFragment : BaseFragment() {
             binding!!.tvFpddVisit.setOnClickListener(null) // Remove click listener if URL is null
         }
 
-        val minRequirement  = programDetails?.programInfo!!.program?.min_requirement
+        val minRequirement  = programDetails!!.program?.min_requirement
 
         if (minRequirement != null) {
             binding!!.tvFpdrText.text = minRequirement.toString()
@@ -194,5 +240,105 @@ class ProgramDetailsHomeFragment : BaseFragment() {
             requireActivity().window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
+    }
+
+    private fun setShorlisted() {
+        binding!!.fabFpddShortlist.setOnClickListener { _: View ->
+            binding!!.fabFpddShortlist.visibility = View.GONE
+            binding!!.fabFpddShortlisted.visibility = View.VISIBLE
+            val hexString = generateRandomHexString(16)
+            var publicKey = hexString
+            var privateKey = AppConstants.privateKey
+
+            val formData = JSONObject()
+
+            formData.put(
+                "program_campus_identifier",
+                programDetails?.identifier
+            ) //email or phone
+            val data = formData.toString()
+            val dataToEncrypt = data
+            val app_secret = AppConstants.appSecret
+
+            val ivHexString = "$privateKey$publicKey"
+            val encryptedString = encryptData(dataToEncrypt, app_secret, ivHexString)
+
+            if (encryptedString != null) {
+                contentKey = "$publicKey^#^$encryptedString"
+                println("Encrypted data: $encryptedString")
+                Log.d("sholisted", contentKey)
+
+            } else {
+
+                println("Encryption failed.")
+
+            }
+            addToShortlist(requireActivity(), contentKey)
+
+        }
+        binding!!.fabFpddShortlisted.setOnClickListener { v: View ->
+            binding!!.fabFpddShortlisted.visibility = View.GONE
+            binding!!.fabFpddShortlist.visibility = View.VISIBLE
+            val hexString = generateRandomHexString(16)
+            var publicKey = hexString
+            var privateKey = AppConstants.privateKey
+
+            val formData = JSONObject()
+
+            formData.put("program_campus_identifier", programDetails?.identifier) //email or phone
+            val data = formData.toString()
+            val dataToEncrypt = data
+            val app_secret = AppConstants.appSecret
+
+            val ivHexString = "$privateKey$publicKey"
+            val encryptedString = encryptData(dataToEncrypt, app_secret, ivHexString)
+
+            if (encryptedString != null) {
+                contentKey = "$publicKey^#^$encryptedString"
+                println("Encrypted data: $encryptedString")
+                Log.d("sholisted", contentKey)
+
+            } else {
+
+                println("Encryption failed.")
+
+            }
+            addToShortlist(requireActivity(), contentKey)
+        }
+
+    }
+
+    private fun addToShortlist(
+        requireActivity: FragmentActivity,
+        content: String,
+
+        ) {
+
+        ViewModalClass().getshorListModalLiveData(
+            requireActivity,
+            AppConstants.fiClientNumber,
+            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
+            "Bearer " + CommonUtils.accessToken, content
+        ).observe(requireActivity) { allShorListModal: ShortListResponse? ->
+            allShorListModal?.let { nonNullForgetModal ->
+                if (allShorListModal.statusCode == 200) {
+
+
+                } else {
+                    CommonUtils.toast(
+                        requireActivity,
+                        allShorListModal.message ?: " Failed"
+                    )
+                }
+            }
+        }
+    }
+
+    fun generateRandomHexString(length: Int): String {
+        val hexChars = "0123456789abcdef"
+        return (1..length)
+            .map { hexChars[Random.nextInt(hexChars.length)] }
+
+            .joinToString("")
     }
 }

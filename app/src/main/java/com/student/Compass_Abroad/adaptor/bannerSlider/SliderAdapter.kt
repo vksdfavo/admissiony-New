@@ -19,13 +19,13 @@ class SliderAdapter(private val sliderItems: List<String>, private val viewPager
     }
 
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
-        var image=sliderItems[position]
+        val image=sliderItems[position]
         holder.setImage(image)
         Runnable {
             if (viewPager2.currentItem == sliderItems.size - 1) {
                 viewPager2.currentItem = 0
             } else {
-                viewPager2.currentItem = viewPager2.currentItem + 1
+                viewPager2.currentItem += 1
             }
         }
 
@@ -36,7 +36,7 @@ class SliderAdapter(private val sliderItems: List<String>, private val viewPager
         return sliderItems.size
     }
 
-    inner class SliderViewHolder(private val binding: SlideItemContainerBinding) :
+    class SliderViewHolder(private val binding: SlideItemContainerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun setImage(sliderItem: String) {
             Glide.with(context)

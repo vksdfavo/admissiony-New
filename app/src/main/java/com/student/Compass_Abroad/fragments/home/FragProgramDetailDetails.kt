@@ -32,7 +32,6 @@ import org.json.JSONObject
 import kotlin.random.Random
 import kotlin.toString
 import androidx.navigation.findNavController
-import com.student.Compass_Abroad.modal.getProgramDetails.Data
 
 
 class FragProgramDetailDetails : BaseFragment() {
@@ -188,7 +187,6 @@ class FragProgramDetailDetails : BaseFragment() {
         val campusName = details?.campus?.name
         val intakes = details?.program?.intakes
         val testScores = details?.program?.testscores
-
 
         val url = if (isLanguageProgram) {
             details?.program?.institution?.url ?: ""
@@ -431,11 +429,6 @@ class FragProgramDetailDetails : BaseFragment() {
         binding?.tvApdCollegeCountry?.text = countryName ?: "---"
     }
 
-    private fun setNewDetailsData(programDetails1: Data?)
-    {
-
-
-    }
 
 
     private fun setShorlisted() {
@@ -446,6 +439,7 @@ class FragProgramDetailDetails : BaseFragment() {
             var publicKey = hexString
             var privateKey = AppConstants.privateKey
 
+            Log.d("program_campus_identifier", details?.identifier.toString())
             //form data with email login code start
             val formData = JSONObject()
 

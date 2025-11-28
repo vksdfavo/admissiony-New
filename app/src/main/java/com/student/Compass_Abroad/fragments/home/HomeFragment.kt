@@ -27,7 +27,6 @@ import android.view.Window
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.AbsListView
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -71,15 +70,12 @@ import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeLatestUpdateAdapt
 import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeUniversitiesAdapter
 import com.student.Compass_Abroad.adaptor.dashBoardAdapter.TopPreferCountryAdapter
 import com.student.Compass_Abroad.databinding.FragmentHomeBinding
-import android.animation.ObjectAnimator
-import android.animation.AnimatorSet
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import com.student.Compass_Abroad.databinding.ProgramTagsDialogBinding
 import com.student.Compass_Abroad.databinding.SliderDataLayoutBinding
 import com.student.Compass_Abroad.encrytion.encryptData
-import com.student.Compass_Abroad.modal.AllProgramModel.AllProgramModel
 import com.student.Compass_Abroad.modal.clientEventModel.ClientEventResponse
 import com.student.Compass_Abroad.modal.clientEventModel.Record
 import com.student.Compass_Abroad.modal.getDestinationCountryList.Data
@@ -132,18 +128,13 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import kotlin.math.abs
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.student.Compass_Abroad.StaticLatestUpdate
-import com.student.Compass_Abroad.StaticLatestUpdateAdapter
 import com.student.Compass_Abroad.StaticTestimonial
 import com.student.Compass_Abroad.StudentStaticTestimonialsAdapter
 import com.student.Compass_Abroad.databinding.DialogBuyCouponBinding
@@ -340,8 +331,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                             )
                             adapter =
                                 TopInDemandIntuitionsAdapter(arrayListInDemandInstitution) { selectedItem ->
-
-
+                                    AppConstants.PROGRAM_STATUS = "1"
+                                    FragProgramAllProg.selectedTab = "all"
+                                    binding!!.root.findNavController().navigate(R.id.fragProgramAllProg)
                                 }
                         }
                     }
@@ -476,17 +468,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             requireActivity(),
             AppConstants.fiClientNumber,
             deviceId,
-            token, data.country_id.toString(),
-            data.institution_id.toString(),
-            data.program_id.toString(),
-            data.campus_id.toString()
-
+            token, data.program_identifier
         ).observe(viewLifecycleOwner) { response ->
 
             if (response?.success == true) {
                 // SUCCESS
-                val programInfo = response.data?.programInfo
-                val checklist = response.data?.programChecklistInfo
+                val programInfo = response.data?.program
 
                 val bundle = Bundle().apply {
                     putString("ProgramDetailStatus", "1")
@@ -514,8 +501,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             AppConstants.fiClientNumber,
             deviceId,
             token,
-            forceRefresh = false  // Set true if you want to force refresh
-
+            forceRefresh = false
         ).observe(viewLifecycleOwner) { response ->
 
             response?.let { topDestinations ->
@@ -533,8 +519,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                                     LinearLayoutManager.HORIZONTAL,
                                     false
                                 )
-                            adapter =
-                                TopDestinationAdapter(arrayListTopDestinations) { selectedItem ->
+                            adapter = TopDestinationAdapter(arrayListTopDestinations) { _ ->
 
                                 }
                         }
@@ -2286,7 +2271,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         onGetRecommendedAllPrograms(dataPerPage, presentPage)
     }
 
-
     private fun applyBlinkAnimation(recyclerView: RecyclerView) {
         for (i in 0 until recyclerView.childCount) {
             val child = recyclerView.getChildAt(i)
@@ -2369,7 +2353,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         })
     }
 
-
     private fun getBanner() {
         ViewModalClass().getBannerModalLiveData(
             requireActivity(),
@@ -2390,8 +2373,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             }
         }
     }
-
-
 
     fun refreshTokenApi(list: String, context: Context?): RefreshTokenResonse? {
         return try {
@@ -2725,38 +2706,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun setupRecyclerViewStudentTestimonials() {
-
-        val staticList = listOf(
-            StaticTestimonial(
-                name = "Aarav Sharma",
-                description = "Compass Abroad helped me get admission to my dream university in Canada!",
-                date = "2025-11-01",
-                imageResId = R.drawable.test_banner
-            ),
-            StaticTestimonial(
-                name = "Priya Mehta",
-                description = "Amazing experience! The counselors were super supportive.",
-                date = "2025-10-25",
-                imageResId = R.drawable.test_banner
-            ),
-            StaticTestimonial(
-                name = "Rohan Verma",
-                description = "Very professional service. Highly recommend Compass Abroad!",
-                date = "2025-10-15",
-                imageResId = R.drawable.test_banner
-            )
-        )
-
-        binding?.rvTestimonials?.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = StudentStaticTestimonialsAdapter(staticList) { selectedItem ->
-                // navigate to another fragment
-                Navigation.findNavController(binding!!.root).navigate(R.id.hybridPlayerActivity)
-            }
-        }
-
-
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
         LoginViewModal().getTestimonials(
@@ -2789,8 +2738,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                                         putString("media_url", selectedItem.media_url)
                                     }
 
-                                    binding!!.root.findNavController()
-                                        .navigate(R.id.hybridPlayerActivity, bundle)
+                                    binding!!.root.findNavController().navigate(R.id.hybridPlayerActivity, bundle)
 
                                 }
                         }

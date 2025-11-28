@@ -43,6 +43,5 @@ class QuickActionsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(destinationList[position])
     }
-
     override fun getItemCount(): Int = destinationList.size
 }

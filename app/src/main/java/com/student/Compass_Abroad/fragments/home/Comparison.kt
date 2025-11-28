@@ -49,9 +49,11 @@ class Comparison : BaseFragment() {
                 PdfGenerator.createPdfFromRecyclerViewItems(requireActivity(), binding!!.rvFpAp) {
                     Toast.makeText(requireActivity(), "Downloading....", Toast.LENGTH_SHORT).show()
                 }
+
                 Toast.makeText(context, "Download completed", Toast.LENGTH_SHORT).show()
 
             } else {
+
                 requestPermissions()
             }
         }

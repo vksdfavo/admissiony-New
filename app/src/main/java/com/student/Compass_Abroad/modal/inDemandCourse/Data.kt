@@ -11,6 +11,7 @@ data class Data(
     val institution_name: String,
     val is_shortlisted: Int,
     val name: String,
+    val logo: String,
     val program_campus_identifier: String,
     val program_id: Int,
     val program_identifier: String,

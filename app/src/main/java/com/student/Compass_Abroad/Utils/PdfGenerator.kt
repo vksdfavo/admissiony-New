@@ -32,26 +32,28 @@ object PdfGenerator {
     private const val CHANNEL_ID = "pdf_generation_channel"
 
     fun createPdfFromRecyclerViewItems(context: Context, recyclerView: RecyclerView, onPdfGenerated: () -> Unit) {
-        if (!hasStoragePermissions(context)) {
-            Toast.makeText(context, "Storage permissions are required to save the PDF", Toast.LENGTH_SHORT).show()
-            return
-        }
-
         createNotificationChannel(context)
 
         val document = PdfDocument()
         val directory = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
 
+        if (directory == null) {
+            Toast.makeText(context, "Unable to access storage", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val fileName = context.getString(R.string.unideft_pdf, timestamp)
+        val fileName = "Compass_Comparison_$timestamp.pdf"
         val pdfFile = File(directory, fileName)
 
         recyclerView.adapter?.let { adapter ->
             for (i in 0 until adapter.itemCount) {
+
                 val viewHolder = adapter.createViewHolder(recyclerView, adapter.getItemViewType(i))
                 adapter.bindViewHolder(viewHolder, i)
 
                 val itemView = viewHolder.itemView
+
                 itemView.measure(
                     View.MeasureSpec.makeMeasureSpec(recyclerView.width, View.MeasureSpec.EXACTLY),
                     View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
@@ -60,66 +62,48 @@ object PdfGenerator {
 
                 val pageInfo = PdfDocument.PageInfo.Builder(itemView.width, itemView.height, i + 1).create()
                 val page = document.startPage(pageInfo)
-
-                val canvas = page.canvas
-                canvas.drawColor(Color.WHITE)
-                itemView.draw(canvas)
-
+                itemView.draw(page.canvas)
                 document.finishPage(page)
             }
 
             try {
                 FileOutputStream(pdfFile).use { outputStream ->
                     document.writeTo(outputStream)
-
-                    val fileUri: Uri = FileProvider.getUriForFile(
-                        context,
-                        "${context.packageName}.fileprovider",
-                        pdfFile
-                    )
-
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        setDataAndType(fileUri, "application/pdf")
-                        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    }
-
-                    val pendingIntent = PendingIntent.getActivity(
-                        context, 0, intent,
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-                            PendingIntent.FLAG_IMMUTABLE
-                        else
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    )
-
-                    val completionNotification = NotificationCompat.Builder(context, CHANNEL_ID)
-                        .setContentTitle("PDF Generation")
-                        .setContentText("PDF saved to Documents")
-                        .setSmallIcon(R.drawable.ic_notification)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setContentIntent(pendingIntent)
-                        .setAutoCancel(true)
-                        .build()
-
-                    NotificationManagerCompat.from(context).notify(2, completionNotification)
-
-                    // Call the callback to show the toast after PDF generation is done
-                    onPdfGenerated.invoke()
-
                 }
-            } catch (e: IOException) {
-                e.printStackTrace()
-                val failureNotification = NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setContentTitle("PDF Generation")
-                    .setContentText("Failed to save PDF")
+
+                val uri = FileProvider.getUriForFile(
+                    context,
+                    "${context.packageName}.fileprovider",
+                    pdfFile
+                )
+
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    setDataAndType(uri, "application/pdf")
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                }
+
+                val pendingIntent = PendingIntent.getActivity(
+                    context, 0, intent,
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE
+                    else PendingIntent.FLAG_UPDATE_CURRENT
+                )
+
+                val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setContentTitle("PDF Ready")
+                    .setContentText("Tap to open")
                     .setSmallIcon(R.drawable.ic_notification)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
                     .build()
 
-                NotificationManagerCompat.from(context).notify(2, failureNotification)
+                NotificationManagerCompat.from(context).notify(1002, notification)
+
+                onPdfGenerated.invoke()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
             } finally {
                 document.close()
-                NotificationManagerCompat.from(context).cancel(1)
             }
         }
     }

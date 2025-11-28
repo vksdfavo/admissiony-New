@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/secondary_color"
                 android:elevation="0dp"
                 android:tint="@color/white"
                 android:src="@drawable/ic_filter"
@@ -196,7 +196,7 @@
                 android:layout_gravity="top|end"
                 android:background="@drawable/shape_circle_filter"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@color/secondary_color"
+                android:backgroundTint="@color/theme_color"
                 android:visibility="gone"
                 android:layout_marginEnd="-4dp"
                 />

@@ -68,9 +68,7 @@ class ApplyProgramFragment : BaseFragment() {
 
     }
 
-    private var fragment: Fragment? = null
-    private var xLocationOfView = 0
-    private var yLocationOfView = 0
+
     var lead_identifier: String = ""
 
     override fun onCreateView(
@@ -84,22 +82,19 @@ class ApplyProgramFragment : BaseFragment() {
 
         val status = arguments?.getString("ProgramDetailStatus") ?: "0"
 
-
         if (status == "1") {
-
             binding.destinationCountry.text =
-                ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution?.country?.name
+                ProgramDetailsHomeFragment.programDetails!!.program?.institution?.country?.name
             binding.preferCollage.text =
-                ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution?.name
+                ProgramDetailsHomeFragment.programDetails!!.program?.institution?.name
             collage_id =
-                ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution_id?.toString()
+                ProgramDetailsHomeFragment.programDetails!!.program?.institution_id?.toString()
                     ?: ""
 
-
             institution =
-                (ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution_id ?: 0).toString()
+                (ProgramDetailsHomeFragment.programDetails!!.program?.institution_id ?: 0).toString()
             destination_country =
-                (ProgramDetailsHomeFragment.programDetails!!.programInfo?.program?.institution?.country_id ?: 0).toString()
+                (ProgramDetailsHomeFragment.programDetails!!.program?.institution?.country_id ?: 0).toString()
 
             Log.d("onCreateView", institution+" "+destination_country)
         } else if (status=="0"){

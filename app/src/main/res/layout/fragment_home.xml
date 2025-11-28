@@ -656,7 +656,6 @@
                     android:text="@string/based_on_last_6_month_applications"
                     android:textSize="10sp" />
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvTopDestination"
                     android:layout_width="match_parent"
@@ -831,7 +830,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-
                     android:visibility="gone" />
 
                 <me.relex.circleindicator.CircleIndicator3
@@ -916,7 +914,6 @@
                     android:layout_marginVertical="@dimen/space5"
                     android:background="@color/hint"
                     android:visibility="invisible" />
-
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_area_of_interest"

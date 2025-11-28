@@ -10,8 +10,7 @@ import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.databinding.TestimonialsLayoutsBinding
 import com.student.Compass_Abroad.modal.getTestimonials.Row
 
-class StudentTestimonialsAdapter(
-    private val testimonialList: List<Row>,
+class StudentTestimonialsAdapter(private val testimonialList: List<Row>,
     private val onItemClick: ((Row) -> Unit)? = null
 ) : RecyclerView.Adapter<StudentTestimonialsAdapter.ViewHolder>() {
 

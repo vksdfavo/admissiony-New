@@ -6,6 +6,8 @@ data class Institution(
     val country_id: Int,
     val id: Int,
     val identifier: String,
+    val is_firmli_public: Int,
+    val is_public: Int,
     val logo: String,
     val name: String,
     val url: String

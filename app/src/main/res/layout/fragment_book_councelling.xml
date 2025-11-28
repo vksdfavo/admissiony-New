@@ -23,7 +23,6 @@
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="">
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -208,7 +207,7 @@
                     android:layout_marginHorizontal="@dimen/space10"
                     android:layout_weight="1"
                     android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@color/secondary_color"
                     android:elevation="1dp"
                     android:gravity="center"
                     android:padding="12dp"

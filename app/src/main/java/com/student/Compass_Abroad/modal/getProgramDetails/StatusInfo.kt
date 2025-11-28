@@ -1,6 +1,6 @@
 package com.student.Compass_Abroad.modal.getProgramDetails
 
-data class StatusInfoX(
+data class StatusInfo(
     val category: String,
     val description: String,
     val id: String,

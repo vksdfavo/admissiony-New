@@ -60,6 +60,7 @@ object AppConstants {
     const val institutionList = "selectedInstitution"
     const val studyLevelList = "selectedStudyLevel"
     const val disciplineList = "selectedDiscipline"
+    const val inDemadInstitutions = "inDemandInstitutions"
     const val IntakeList = "selectedIntake"
     const val PGWP_KEY = "PGWP"
     const val ATTENDANCE_KEY = "Attendance"

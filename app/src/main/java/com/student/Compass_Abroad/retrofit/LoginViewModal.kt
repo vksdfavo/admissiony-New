@@ -20,7 +20,6 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 import com.student.Compass_Abroad.Utils.errorDialogOpen
-import com.student.Compass_Abroad.modal.getProgramDetails.ProgramDetailsModal
 import com.student.Compass_Abroad.modal.inDemandCourse.InDemandCourse
 import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
 import com.student.Compass_Abroad.modal.admissionStatus.AdmissionStatus
@@ -29,6 +28,7 @@ import com.student.Compass_Abroad.modal.createTimeSlots.StatusInfo
 import com.student.Compass_Abroad.modal.documentType.DocumentTypeModal
 import com.student.Compass_Abroad.modal.getApplicationAssignedStaff.getApplicationAssignedStaff
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
+import com.student.Compass_Abroad.modal.getProgramDetails.ProgramDetailsModal
 import com.student.Compass_Abroad.modal.getStaffList.StaffDropdownResponse
 import com.student.Compass_Abroad.modal.getStaffSlots.GetStaffSlots
 import com.student.Compass_Abroad.modal.getStudentPref.GetStudentPreferences
@@ -1185,10 +1185,7 @@ class LoginViewModal : ViewModel() {
         client_number: String,
         device_number: String,
         accessToken: String,
-        country_id: String,
-        institution_id: String,
-        program_id: String,
-        campus_id: String,
+        program_identifier: String,
     ): LiveData<ProgramDetailsModal?> {
 
         val liveData = MutableLiveData<ProgramDetailsModal?>()
@@ -1201,9 +1198,7 @@ class LoginViewModal : ViewModel() {
                     client_number,
                     device_number,
                     accessToken,
-                    country_id,
-                    institution_id,
-                    program_id, campus_id
+                    program_identifier
                 )?.enqueue(object : Callback<ProgramDetailsModal?> {
                     override fun onResponse(
                         call: Call<ProgramDetailsModal?>,

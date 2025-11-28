@@ -26,7 +26,6 @@ import com.student.Compass_Abroad.modal.LoanRequestBody
 import com.student.Compass_Abroad.modal.LoginResponseModel.LoginResponseModel
 import com.student.Compass_Abroad.modal.PostLeadNotesResponse.postLeadNotesResponse
 import com.student.Compass_Abroad.modal.PreferCollageModal.PreferCollageModal
-import com.student.Compass_Abroad.modal.getProgramDetails.ProgramDetailsModal
 import com.student.Compass_Abroad.modal.ProgramTags.ProgramTags
 import com.student.Compass_Abroad.modal.ReportReasons.ReportReasonresponse
 import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
@@ -92,6 +91,7 @@ import com.student.Compass_Abroad.modal.getPaymentApplication.getPaymentApplicat
 import com.student.Compass_Abroad.modal.getPaymentApplicationPay.GetPaymentApplicationPay
 import com.student.Compass_Abroad.modal.getPaymentForDropDown.getPaymentForDropDown
 import com.student.Compass_Abroad.modal.getPaymentMode.getPaymentMode
+import com.student.Compass_Abroad.modal.getProgramDetails.ProgramDetailsModal
 import com.student.Compass_Abroad.modal.getProgramFilters.getProgramFIltersResponse
 import com.student.Compass_Abroad.modal.getReviewList.getReviewList
 import com.student.Compass_Abroad.modal.getScholarships.GetScholarships
@@ -1634,15 +1634,13 @@ interface ApiInterface {
     ): Call<getTestimonials>
 
 
-    @GET("program-finder/program-detail")
+    @GET("program-finder/program")
     fun getProgramDetails(
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
-        @Query("country_id") country_id: String,
-        @Query("institution_id") institution_id: String,
-        @Query("program_id") program_id: String,
-        @Query("campus_id") campus_id: String,
+        @Query("program_identifier") program_identifier: String,
+
     ): Call<ProgramDetailsModal>
 
 }

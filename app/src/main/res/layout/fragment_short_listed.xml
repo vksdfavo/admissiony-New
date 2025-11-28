@@ -122,16 +122,14 @@
             android:background="@color/secondary_color"
             android:layout_height="2dp"/>
     </LinearLayout>
-
-
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:background="@color/white"
         android:layout_below="@+id/tlFc"
         android:padding="@dimen/sp_5"
