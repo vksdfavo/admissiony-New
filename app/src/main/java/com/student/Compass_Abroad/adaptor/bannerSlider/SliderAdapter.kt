@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.Utils.App.Companion.context
 import com.student.Compass_Abroad.databinding.SlideItemContainerBinding
 
-
 class SliderAdapter(private val sliderItems: List<String>,
                     private val viewPager2: ViewPager2) :
     RecyclerView.Adapter<SliderAdapter.SliderViewHolder>() {

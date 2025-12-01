@@ -80,7 +80,6 @@ class SignInEmailFragment : Fragment() {
     }
 
     private fun onClick() {
-
         binding!!.privacyPolicy.setOnClickListener {
             val fragment = PrivacyPolicyFragment()
             fragment.show(
