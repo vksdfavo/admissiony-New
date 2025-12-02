@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         val navGraph = navController.navInflater.inflate(R.navigation.login)
 
         val isReferred = !referralCode.isNullOrEmpty()
-        val startDest = if (isReferred) R.id.signUpFragment2 else R.id.signInEmailFragment
+        val startDest = if (isReferred) R.id.signUpFragment2 else R.id.signInFragment
         navGraph.setStartDestination(startDest)
 
         val bundle = Bundle().apply {

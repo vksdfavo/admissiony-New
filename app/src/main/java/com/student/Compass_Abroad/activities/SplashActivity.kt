@@ -31,7 +31,6 @@ import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ActivitySplashBinding
-import com.student.Compass_Abroad.onBoardingScreen.OnBoardingActivity
 
 class SplashActivity : AppCompatActivity() {
 

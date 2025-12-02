@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 
 import androidx.viewpager2.widget.ViewPager2
@@ -15,7 +17,7 @@ import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.fragments.BaseFragment
 
 
-class SignInFragment : BaseFragment() {
+class SignInFragment : Fragment() {
 
     var binding: FragmentSignInBinding? = null
 
@@ -27,7 +29,20 @@ class SignInFragment : BaseFragment() {
 
         setTabAdaptor()
 
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         onTabCLickListener()
+
+        binding!!.back.setOnClickListener {
+
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
         App.singleton?.statusValidation = 1
 
 

@@ -1,6 +1,5 @@
 package com.student.Compass_Abroad.fragments
 
-
 import android.os.Build
 import android.os.Bundle
 
@@ -15,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 
 import com.student.Compass_Abroad.databinding.FragmentVouchersBinding
-
 
 class FragmentVouchers : BaseFragment() {
     var binding: FragmentVouchersBinding? = null
@@ -46,13 +44,11 @@ class FragmentVouchers : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = requireActivity().window.insetsController
             controller?.setSystemBarsAppearance(
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            )
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
         } else {
             @Suppress("DEPRECATION")
             requireActivity().window.decorView.systemUiVisibility =

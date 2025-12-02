@@ -1,6 +1,5 @@
 package com.student.Compass_Abroad.adaptor.bannerSlider
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,11 +7,19 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.Utils.App.Companion.context
 import com.student.Compass_Abroad.databinding.SlideItemContainerBinding
+import com.student.Compass_Abroad.modal.getBannerModel.FileInfo
+import com.student.Compass_Abroad.modal.getBannerModel.Record
+
+class SliderAdapter(
+    private val sliderItems: List<Record>,
+    private val viewPager2: ViewPager2,
+    private val listener: OnSliderClickListener
+) : RecyclerView.Adapter<SliderAdapter.SliderViewHolder>() {
 
 
-class SliderAdapter(private val sliderItems: List<String>,
-                    private val viewPager2: ViewPager2) :
-    RecyclerView.Adapter<SliderAdapter.SliderViewHolder>() {
+    interface OnSliderClickListener {
+        fun onSliderClick(item: Record)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,29 +28,27 @@ class SliderAdapter(private val sliderItems: List<String>,
     }
 
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
-        val image=sliderItems[position]
-        holder.setImage(image)
-        Runnable {
-            if (viewPager2.currentItem == sliderItems.size - 1) {
-                viewPager2.currentItem = 0
-            } else {
-                viewPager2.currentItem += 1
-            }
+        val item = sliderItems[position]
+        holder.bind(item.fileInfo)
+
+        holder.itemView.setOnClickListener {
+            listener.onSliderClick(item)
         }
-
     }
 
-    override fun getItemCount(): Int {
-
-        return sliderItems.size
-    }
+    override fun getItemCount(): Int = sliderItems.size
 
     class SliderViewHolder(private val binding: SlideItemContainerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun setImage(sliderItem: String) {
+
+        fun bind(item: FileInfo) {
+
             Glide.with(context)
-                .load(sliderItem)
+                .load(item.view_page)
                 .into(binding.imageSlide)
+
+            // If you want description text in future:
+            // binding.descriptionText.text = item.description
         }
     }
 }

@@ -53,7 +53,6 @@ import org.json.JSONObject
 
 
 class BuyFragment : BaseFragment() {
-
     private var binding: FragmentBuyBinding? = null
     private var adaptorVouchers: AdaptorVouchersRecyclerview? = null
     var arrayListVouchers = ArrayList<com.student.Compass_Abroad.modal.getVoucherModel.Record>()

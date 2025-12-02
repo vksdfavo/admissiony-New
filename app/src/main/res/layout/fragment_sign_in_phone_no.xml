@@ -1,111 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.login.SignInEmailFragment">
 
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile_number"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <LinearLayout
+            android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="@dimen/space50"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/country_code"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_rectangle_all_radius_et_country_code_no"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_defaultNameCode="IND"
+                app:ccp_showFlag="true"
+                app:ccp_showFullName="true"
+                app:ccp_showNameCode="true" />
+
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="emailAddress"
+                android:background="@drawable/shape_rectangle_all_radius_et_phone_no"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:hint="@string/_8699339451"
+                android:inputType="number"
+                android:paddingStart="14dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="15dp"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:textSize="13sp"
+                tools:ignore="TextFields" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llEnterPasscode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mobile_number"
+                android:layout_marginTop="10dp"
+                android:text="@string/password"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
-            <LinearLayout
-                android:id="@+id/ll1"
+                android:textSize="@dimen/sp_15" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                >
-                <com.hbb20.CountryCodePicker
-                    android:id="@+id/country_code"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    app:ccp_autoDetectCountry="true"
-                    app:ccp_defaultNameCode="IND"
-                    android:background="@drawable/shape_rectangle_all_radius_et_country_code_no"
-                    app:ccp_showFlag="true"
-                    app:ccp_showFullName="true"
-                    app:ccp_showNameCode="true"/>
-
-
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_rectangle_all_radius_et_login">
 
                 <EditText
-                    android:id="@+id/etPhone"
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autofillHints="emailAddress"
-                    android:background="@drawable/shape_rectangle_all_radius_et_phone_no"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="46dp"
+                    android:background="@color/blank"
                     android:gravity="center_vertical"
-                    android:hint="@string/_8699339451"
-                    android:focusable="true"
-                    android:inputType="number"
+                    android:hint="@string/hint"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
                     android:paddingStart="14dp"
-                    android:paddingTop="15dp"
+                    android:paddingTop="14dp"
                     android:paddingEnd="0dp"
-                    android:paddingBottom="15dp"
+                    android:paddingBottom="14dp"
                     android:textCursorDrawable="@drawable/custom_cursor"
-                    android:textSize="13sp"
-                    tools:ignore="TextFields" />
+                    android:textSize="13sp" />
 
+                <ImageButton
+                    android:id="@+id/ibShowPasscode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_hide_password"
+                    tools:ignore="ContentDescription" />
 
-            </LinearLayout>
-
+                <ImageButton
+                    android:id="@+id/ibHidePasscode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_hide_password"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
 
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvForgotPasscode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_rectangle_pressed_white"
+            android:foreground="@drawable/ripple"
+            android:padding="@dimen/space5"
+            android:text="@string/forgot_passcode"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/tv_next"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
+        android:layout_below="@+id/linear"
+        android:layout_marginHorizontal="@dimen/dp_20"
         android:layout_marginTop="16dp"
         android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
         android:gravity="center"
-        android:layout_marginHorizontal="@dimen/dp_80"
         android:padding="12dp"
-        android:layout_below="@+id/ll1"
         android:text="@string/next_button"
         android:textAllCaps="false"
         android:textColor="@color/white" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/space20"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_rectangle_all_radius_btn_yellow"
+        android:backgroundTint="@color/secondary_color"
+        android:elevation="2dp"
+        android:foreground="@drawable/ripple"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        >
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_dont_have_account"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tvAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:gravity="center_horizontal"
+                android:justificationMode="inter_word"
+                android:linksClickable="true"
+                android:text="@string/by_proceeding_you_accept_our"
+                android:textColor="#802B2A29"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space5"
+                android:layout_toEndOf="@id/tvAccept"
+                android:gravity="center_horizontal"
+                android:text="@string/terms_of_service"
+                android:textColor="@color/secondary_color"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAccept"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/and"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:justificationMode="inter_word"
+                    android:text="@string/and"
+                    android:textColor="#802B2A29"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/privacy_policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space5"
+                    android:layout_toEndOf="@id/and"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/secondary_color"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="@dimen/space10"
+            android:background="#332B2A29" />
+
+
         <TextView
             android:id="@+id/tv_dont_have_account"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="3dp"
+            android:gravity="center"
             android:justificationMode="inter_word"
-            android:textColor="@color/appSecondaryColor"
             android:text="@string/don_t_have_an_account_sign_up1"
-            android:textSize="12sp" />
+            android:textColor="#802B2A29"
+            android:textSize="12sp"
+            app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
+            app:drawableTint="@color/secondary_color" />
 
     </RelativeLayout>
-
-
-
-
 
 
 </LinearLayout>

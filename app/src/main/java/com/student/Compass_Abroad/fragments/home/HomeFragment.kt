@@ -136,8 +136,10 @@ import com.google.android.flexbox.JustifyContent
 import com.google.android.material.appbar.AppBarLayout
 import com.student.Compass_Abroad.StaticTestimonial
 import com.student.Compass_Abroad.StudentStaticTestimonialsAdapter
+import com.student.Compass_Abroad.databinding.BannerDataLayoutBinding
 import com.student.Compass_Abroad.databinding.DialogBuyCouponBinding
 import com.student.Compass_Abroad.fragments.ProgramDetailsHomeFragment
+import com.student.Compass_Abroad.modal.getBannerModel.FileInfo
 import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.retrofit.HomeViewModal
 
@@ -203,7 +205,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
 
     private val sliderHandler: Handler = Handler()
-    private val sliderItems = mutableListOf<String>()
+    private val sliderItems = mutableListOf<com.student.Compass_Abroad.modal.getBannerModel.Record>()
+
     private val sliderRunnable: Runnable =
         Runnable { binding!!.viewPagerImageSlider.currentItem += 1 }
     private var adapter: AdaptorWebinarRecyclerview? = null
@@ -2245,15 +2248,22 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         sliderItems.clear()
         binding!!.indicatorLayout.removeAllViews()
 
-        // Populate sliderItems with data from API
         for (item in arrayListBanner) {
-            sliderItems.add(item.fileInfo.view_page) // Assuming `image` is the URL string
+            sliderItems.add(item)
         }
 
         // Set adapter
         binding!!.viewPagerImageSlider.adapter =
-            SliderAdapter(sliderItems, binding!!.viewPagerImageSlider)
+            SliderAdapter(sliderItems, binding!!.viewPagerImageSlider, object :
+                SliderAdapter.OnSliderClickListener {
+                override fun onSliderClick(item: com.student.Compass_Abroad.modal.getBannerModel.Record) {
 
+                    getBannerData(item)
+
+                }
+
+
+            })
         // Set ViewPager2 properties
         binding!!.viewPagerImageSlider.clipToPadding = false
         binding!!.viewPagerImageSlider.clipChildren = false
@@ -2306,6 +2316,48 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 }
             }
         })
+    }
+
+    private fun getBannerData(item: com.student.Compass_Abroad.modal.getBannerModel.Record) {
+        val itemBinding = BannerDataLayoutBinding.inflate(requireActivity().layoutInflater)
+        val dialog = Dialog(requireActivity())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(itemBinding.root)
+        dialog.window!!.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        val layoutParams = WindowManager.LayoutParams()
+        layoutParams.copyFrom(dialog.window!!.attributes)
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        val margin = resources.getDimensionPixelSize(R.dimen.space5)
+        layoutParams.horizontalMargin = 0f // Ensure margins are cleared in LayoutParams
+        dialog.window!!.decorView.setPadding(margin, 0, margin, 0)
+        dialog.window!!.attributes = layoutParams
+
+        itemBinding.content.text = item.description
+
+        itemBinding.visit.setOnClickListener {
+
+            if (item.url.isNullOrEmpty()) {
+                itemBinding.visit.visibility = View.GONE
+            } else {
+                itemBinding.visit.visibility = View.VISIBLE
+
+                itemBinding.visit.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(item.url)
+                    it.context.startActivity(intent)
+                }
+            }
+        }
+
+        itemBinding.backBtn.setOnClickListener {
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
     }
 
     private fun getBanner() {

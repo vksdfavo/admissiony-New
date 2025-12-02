@@ -44,6 +44,7 @@ class ScheduledFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentScheduledBinding.inflate(inflater, container, false)
 
         // Setup RecyclerView only once
@@ -51,6 +52,7 @@ class ScheduledFragment : BaseFragment() {
             setApplicationActiveRecyclerview(requireActivity())
             isRecyclerViewSetup = true
         }
+        
 
         binding.fabFaActive.setOnClickListener {
 

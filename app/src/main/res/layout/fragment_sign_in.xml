@@ -1,81 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/login_logo"
-        android:layout_width="180dp"
-        android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/logo"
-        tools:ignore="ContentDescription" />
-
-    <RelativeLayout
-        android:id="@+id/layout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarDa"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/login_logo"
-        android:orientation="vertical">
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:background="@color/secondary_color"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <TextView
-            android:id="@+id/tvTitleLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/login_"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+        <RelativeLayout
+            android:id="@+id/rlYouHaveSaved"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvSubtitleLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_below="@+id/tvTitleLogin"
-            android:text="@string/fill_details_to_proceed"
-            android:textColor="@color/text_color"
-            android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/space30"
+                android:src="@drawable/back"
+                app:tint="@color/white" />
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_50"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="@dimen/dp_80"
+                android:src="@drawable/signup_logo" />
 
+            <RelativeLayout
+                android:id="@+id/corner1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/back"
+                android:layout_marginHorizontal="@dimen/space10"
+                android:layout_marginTop="@dimen/space150"
+                android:background="@drawable/home_back_fade">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tlFa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout"
-        app:tabIndicatorColor="@color/appSecondaryColor"
-        app:tabIndicatorFullWidth="true"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/appSecondaryColor"
-        app:tabTextAppearance="@style/CustomTabLayout"
-        app:tabTextColor="@color/viewAllTextColor">
+            </RelativeLayout>
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/email_tab" />
+            <RelativeLayout
+                android:id="@+id/corner2"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/home_back"
+                android:backgroundTint="@color/white">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone_tab" />
-    </com.google.android.material.tabs.TabLayout>
+                <TextView
+                    android:id="@+id/logintext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/login"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subtitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/logintext"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/get_started_with_email_or_phone_number"
+                    android:textColor="#8086878B"
+                    android:textSize="12sp" />
+
+                <!-- TabLayout inside the white card -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tlFa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/subtitleText"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    app:tabIndicator="@drawable/tab_indicators"
+                    app:tabIndicatorColor="@color/appSecondaryColor"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorGravity="bottom"
+                    app:tabMode="fixed"
+                    app:tabGravity="fill"
+                    app:tabPaddingStart="0dp"
+                    app:tabPaddingEnd="0dp"
+                    app:tabSelectedTextColor="@color/appSecondaryColor"
+                    app:tabTextAppearance="@style/CustomTabLayout"
+                    app:tabTextColor="@color/viewAllTextColor"
+                    app:tabMinWidth="60dp"
+                    app:tabMaxWidth="100dp">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email_tab" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone_tab" />
+                </com.google.android.material.tabs.TabLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vpFa"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tlFa" />
-
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarDa" />
 
 </RelativeLayout>

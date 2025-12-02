@@ -15,7 +15,7 @@ class LatestUpdateAdapter(
     private val onItemClick: ((Row) -> Unit)? = null
 ) : RecyclerView.Adapter<LatestUpdateAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: LatestUpdatesLayoutBinding) :
+    class ViewHolder(val binding: LatestUpdatesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
