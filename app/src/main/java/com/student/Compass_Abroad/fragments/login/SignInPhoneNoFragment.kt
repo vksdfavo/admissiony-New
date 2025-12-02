@@ -51,7 +51,7 @@ import com.student.Compass_Abroad.retrofit.LoginViewModal
 import kotlin.String
 
 
-class SignInPhoneNoFragment : BaseFragment() {
+class SignInPhoneNoFragment : Fragment() {
     var binding:FragmentSignInPhoneNoBinding?=null
     var  hasDeviceIdentifier: String = ""
     var contentKey=""
@@ -80,6 +80,8 @@ class SignInPhoneNoFragment : BaseFragment() {
 
         return binding!!.getRoot()
     }
+
+
 
     private fun checkUserApiForEmail() {
         val email = sharedPre!!.getString(AppConstants.USER_EMAIL, "")
@@ -244,9 +246,8 @@ class SignInPhoneNoFragment : BaseFragment() {
 
 
     private fun setTexts() {
-
         val spannableText = SpannableStringBuilder("Don't have an account? Sign Up")
-        val yellowColor = ContextCompat.getColor(requireActivity(), R.color.theme_color)
+        val yellowColor = ContextCompat.getColor(requireActivity(), R.color.secondary_color)
         val yellowColorSpan = ForegroundColorSpan(yellowColor)
         spannableText.setSpan(yellowColorSpan, 22, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val boldSpan = StyleSpan(Typeface.BOLD)
@@ -256,9 +257,7 @@ class SignInPhoneNoFragment : BaseFragment() {
 
 
     private fun onClick() {
-
         binding!!.tvDontHaveAccount.setOnClickListener {
-
             if (isAdded) {
                 try {
                     App.singleton?.statusValidation = 1
@@ -512,8 +511,7 @@ class SignInPhoneNoFragment : BaseFragment() {
                             App.singleton?.SHOW_PASSCODE_SECTION = false
 
                             // Refresh fragment using Navigation Component
-                            findNavController().navigate(
-                                findNavController().currentDestination!!.id
+                            findNavController().navigate(findNavController().currentDestination!!.id
                             )
                         }
 
@@ -614,7 +612,7 @@ class SignInPhoneNoFragment : BaseFragment() {
                     if (nonNullLoginModal.statusCode == 200) {
                         App.singleton?.email = "1"
                         if (loginModal.data?.oneTimePasswordInfo?.p_set == false || loginModal.data?.oneTimePasswordInfo?.v_set == false) {
-                            Navigation.findNavController(binding!!.root).navigate(R.id.verifyOtpFragment)
+                            binding!!.root.findNavController().navigate(R.id.verifyOtpFragment)
 
                             sharedPre!!.saveString(AppConstants.OTP, loginModal.data!!.oneTimePasswordInfo.otp)
 

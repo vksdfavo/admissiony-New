@@ -535,7 +535,8 @@ class SignInEmailFragment : Fragment() {
                                                 requireActivity(),
                                                 it.message ?: "Something went wrong"
                                             )
-                                            // Optionally clear login session to be safe
+                                            // Optionally clear lo
+                                            // gin session to be safe
                                             sharedPre?.clearString(AppConstants.ISLOggedIn)
 
                                             // Refresh fragment via Navigation Component

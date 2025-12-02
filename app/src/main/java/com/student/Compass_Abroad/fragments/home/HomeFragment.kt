@@ -2342,11 +2342,16 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 itemBinding.visit.visibility = View.GONE
             } else {
                 itemBinding.visit.visibility = View.VISIBLE
-
                 itemBinding.visit.setOnClickListener {
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.data = Uri.parse(item.url)
                     it.context.startActivity(intent)
+
+                    dialog.dismiss()
+
+                    Log.d("getBannerData", item.url)
+
+
                 }
             }
         }
