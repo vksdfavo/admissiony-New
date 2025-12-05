@@ -192,7 +192,6 @@ class SignInPhoneNoFragment : Fragment() {
         val et_phone = sharedPre!!.getString(AppConstants.PHONE, "")
         val et_code = sharedPre!!.getString(AppConstants.COUNTRY_CODE, "")
 
-
         val hexString = generateRandomHexString(16)
         var publicKey = hexString
         var privateKey = AppConstants.privateKey
@@ -243,7 +242,6 @@ class SignInPhoneNoFragment : Fragment() {
                 }
             }
     }
-
 
     private fun setTexts() {
         val spannableText = SpannableStringBuilder("Don't have an account? Sign Up")

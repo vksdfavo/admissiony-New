@@ -34,14 +34,12 @@ import java.util.Calendar
 import java.util.Locale
 
 class BookCounsellingFragment : BaseFragment() {
-    private lateinit var binding: FragmentBookCouncellingBinding
+    private  lateinit var binding: FragmentBookCouncellingBinding
     private lateinit var dateAdapter: DateAdapter
     private val dateList = mutableListOf<DateItem>()
     private lateinit var timeSlotAdapter: TimeSlotAdapter
-
     var staffId: String? = null
     var branch_id: String? = null
-
     private val arrayListStaff: MutableList<com.student.Compass_Abroad.modal.getStaffList.RecordsInfo> =
         mutableListOf()
     private val arrayListBranch: MutableList<com.student.Compass_Abroad.modal.getDestinationCountryList.Data> =
@@ -88,7 +86,6 @@ class BookCounsellingFragment : BaseFragment() {
             }
 
             try {
-                // ✅ Correct format from API: "2025-11-04 09:00"
                 val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                 val outputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
 
@@ -106,8 +103,7 @@ class BookCounsellingFragment : BaseFragment() {
                 LoginViewModal().CreateSlots(
                     activity = requireActivity(),
                     clientNumber = AppConstants.fiClientNumber,
-                    deviceNumber = App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")
-                        .orEmpty(),
+                    deviceNumber = App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty(),
                     accessToken = "Bearer ${CommonUtils.accessToken}",
                     branch_identifier = branch_id.toString(),
                     event_start_datetime = eventStart,

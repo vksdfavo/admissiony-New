@@ -57,7 +57,6 @@ import java.util.Locale
 
 
 class ProgramFilterFragment : BaseFragment() {
-
     var   binding: FragmentProgramFilterBinding?=null
     var   popupWindow:PopupWindow?=null
     var   PGWP:String =""
@@ -86,8 +85,6 @@ class ProgramFilterFragment : BaseFragment() {
     private lateinit var   selectedStudyLevelLabel:ArrayList<String>
     private lateinit var  selectedDisciplineLabel:ArrayList<String>
     private lateinit var   selectedIntakeLabel:ArrayList<String>
-
-
     var arrayListCountry=ArrayList<com.student.Compass_Abroad.modal.countryModel.DataX>()
     var arrayListState=ArrayList<com.student.Compass_Abroad.modal.stateModel.Data>()
     var arrayListCity=ArrayList<com.student.Compass_Abroad.modal.cityModel.Data>()
@@ -97,11 +94,8 @@ class ProgramFilterFragment : BaseFragment() {
     private lateinit var selectedCountryItems: com.student.Compass_Abroad.modal.countryModel.DataX
     private lateinit var selectedStateItems1: com.student.Compass_Abroad.modal.stateModel.Data
     private lateinit var selectedCityItems1: com.student.Compass_Abroad.modal.cityModel.Data
-
-
     private lateinit var selectedStateItems: String
     private lateinit var selectedCityItems: String
-
     private lateinit var selectedStudyLevelItems:MutableList<com.student.Compass_Abroad.modal.studyLevelModel.Data>
     private lateinit var selectedDisciplineItems:MutableList<com.student.Compass_Abroad.modal.discipline.Data>
     private lateinit var selectedIntakeItems:MutableList<com.student.Compass_Abroad.modal.intakeModel.Data>
@@ -112,8 +106,6 @@ class ProgramFilterFragment : BaseFragment() {
     var xLocationOfView=0
     var yLocationOfView=0
     var value:Boolean=false
-
-
 
 
     companion object {
@@ -541,7 +533,6 @@ class ProgramFilterFragment : BaseFragment() {
         selectedDisciplineId = ArrayList(previousDisciplineIds)
         selectedIntakeId = ArrayList(previousIntakeIds)
 
-        // PGWP and Attendance should be set if they are not null
         PGWP = PGWP ?: ""
         Attendance = Attendance ?: ""
         ProgramType = ProgramType ?: ""
@@ -999,10 +990,19 @@ class ProgramFilterFragment : BaseFragment() {
 
 
     private fun setDropDownCountry() {
+
         binding!!.tvFilterCountry.setOnClickListener {
+
+            // 💥 Remove duplicate countries BEFORE showing popup
+            val uniqueCountryList = arrayListCountry.distinctBy { it.value }
+            arrayListCountry.clear()
+            arrayListCountry.addAll(uniqueCountryList)
+
             val popupWindow = PopupWindow(requireActivity())
-            val layout: View = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
+            val layout: View =
+                LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             popupWindow.contentView = layout
+
             layout.findViewById<TextView>(R.id.etSelect).hint = "Search Country"
 
             popupWindow.setBackgroundDrawable(ColorDrawable(Color.WHITE))
@@ -1014,94 +1014,99 @@ class ProgramFilterFragment : BaseFragment() {
 
             val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            val adapter = AdapterFilterCollegeCountrySelector(requireActivity(), arrayListCountry, layout, object : AdapterFilterCollegeCountrySelector.OnCountrySelectionListener {
-                override fun onCountryChecked(country: com.student.Compass_Abroad.modal.countryModel.DataX) {
-                    clearSelectedValuesFromSharedPreferences(AppConstants.StateList)
-                    clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
-                    clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
-                    selectedStateItems1.label = ""
-                    selectedStateItems1.value = 0
-                    selectedStateItems = ""
-                    selectedStateId = ""
-                    selectedStateLabel = ""
-                    binding!!.tvFilterState.setText("")
-                    arrayListState.clear()
 
-                    selectedCityItems = ""
-                    selectedCityId = ""
-                    selectedCityLabel = ""
-                    binding!!.tvFilterCity.setText("")
-                    arrayListCity.clear()
+            // 💥 Adapter will now receive CLEANED list
+            val adapter = AdapterFilterCollegeCountrySelector(
+                requireActivity(),
+                arrayListCountry,
+                layout,
+                object : AdapterFilterCollegeCountrySelector.OnCountrySelectionListener {
 
-                    getState(requireActivity(), country.value)
+                    override fun onCountryChecked(country: com.student.Compass_Abroad.modal.countryModel.DataX) {
 
+                        // Clear state
+                        clearSelectedValuesFromSharedPreferences(AppConstants.StateList)
+                        clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
+                        clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
 
-                    selectedInstitutionItems.clear()
-                    selectedInstitutionId.clear()
-                    selectedInstitutionLabel.clear()
-                    arrayListInstitution.clear()
-                    getInstitution(requireActivity(),country.value.toString())
-                    setDropDownInstitution()
-                    binding!!.tvFilterInstitute.text=""
+                        selectedStateItems1.label = ""
+                        selectedStateItems1.value = 0
+                        selectedStateItems = ""
+                        selectedStateId = ""
+                        selectedStateLabel = ""
+                        binding!!.tvFilterState.setText("")
+                        arrayListState.clear()
 
-                }
+                        // Clear city
+                        selectedCityItems = ""
+                        selectedCityId = ""
+                        selectedCityLabel = ""
+                        binding!!.tvFilterCity.setText("")
+                        arrayListCity.clear()
 
-                override fun onCountryUnchecked(country: com.student.Compass_Abroad.modal.countryModel.DataX) {
-                    clearSelectedValuesFromSharedPreferences(AppConstants.StateList)
-                    clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
-                    clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
-                    selectedStateItems1.label = ""
-                    selectedStateItems1.value = 0
-                    selectedStateItems = ""
-                    selectedStateId = ""
-                    selectedStateLabel = ""
-                    binding!!.tvFilterState.setText("")
-                    arrayListState.clear()
+                        // Load new State list
+                        getState(requireActivity(), country.value)
 
-                    selectedCityItems = ""
-                    selectedCityId = ""
-                    selectedCityLabel = ""
-                    binding!!.tvFilterCity.setText("")
-                    arrayListCity.clear()
+                        // Clear Institution
+                        selectedInstitutionItems.clear()
+                        selectedInstitutionId.clear()
+                        selectedInstitutionLabel.clear()
+                        arrayListInstitution.clear()
 
-                    getState(requireActivity(), null)
+                        getInstitution(requireActivity(), country.value.toString())
+                        setDropDownInstitution()
+                        binding!!.tvFilterInstitute.text = ""
+                    }
 
-                    selectedInstitutionItems.clear()
-                    selectedInstitutionId.clear()
-                    selectedInstitutionLabel.clear()
-                    arrayListInstitution.clear()
-                    getInstitution(requireActivity(),"")
-                    setDropDownInstitution()
-                    binding!!.tvFilterInstitute.text=""
-                }
+                    override fun onCountryUnchecked(country: com.student.Compass_Abroad.modal.countryModel.DataX) {
 
-            })
+                        clearSelectedValuesFromSharedPreferences(AppConstants.StateList)
+                        clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
+                        clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
+
+                        selectedStateItems1.label = ""
+                        selectedStateItems1.value = 0
+                        selectedStateItems = ""
+                        selectedStateId = ""
+                        selectedStateLabel = ""
+                        binding!!.tvFilterState.setText("")
+                        arrayListState.clear()
+
+                        selectedCityItems = ""
+                        selectedCityId = ""
+                        selectedCityLabel = ""
+                        binding!!.tvFilterCity.setText("")
+                        arrayListCity.clear()
+
+                        getState(requireActivity(), null)
+
+                        selectedInstitutionItems.clear()
+                        selectedInstitutionId.clear()
+                        selectedInstitutionLabel.clear()
+                        arrayListInstitution.clear()
+
+                        getInstitution(requireActivity(), "")
+                        setDropDownInstitution()
+                        binding!!.tvFilterInstitute.text = ""
+                    }
+                })
+
             recyclerView.adapter = adapter
-            val getSavedSelectedCountryItemsId = getSavedSelectedCountryItem(AppConstants.CountryList)
 
             adapter.setInitialSelection(selectedCountryItems)
-            adapter.onItemClickListener = { selectedCountry ->
 
+            adapter.onItemClickListener = { selectedCountry ->
 
                 val selectedCountryLabels = selectedCountry?.label ?: "Default Label"
                 val selectedCountryIds = selectedCountry?.value ?: "Default ID"
 
                 binding!!.tvFilterCountry.text = selectedCountry?.label
+
                 selectedCountryItems.label = selectedCountry?.label ?: ""
                 selectedCountryItems.value = selectedCountry?.value ?: 0
 
-
-                selectedCountryId = ""
-                selectedCountryLabel = ""
-                selectedCountryLabel = selectedCountry?.label ?: ""
-
-
-
-
-
                 selectedCountryId = selectedCountryIds.toString()
-
-
+                selectedCountryLabel = selectedCountry?.label ?: ""
             }
 
             popupWindow.showAsDropDown(binding!!.tvFilterCountry)
@@ -1113,16 +1118,14 @@ class ProgramFilterFragment : BaseFragment() {
                         start: Int,
                         count: Int,
                         after: Int
-                    ) {
-                    }
+                    ) {}
 
                     override fun onTextChanged(
                         s: CharSequence,
                         start: Int,
                         before: Int,
                         count: Int
-                    ) {
-                    }
+                    ) {}
 
                     override fun afterTextChanged(s: Editable) {
                         adapter.getFilter().filter(s.toString())
@@ -1130,6 +1133,7 @@ class ProgramFilterFragment : BaseFragment() {
                 })
         }
     }
+
 
     private fun setDropDownInstitution() {
         binding!!.tvFilterInstitute.setOnClickListener {
@@ -2210,7 +2214,6 @@ class ProgramFilterFragment : BaseFragment() {
         }
     }
 
-
     private fun getSavedIntakesItems(keyPrefix: String): List<com.student.Compass_Abroad.modal.intakeModel.Data> {
         val sharedPrefs = SharedPrefs(requireContext())
         val ids = sharedPrefs.getStringList("${keyPrefix}Id") ?: emptyList()
@@ -2230,8 +2233,6 @@ class ProgramFilterFragment : BaseFragment() {
             }
         }
     }
-
-
 
     private fun getSavedInstutionItems(keyPrefix: String): List<com.student.Compass_Abroad.modal.institutionModel.RecordsInfo> {
         val sharedPrefs = SharedPrefs(requireContext())

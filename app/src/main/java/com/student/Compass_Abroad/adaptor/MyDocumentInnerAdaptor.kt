@@ -69,8 +69,6 @@ class MyDocumentInner(var context: Context, var myDocumentList: List<com.student
             }
 
 
-
-
             binding.ivViewDocument.setOnClickListener { v: View ->
                 val intent = Intent(context, WebViewActivity::class.java).apply {
                     putExtra("url", file.view_page)

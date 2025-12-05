@@ -3,7 +3,6 @@ package com.student.Compass_Abroad.fragments
 import android.R.attr.onClick
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.student.Compass_Abroad.LatestUpdateAdapter
 import com.student.Compass_Abroad.R
-import com.student.Compass_Abroad.StaticLatestUpdate
-import com.student.Compass_Abroad.StaticLatestUpdateAdapter
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils

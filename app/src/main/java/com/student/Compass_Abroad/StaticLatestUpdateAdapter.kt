@@ -10,7 +10,7 @@ class StaticLatestUpdateAdapter(
     private val updateList: List<StaticLatestUpdate> // ✅ now using static model
 ) : RecyclerView.Adapter<StaticLatestUpdateAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: LatestUpdatesLayoutBinding) :
+    class ViewHolder(val binding: LatestUpdatesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +25,6 @@ class StaticLatestUpdateAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = updateList[position]
 
-        // ✅ Bind static data
         holder.binding.tvTitle.text = item.title
         holder.binding.btnTestimonials.text = item.description
         holder.binding.date.text = item.date

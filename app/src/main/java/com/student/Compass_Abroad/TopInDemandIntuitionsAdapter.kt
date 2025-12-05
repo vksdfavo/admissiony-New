@@ -12,7 +12,6 @@ import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ItemInDemandIntuitionsBinding
 
 class TopInDemandIntuitionsAdapter(
-
     private val destinationList: List<com.student.Compass_Abroad.modal.in_demandInstitution.Data>,
     private val onItemClick: ((com.student.Compass_Abroad.modal.in_demandInstitution.Data) -> Unit)? = null
 ) : RecyclerView.Adapter<TopInDemandIntuitionsAdapter.ViewHolder>() {

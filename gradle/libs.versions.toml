@@ -22,7 +22,7 @@ kotlin = "2.0.0-RC1"
 foundationAndroid = "1.6.6"
 appUpdateKtx = "2.1.0"
 navigationUiKtx = "2.7.3"
-stripeAndroid = "20.24.0"
+stripeAndroid = "20.13.0"
 stripeJava = "22.0.0"
 
 

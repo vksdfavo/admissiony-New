@@ -1,6 +1,7 @@
 @file:Suppress("DEPRECATED_IDENTITY_EQUALS")
 
 package com.student.Compass_Abroad.fragments.home
+
 import androidx.core.content.ContextCompat
 
 import android.app.Activity
@@ -133,13 +134,9 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.google.android.material.appbar.AppBarLayout
-import com.student.Compass_Abroad.StaticTestimonial
-import com.student.Compass_Abroad.StudentStaticTestimonialsAdapter
 import com.student.Compass_Abroad.databinding.BannerDataLayoutBinding
 import com.student.Compass_Abroad.databinding.DialogBuyCouponBinding
 import com.student.Compass_Abroad.fragments.ProgramDetailsHomeFragment
-import com.student.Compass_Abroad.modal.getBannerModel.FileInfo
 import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.retrofit.HomeViewModal
 
@@ -148,15 +145,13 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     AdapterOffersandUpdate.OnClickData, AdapterScholarships.Scholarships,
     AdaptorWebinarRecyclerview.select {
     var binding: FragmentHomeBinding? = null
-    var lastX = 0
     var interestsAdapter: HomeInterestsAdapter? = null
     var fetchLatestAdapter: HomeLatestUpdateAdapter? = null
     var fetchUniversitiesAdapter: HomeUniversitiesAdapter? = null
     var arrayList1 = ArrayList<Record>()
     var webinarsList1 = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
     var arrayListVouchers = ArrayList<com.student.Compass_Abroad.modal.getVoucherModel.Record>()
-    var arrayListTopDestinations =
-        ArrayList<com.student.Compass_Abroad.modal.top_destinations.Data>()
+
     var arrayListInDemandInstitution =
         ArrayList<com.student.Compass_Abroad.modal.in_demandInstitution.Data>()
     var arrayListInDemand = ArrayList<com.student.Compass_Abroad.modal.inDemandCourse.Data>()
@@ -205,7 +200,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
 
     private val sliderHandler: Handler = Handler()
-    private val sliderItems = mutableListOf<com.student.Compass_Abroad.modal.getBannerModel.Record>()
+    private val sliderItems =
+        mutableListOf<com.student.Compass_Abroad.modal.getBannerModel.Record>()
 
     private val sliderRunnable: Runnable =
         Runnable { binding!!.viewPagerImageSlider.currentItem += 1 }
@@ -215,9 +211,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private val viewModelHome: HomeViewModal by lazy {
         ViewModelProvider(requireActivity())[HomeViewModal::class.java]
     }
-
-    private val viewModelClass : HomeViewModal by activityViewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -235,7 +228,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             insets
         }
 
-        binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvWebinars?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
         binding?.rvWebinars?.adapter = adapter
 
@@ -329,7 +323,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                                 TopInDemandIntuitionsAdapter(arrayListInDemandInstitution) { selectedItem ->
                                     AppConstants.PROGRAM_STATUS = "1"
                                     FragProgramAllProg.selectedTab = "all"
-                                    binding!!.root.findNavController().navigate(R.id.fragProgramAllProg)
+                                    binding!!.root.findNavController()
+                                        .navigate(R.id.fragProgramAllProg)
                                 }
                         }
                     }
@@ -347,15 +342,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     private fun setupRecyclerViewInDemand() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-
-        // Step 1: Initialize RecyclerView with shimmer adapter
         val shimmerAdapter = InDemandCoursesAdapter(emptyList(), isLoading = true)
         binding?.rvIndemand?.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = shimmerAdapter
         }
-
-        // Step 2: Fetch API data
         HomeViewModal().get_in_demandCourses(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -370,7 +362,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     arrayListInDemand.addAll(result.data)
 
                     // Step 3: Update adapter with actual data and stop shimmer
-                    val adapter = InDemandCoursesAdapter(arrayListInDemand,
+                    val adapter = InDemandCoursesAdapter(
+                        arrayListInDemand,
                         object : InDemandCoursesAdapter.OnCourseClickListener {
                             override fun onItemClick(
                                 data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
@@ -1317,10 +1310,14 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
     private fun hitApiUserDetails() {
         Log.e("Client Number", AppConstants.fiClientNumber)
-        Log.e("Device Identifier", sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").toString())
+        Log.e(
+            "Device Identifier",
+            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").toString()
+        )
         Log.e("Access Token", "Bearer ${CommonUtils.accessToken}")
 
-        viewModelHome.getStaffProfileData(requireActivity(),
+        viewModelHome.getStaffProfileData(
+            requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
             "Bearer " + CommonUtils.accessToken,
@@ -2064,7 +2061,10 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
 
-    private fun initPayment(context: FragmentActivity?, data: com.student.Compass_Abroad.modal.getPaymentApplicationPay.Data?) {
+    private fun initPayment(
+        context: FragmentActivity?,
+        data: com.student.Compass_Abroad.modal.getPaymentApplicationPay.Data?
+    ) {
         val activity: FragmentActivity = context!!
         val co = Checkout()
         try {
@@ -2110,7 +2110,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
             is PaymentSheetResult.Failed -> {
 
-                val errorMessage = (paymentSheetResult as? PaymentSheetResult.Failed)?.error?.message ?: "Unknown error occurred"
+                val errorMessage =
+                    (paymentSheetResult as? PaymentSheetResult.Failed)?.error?.message
+                        ?: "Unknown error occurred"
 
                 CommonUtils.toast(context, "Payment Failed: $errorMessage")
 
@@ -2185,7 +2187,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
     private fun setupRecyclerViewRecommended() {
 
-        layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding!!.rvFpApp.layoutManager = layoutManager
 
         adapterProgramsAllProg = AdapterProgramsAllProg(requireActivity(), arrayList, this)
@@ -2526,7 +2529,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         }
     }
 
-
     private fun setWebinarsRecyclerview(arrayList: ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>) {
         adaptorwebinars =
             AdaptorWebinarRecyclerview(this.requireActivity(), arrayList, this)
@@ -2750,7 +2752,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                                         putString("media_url", selectedItem.media_url)
                                     }
 
-                                    binding!!.root.findNavController().navigate(R.id.hybridPlayerActivity, bundle)
+                                    binding!!.root.findNavController()
+                                        .navigate(R.id.hybridPlayerActivity, bundle)
 
                                 }
                         }
@@ -2834,7 +2837,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             }
         }
     }
-
 }
 
 

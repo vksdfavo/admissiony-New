@@ -186,6 +186,12 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         tvMaxApplicationFee = if (tvMaxApplicationFee.isNullOrEmpty()) null else tvMaxApplicationFee
 
 
+        FilterClearAll()
+        ProgramFilterFragment.data = category
+        status = 0
+        ProgramFilterFragment.clearData = 1
+        sharedPre!!.saveString("status", status.toString())
+
         if (category == "higher_education") {
             ProgramFilterFragment.data = category
             category = "higher_education"
@@ -309,7 +315,6 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
             tvIntakeSelector = getSavedSelectedItems(AppConstants.IntakeList)
                 .mapNotNull { it.toIntOrNull() }.map { it.toString() }
 
-
             if (countryNamee.isNotEmpty() ||
                 stateNamee.isNotEmpty() ||
                 cityNamee.isNotEmpty() ||
@@ -345,17 +350,12 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
 
         }
 
-
-
-
         binding!!.tabRecommended.setOnClickListener {
-
             arrayList1.clear()
             isRecommended = "true"
             if (!isLoading) {
                 isLoading = true
                 binding.pbFpAp.visibility = View.VISIBLE
-
                 onGetAllPrograms(
                     presentPage,
                     dataPerPage,
@@ -504,6 +504,92 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
 
 
         return binding.root
+    }
+
+    private fun FilterClearAll() {
+
+        arrayList1.clear()
+        isRecommended = "false"
+        selectedTab = "all"
+        updateTabUI(isRecommended = false)
+        binding!!.swipeRefreshLayout.setOnRefreshListener {
+            applicationList.clear()
+            presentPage = 1
+            nextPage = 0
+            onGetAllPrograms(
+                presentPage,
+                dataPerPage,
+                countryNamee,
+                stateNamee,
+                cityNamee,
+                instituteName,
+                tvPGMP,
+                tvFStudyLevel,
+                tvLookingFor,
+                tvAttendance,
+                tvProgramType,
+                tvIntakeSelector,
+                tvminTutionFee,
+                tvMaxTutionFee,
+                tvMinApplicationFee,
+                tvMaxApplicationFee,
+                search,
+                category,
+                tvAccomodation,
+                tvFEnglishLevel,
+                tvFAge,
+                isRecommended
+            )
+        }
+
+        countryNamee = getSavedSelectedItems(AppConstants.CountryList)
+            .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+        stateNamee = getSavedSelectedItems(AppConstants.StateList)
+            .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+        cityNamee = getSavedSelectedItems(AppConstants.CityList)
+            .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+        instituteName = getSavedSelectedItems(AppConstants.institutionList)
+            .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+        tvLookingFor = getSavedSelectedItems(AppConstants.disciplineList)
+            .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+        tvFStudyLevel = getSavedSelectedItems(AppConstants.studyLevelList)
+            .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+        tvIntakeSelector = getSavedSelectedItems(AppConstants.IntakeList)
+            .mapNotNull { it.toIntOrNull() }.map { it.toString() }
+
+
+        if (countryNamee.isNotEmpty() ||
+            stateNamee.isNotEmpty() ||
+            cityNamee.isNotEmpty() ||
+            instituteName.isNotEmpty() ||
+            tvFStudyLevel.isNotEmpty() ||
+            tvLookingFor.isNotEmpty() ||
+            tvIntakeSelector.isNotEmpty() ||
+            tvPGMP != null ||
+            tvAttendance != null ||
+            tvProgramType != null ||
+            tvminTutionFee != null ||
+            tvMaxTutionFee != null ||
+            tvMinApplicationFee != null ||
+            tvMaxApplicationFee != null ||
+            tvAccomodation != null ||
+            tvFEnglishLevel != null ||
+            tvFAge != null
+        ) {
+
+            binding.filterDot.visibility = View.VISIBLE
+            ProgramFilterFragment.clearData = 0
+            loadFilteredData()
+
+        } else {
+            binding.filterDot.visibility = View.GONE
+            ProgramFilterFragment.clearData = 1
+            loadInitialData(search, category, isRecommended)
+        }
+        binding.rvCategory.visibility = View.GONE
+        binding.rll.visibility = View.VISIBLE
+        binding!!.view1.visibility = View.GONE
+        binding!!.view2.visibility = View.VISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
