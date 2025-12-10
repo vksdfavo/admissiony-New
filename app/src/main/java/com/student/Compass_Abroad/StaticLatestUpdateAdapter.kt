@@ -29,7 +29,7 @@ class StaticLatestUpdateAdapter(
         holder.binding.btnTestimonials.text = item.description
         holder.binding.date.text = item.date
 
-        Glide.with(holder.itemView.context)
+        Glide.with(holder.itemView.context)        
             .load(item.imageResId)
             .placeholder(R.drawable.latest)
             .into(holder.binding.iv)

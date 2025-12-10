@@ -14,17 +14,15 @@ class DateAdapter( private val dates: List<DateItem>, private val onDateClick: (
             binding.dateText.text = item.date
             binding.cardViews.isSelected = item.isSelected
 
-            val selectedColor = "#DDEEFF".toColorInt()
-            val defaultColor = android.graphics.Color.WHITE
-            val sundayColor = "#FFEEEE".toColorInt()
 
-//            when {
-//                item.isSelected -> binding.cardView.setCardBackgroundColor(selectedColor)
-//
-//                item.isSunday -> binding.cardView.setCardBackgroundColor(sundayColor)
-//
-//                else -> binding.cardView.setCardBackgroundColor(defaultColor)
-//            }
+            when {
+                item.isSelected -> binding.cardViews.setBackgroundResource(R.drawable.bg_date_selected)
+
+                item.isSunday -> binding.cardViews.setBackgroundResource(R.drawable.bg_date_sunday)
+
+                else -> binding.cardViews.setBackgroundResource(R.drawable.bg_date_default)
+            }
+
 
             binding.cardViews.setOnClickListener {
 

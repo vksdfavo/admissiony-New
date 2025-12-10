@@ -49,16 +49,15 @@ class DownLoadDocActivity : AppCompatActivity() {
             )
             insets
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = getColor(android.R.color.white)
         }
 
-        // Set navigation bar color to white
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.navigationBarColor = getColor(android.R.color.black)
         }
 
-        // Make sure the status bar and navigation bar icons are dark (to be visible on white background)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         }

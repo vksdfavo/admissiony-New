@@ -72,7 +72,13 @@ class BookCounsellingFragment : BaseFragment() {
             }
         }
 
+        binding.btnBack.setOnClickListener {
+
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
         binding.fabBiBack.setOnClickListener {
+
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
@@ -132,6 +138,7 @@ class BookCounsellingFragment : BaseFragment() {
     }
 
     // ---------------------- Setup Recyclers ----------------------
+
     private fun setupTimeSlotRecycler() {
         timeSlotAdapter = TimeSlotAdapter(arrayListSlots) { selectedSlot ->
             val selectedDate = dateList.find { it.isSelected }?.apiDate ?: return@TimeSlotAdapter
@@ -155,17 +162,27 @@ class BookCounsellingFragment : BaseFragment() {
 
     private fun setupRecyclerView() {
         dateAdapter = DateAdapter(dateList) { selectedIndex ->
-            dateList.forEachIndexed { index, item -> item.isSelected = index == selectedIndex }
+            dateList.forEachIndexed { index, item ->
+                item.isSelected = index == selectedIndex
+            }
             dateAdapter.notifyDataSetChanged()
 
             val selectedDate = dateList[selectedIndex]
             Log.d("BookCounselling", "Selected Date: ${selectedDate.apiDate}")
+
+            if (!branch_id.isNullOrEmpty()) {
+                getSlotesData(selectedDate.apiDate)   // 🔥
+
+            // CALL API HERE
+
+            } else {
+
+                CommonUtils.toast(requireActivity(), "Please select branch first")
+            }
         }
 
         binding.recyclerViewDates.apply {
-            // 🔹 2 rows with horizontal scroll
-            layoutManager =
-                GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
             adapter = dateAdapter
             setHasFixedSize(true)
         }
@@ -265,7 +282,7 @@ class BookCounsellingFragment : BaseFragment() {
                 // 🔹 Automatically load today's slots after branch selection
                 val today = dateList.firstOrNull { it.label == "Today" }
                 today?.let {
-                    //getSlotesData(it.apiDate)
+                    getSlotesData(it.apiDate)
                 }
             }
 
@@ -322,7 +339,7 @@ class BookCounsellingFragment : BaseFragment() {
 
             val today = dateList.firstOrNull { it.label == "Today" }
             today?.let {
-                getSlotesData(it.apiDate)
+                //getSlotesData(it.apiDate)
             }
         }
 
@@ -340,11 +357,8 @@ class BookCounsellingFragment : BaseFragment() {
     // ---------------------- Get Slots ----------------------
     private fun getSlotesData(apiDate: String) {
         arrayListSlots.clear()
-
-
         binding.tvStaffDateRequired.visibility = View.VISIBLE
         binding.tvStaffDateRequired.text = "Loading time slots..."
-
         LoginViewModal().get_staffSlots(
             requireActivity(),
             AppConstants.fiClientNumber,

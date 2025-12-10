@@ -548,12 +548,11 @@ interface ApiInterface {
     ): Call<ApiResponseForm?>?
 
     @FormUrlEncoded
-    @POST("landing_page/create")
+    @POST("landing_page/create"   )
     fun submitLeadForm(
         @Header("fi-client-number") fiClientNumber: String?,
         @Field("content") content: String?,
     ): Call<SubmitSinUpForm?>?
-
 
     @GET
     fun getAllFields(
@@ -1575,7 +1574,7 @@ interface ApiInterface {
     ): Call<StaffDropdownResponse?>?
 
 
-    @GET("branches?paginate=false&branch_type=agent&number_only=true")
+    @GET("branches?paginate=false&branch_type=company&number_only=true")
     fun getBranchList(
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,

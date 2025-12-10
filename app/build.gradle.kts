@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+
 }
 
 android {
@@ -27,7 +28,6 @@ android {
             resValue("string", "app_name", "Admissiony.com")
             buildConfigField("String", "BASE_URL", "\"https://c120h25steps19-api.firmli.com/v1\"")
         }
-
     }
 
     namespace = "com.student.Compass_Abroad"
@@ -68,6 +68,7 @@ android {
     }
 
     kotlinOptions {
+
         jvmTarget = "1.8"
     }
 }
@@ -124,7 +125,6 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.ccp)
     implementation(libs.imagepicker)
-
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

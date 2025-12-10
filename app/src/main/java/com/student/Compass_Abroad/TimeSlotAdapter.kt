@@ -14,12 +14,9 @@ class TimeSlotAdapter(
     private val slots: List<Slot>,
     private val onSelectionChanged: (Slot?) -> Unit
 ) : RecyclerView.Adapter<TimeSlotAdapter.SlotViewHolder>() {
-
     private var selectedPosition: Int = -1
-
     inner class SlotViewHolder(val binding: ItemTimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: Slot, position: Int) {
             try {
                 val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -39,32 +36,33 @@ class TimeSlotAdapter(
                 binding.textTimeSlot.text = "${item.start_time} - ${item.end_time}"
             }
 
+            if (item.is_booked == 1) {
+                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_red)
+                binding.textTimeSlot.setTextColor(Color.WHITE)
+                binding.cardTimeSlots.setOnClickListener {
+                    Toast.makeText(binding.root.context, "This slot is already booked", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
 
+            if (item.is_available == 0) {
+                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_grey)
+                binding.textTimeSlot.setTextColor(Color.DKGRAY)
+                binding.cardTimeSlots.setOnClickListener {
+                    Toast.makeText(binding.root.context, "This slot is not available", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
 
-//            if (item.is_booked == 1) {
-//                binding.cardTimeSlot.setCardBackgroundColor(Color.parseColor("#E57373"))
-//                binding.cardTimeSlot.setOnClickListener {
-//                    Toast.makeText(binding.root.context, "This slot is already booked", Toast.LENGTH_SHORT).show()
-//                }
-//                return
-//            }
-//
-//            if (item.is_available == 0) {
-//                binding.cardTimeSlot.setCardBackgroundColor(Color.LTGRAY)
-//                binding.cardTimeSlot.setOnClickListener {
-//                    Toast.makeText(binding.root.context, "This slot is not available", Toast.LENGTH_SHORT).show()
-//                }
-//                return
-//            }
-//
-//            if (selectedPosition == position) {
-//                binding.cardTimeSlot.setCardBackgroundColor(Color.parseColor("#FF9800")) // orange selected
-//            } else {
-//                binding.cardTimeSlot.setCardBackgroundColor(Color.WHITE) // default white
-//            }
+            if (selectedPosition == position) {
+                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_selected)
+                binding.textTimeSlot.setTextColor(Color.WHITE)
+            } else {
+                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_default)
+                binding.textTimeSlot.setTextColor(Color.BLACK)
+            }
 
             binding.cardTimeSlots.setOnClickListener {
-                // Toggle selection
                 selectedPosition = if (selectedPosition == position) -1 else position
                 notifyDataSetChanged()
 
@@ -73,22 +71,17 @@ class TimeSlotAdapter(
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SlotViewHolder {
         val binding = ItemTimeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SlotViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: SlotViewHolder, position: Int) {
         holder.bind(slots[position], position)
     }
-
     override fun getItemCount(): Int = slots.size
-
     fun getSelectedSlot(): Slot? {
         return if (selectedPosition != -1) slots[selectedPosition] else null
     }
-
     fun clearSelection() {
         selectedPosition = -1
         notifyDataSetChanged()
