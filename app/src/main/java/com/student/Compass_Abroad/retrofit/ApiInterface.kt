@@ -670,7 +670,6 @@ interface ApiInterface {
         @Query("sort_by") sortBy: String,
     ): Call<getLeadNotesResponse?>?
 
-
     @GET("leads/{identifier}/documents")
     fun getLeadDocuments(
         @Header("fi-client-number") fiClientNumber: String?,
@@ -1265,7 +1264,6 @@ interface ApiInterface {
         @Query("gt_tuition_fee") gt_tuition_fee: Int
     ): Call<getProgramFIltersResponse?>?
 
-
     @GET("program-finder/filters")
     fun getApplicationFilter(
         @Header("fi-client-number") fiClientNumber: String?,
@@ -1588,7 +1586,8 @@ interface ApiInterface {
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
         @Query("date") date: String,
-        @Query("branch_id") branch_id: String
+        @Query("branch_id") branch_id: String,
+        @Query("user_id") user_id: String
     ): Call<GetStaffSlots>
 
     @FormUrlEncoded
@@ -1639,7 +1638,6 @@ interface ApiInterface {
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
         @Query("program_identifier") program_identifier: String,
-
     ): Call<ProgramDetailsModal>
 
 }

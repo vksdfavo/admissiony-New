@@ -59,7 +59,6 @@ class BuyFragment : BaseFragment() {
     var isScrolling = false
     var currentVisibleItems = 0
     var totalItemsInAdapter: Int = 0
-    var scrolledOutItems: Int = 0
     var dataPerPage = 20
     var presentPage: Int = 1
     var nextPage: Int = 0
@@ -74,15 +73,15 @@ class BuyFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-
-
         binding = FragmentBuyBinding.inflate(getLayoutInflater(), container, false)
-        requireActivity().window.navigationBarColor =
-            ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.white)
+
+        requireActivity().window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+
         onGetVouchers(requireActivity(), dataPerPage, presentPage)
+
         initPayment()
+
         arrayListVouchers.clear()
 
 
@@ -181,10 +180,7 @@ class BuyFragment : BaseFragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
-    private fun BuyVoucherDialog(
-        requireActivity: FragmentActivity,
-        data1: com.student.Compass_Abroad.modal.getVoucherModel.Record
-    ) {
+    private fun BuyVoucherDialog(requireActivity: FragmentActivity, data1: com.student.Compass_Abroad.modal.getVoucherModel.Record) {
         dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.dialog_buy_coupon)
         dialog.window?.setLayout(
@@ -287,9 +283,6 @@ class BuyFragment : BaseFragment() {
     @RequiresApi(Build.VERSION_CODES.P)
     private fun PaymentModeSpinner(paymentSpinner: TextView) {
         var fragment: Fragment? = null
-        var xLocationOfView = 0
-        var yLocationOfView = 0
-
         paymentSpinner?.setOnClickListener { v: View ->
 
             val popupWindow = PopupWindow(requireActivity())
@@ -357,16 +350,7 @@ class BuyFragment : BaseFragment() {
         }
     }
 
-    private fun generatingPaymentLinkVoucher(
-        requireActivity: FragmentActivity,
-        currency: String,
-        price: String,
-        quantity: String,
-        moduleIdentifier: String,
-        paymentTypeIdentifier: String,
-        paymentGatewayIdentifier: String,
-        dialog: Dialog
-    ) {
+    private fun generatingPaymentLinkVoucher(requireActivity: FragmentActivity, currency: String, price: String, quantity: String, moduleIdentifier: String, paymentTypeIdentifier: String, paymentGatewayIdentifier: String, dialog: Dialog) {
         val accessToken = CommonUtils.accessToken
         val deviceIdentifier = App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
 

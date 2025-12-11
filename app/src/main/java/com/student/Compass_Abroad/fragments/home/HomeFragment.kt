@@ -433,9 +433,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         ).observe(viewLifecycleOwner) { response ->
 
             if (response?.success == true) {
-                // SUCCESS
                 val programInfo = response.data?.program
-
                 val bundle = Bundle().apply {
                     putString("ProgramDetailStatus", "1")
                 }
@@ -577,8 +575,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
         getBanner()
         fetchUniversitiesAdapter()
-
-
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
             if (!task.isSuccessful) {
                 Log.w(
@@ -1977,19 +1973,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             response?.let {
                 when (it.statusCode) {
                     201 -> {
-                        //CommonUtils.toast(requireActivity, it.message ?: "Link created successfully")
-                        calltheApiPay(
-                            requireActivity,
-                            it.data!!.feePaymentInfo.identifier,
-                            it.data!!.feePaymentInfo.payment_gateway_info.name
-                        )
-
-
+                        calltheApiPay(requireActivity, it.data!!.feePaymentInfo.identifier, it.data!!.feePaymentInfo.payment_gateway_info.name)
                     }
 
                     409 -> {
                         CommonUtils.toast(requireActivity, it.message ?: "Already exists")
-
                         dialog.dismiss()
                     }
 
@@ -2793,9 +2781,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             response?.let { resp ->
                 if (resp.statusCode == 200) {
                     val records = resp.data?.records?.rows
-
                     if (!records.isNullOrEmpty()) {
-                        // ✅ Show section when data available
                         binding?.relativeLatestUpdates?.visibility = View.VISIBLE
 
                         arrayListInLatestUpdate.clear()
@@ -2832,7 +2818,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     }
                 }
             } ?: run {
-                // ✅ Hide section if response is null
                 binding?.relativeLatestUpdates?.visibility = View.GONE
             }
         }

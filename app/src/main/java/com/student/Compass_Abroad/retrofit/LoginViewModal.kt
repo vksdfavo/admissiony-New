@@ -678,6 +678,7 @@ class LoginViewModal : ViewModel() {
         accessToken: String,
         date: String,
         branch_id: String,
+        user_id: String,
     ): LiveData<GetStaffSlots?> {
         val liveData = MutableLiveData<GetStaffSlots?>()
         if (activity == null) {
@@ -706,7 +707,7 @@ class LoginViewModal : ViewModel() {
 
 
         apiInterface.getStaffSlots( clientNumber, deviceNumber, accessToken,
-             date, branch_id
+             date, branch_id, user_id
         ).enqueue(object : Callback<GetStaffSlots?> {
 
             override fun onResponse(

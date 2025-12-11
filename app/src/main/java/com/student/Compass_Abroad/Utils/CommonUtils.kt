@@ -72,22 +72,34 @@ object CommonUtils {
 
     fun convertDate33(dateStr: String, format: String): String {
         return try {
-            // Parse input date string as UTC
-            val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-            utcFormat.timeZone = TimeZone.getTimeZone("UTC") // Set to UTC
+            val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+            utcFormat.timeZone = TimeZone.getTimeZone("UTC")
 
             val date = utcFormat.parse(dateStr) ?: return "Invalid Date"
 
-            // Convert to local timezone
-            val localFormat = SimpleDateFormat(format, Locale.getDefault())
-            localFormat.timeZone = TimeZone.getDefault() // Convert to local time
+            val localFormat = SimpleDateFormat(format, Locale.US)
+            localFormat.timeZone = TimeZone.getDefault()
 
             localFormat.format(date)
         } catch (e: Exception) {
-            e.printStackTrace()
             "Invalid Date"
         }
     }
+
+    fun convertDateUTC(dateStr: String, format: String): String {
+        return try {
+            val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+            utcFormat.timeZone = TimeZone.getTimeZone("UTC") // Parse as UTC
+            val date = utcFormat.parse(dateStr) ?: return "Invalid Date"
+            val outputFormat = SimpleDateFormat(format, Locale.US)
+            outputFormat.timeZone = TimeZone.getTimeZone("UTC")
+            outputFormat.format(date)
+        } catch (e: Exception) {
+            "Invalid Date"
+        }
+    }
+
+
     fun mediaScanner(
         context: Context?,
         newFilePath: String,

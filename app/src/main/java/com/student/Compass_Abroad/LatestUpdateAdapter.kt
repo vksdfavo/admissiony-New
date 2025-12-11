@@ -35,7 +35,6 @@ class LatestUpdateAdapter(
         holder.binding.tvTitle.text = item.title ?: ""
         holder.binding.date.text = item.created_at?.take(10) ?: ""
 
-        // ---------- IMAGE / VIDEO HANDLING ----------
         when (item.media_type) {
 
             "video" -> {
@@ -82,16 +81,12 @@ class LatestUpdateAdapter(
             }
         }
 
-        // ---------- CLICK ----------
         holder.binding.player.setOnClickListener {
             onItemClick?.invoke(item)
         }
     }
 
     override fun getItemCount(): Int = destinationList.size
-
-
-    // ---------- Helper Functions ----------
 
     private fun extractYouTubeId(url: String): String {
         return when {

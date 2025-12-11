@@ -37,7 +37,6 @@ class CompletedFragment : BaseFragment() {
 
         requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.navigationBarColor)
 
-        // Setup RecyclerView only once
         if (!isRecyclerViewSetup) {
             setApplicationActiveRecyclerview(requireActivity())
             isRecyclerViewSetup = true
@@ -48,7 +47,6 @@ class CompletedFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Fetch data only if list is empty (first load)
         if (applicationList.isEmpty()) {
             fetchDataFromApi()
         }
@@ -138,26 +136,19 @@ class CompletedFragment : BaseFragment() {
     }
 
     private fun refreshData() {
-        // Reset pagination variables
         currentPage = 1
         hasNextPage = true
         isLoading = false
-
-        // Clear existing data
         applicationList.clear()
         adapterScheduledAdapter?.notifyDataSetChanged()
-
-        // Fetch fresh data
         fetchDataFromApi()
     }
 
     override fun onResume() {
         super.onResume()
 
-        // Refresh data when returning from another fragment or when tab is selected
         refreshData()
 
-        // Set navigation bar color
         requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.bottom_gradient_one)
     }
 }

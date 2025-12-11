@@ -36,17 +36,17 @@ class TimeSlotAdapter(
                 binding.textTimeSlot.text = "${item.start_time} - ${item.end_time}"
             }
 
-            if (item.is_booked == 1) {
-                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_red)
+            if (item.user_booked == 1) {
+                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_grey)
                 binding.textTimeSlot.setTextColor(Color.WHITE)
                 binding.cardTimeSlots.setOnClickListener {
-                    Toast.makeText(binding.root.context, "This slot is already booked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(binding.root.context, "This slot is already booked by you", Toast.LENGTH_SHORT).show()
                 }
                 return
             }
 
             if (item.is_available == 0) {
-                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_grey)
+                binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_red)
                 binding.textTimeSlot.setTextColor(Color.DKGRAY)
                 binding.cardTimeSlots.setOnClickListener {
                     Toast.makeText(binding.root.context, "This slot is not available", Toast.LENGTH_SHORT).show()

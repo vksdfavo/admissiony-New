@@ -13,7 +13,6 @@ import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.BuildConfig
@@ -23,13 +22,16 @@ import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.adaptor.counselling.ScheduledAdapter
 import com.student.Compass_Abroad.databinding.FragmentScheduledBinding
-import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.counsellingModal.Record
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
-class ScheduledFragment : BaseFragment() {
-    private lateinit var binding: FragmentScheduledBinding
+class ScheduledFragment : Fragment() {
+
+    private var _binding: FragmentScheduledBinding? = null
+    private val binding get() = _binding!!
+
     private var adapterScheduledAdapter: ScheduledAdapter? = null
     private val applicationList: MutableList<Record> = mutableListOf()
     private val viewModel: ViewModalClass by lazy { ViewModalClass() }
@@ -37,50 +39,38 @@ class ScheduledFragment : BaseFragment() {
     private var perPage = 25
     private var isLoading = false
     private var hasNextPage = true
-    private var isRecyclerViewSetup = false
+    private var hasLoadedData = false
 
     @SuppressLint("UseKtx")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("ScheduledFragment", "📱 onCreateView called")
 
-        binding = FragmentScheduledBinding.inflate(inflater, container, false)
+        _binding = FragmentScheduledBinding.inflate(inflater, container, false)
 
-        // Setup RecyclerView only once
-        if (!isRecyclerViewSetup) {
-            setApplicationActiveRecyclerview(requireActivity())
-            isRecyclerViewSetup = true
+        setupRecyclerView()
+        setupClickListeners()
+        setupWindowInsets()
+
+        // Only fetch if this is the first time loading
+        if (!hasLoadedData) {
+            Log.d("ScheduledFragment", "🆕 First load - fetching data")
+            fetchDataFromApi()
+        } else {
+            Log.d("ScheduledFragment", "♻️ View recreated - showing existing data (${applicationList.size} items)")
+            updateUIVisibility()
         }
-        
-
-        binding.fabFaActive.setOnClickListener {
-
-            binding.root.findNavController().navigate(R.id.bookCounsellingFragment)
-
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, 0)
-            insets
-        }
-
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // Fetch data only if list is empty (first load)
-        if (applicationList.isEmpty()) {
-            fetchDataFromApi()
-        }
-    }
-
-    private fun setApplicationActiveRecyclerview(context: Context) {
-        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+    private fun setupRecyclerView() {
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvFaActive.layoutManager = layoutManager
+
+        // Recreate adapter with existing data
         adapterScheduledAdapter = ScheduledAdapter(requireActivity(), applicationList)
         binding.rvFaActive.adapter = adapterScheduledAdapter
 
@@ -102,15 +92,68 @@ class ScheduledFragment : BaseFragment() {
         })
     }
 
+    private fun setupClickListeners() {
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<Boolean>("shouldRefresh")
+            ?.observe(viewLifecycleOwner) { refresh ->
+                if (refresh == true) {
+                    refreshData()
+                    findNavController().currentBackStackEntry?.savedStateHandle?.set("shouldRefresh", false)
+                }
+            }
+
+        binding.fabFaActive.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.bookCounsellingFragment)
+        }
+    }
+
+    private fun setupWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("ScheduledFragment", "📱 onViewCreated")
+    }
+
+    // ✅ CRITICAL: Detects when fragment becomes visible in ViewPager
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+
+        Log.d("ScheduledFragment", "👁️ Visibility: $isVisibleToUser | hasLoadedData: $hasLoadedData | isResumed: $isResumed")
+
+        // Refresh when becoming visible (after initial load)
+        if (isVisibleToUser && hasLoadedData && isResumed && _binding != null) {
+            Log.d("ScheduledFragment", "🔄 Fragment visible - triggering refresh")
+            refreshData()
+        }
+    }
+
     private fun fetchDataFromApi() {
-        if (!hasNextPage || isLoading) return
+        if (!hasNextPage || isLoading) {
+            Log.d("ScheduledFragment", "⏭️ Skipping fetch: hasNextPage=$hasNextPage, isLoading=$isLoading")
+            return
+        }
+
+        if (_binding == null) {
+            Log.e("ScheduledFragment", "❌ Cannot fetch - binding is null")
+            return
+        }
 
         isLoading = true
+        hasLoadedData = true
+
         if (currentPage == 1) {
             binding.pbFaActive.visibility = View.VISIBLE
         } else {
             binding.pbFaActivePagination.visibility = View.VISIBLE
         }
+
+        Log.d("ScheduledFragment", "📡 Fetching page $currentPage")
 
         viewModel.getCounsellingResponseData(
             requireActivity(),
@@ -122,16 +165,21 @@ class ScheduledFragment : BaseFragment() {
             currentPage,
             perPage,
         ).observe(viewLifecycleOwner) { response ->
+
+            if (_binding == null) {
+                Log.e("ScheduledFragment", "❌ Binding null during API response")
+                isLoading = false
+                return@observe
+            }
+
             response?.let {
                 if (it.statusCode == 200 && it.success) {
                     val programResponse = it.data?.records ?: emptyList()
 
                     if (currentPage == 1) {
-                        // Clear data only when loading the first page
                         applicationList.clear()
                     }
 
-                    // ✅ Avoid adding duplicates by filtering
                     val newItems = programResponse.filterNot { new ->
                         applicationList.any { existing -> existing.id == new.id }
                     }
@@ -144,6 +192,7 @@ class ScheduledFragment : BaseFragment() {
                         currentPage++
                     }
 
+                    Log.d("ScheduledFragment", "✅ Loaded ${newItems.size} new items (Total: ${applicationList.size})")
                     updateUIVisibility()
                 } else {
                     CommonUtils.toast(requireContext(), it.message ?: "Failed")
@@ -156,13 +205,16 @@ class ScheduledFragment : BaseFragment() {
             }
 
             isLoading = false
-            binding.pbFaActive.visibility = View.GONE
-            binding.pbFaActivePagination.visibility = View.GONE
+            if (_binding != null) {
+                binding.pbFaActive.visibility = View.GONE
+                binding.pbFaActivePagination.visibility = View.GONE
+            }
         }
     }
 
-
     private fun updateUIVisibility() {
+        if (_binding == null) return
+
         if (applicationList.isEmpty()) {
             binding.llFaActiveNoApplications.visibility = View.VISIBLE
             binding.rvFaActive.visibility = View.GONE
@@ -172,27 +224,33 @@ class ScheduledFragment : BaseFragment() {
         }
     }
 
-    private fun refreshData() {
-        // Reset pagination variables
+    fun refreshData() {
+        Log.d("ScheduledFragment", "🔄 refreshData() called")
+
+        if (_binding == null) {
+            Log.e("ScheduledFragment", "❌ Cannot refresh - binding is null")
+            return
+        }
+
         currentPage = 1
         hasNextPage = true
         isLoading = false
 
-        // Clear existing data
         applicationList.clear()
         adapterScheduledAdapter?.notifyDataSetChanged()
 
-        // Fetch fresh data
         fetchDataFromApi()
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d("ScheduledFragment", "🟢 onResume")
 
-        // Refresh data when returning from another fragment
-        refreshData()
+        if (_binding == null) {
+            Log.e("ScheduledFragment", "❌ onResume but binding is null")
+            return
+        }
 
-        // Setup status bar and navigation bar colors
         val window = requireActivity().window
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
 
@@ -215,4 +273,5 @@ class ScheduledFragment : BaseFragment() {
             requireActivity().getColor(R.color.navigationBarColor)
         }
     }
+
 }

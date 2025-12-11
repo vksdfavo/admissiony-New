@@ -41,8 +41,10 @@ class TopInDemandIntuitionsAdapter(
             .into(holder.binding.countryLogo)
 
         holder.itemView.setOnClickListener {
+
             val valueList = arrayListOf(item.id.toString())
             val labelList = arrayListOf(item.name)
+
             App.sharedPre!!.clearKey(AppConstants.PGWP_KEY)
             App.sharedPre!!.clearKey(AppConstants.ATTENDANCE_KEY)
             App.sharedPre!!.clearKey(AppConstants.PROGRAM_TYPE_KEY)
@@ -50,10 +52,11 @@ class TopInDemandIntuitionsAdapter(
             App.sharedPre!!.clearKey(AppConstants.MAX_TUTION_KEY)
             App.sharedPre!!.clearKey(AppConstants.MIN_APPLICATION_KEY)
             App.sharedPre!!.clearKey(AppConstants.MAX_APPLICATION_KEY)
+
             clearAllSelectedValues(holder.itemView.context)
             saveSelectedValuesToSharedPreferences(AppConstants.inDemadInstitutions, valueList, labelList, holder.itemView.context)
-
             onItemClick!!.invoke(item)
+
         }
 
     }
@@ -76,7 +79,6 @@ class TopInDemandIntuitionsAdapter(
     }
 
     fun clearSelectedValuesFromSharedPreferences(keyPrefix: String, context: Context) {
-
         val sharedPrefs = SharedPrefs(context)
         sharedPrefs.clearStringList("${keyPrefix}Id")
         sharedPrefs.clearStringList("${keyPrefix}Label")

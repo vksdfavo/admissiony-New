@@ -10,6 +10,7 @@ data class Record(
     val deleted_at: Any,
     val destination_country: String,
     val dynamic_lead: DynamicLead,
+    val counseling_type: String,
     val id: Int,
     val identifier: String,
     val lead_id: Int,

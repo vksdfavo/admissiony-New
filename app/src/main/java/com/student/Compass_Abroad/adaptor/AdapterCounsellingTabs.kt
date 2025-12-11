@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.student.Compass_Abroad.adaptor
 
 import androidx.fragment.app.Fragment
@@ -10,9 +8,10 @@ import com.student.Compass_Abroad.fragments.counselling.ScheduledFragment
 
 class AdapterCounsellingTabs(
     fm: FragmentManager,
-    private val titles: List<String> // Pass titles from outside
+    private val titles: List<String>
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
+    // ✅ Create fragments ONCE and reuse them (prevents black screen)
     private val fragments = listOf(
         ScheduledFragment(),
         CompletedFragment()
@@ -26,5 +25,10 @@ class AdapterCounsellingTabs(
 
     override fun getPageTitle(position: Int): CharSequence {
         return titles[position]
+    }
+
+    // ✅ Method to get fragment instance for manual refresh
+    fun getCachedFragment(position: Int): Fragment? {
+        return fragments.getOrNull(position)
     }
 }

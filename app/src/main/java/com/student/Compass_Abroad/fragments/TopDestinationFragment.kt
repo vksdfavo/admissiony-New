@@ -61,7 +61,6 @@ class TopDestinationFragment : BaseFragment() {
 
     private fun setupRecyclerViewTopDestination() {
 
-        // --- 1. Show shimmer adapter first ---
         val shimmerAdapter = TopDestinationAdapter(emptyList(), isLoading = true)
 
         binding?.rvTopDestination?.apply {
@@ -104,6 +103,4 @@ class TopDestinationFragment : BaseFragment() {
         MainActivity.bottomNav?.visibility=View.GONE
 
     }
-
-
 }

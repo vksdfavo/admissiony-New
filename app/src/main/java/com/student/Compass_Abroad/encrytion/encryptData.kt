@@ -8,9 +8,8 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 fun encryptData(data: String, encryptionKeyHexString: String, ivHexString: String): String? {
-
     try {
-        Log.e("datta","$data");
+        Log.e("datta", "$data");
         val encryptionKeyData = encryptionKeyHexString.hexToByteArray
         val ivData = ivHexString.hexToByteArray
 
@@ -27,10 +26,10 @@ fun encryptData(data: String, encryptionKeyHexString: String, ivHexString: Strin
 
         return null
     }
+}
 
-    }
-    fun String.hexToByteArray(): ByteArray {
+fun String.hexToByteArray(): ByteArray {
 
     return ByteArray(this.length / 2) { this.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
 
-        }
+}

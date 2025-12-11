@@ -1,17 +1,11 @@
 package com.student.Compass_Abroad.fragments
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -102,7 +96,6 @@ class HistoryFragment : BaseFragment() {
     private fun loadHistoryData() {
         isLoading = true
 
-        // Show loader based on first load or pagination
         if (presentPage > 1) {
             binding.pbFaActivePagination.visibility = View.VISIBLE
         } else {
@@ -164,7 +157,7 @@ class HistoryFragment : BaseFragment() {
     }
 
     private fun setupTabsRecyclerView() {
-        val adapter = AdapterVoucherHistoryTabs(arraylistTabs) { selectedTab ->
+        val adapter = AdapterVoucherHistoryTabs(arraylistTabs) { _ ->
             // Handle item click if needed
         }
         binding.rvTabs.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

@@ -70,7 +70,6 @@ object AppConstants {
     const val MIN_APPLICATION_KEY = "minApplicationFee"
     const val MAX_APPLICATION_KEY = "maxApplicationFee"
 
-
     object SocketIO {
 
       val BASE_URL: String get() = App.context.getString(R.string.socket_base_url)

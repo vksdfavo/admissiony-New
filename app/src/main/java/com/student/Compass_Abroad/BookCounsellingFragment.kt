@@ -12,6 +12,8 @@ import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,6 +34,7 @@ import com.student.Compass_Abroad.retrofit.LoginViewModal
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class BookCounsellingFragment : BaseFragment() {
     private  lateinit var binding: FragmentBookCouncellingBinding
@@ -40,10 +43,8 @@ class BookCounsellingFragment : BaseFragment() {
     private lateinit var timeSlotAdapter: TimeSlotAdapter
     var staffId: String? = null
     var branch_id: String? = null
-    private val arrayListStaff: MutableList<com.student.Compass_Abroad.modal.getStaffList.RecordsInfo> =
-        mutableListOf()
-    private val arrayListBranch: MutableList<com.student.Compass_Abroad.modal.getDestinationCountryList.Data> =
-        mutableListOf()
+    private val arrayListStaff: MutableList<com.student.Compass_Abroad.modal.getStaffList.RecordsInfo> = mutableListOf()
+    private val arrayListBranch: MutableList<com.student.Compass_Abroad.modal.getDestinationCountryList.Data> = mutableListOf()
     private val arrayListSlots: MutableList<Slot> = mutableListOf()
 
     override fun onCreateView(
@@ -55,6 +56,12 @@ class BookCounsellingFragment : BaseFragment() {
         setupDates()
         setupRecyclerView()
         setupTimeSlotRecycler()
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            insets
+        }
 
         getBranchListList(requireActivity(), binding.branchTxt)
 
@@ -93,7 +100,10 @@ class BookCounsellingFragment : BaseFragment() {
 
             try {
                 val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                inputFormat.timeZone = TimeZone.getDefault()   // user's local timezone
+
                 val outputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+                outputFormat.timeZone = TimeZone.getTimeZone("UTC")  // convert to UTC
 
                 val start = inputFormat.parse("$selectedDate ${selectedSlot.start_time}")
                 val end = inputFormat.parse("$selectedDate ${selectedSlot.end_time}")
@@ -101,10 +111,7 @@ class BookCounsellingFragment : BaseFragment() {
                 val eventStart = outputFormat.format(start!!)
                 val eventEnd = outputFormat.format(end!!)
 
-                Log.d(
-                    "API_FORMAT",
-                    "event_start_datetime=$eventStart, event_end_datetime=$eventEnd"
-                )
+                Log.d("API_FORMAT", "event_start_datetime=$eventStart, event_end_datetime=$eventEnd")
 
                 LoginViewModal().CreateSlots(
                     activity = requireActivity(),
@@ -119,10 +126,7 @@ class BookCounsellingFragment : BaseFragment() {
                         CommonUtils.toast(requireActivity(), "✅ Slot booked successfully")
                         Log.d("BOOKING_API", "Success: ${response.message}")
                     } else {
-                        CommonUtils.toast(
-                            requireActivity(),
-                            response?.message ?: "Something went wrong"
-                        )
+                        CommonUtils.toast(requireActivity(), response?.message ?: "Something went wrong")
                         Log.e("BOOKING_API", "Error: ${response?.message}")
                     }
                 }
@@ -142,23 +146,37 @@ class BookCounsellingFragment : BaseFragment() {
     private fun setupTimeSlotRecycler() {
         timeSlotAdapter = TimeSlotAdapter(arrayListSlots) { selectedSlot ->
             val selectedDate = dateList.find { it.isSelected }?.apiDate ?: return@TimeSlotAdapter
+
             if (selectedSlot != null) {
-                val postBody = mapOf(
-                    "date" to selectedDate,
-                    "start_time" to selectedSlot.start_time,
-                    "end_time" to selectedSlot.end_time
-                )
-                Log.d("BookCounselling", "POST_BODY: $postBody")
-            } else {
-                Log.d("BookCounselling", "No slot selected")
+
+                // BLOCK PAST TIME LOGIC
+                val calendar = Calendar.getInstance()
+                val todayApi = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+
+                if (selectedDate == todayApi) {
+                    val currentTime = calendar.time
+                    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                    val slotStartTime = sdf.parse("$selectedDate ${selectedSlot.start_time}")
+
+                    if (slotStartTime != null && slotStartTime.before(currentTime)) {
+                        CommonUtils.toast(requireActivity(), "You cannot book a past time slot")
+                        timeSlotAdapter.clearSelection()
+                        timeSlotAdapter.notifyDataSetChanged()
+                        return@TimeSlotAdapter
+                    }
+                }
+
+                Log.d("BookCounselling", "POST_BODY: $selectedSlot")
             }
         }
 
+        // ✅ FIX: ATTACH ADAPTER HERE
         binding.recyclerViewTimeSlots.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = timeSlotAdapter
         }
     }
+
 
     private fun setupRecyclerView() {
         dateAdapter = DateAdapter(dateList) { selectedIndex ->
@@ -209,8 +227,7 @@ class BookCounsellingFragment : BaseFragment() {
             val apiDate = sdfApi.format(calendar.time)
             val isSunday = calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
 
-            dateList.add(
-                DateItem(
+            dateList.add(DateItem(
                     label = label,
                     date = dateLabel,
                     apiDate = apiDate,
@@ -355,6 +372,7 @@ class BookCounsellingFragment : BaseFragment() {
     }
 
     // ---------------------- Get Slots ----------------------
+
     private fun getSlotesData(apiDate: String) {
         arrayListSlots.clear()
         binding.tvStaffDateRequired.visibility = View.VISIBLE
@@ -365,7 +383,7 @@ class BookCounsellingFragment : BaseFragment() {
             App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty(),
             "Bearer ${CommonUtils.accessToken}",
             apiDate,
-            branch_id.toString()
+            branch_id.toString(),"103"
         ).observe(requireActivity()) { response: GetStaffSlots? ->
             response?.let { result ->
                 if (result.statusCode == 200) {

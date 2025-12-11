@@ -1,6 +1,7 @@
 package com.student.Compass_Abroad.fragments
 
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,10 +12,12 @@ import androidx.navigation.Navigation
 import androidx.viewpager.widget.ViewPager
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.adaptor.AdapterCounsellingTabs
-import com.student.Compass_Abroad.adaptor.AdapterShorListedTabs
 import com.student.Compass_Abroad.databinding.FragmentShortListBinding
+import com.student.Compass_Abroad.fragments.counselling.CompletedFragment
+import com.student.Compass_Abroad.fragments.counselling.ScheduledFragment
 import com.student.Compass_Abroad.fragments.home.CompareProgram
 import com.student.Compass_Abroad.modal.AllProgramModel.Record
+import java.util.logging.Handler
 
 
 class ShortListFragment : BaseFragment() {
@@ -47,10 +50,22 @@ class ShortListFragment : BaseFragment() {
     }
 
 
+    private var counsellingAdapter: AdapterCounsellingTabs? = null
+
     private fun setViewPager() {
-        val walletHVAdapter = AdapterShorListedTabs(childFragmentManager)
-        binding.vpFc.adapter = walletHVAdapter
+        // ✅ Create titles list
+        val titles = listOf(
+            getString(R.string.status_scheduled),
+            getString(R.string.status_completed)
+        )
+
+        // ✅ Pass titles to adapter constructor
+        counsellingAdapter = AdapterCounsellingTabs(childFragmentManager, titles)
+        binding.vpFc.adapter = counsellingAdapter
         binding.tlFc.setupWithViewPager(binding.vpFc)
+
+        // ✅ Keep fragments alive to prevent black screen
+        binding.vpFc.offscreenPageLimit = 2
 
         binding.vpFc.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
@@ -67,6 +82,29 @@ class ShortListFragment : BaseFragment() {
             override fun onPageSelected(position: Int) {
                 Log.d("ViewPager", "Page selected: $position")
 
+                // ✅ Refresh fragment when tab is selected
+                android.os.Handler(Looper.getMainLooper()).postDelayed({
+                    try {
+                        val fragment = counsellingAdapter?.getCachedFragment(position)
+
+                        when (fragment) {
+                            is ScheduledFragment -> {
+                                if (fragment.isResumed) {
+                                    Log.d("ViewPager", "✅ Refreshing ScheduledFragment")
+                                    fragment.refreshData()
+                                }
+                            }
+                            is CompletedFragment -> {
+                                if (fragment.isResumed) {
+                                    Log.d("ViewPager", "✅ Refreshing CompletedFragment")
+                                    // fragment.refreshData() // Add if CompletedFragment has this method
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.e("ViewPager", "Error refreshing fragment: ${e.message}", e)
+                    }
+                }, 250)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
