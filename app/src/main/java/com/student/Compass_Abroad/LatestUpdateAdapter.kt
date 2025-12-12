@@ -24,6 +24,7 @@ class LatestUpdateAdapter(
             parent,
             false
         )
+
         return ViewHolder(binding)
     }
 

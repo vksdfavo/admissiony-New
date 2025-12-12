@@ -129,6 +129,7 @@ class  CreateApplicationFragment : BaseFragment() {
                 }
 
                 intake_id.isNullOrEmpty() -> {
+
                     CommonUtils.toast(requireActivity(), "Please select an intake")
                 }
                 else -> {
@@ -144,21 +145,25 @@ class  CreateApplicationFragment : BaseFragment() {
         }
 
         binding.destinationCountry.setOnClickListener {
+
             getDestinationCountryList(requireActivity(), binding.destinationCountry)
 
         }
 
 
         binding.preferCollage.setOnClickListener {
+
             getPreferCollage(requireActivity(), binding.preferCollage)
 
         }
 
         binding.selectCampus.setOnClickListener {
+
             getCampusList(requireActivity(), binding.selectCampus)
 
         }
         binding.preferCourse.setOnClickListener {
+
             getPreferCourseList(requireActivity(), binding.preferCourse)
 
         }

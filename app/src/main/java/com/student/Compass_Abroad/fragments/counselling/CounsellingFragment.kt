@@ -136,8 +136,6 @@ class CounsellingFragment : Fragment() {
 
         MainActivity.bottomNav!!.visibility = View.VISIBLE
 
-        val imageUrl = App.sharedPre!!.getString(AppConstants.USER_IMAGE, "")!!.trim('"')
-
         val currentFlavor = BuildConfig.FLAVOR.lowercase()
 
         if (currentFlavor == "admisiony") {

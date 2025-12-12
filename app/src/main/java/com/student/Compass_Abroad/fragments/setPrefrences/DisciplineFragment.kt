@@ -67,6 +67,7 @@ class DisciplineFragment : Fragment() {
         }
 
         binding.tvNext2.setOnClickListener {
+
             val selectedDisciplines = viewModel.selectedDisciplines
 
             if (selectedDisciplines.isNotEmpty()) {

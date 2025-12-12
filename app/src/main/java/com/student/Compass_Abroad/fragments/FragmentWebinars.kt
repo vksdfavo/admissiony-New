@@ -65,16 +65,11 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
             window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        //setupTabLayout()
         setupClickListeners()
         setupRecyclerView1()
 
-        //fetchWebinars()
         return binding!!.root
     }
-
-
-
     private fun setupRecyclerView1() {
         binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext())
         adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
@@ -142,18 +137,14 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
         isLoading = true
 
         if(presentPage == 1){
-            // Show progress indicator when fetching data
             binding?.pbPagination?.visibility = View.GONE
             binding?.pb?.visibility = View.VISIBLE
         }else{
             binding?.pbPagination?.visibility = View.VISIBLE
             binding?.pb?.visibility = View.GONE
         }
-
-        // Log the parameters for debugging purposes
         Log.d("Webinars", "Fetching data for page: $presentPage, Tab: $selectedTab")
 
-        // Make the API call to fetch webinars
         ViewModalClass().getWebinarsModalLiveData(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -211,12 +202,12 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
     }
 
     private fun postAttendee(currentItem: com.student.Compass_Abroad.modal.getWebinars.Record) {
-        val deviceIdentifier = App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
+        val deviceIdentifier = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
         val token = "Bearer ${CommonUtils.accessToken}"
-        val firstName = App.sharedPre?.getString(AppConstants.FIRST_NAME, "")?.takeIf { it.isNotBlank() }
-        val lastName = App.sharedPre?.getString(AppConstants.LAST_NAME, "")?.takeIf { it.isNotBlank() }
-        val email = App.sharedPre?.getString(AppConstants.USER_EMAIL, "")?.takeIf { it.isNotBlank() }
-        val phone = App.sharedPre?.getString(AppConstants.PHONE, "")?.takeIf { it.isNotBlank() }
+        val firstName = sharedPre?.getString(AppConstants.FIRST_NAME, "")?.takeIf { it.isNotBlank() }
+        val lastName = sharedPre?.getString(AppConstants.LAST_NAME, "")?.takeIf { it.isNotBlank() }
+        val email = sharedPre?.getString(AppConstants.USER_EMAIL, "")?.takeIf { it.isNotBlank() }
+        val phone = sharedPre?.getString(AppConstants.PHONE, "")?.takeIf { it.isNotBlank() }
 
 
         ViewModalClass().postAttendeLiveData(

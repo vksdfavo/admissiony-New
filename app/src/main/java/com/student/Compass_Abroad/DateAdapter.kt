@@ -14,7 +14,6 @@ class DateAdapter( private val dates: List<DateItem>, private val onDateClick: (
             binding.dateText.text = item.date
             binding.cardViews.isSelected = item.isSelected
 
-
             when {
                 item.isSelected -> binding.cardViews.setBackgroundResource(R.drawable.bg_date_selected)
 

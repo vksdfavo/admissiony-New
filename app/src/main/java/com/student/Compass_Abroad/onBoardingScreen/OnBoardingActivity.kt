@@ -73,13 +73,17 @@ class OnBoardingActivity : AppCompatActivity() {
                         if ( binding.viewPager2.currentItem == 2) {
 
                             binding.fabSkip.hide()
+
                             binding.progressBar.visibility = View.GONE
+
                             binding.tvGetStarted.visibility = View.VISIBLE
 
                         } else {
 
                             binding.tvGetStarted.visibility = View.INVISIBLE
+
                             binding.progressBar.visibility = View.VISIBLE
+
                             binding.fabSkip.show()
 
                         }

@@ -20,11 +20,8 @@ import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
@@ -62,10 +59,7 @@ class SignInEmailFragment : Fragment() {
     var token=""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSignInEmailBinding.inflate(inflater, container, false)
-
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE //
-
-
 
         setText()
         onClick()
@@ -150,6 +144,7 @@ class SignInEmailFragment : Fragment() {
     }
 
     private fun setText() {
+
         val spannableText = SpannableStringBuilder("Don't have an account? Sign Up")
         val yellowColor = ContextCompat.getColor(requireActivity(), R.color.secondary_color)
         val yellowColorSpan = ForegroundColorSpan(yellowColor)
@@ -159,7 +154,6 @@ class SignInEmailFragment : Fragment() {
         binding!!.tvDontHaveAccount.text = spannableText
 
     }
-
 
     @SuppressLint("UseKtx")
     private fun checkUserApi() {
@@ -752,7 +746,7 @@ private fun sendFcmToken(s: String?, activity: FragmentActivity?) {
         "Bearer " + CommonUtils.accessToken,
         s.toString()
     ).observe(activity!!) { createCounsellingModel: TokenFcmData? ->
-        createCounsellingModel?.let { nonNullEditPostModal ->
+        createCounsellingModel?.let { _ ->
 
         }
     }

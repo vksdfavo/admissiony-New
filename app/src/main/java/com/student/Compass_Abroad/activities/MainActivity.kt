@@ -629,6 +629,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
                 .load(profilePictureUrl)
                 .into(binding!!.civProfileImageFd2)
         } else {
+
             binding?.civProfileImageFd2?.setImageResource(R.drawable.test_image)
         }
 
@@ -642,8 +643,9 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
     }
 
     override fun onPaymentSuccess(p0: String?) {
-        Toast.makeText(this, "Payment Success! Payment ID: ${p0.orEmpty()}", Toast.LENGTH_SHORT)
-            .show()
+
+        Toast.makeText(this, "Payment Success! Payment ID: ${p0.orEmpty()}", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {

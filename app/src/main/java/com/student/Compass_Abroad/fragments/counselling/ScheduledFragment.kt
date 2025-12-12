@@ -31,7 +31,6 @@ class ScheduledFragment : Fragment() {
 
     private var _binding: FragmentScheduledBinding? = null
     private val binding get() = _binding!!
-
     private var adapterScheduledAdapter: ScheduledAdapter? = null
     private val applicationList: MutableList<Record> = mutableListOf()
     private val viewModel: ViewModalClass by lazy { ViewModalClass() }
@@ -59,7 +58,10 @@ class ScheduledFragment : Fragment() {
             Log.d("ScheduledFragment", "🆕 First load - fetching data")
             fetchDataFromApi()
         } else {
-            Log.d("ScheduledFragment", "♻️ View recreated - showing existing data (${applicationList.size} items)")
+            Log.d(
+                "ScheduledFragment",
+                "♻️ View recreated - showing existing data (${applicationList.size} items)"
+            )
             updateUIVisibility()
         }
 
@@ -67,7 +69,8 @@ class ScheduledFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvFaActive.layoutManager = layoutManager
 
         // Recreate adapter with existing data
@@ -98,7 +101,10 @@ class ScheduledFragment : Fragment() {
             ?.observe(viewLifecycleOwner) { refresh ->
                 if (refresh == true) {
                     refreshData()
-                    findNavController().currentBackStackEntry?.savedStateHandle?.set("shouldRefresh", false)
+                    findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                        "shouldRefresh",
+                        false
+                    )
                 }
             }
 
@@ -124,7 +130,10 @@ class ScheduledFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
 
-        Log.d("ScheduledFragment", "👁️ Visibility: $isVisibleToUser | hasLoadedData: $hasLoadedData | isResumed: $isResumed")
+        Log.d(
+            "ScheduledFragment",
+            "👁️ Visibility: $isVisibleToUser | hasLoadedData: $hasLoadedData | isResumed: $isResumed"
+        )
 
         // Refresh when becoming visible (after initial load)
         if (isVisibleToUser && hasLoadedData && isResumed && _binding != null) {
@@ -135,7 +144,10 @@ class ScheduledFragment : Fragment() {
 
     private fun fetchDataFromApi() {
         if (!hasNextPage || isLoading) {
-            Log.d("ScheduledFragment", "⏭️ Skipping fetch: hasNextPage=$hasNextPage, isLoading=$isLoading")
+            Log.d(
+                "ScheduledFragment",
+                "⏭️ Skipping fetch: hasNextPage=$hasNextPage, isLoading=$isLoading"
+            )
             return
         }
 
@@ -192,7 +204,10 @@ class ScheduledFragment : Fragment() {
                         currentPage++
                     }
 
-                    Log.d("ScheduledFragment", "✅ Loaded ${newItems.size} new items (Total: ${applicationList.size})")
+                    Log.d(
+                        "ScheduledFragment",
+                        "✅ Loaded ${newItems.size} new items (Total: ${applicationList.size})"
+                    )
                     updateUIVisibility()
                 } else {
                     CommonUtils.toast(requireContext(), it.message ?: "Failed")

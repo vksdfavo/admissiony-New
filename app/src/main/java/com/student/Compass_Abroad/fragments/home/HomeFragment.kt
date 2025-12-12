@@ -111,7 +111,6 @@ import com.student.Compass_Abroad.TopInDemandIntuitionsAdapter
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.activities.MainActivity
-
 import com.student.Compass_Abroad.adaptor.AdapterProgramsAllProg
 import com.student.Compass_Abroad.adaptor.AdaptorWebinarRecyclerview
 import com.student.Compass_Abroad.adaptor.bannerSlider.SliderAdapter
@@ -228,8 +227,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             insets
         }
 
-        binding?.rvWebinars?.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
         binding?.rvWebinars?.adapter = adapter
 
@@ -252,7 +250,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             if (percentage >= 0.9f) {
                 activity?.window?.statusBarColor =
                     ContextCompat.getColor(requireContext(), R.color.secondary_color)
-                // Also change status bar icons to dark (for light background)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     activity?.window?.decorView?.systemUiVisibility =
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -269,19 +266,20 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         return binding!!.root
     }
 
-
-    private fun setQuickActionsAdapter() {
+    private fun setQuickActionsAdapter()
+    {
         val actions = listOf(
+
             TopDestinationModel("Education Loan", R.drawable.loan),
             TopDestinationModel("Visa Application", R.drawable.visa),
             TopDestinationModel("Find Accommodation", R.drawable.accommodation),
             TopDestinationModel("IELTS Booking", R.drawable.ielts),
             TopDestinationModel("SOP Guidance", R.drawable.soap),
             TopDestinationModel("My Applications", R.drawable.applica)
+
         )
 
-        val adapter =
-            QuickActionsAdapter(actions, object : QuickActionsAdapter.QuickActionClickListener {
+        val adapter = QuickActionsAdapter(actions, object : QuickActionsAdapter.QuickActionClickListener {
                 override fun onQuickActionClick(item: TopDestinationModel) {
                     when (item.name) {
                         "Education Loan" -> findNavController().navigate(R.id.educationLoanFragment)
@@ -294,8 +292,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 }
             })
 
-        binding!!.rvQuciAction.layoutManager =
-            GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
+        binding!!.rvQuciAction.layoutManager = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
         binding!!.rvQuciAction.adapter = adapter
     }
 
@@ -446,7 +443,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
 
             } else {
+
                 CommonUtils.toast(requireContext(), response?.message ?: "Something went wrong")
+
             }
         }
 
@@ -469,7 +468,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             forceRefresh = false
         ).observe(viewLifecycleOwner) { response ->
             response?.let { topDestinations ->
-
                 if (topDestinations.statusCode == 200) {
 
                     val destinations = topDestinations.data ?: emptyList()

@@ -16,19 +16,15 @@ import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.databinding.FragmentTopDestinationBinding
 import com.student.Compass_Abroad.retrofit.HomeViewModal
-import com.student.Compass_Abroad.retrofit.LoginViewModal
 
 
 class TopDestinationFragment : BaseFragment() {
     var binding: FragmentTopDestinationBinding? = null
-    private var topDestinationAdapter: TopDestinationAdapter? = null
-    var arrayListTopDestinations =
-        ArrayList<com.student.Compass_Abroad.modal.top_destinations.Data>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
 
         binding = FragmentTopDestinationBinding.inflate(inflater, container, false)
         val window = requireActivity().window
@@ -42,7 +38,6 @@ class TopDestinationFragment : BaseFragment() {
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
             )
         } else {
-            // Below Android 11
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -60,19 +55,14 @@ class TopDestinationFragment : BaseFragment() {
     }
 
     private fun setupRecyclerViewTopDestination() {
-
         val shimmerAdapter = TopDestinationAdapter(emptyList(), isLoading = true)
-
         binding?.rvTopDestination?.apply {
             layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
             adapter = shimmerAdapter
         }
-
-        // --- 2. Prepare request ---
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
 
-        // --- 3. API Call ---
         HomeViewModal().get_topdestination(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -86,7 +76,6 @@ class TopDestinationFragment : BaseFragment() {
 
                 val destinations = response.data ?: emptyList()
 
-                // --- 4. Update shimmer → real data ---
                 shimmerAdapter.updateList(destinations)
 
             } else {

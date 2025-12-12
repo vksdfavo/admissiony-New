@@ -70,7 +70,6 @@ class OnBoardingNewActivity : AppCompatActivity() {
                 page.alpha = 0.5f + r * 0.5f
             }
 
-            // Handle page changes
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -109,8 +108,8 @@ class OnBoardingNewActivity : AppCompatActivity() {
             })
         }
 
-        // Connect circle indicator
         binding.indicatorOb.setViewPager(binding.viewPagerBanners)
+
     }
 
     private fun setupButtonActions() {

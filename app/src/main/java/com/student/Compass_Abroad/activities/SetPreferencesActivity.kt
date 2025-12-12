@@ -32,12 +32,14 @@ class SetPreferencesActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
             view.setPadding(
                 systemBars.left,
                 systemBars.top,
                 systemBars.right,
                 systemBars.bottom
             )
+
             insets
         }
 

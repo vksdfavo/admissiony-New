@@ -28,7 +28,7 @@ import java.util.TimeZone
 
 class AdaptorWebinarRecyclerview(
     var requireActivity: FragmentActivity?,
-    var arrayList1: ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>,
+    var arrayList1: ArrayList<Record>,
     var selector: select
 ) : RecyclerView.Adapter<AdaptorWebinarRecyclerview.ViewHolder>() {
 

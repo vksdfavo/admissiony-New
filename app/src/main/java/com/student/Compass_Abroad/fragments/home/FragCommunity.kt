@@ -18,11 +18,11 @@ import com.student.Compass_Abroad.adaptor.AdapterCommunityAds
 import com.student.Compass_Abroad.adaptor.AdapterCommunityTabs
 import com.student.Compass_Abroad.databinding.FragmentFragCommunityBinding
 import com.student.Compass_Abroad.fragments.BaseFragment
+import androidx.navigation.findNavController
 
 class FragCommunity : BaseFragment() {
     private var binding: FragmentFragCommunityBinding? = null
     private lateinit var adapterCommunityAds: AdapterCommunityAds
-    private lateinit var adapterCommunityTabs: AdapterCommunityTabs
     private lateinit var handlerAdds: Handler
     private lateinit var runnableAdds: Runnable
 
@@ -47,14 +47,13 @@ class FragCommunity : BaseFragment() {
 
         binding?.apply {
             setupAdsViewPager()
-           // setupTabs()
             setViewPager()
             setupAutoScrollAds()
         }
 
         binding!!.fabFcNotification.setOnClickListener { v:View->
 
-            Navigation.findNavController(v).navigate(R.id.studentInfoFragment)
+            v.findNavController().navigate(R.id.studentInfoFragment)
         }
 
     }
@@ -90,7 +89,6 @@ class FragCommunity : BaseFragment() {
         })
     }
 
-
     private fun FragmentFragCommunityBinding.setupAutoScrollAds() {
         handlerAdds = Handler()
         runnableAdds = object : Runnable {
@@ -99,7 +97,7 @@ class FragCommunity : BaseFragment() {
                     val currentItem = it.currentItem
                     it.setCurrentItem((currentItem + 1) % addsImages.size, true)
                 }
-                handlerAdds.postDelayed(this, 3000) // Change delay as needed
+                handlerAdds.postDelayed(this, 3000)
             }
         }
         handlerAdds.post(runnableAdds)

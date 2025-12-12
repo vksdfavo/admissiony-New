@@ -1,6 +1,5 @@
 package com.student.Compass_Abroad.fragments
 
-import android.R.attr.onClick
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -52,9 +51,13 @@ class LatestUpdateFragment : BaseFragment() {
     }
 
     private fun onClick() {
+
         binding.fabAcBack.setOnClickListener {
+
             requireActivity().onBackPressedDispatcher.onBackPressed()
+
         }
+
     }
 
     private fun setupRecyclerLatestUpdates() {

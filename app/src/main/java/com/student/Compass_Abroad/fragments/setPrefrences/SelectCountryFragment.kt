@@ -97,15 +97,11 @@ class SelectCountryFragment : Fragment() {
         }
     }
 
-
-
-
-
     private fun setPreferredCountriesAdapter() {
         ViewModalClass().getCountryListProgramList(
             requireActivity(),
             AppConstants.fiClientNumber,
-            App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
+            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
             "Bearer ${CommonUtils.accessToken}"
         ).observe(viewLifecycleOwner) { response ->
             if (response != null && response.success) {

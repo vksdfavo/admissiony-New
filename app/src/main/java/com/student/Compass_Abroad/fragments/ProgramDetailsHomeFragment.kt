@@ -310,9 +310,8 @@ class ProgramDetailsHomeFragment : BaseFragment() {
 
     private fun addToShortlist(
         requireActivity: FragmentActivity,
-        content: String,
-
-        ) {
+        content: String, )
+    {
 
         ViewModalClass().getshorListModalLiveData(
             requireActivity,

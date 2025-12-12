@@ -14,15 +14,11 @@ import android.util.Log
 import okhttp3.Interceptor
 
 object RetrofitClient {
-
-    private val BASE_URL: String
-        get() = App.context.getString(R.string.base_url)
-
+    private val BASE_URL: String get() = App.context.getString(R.string.base_url)
     private var retrofit: Retrofit? = null
 
     @JvmStatic
-    val retrofitCallerObject: Retrofit?
-        get() {
+    val retrofitCallerObject: Retrofit? get() {
             if (retrofit == null) {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

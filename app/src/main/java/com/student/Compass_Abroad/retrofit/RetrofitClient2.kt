@@ -10,10 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient2 {
-
     private var retrofit: Retrofit? = null
     private const val BASE_URL = "https://inventory-api.firmli.com/v1/"
-
     @JvmStatic
     val retrofitCallerObject2: Retrofit?
         get() {

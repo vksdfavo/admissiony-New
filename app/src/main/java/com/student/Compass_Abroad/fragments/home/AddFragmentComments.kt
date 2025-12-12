@@ -18,12 +18,12 @@ import kotlin.random.Random
 
 class AddFragmentComments : BaseFragment() {
 
-private lateinit var  binding:FragmentAddBinding
-    var comment=""
-    var contentKey=""
+    private lateinit var binding: FragmentAddBinding
+    var comment = ""
+    var contentKey = ""
 
-    companion object{
-        var data:com.student.Compass_Abroad.modal.getAllPosts.Record? = null
+    companion object {
+        var data: com.student.Compass_Abroad.modal.getAllPosts.Record? = null
     }
 
 
@@ -31,29 +31,29 @@ private lateinit var  binding:FragmentAddBinding
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding=FragmentAddBinding.inflate(inflater,container,false)
+        binding = FragmentAddBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
 
 
         clickListener()
         return binding.root
     }
+
     private fun clickListener() {
-        binding.fabFpBack.setOnClickListener { v:View->
+        binding.fabFpBack.setOnClickListener { v: View ->
             requireActivity()!!.onBackPressed()
         }
 
         binding.sendButton.setOnClickListener {
-             comment = binding.etFwmMessage.text.toString()
+            comment = binding.etFwmMessage.text.toString()
             PostsComment(comment)
         }
     }
 
     private fun PostsComment(message: String) {
-         if(comment.isEmpty()){
-            CommonUtils.toast(requireActivity(),"Please type a Comment")
-        }
-        else {
+        if (comment.isEmpty()) {
+            CommonUtils.toast(requireActivity(), "Please type a Comment")
+        } else {
             val hexString = generateRandomHexString(16)
             var publicKey = hexString
             var privateKey = AppConstants.privateKey
@@ -65,7 +65,7 @@ private lateinit var  binding:FragmentAddBinding
             val formData = JSONObject();
 
             //fix form fields
-           //email or phone
+            //email or phone
             formData.put("content", message) //get from login screen
 
 
@@ -83,17 +83,20 @@ private lateinit var  binding:FragmentAddBinding
                     requireActivity(),
                     AppConstants.fiClientNumber,
                     App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
-                    "Bearer "+it,
+                    "Bearer " + it,
                     data!!.identifier,
                     contentKey
                 ).observe(requireActivity()) { PostComment ->
                     PostComment?.let { response ->
                         if (response.statusCode == 201) {
-                           if(isAdded){
-                               CommonUtils.toast(requireActivity(), response.message ?: "Comment Created Successfully")
-                               comment=""
-                               requireActivity().onBackPressedDispatcher.onBackPressed()
-                           }
+                            if (isAdded) {
+                                CommonUtils.toast(
+                                    requireActivity(),
+                                    response.message ?: "Comment Created Successfully"
+                                )
+                                comment = ""
+                                requireActivity().onBackPressedDispatcher.onBackPressed()
+                            }
 
                         } else {
                             CommonUtils.toast(requireActivity(), response.message ?: "Post Failed")
@@ -104,6 +107,7 @@ private lateinit var  binding:FragmentAddBinding
 
         }
     }
+
     fun generateRandomHexString(length: Int): String {
         val hexChars = "0123456789abcdef"
         return (1..length)
@@ -111,8 +115,6 @@ private lateinit var  binding:FragmentAddBinding
 
             .joinToString("")
     }
-
-
 
 
 }

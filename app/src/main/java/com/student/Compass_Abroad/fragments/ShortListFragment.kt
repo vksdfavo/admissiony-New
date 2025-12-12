@@ -3,12 +3,10 @@ package com.student.Compass_Abroad.fragments
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
 import androidx.viewpager.widget.ViewPager
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.adaptor.AdapterCounsellingTabs
@@ -17,7 +15,6 @@ import com.student.Compass_Abroad.fragments.counselling.CompletedFragment
 import com.student.Compass_Abroad.fragments.counselling.ScheduledFragment
 import com.student.Compass_Abroad.fragments.home.CompareProgram
 import com.student.Compass_Abroad.modal.AllProgramModel.Record
-import java.util.logging.Handler
 
 
 class ShortListFragment : BaseFragment() {
@@ -53,20 +50,14 @@ class ShortListFragment : BaseFragment() {
     private var counsellingAdapter: AdapterCounsellingTabs? = null
 
     private fun setViewPager() {
-        // ✅ Create titles list
         val titles = listOf(
             getString(R.string.status_scheduled),
             getString(R.string.status_completed)
         )
-
-        // ✅ Pass titles to adapter constructor
         counsellingAdapter = AdapterCounsellingTabs(childFragmentManager, titles)
         binding.vpFc.adapter = counsellingAdapter
         binding.tlFc.setupWithViewPager(binding.vpFc)
-
-        // ✅ Keep fragments alive to prevent black screen
         binding.vpFc.offscreenPageLimit = 2
-
         binding.vpFc.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
@@ -94,6 +85,7 @@ class ShortListFragment : BaseFragment() {
                                     fragment.refreshData()
                                 }
                             }
+
                             is CompletedFragment -> {
                                 if (fragment.isResumed) {
                                     Log.d("ViewPager", "✅ Refreshing CompletedFragment")

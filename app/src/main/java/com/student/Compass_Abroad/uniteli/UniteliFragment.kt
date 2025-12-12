@@ -51,7 +51,9 @@ class UniteliFragment : Fragment() {
     }
     private fun onClicks() {
         binding.civFc.setOnClickListener {
+
             MainActivity.drawer?.open()
+
         }
 
         binding.fabFpNotificationStu.setOnClickListener {
@@ -97,7 +99,6 @@ class UniteliFragment : Fragment() {
                     // Then force refresh data
                     fragment.forceApiRefresh()
                 } else {
-                    // If fragment view isn't ready yet, try again after a delay
                     Log.d(TAG, "Fragment view not ready, scheduling refresh later")
                     Handler(Looper.getMainLooper()).postDelayed({
                         if (fragment.isAdded && fragment.view != null) {

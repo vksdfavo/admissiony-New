@@ -34,6 +34,7 @@ class ContactUsActivity : AppCompatActivity() {
         window.statusBarColor = getColor(android.R.color.white)
         window.navigationBarColor = getColor(android.R.color.white)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(
@@ -44,6 +45,7 @@ class ContactUsActivity : AppCompatActivity() {
             )
             insets
         }
+
         val url = getString(R.string.contact_us_url)
 
         if (url.isNotEmpty()) {

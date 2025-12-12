@@ -41,8 +41,6 @@ private lateinit var binding: FragmentStudentTestimonialsBinding
             )
         } else {
 
-            // Below Android 11
-
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR

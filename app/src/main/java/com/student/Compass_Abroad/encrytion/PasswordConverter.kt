@@ -4,7 +4,6 @@ import java.math.BigInteger
 import java.security.MessageDigest
 
 class PasswordConverter {
-
     private fun sha1(input: String): String {
 
         val digest = MessageDigest.getInstance("SHA-1")

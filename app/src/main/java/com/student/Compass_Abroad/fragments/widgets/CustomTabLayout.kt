@@ -21,7 +21,6 @@ class CustomTabLayout : TabLayout {
             if (tabCount == 0) {
                 return
             }
-
             val name = "mTabMinWidth"
             val field = TabLayout::class.java.getDeclaredField(name)
             field.isAccessible = true

@@ -7,8 +7,11 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-fun decryptData(encryptedData: String, encryptionKeyHexString: String, ivHexString: String): String? {
-
+fun decryptData(
+    encryptedData: String,
+    encryptionKeyHexString: String,
+    ivHexString: String
+): String? {
     try {
         val encryptedDataBytes = Base64.getDecoder().decode(encryptedData)
         val encryptionKeyData = encryptionKeyHexString.hexToByteArray
@@ -25,9 +28,9 @@ fun decryptData(encryptedData: String, encryptionKeyHexString: String, ivHexStri
     }
 
 }
-    val String.hexToByteArray: ByteArray
 
-        get() {
+val String.hexToByteArray: ByteArray
+    get() {
 
-            return ByteArray(this.length / 2) { this.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
-        }
+        return ByteArray(this.length / 2) { this.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
+    }

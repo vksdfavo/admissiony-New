@@ -92,7 +92,6 @@ class AreaOfInterestFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         MainActivity.bottomNav!!.isVisible = false
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = requireActivity().window.insetsController
             controller?.setSystemBarsAppearance(

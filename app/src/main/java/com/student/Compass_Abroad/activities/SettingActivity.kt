@@ -29,6 +29,7 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding!!.getRoot())
+
         window.statusBarColor = getColor(android.R.color.white)
         window.navigationBarColor = getColor(android.R.color.white)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
@@ -77,21 +78,25 @@ class SettingActivity : AppCompatActivity() {
         super.attachBaseContext(context)
     }
     fun showDeativateDialog() {
-        val builder = AlertDialog.Builder(this)
 
+        val builder = AlertDialog.Builder(this)
         builder.setTitle("Delete Account")
         builder.setMessage("Are you sure you want to delete your account?")
-        builder.setPositiveButton("Yes") { _, _ ->
-            deleteAccount(this)
+        builder.setPositiveButton("Yes") { _, _ -> deleteAccount(this)
+
             App.sharedPre?.clearPreferences()
+
         }
 
         builder.setNegativeButton("No") { dialog, _ ->
+
             dialog.dismiss()
+
         }
 
         val dialog = builder.create()
         dialog.show()
+
     }
 
     private fun deleteAccount(

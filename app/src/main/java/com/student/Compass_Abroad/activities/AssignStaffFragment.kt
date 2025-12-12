@@ -20,7 +20,7 @@ class AssignStaffFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = ActivityAssignStaffBinding.inflate(inflater, container, false)
 
         requireActivity().window.statusBarColor = requireActivity().getColor(android.R.color.white)
