@@ -130,15 +130,11 @@ class DisciplineFragment : Fragment() {
                 response.data?.let {
                     allDisciplineList.clear()
                     allDisciplineList.addAll(it)
-
-                    // Pre-select items that match saved labels
                     val previouslySelected = allDisciplineList.filter { dataItem ->
                         selectedLabels.contains(dataItem.label)
                     }
-
                     viewModel.selectedDisciplines.clear()
                     viewModel.selectedDisciplines.addAll(previouslySelected)
-
                     disciplineAdapter = DisciplineAdaptor(
                         requireContext(),
                         allDisciplineList,

@@ -43,10 +43,8 @@ class BookCounsellingFragment : BaseFragment() {
     private lateinit var timeSlotAdapter: TimeSlotAdapter
     var staffId: String? = null
     var branch_id: String? = null
-    private val arrayListStaff: MutableList<com.student.Compass_Abroad.modal.getStaffList.RecordsInfo> =
-        mutableListOf()
-    private val arrayListBranch: MutableList<com.student.Compass_Abroad.modal.getDestinationCountryList.Data> =
-        mutableListOf()
+    private val arrayListStaff: MutableList<com.student.Compass_Abroad.modal.getStaffList.RecordsInfo> = mutableListOf()
+    private val arrayListBranch: MutableList<com.student.Compass_Abroad.modal.getDestinationCountryList.Data> = mutableListOf()
     private val arrayListSlots: MutableList<Slot> = mutableListOf()
 
     override fun onCreateView(
@@ -78,6 +76,7 @@ class BookCounsellingFragment : BaseFragment() {
             } else if (arrayListStaff.isEmpty()) {
                 CommonUtils.toast(requireActivity(), "No staff available for this branch")
             } else {
+
                 setDropDownPreferStaffList(binding.staffTxt)
             }
         }
@@ -161,16 +160,19 @@ class BookCounsellingFragment : BaseFragment() {
 
                 if (selectedDate == todayApi) {
                     val currentTime = calendar.time
+
                     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                     val slotStartTime = sdf.parse("$selectedDate ${selectedSlot.start_time}")
 
                     if (slotStartTime != null && slotStartTime.before(currentTime)) {
                         CommonUtils.toast(requireActivity(), "You cannot book a past time slot")
                         timeSlotAdapter.clearSelection()
+
                         timeSlotAdapter.notifyDataSetChanged()
                         return@TimeSlotAdapter
                     }
                 }
+
                 Log.d("BookCounselling", "POST_BODY: $selectedSlot")
             }
         }
@@ -269,8 +271,7 @@ class BookCounsellingFragment : BaseFragment() {
     private fun setDropDownBranchListList(etBranch: TextView) {
         etBranch.setOnClickListener {
             val popupWindow = PopupWindow(requireActivity())
-            val layout: View =
-                LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
+            val layout: View = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             popupWindow.contentView = layout
             layout.findViewById<TextView>(R.id.etSelect).setHint("Search nearest branch")
             popupWindow.setBackgroundDrawable(Color.WHITE.toDrawable())
@@ -332,8 +333,7 @@ class BookCounsellingFragment : BaseFragment() {
 
     private fun setDropDownPreferStaffList(preferCollage: TextView) {
         val popupWindow = PopupWindow(requireActivity())
-        val layout: View =
-            LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
+        val layout: View = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
         popupWindow.contentView = layout
         layout.findViewById<TextView>(R.id.etSelect).setHint("Search staff")
         popupWindow.setBackgroundDrawable(Color.WHITE.toDrawable())
