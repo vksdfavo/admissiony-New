@@ -48,6 +48,7 @@ class AreaOfInterestAdaptor(
 
         holder.itemView.setOnClickListener {
 
+/*
 
             val valueList = arrayListOf(currentItem.value)
             val labelList = arrayListOf(currentItem.label)
@@ -62,6 +63,7 @@ class AreaOfInterestAdaptor(
             App.sharedPre!!.clearKey(AppConstants.MAX_APPLICATION_KEY)
             clearAllSelectedValues()
             saveSelectedValuesToSharedPreferences(AppConstants.inDemadInstitutions, valueList, labelList)
+*/
 
             callback.selectItemFilter(currentItem)
         }

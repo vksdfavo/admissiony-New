@@ -452,7 +452,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun setupRecyclerViewTopDestination() {
-        val shimmerAdapter = TopDestinationAdapter(emptyList(), isLoading = true)
+        val shimmerAdapter = TopDestinationAdapter( requireActivity(),emptyList(),onItemClick = { selectedItem ->
+            AppConstants.PROGRAM_STATUS = "1"
+            FragProgramAllProg.selectedTab = "all"
+            binding!!.root.findNavController().navigate(R.id.fragProgramAllProg)
+        }, isLoading = true)
         binding?.rvTopDestination?.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding?.rvTopDestination?.adapter = shimmerAdapter

@@ -55,7 +55,7 @@ class TopDestinationFragment : BaseFragment() {
     }
 
     private fun setupRecyclerViewTopDestination() {
-        val shimmerAdapter = TopDestinationAdapter(emptyList(), isLoading = true)
+        val shimmerAdapter = TopDestinationAdapter(requireActivity(),emptyList(), isLoading = true)
         binding?.rvTopDestination?.apply {
             layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
             adapter = shimmerAdapter

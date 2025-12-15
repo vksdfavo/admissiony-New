@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.App.Companion.context
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ItemInDemandIntuitionsBinding
@@ -41,9 +42,8 @@ class TopInDemandIntuitionsAdapter(private val destinationList: List<com.student
 
         holder.itemView.setOnClickListener {
 
-            val valueList = arrayListOf(item.id.toString())
-            val labelList = arrayListOf(item.name)
-
+            val valueString = item!!.country_id.toString() // Ensure it's a string
+            val labelString = item.country_name.toString() // Ensure it's a stri
             App.sharedPre!!.clearKey(AppConstants.PGWP_KEY)
             App.sharedPre!!.clearKey(AppConstants.ATTENDANCE_KEY)
             App.sharedPre!!.clearKey(AppConstants.PROGRAM_TYPE_KEY)
@@ -53,36 +53,39 @@ class TopInDemandIntuitionsAdapter(private val destinationList: List<com.student
             App.sharedPre!!.clearKey(AppConstants.MAX_APPLICATION_KEY)
 
             clearAllSelectedValues(holder.itemView.context)
-            saveSelectedValuesToSharedPreferences(AppConstants.inDemadInstitutions, valueList, labelList, holder.itemView.context)
+            saveSelectedToSharedPreferences(AppConstants.CountryList, valueString, labelString, holder.itemView.context)
             onItemClick!!.invoke(item)
 
         }
 
     }
 
-    private fun saveSelectedValuesToSharedPreferences(
+    private fun saveSelectedToSharedPreferences(
         keyPrefix: String,
-        ids: List<String>,
-        labels: List<String>,
-        context: Context,
+        ids: String,
+        labels: String,
+        context: Context
     ) {
         val sharedPrefs = SharedPrefs(context)
-        sharedPrefs.putStringList("${keyPrefix}Id", ids)
-        sharedPrefs.putStringList("${keyPrefix}Label", labels)
+        sharedPrefs.putString11("${keyPrefix}Id", ids)
+        sharedPrefs.putString11("${keyPrefix}Label", labels)
     }
+
 
     private fun clearAllSelectedValues(context: Context) {
-        clearSelectedValuesFromSharedPreferences(AppConstants.institutionList, context)
-        clearSelectedValuesFromSharedPreferences(AppConstants.studyLevelList, context)
-        clearSelectedValuesFromSharedPreferences(AppConstants.IntakeList, context)
+        // Call this method for each key prefix you use
+        clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.studyLevelList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.disciplineList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.IntakeList)
     }
 
-    fun clearSelectedValuesFromSharedPreferences(keyPrefix: String, context: Context) {
+    fun clearSelectedValuesFromSharedPreferences(keyPrefix: String) {
         val sharedPrefs = SharedPrefs(context)
         sharedPrefs.clearStringList("${keyPrefix}Id")
         sharedPrefs.clearStringList("${keyPrefix}Label")
     }
-
 
     override fun getItemCount(): Int = destinationList.size
 }

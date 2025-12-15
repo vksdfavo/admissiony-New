@@ -1,14 +1,19 @@
 package com.student.Compass_Abroad
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.AppConstants
+import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ShimmerTopDestinationBinding
 import com.student.Compass_Abroad.databinding.TopDestinationLayoutBinding
 import com.student.Compass_Abroad.modal.top_destinations.Data
 
 class TopDestinationAdapter(
+    private var  context: Context,
     private var destinationList: List<Data>,
     private val onItemClick: ((Data) -> Unit)? = null,
     private var isLoading: Boolean = true
@@ -73,7 +78,22 @@ class TopDestinationAdapter(
                 .placeholder(R.drawable.circle_img)
                 .into(flag)
 
-            itemContainers.setOnClickListener { onItemClick?.invoke(item) }
+        }
+
+        holder.binding.itemContainers.setOnClickListener {
+            val valueString = item!!.country_id.toString() // Ensure it's a string
+            val labelString = item.country_name.toString() // Ensure it's a stri
+            App.sharedPre!!.clearKey(AppConstants.PGWP_KEY)
+            App.sharedPre!!.clearKey(AppConstants.ATTENDANCE_KEY)
+            App.sharedPre!!.clearKey(AppConstants.PROGRAM_TYPE_KEY)
+            App.sharedPre!!.clearKey(AppConstants.MIN_TUTION_KEY)
+            App.sharedPre!!.clearKey(AppConstants.MAX_TUTION_KEY)
+            App.sharedPre!!.clearKey(AppConstants.MIN_APPLICATION_KEY)
+            App.sharedPre!!.clearKey(AppConstants.MAX_APPLICATION_KEY)
+
+            clearAllSelectedValues()
+            saveSelectedToSharedPreferences(AppConstants.CountryList, valueString, labelString)
+            onItemClick?.invoke(item)
         }
     }
 
@@ -81,5 +101,31 @@ class TopDestinationAdapter(
         isLoading = false
         destinationList = newList
         notifyDataSetChanged()
+    }
+
+    private fun saveSelectedToSharedPreferences(
+        keyPrefix: String,
+        ids: String,
+        labels:String
+    ) {
+        val sharedPrefs = SharedPrefs(context!!)
+        sharedPrefs.putString11("${keyPrefix}Id", ids)
+        sharedPrefs.putString11("${keyPrefix}Label", labels)
+    }
+
+
+    private fun clearAllSelectedValues() {
+        // Call this method for each key prefix you use
+        clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.studyLevelList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.disciplineList)
+        clearSelectedValuesFromSharedPreferences(AppConstants.IntakeList)
+    }
+
+    fun clearSelectedValuesFromSharedPreferences(keyPrefix: String) {
+        val sharedPrefs = SharedPrefs(context)
+        sharedPrefs.clearStringList("${keyPrefix}Id")
+        sharedPrefs.clearStringList("${keyPrefix}Label")
     }
 }
