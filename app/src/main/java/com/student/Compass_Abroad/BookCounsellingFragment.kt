@@ -121,8 +121,7 @@ class BookCounsellingFragment : BaseFragment() {
                 LoginViewModal().CreateSlots(
                     activity = requireActivity(),
                     clientNumber = AppConstants.fiClientNumber,
-                    deviceNumber = App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")
-                        .orEmpty(),
+                    deviceNumber = App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty(),
                     accessToken = "Bearer ${CommonUtils.accessToken}",
                     branch_identifier = branch_id.toString(),
                     event_start_datetime = eventStart,

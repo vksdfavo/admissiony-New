@@ -602,16 +602,6 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         }
     }
 
-    private fun hideBottomNav() {
-        MainActivity.bottomNav?.animate()?.translationY(MainActivity.bottomNav!!.height.toFloat())
-            ?.setDuration(300)?.start()
-    }
-
-    private fun showBottomNav() {
-        MainActivity.bottomNav?.animate()?.translationY(0f)?.setDuration(300)?.start()
-    }
-
-
     private fun searchData() {
 
         binding.ibFpSearch.setOnClickListener {
@@ -749,19 +739,22 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
     }
 
     private fun loadFilteredData() {
-        // Clear previous data
         arrayList1.clear()
         adapterProgramsAllProg.notifyDataSetChanged()
+        binding.llFpApNoData.visibility = View.GONE
+        binding.pbFpAp.visibility = View.VISIBLE
+
         resetPagination()
+
         loadInitialData(search, category, isRecommended)
     }
-
 
     private fun loadInitialData(search: String?, category: String?, isRecommended: String) {
         if (!isLoading) {
             isLoading = true
             binding.pbFpAp.visibility = View.VISIBLE
-
+            binding.llFpApNoData.visibility = View.GONE  // Add this line
+            binding.pbFpAp.visibility = View.VISIBLE
 
             onGetAllPrograms(
                 presentPage,
@@ -1133,9 +1126,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         nextPage = 0
         isLoading = false
         binding!!.swipeRefreshLayout.isRefreshing = false
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

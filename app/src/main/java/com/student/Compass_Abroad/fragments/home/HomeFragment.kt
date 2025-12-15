@@ -151,8 +151,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     var webinarsList1 = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
     var arrayListVouchers = ArrayList<com.student.Compass_Abroad.modal.getVoucherModel.Record>()
 
-    var arrayListInDemandInstitution =
-        ArrayList<com.student.Compass_Abroad.modal.in_demandInstitution.Data>()
+    var arrayListInDemandInstitution = ArrayList<com.student.Compass_Abroad.modal.in_demandInstitution.Data>()
     var arrayListInDemand = ArrayList<com.student.Compass_Abroad.modal.inDemandCourse.Data>()
     private val modeOfPaymentList: MutableList<com.student.Compass_Abroad.modal.getVoucherPaymentMode.RecordsInfo> =
         mutableListOf()
@@ -354,11 +353,9 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         ).observe(viewLifecycleOwner) { response ->
             response?.let { result ->
                 if (result.statusCode == 200 && !result.data.isNullOrEmpty()) {
-
                     arrayListInDemand.clear()
                     arrayListInDemand.addAll(result.data)
 
-                    // Step 3: Update adapter with actual data and stop shimmer
                     val adapter = InDemandCoursesAdapter(
                         arrayListInDemand,
                         object : InDemandCoursesAdapter.OnCourseClickListener {

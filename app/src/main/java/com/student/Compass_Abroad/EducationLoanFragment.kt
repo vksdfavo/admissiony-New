@@ -62,6 +62,7 @@ class EducationLoanFragment : BaseFragment() {
         binding.backBtn.setOnClickListener {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
+
         }
 
         onClicks()
