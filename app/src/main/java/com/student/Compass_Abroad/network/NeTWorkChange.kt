@@ -29,9 +29,12 @@ class NeTWorkChange(private val activity: Activity) : BroadcastReceiver() {
             dialog?.window?.setGravity(Gravity.CENTER)
 
             btnRetry.setOnClickListener {
+
                 dialog?.dismiss()
+
                 onReceive(context, intent)
             }
+
         } else {
             dialog?.dismiss()
         }

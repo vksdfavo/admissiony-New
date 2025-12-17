@@ -135,7 +135,7 @@ class CompletedFragment : BaseFragment() {
         }
     }
 
-    private fun refreshData() {
+    fun refreshData() {
         currentPage = 1
         hasNextPage = true
         isLoading = false

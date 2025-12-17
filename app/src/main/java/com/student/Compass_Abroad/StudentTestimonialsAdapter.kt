@@ -72,9 +72,9 @@ class StudentTestimonialsAdapter(private val testimonialList: List<Row>,
             // -------------------------------------------------------------
             // ✅ IMAGE
             // -------------------------------------------------------------
+
             "image" -> {
                 holder.binding.player.visibility = View.GONE
-
                 Glide.with(holder.itemView.context)
                     .load(url)
                     .placeholder(R.drawable.test_banner)

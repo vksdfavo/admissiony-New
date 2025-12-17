@@ -24,7 +24,6 @@ import com.student.Compass_Abroad.databinding.FragmentCounsellingBinding
 class CounsellingFragment : Fragment() {
     private var _binding: FragmentCounsellingBinding? = null
     private val binding get() = _binding!!
-
     private var counsellingAdapter: AdapterCounsellingTabs? = null
 
     override fun onCreateView(
@@ -32,6 +31,7 @@ class CounsellingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         Log.d("CounsellingFragment", "📱 onCreateView")
 
         _binding = FragmentCounsellingBinding.inflate(inflater, container, false)
@@ -41,7 +41,7 @@ class CounsellingFragment : Fragment() {
         setViewPager()
 
         requireActivity().window.navigationBarColor =
-            requireActivity().getColor(R.color.theme_color)
+        requireActivity().getColor(R.color.theme_color)
 
         return binding.root
     }
@@ -55,7 +55,6 @@ class CounsellingFragment : Fragment() {
             binding.root.findNavController().navigate(R.id.fragmentNotification)
         }
     }
-
     private fun setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -63,7 +62,6 @@ class CounsellingFragment : Fragment() {
             insets
         }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
@@ -72,7 +70,6 @@ class CounsellingFragment : Fragment() {
             insets
         }
     }
-
     private fun setViewPager() {
         val titles = listOf(
             getString(R.string.status_scheduled),
@@ -83,18 +80,14 @@ class CounsellingFragment : Fragment() {
         binding.vpFc.adapter = counsellingAdapter
         binding.tlFc.setupWithViewPager(binding.vpFc)
 
-        // ✅ Keep both fragments alive to prevent black screen
         binding.vpFc.offscreenPageLimit = 2
 
         binding.vpFc.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                // Not needed
             }
 
             override fun onPageSelected(position: Int) {
                 Log.d("CounsellingFragment", "📍 Page selected: $position")
-
-                // ✅ Small delay to ensure fragment is fully visible
                 Handler(Looper.getMainLooper()).postDelayed({
                     try {
                         val fragment = counsellingAdapter?.getCachedFragment(position)
@@ -110,7 +103,7 @@ class CounsellingFragment : Fragment() {
                             is CompletedFragment -> {
                                 if (fragment.isResumed) {
                                     Log.d("CounsellingFragment", "✅ Refreshing CompletedFragment")
-                                    // fragment.refreshData() // Add if CompletedFragment has this method
+                                    fragment.refreshData()
                                 }
                             }
                         }
@@ -138,15 +131,11 @@ class CounsellingFragment : Fragment() {
 
         val currentFlavor = BuildConfig.FLAVOR.lowercase()
 
-        if (currentFlavor == "admisiony") {
-            requireActivity().window.navigationBarColor =
-                requireActivity().getColor(R.color.bottom_gradient_one)
-        } else {
-            requireActivity().window.navigationBarColor =
-                requireActivity().getColor(R.color.navigationBarColor)
+        if (currentFlavor == "admisiony") { requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.bottom_gradient_one)
+        }
+        else { requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.navigationBarColor)
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d("CounsellingFragment", "🔴 onDestroyView")

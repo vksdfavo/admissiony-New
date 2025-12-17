@@ -23,6 +23,7 @@ object AppConstants {
     const val GENDER = "gender"
     const val MARITAL_STATUS = "marital status"
     const val DOB = "dob"
+    const val NEW_USER_ID = "new_user_id"
     const val privateKey = "3cd8d4b8fca07709"
     const val appSecret = "1b7f65a9b9548b163cd8d4b8fca077097357c95d3e5cf169fc46f96164e3da4d"
     const val LOGIN_STATUS = "login status"

@@ -26,7 +26,9 @@ class OnBoardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardingBinding
 
     fun getViewPager2(): ViewPager2 {
+
         return binding.viewPager2
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +45,8 @@ class OnBoardingActivity : AppCompatActivity() {
         window.navigationBarColor = getColor(android.R.color.white)
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        binding.viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
 
+        binding.viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 val progress = when (binding.viewPager2.currentItem) {
@@ -52,10 +54,13 @@ class OnBoardingActivity : AppCompatActivity() {
                         50
                     }
                     1 -> {
+
                         75
                     }
                     2 -> {
+
                         100
+
                     }
                     else -> {
                         100
@@ -90,9 +95,11 @@ class OnBoardingActivity : AppCompatActivity() {
                     }
 
                     override fun onAnimationCancel(animation: Animator) {
+
                     }
 
                     override fun onAnimationRepeat(animation: Animator) {
+
                     }
                 })
                 animation.start()

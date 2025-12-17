@@ -68,6 +68,7 @@ class BookCounsellingFragment : BaseFragment() {
         binding.branchTxt.setOnClickListener {
 
             getBranchListList(requireActivity(), binding.branchTxt)
+            
         }
 
         binding.staffTxt.setOnClickListener {
@@ -130,6 +131,7 @@ class BookCounsellingFragment : BaseFragment() {
                     if (response != null && response.success) {
                         CommonUtils.toast(requireActivity(), "✅ Slot booked successfully")
                         Log.d("BOOKING_API", "Success: ${response.message}")
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
                     } else {
                         CommonUtils.toast(
                             requireActivity(),
@@ -341,7 +343,6 @@ class BookCounsellingFragment : BaseFragment() {
         popupWindow.elevation = 5f
         popupWindow.height = ViewGroup.LayoutParams.WRAP_CONTENT
         popupWindow.width = preferCollage.width
-
         val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         val adapter = AdapterGetStaffList(requireActivity(), arrayListStaff, layout)
@@ -374,18 +375,21 @@ class BookCounsellingFragment : BaseFragment() {
         arrayListSlots.clear()
         binding.tvStaffDateRequired.visibility = View.VISIBLE
         binding.tvStaffDateRequired.text = "Loading time slots..."
-        LoginViewModal().get_staffSlots(
-            requireActivity(),
-            AppConstants.fiClientNumber,
-            App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty(),
-            "Bearer ${CommonUtils.accessToken}",
-            apiDate,
-            branch_id.toString(), "103"
-        ).observe(requireActivity()) { response: GetStaffSlots? ->
+        App.sharedPre!!.getString(AppConstants.NEW_USER_ID,"")?.let {
+            LoginViewModal().get_staffSlots(
+                requireActivity(),
+                AppConstants.fiClientNumber,
+                App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty(),
+                "Bearer ${CommonUtils.accessToken}",
+                apiDate,
+                branch_id.toString(), it
+            )
+        }!!.observe(requireActivity()) { response: GetStaffSlots? ->
             response?.let { result ->
                 if (result.statusCode == 200) {
                     result.data?.slots?.let { slots ->
                         arrayListSlots.addAll(slots)
+
                         if (arrayListSlots.isNotEmpty()) {
                             timeSlotAdapter.clearSelection()
                             timeSlotAdapter.notifyDataSetChanged()

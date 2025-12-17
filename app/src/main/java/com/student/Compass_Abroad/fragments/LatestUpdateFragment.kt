@@ -82,14 +82,11 @@ class LatestUpdateFragment : BaseFragment() {
                         adapter =
                             LatestUpdateAdapter(arrayListInLatestUpdate) { selectedItem ->
                                 // Handle click here
-
                                 val bundle = Bundle().apply {
                                     putString("media_url", selectedItem.media_url)
                                 }
-
                                 binding!!.root.findNavController()
                                     .navigate(R.id.hybridPlayerActivity, bundle)
-
                             }
                     }
                 } else {

@@ -9,7 +9,7 @@ class OnBoardingBannerAdapter(
     private val items: List<BannerItem>
 ) : RecyclerView.Adapter<OnBoardingBannerAdapter.BannerViewHolder>() {
 
-    inner class BannerViewHolder(val binding: ItemBannerOnboradingBinding) :
+    class BannerViewHolder(val binding: ItemBannerOnboradingBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {

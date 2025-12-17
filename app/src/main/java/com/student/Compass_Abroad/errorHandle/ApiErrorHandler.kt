@@ -28,7 +28,7 @@ class ApiErrorHandler(private val context: Context) {
         val statusCode = exception.code()
 
         return when (statusCode) {
-            400, 401, 403, 404, 422, 406,409, 500 -> extractCleanErrorMessage(errorBody)
+            400, 401, 403, 404, 422, 406 ,409, 500 -> extractCleanErrorMessage(errorBody)
             else -> "HTTP Error $statusCode: ${extractCleanErrorMessage(errorBody)}"
         }
     }

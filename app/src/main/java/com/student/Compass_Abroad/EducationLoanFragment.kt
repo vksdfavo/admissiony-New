@@ -276,6 +276,7 @@ class EducationLoanFragment : BaseFragment() {
                     setDropDownDestinationCountryList(et_destination_Country)
 
                 } else {
+
                     CommonUtils.toast(requireActivity, getDestinationCountry.message ?: "Failed")
                 }
             }
@@ -288,7 +289,6 @@ class EducationLoanFragment : BaseFragment() {
             val layout = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             dialog.setContentView(layout)
 
-            // Optional: transparent background
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             dialog.window?.setLayout(

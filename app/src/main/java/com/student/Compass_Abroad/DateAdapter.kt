@@ -7,11 +7,14 @@ import com.student.Compass_Abroad.databinding.ItemDateBinding
 import androidx.core.graphics.toColorInt
 
 class DateAdapter( private val dates: List<DateItem>, private val onDateClick: (Int) -> Unit ) : RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
-
     inner class DateViewHolder(val binding: ItemDateBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: DateItem, position: Int) {
+
             binding.dateLabel.text = item.label
+
             binding.dateText.text = item.date
+
             binding.cardViews.isSelected = item.isSelected
 
             when {
@@ -33,12 +36,17 @@ class DateAdapter( private val dates: List<DateItem>, private val onDateClick: (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateViewHolder {
+
         val binding = ItemDateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return DateViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
+
         holder.bind(dates[position], position)
+
     }
 
     override fun getItemCount(): Int = dates.size

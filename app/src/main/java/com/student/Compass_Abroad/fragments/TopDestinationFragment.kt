@@ -30,8 +30,8 @@ class TopDestinationFragment : BaseFragment() {
         val window = requireActivity().window
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
         window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Android 11+
             val controller = window.insetsController
             controller?.setSystemBarsAppearance(
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
@@ -45,6 +45,7 @@ class TopDestinationFragment : BaseFragment() {
         onClick()
 
         setupRecyclerViewTopDestination()
+
         return binding!!.root
     }
 
@@ -62,7 +63,6 @@ class TopDestinationFragment : BaseFragment() {
         }
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
-
         HomeViewModal().get_topdestination(
             requireActivity(),
             AppConstants.fiClientNumber,

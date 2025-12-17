@@ -49,7 +49,9 @@ class TimeSlotAdapter(
                 binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_red)
                 binding.textTimeSlot.setTextColor(Color.DKGRAY)
                 binding.cardTimeSlots.setOnClickListener {
+
                     Toast.makeText(binding.root.context, "This slot is not available", Toast.LENGTH_SHORT).show()
+
                 }
                 return
             }

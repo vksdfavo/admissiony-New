@@ -53,7 +53,6 @@ class ScheduledFragment : Fragment() {
         setupClickListeners()
         setupWindowInsets()
 
-        // Only fetch if this is the first time loading
         if (!hasLoadedData) {
             Log.d("ScheduledFragment", "🆕 First load - fetching data")
             fetchDataFromApi()
@@ -69,11 +68,8 @@ class ScheduledFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvFaActive.layoutManager = layoutManager
-
-        // Recreate adapter with existing data
         adapterScheduledAdapter = ScheduledAdapter(requireActivity(), applicationList)
         binding.rvFaActive.adapter = adapterScheduledAdapter
 

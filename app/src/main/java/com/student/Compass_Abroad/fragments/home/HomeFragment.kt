@@ -188,21 +188,13 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     var token: String? = null
     private var payment_gateway_identifier = ""
     private var arrayList = ArrayList<com.student.Compass_Abroad.modal.AllProgramModel.Record>()
-    private var arrayListBanner =
-        ArrayList<com.student.Compass_Abroad.modal.getBannerModel.Record>()
+    private var arrayListBanner = ArrayList<com.student.Compass_Abroad.modal.getBannerModel.Record>()
     private var identityInfo: com.student.Compass_Abroad.modal.staffProfile.Data? = null
     var arrayListInLatestUpdate = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
-
-
-    var arrayListInStudentTestimonials =
-        ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
-
+    var arrayListInStudentTestimonials = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
     private val sliderHandler: Handler = Handler()
-    private val sliderItems =
-        mutableListOf<com.student.Compass_Abroad.modal.getBannerModel.Record>()
-
-    private val sliderRunnable: Runnable =
-        Runnable { binding!!.viewPagerImageSlider.currentItem += 1 }
+    private val sliderItems = mutableListOf<com.student.Compass_Abroad.modal.getBannerModel.Record>()
+    private val sliderRunnable: Runnable = Runnable { binding!!.viewPagerImageSlider.currentItem += 1 }
     private var adapter: AdaptorWebinarRecyclerview? = null
     private val webinarsList = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
 
@@ -355,7 +347,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 if (result.statusCode == 200 && !result.data.isNullOrEmpty()) {
                     arrayListInDemand.clear()
                     arrayListInDemand.addAll(result.data)
-
                     val adapter = InDemandCoursesAdapter(
                         arrayListInDemand,
                         object : InDemandCoursesAdapter.OnCourseClickListener {
@@ -394,6 +385,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     /** Utility function for like/dislike API handling */
+
     private fun handleShortlist(data: com.student.Compass_Abroad.modal.inDemandCourse.Data) {
         val hexString = generateRandomHexString(16)
         val publicKey = hexString
@@ -745,6 +737,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         sharedPre!!.saveString(AppConstants.FIRST_NAME, staffData.data?.userInfo?.first_name)
         sharedPre!!.saveString(AppConstants.LAST_NAME, staffData.data!!.userInfo.last_name)
         sharedPre!!.saveString(AppConstants.DOB, staffData.data!!.userInfo.birthday)
+        sharedPre!!.saveString(AppConstants.NEW_USER_ID, staffData.data!!.userInfo.id.toString())
 
         val firstName = staffData.data?.userInfo?.first_name ?: ""
         val lastName = staffData.data?.userInfo?.last_name ?: ""
@@ -752,6 +745,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         //binding!!.name.text = "Hi, " + "$firstName $lastName"
 
         val profilePictureUrl = staffData.data?.userInfo?.profile_picture_url
+
 
 //        if (!profilePictureUrl.isNullOrEmpty()) {
 //            Glide.with(this)

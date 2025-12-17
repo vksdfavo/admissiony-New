@@ -42,7 +42,6 @@ class ProfileActivity : AppCompatActivity() {
     var binding: ActivityProfileBinding? = null
     var neTWorkChange: NeTWorkChange = NeTWorkChange(this)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -212,7 +211,6 @@ class ProfileActivity : AppCompatActivity() {
         layoutParams.copyFrom(dialogLang.window?.attributes)
         layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
         dialogLang.window?.attributes = layoutParams
-
 
         langBinding.txtEn.setOnClickListener {
             SharedPrefs.setLang(this, "en")
