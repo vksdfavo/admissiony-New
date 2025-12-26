@@ -156,8 +156,7 @@ class BookCounsellingFragment : BaseFragment() {
             val selectedDate = dateList.find { it.isSelected }?.apiDate ?: return@TimeSlotAdapter
             if (selectedSlot != null) {
                 val calendar = Calendar.getInstance()
-                val todayApi =
-                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+                val todayApi = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
 
                 if (selectedDate == todayApi) {
                     val currentTime = calendar.time

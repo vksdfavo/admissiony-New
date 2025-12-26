@@ -935,7 +935,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         presentPage: Int,
         dataPerPage: Int,
     ) {
-        viewModelHome.clientEventsModalLiveData(
+            viewModelHome.clientEventsModalLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,

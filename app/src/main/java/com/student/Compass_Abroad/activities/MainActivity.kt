@@ -397,6 +397,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
             ) {
 
             } else {
+
                 requestStoragePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
         }
@@ -411,6 +412,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         binding!!.tvAssignStaffNav.setOnClickListener {
 
             findNavController(this@MainActivity, R.id.main_nav).navigate(R.id.assignStaffFragment)
+
             binding!!.drawerLayout.close()
 
         }
@@ -420,10 +422,13 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         }
 
         binding!!.tvMyProfileNav.setOnClickListener {
+
             startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
+
         }
 
         binding!!.tvVouchers.setOnClickListener {
+
             findNavController(this@MainActivity, R.id.main_nav).navigate(R.id.fragmentVouchers)
             binding!!.drawerLayout.close()
         }

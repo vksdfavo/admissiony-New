@@ -878,7 +878,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
             tvFEnglishLevel,
             tvFAge,
             isRecommended,
-            forceRefresh = false  // Set true if you want to force refresh
+            forceRefresh = false
 
         ).observe(viewLifecycleOwner) { allProgramModal: AllProgramModel? ->
             allProgramModal?.let { nonNullForgetModal ->

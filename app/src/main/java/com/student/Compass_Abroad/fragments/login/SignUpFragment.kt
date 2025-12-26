@@ -210,6 +210,8 @@ class SignUpFragment : Fragment() {
         }
 
 
+
+
 // Space after radio buttons
         val spaceAfterRadioButtons = View(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(
