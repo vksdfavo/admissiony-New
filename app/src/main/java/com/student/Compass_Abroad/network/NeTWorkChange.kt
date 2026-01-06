@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView

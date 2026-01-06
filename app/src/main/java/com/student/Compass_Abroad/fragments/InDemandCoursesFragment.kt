@@ -29,6 +29,7 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 
 
+@Suppress("DEPRECATION")
 class InDemandCoursesFragment : BaseFragment() {
 
  var binding: FragmentInDemandCoursesBinding?=null
@@ -43,6 +44,7 @@ class InDemandCoursesFragment : BaseFragment() {
         val window = requireActivity().window
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
         window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // Android 11+
             val controller = window.insetsController
@@ -58,6 +60,7 @@ class InDemandCoursesFragment : BaseFragment() {
         }
 
         binding!!.fabAcBack.setOnClickListener {
+
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
@@ -176,7 +179,6 @@ class InDemandCoursesFragment : BaseFragment() {
             deviceId,
             token, data.program_identifier
         ).observe(viewLifecycleOwner) { response ->
-
             if (response?.success == true) {
                 // SUCCESS
                 val programInfo = response.data?.program

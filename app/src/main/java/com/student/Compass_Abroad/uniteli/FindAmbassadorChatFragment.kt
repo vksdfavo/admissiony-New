@@ -2,17 +2,16 @@ package com.student.Compass_Abroad.uniteli
 
 import android.app.Dialog
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,13 +20,10 @@ import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.databinding.AmbassadorBioLayoutBinding
-import com.student.Compass_Abroad.uniteli.adapter.FindAmbassadorChatAdapter
 import com.student.Compass_Abroad.databinding.FragmentNewAmbassadorChatBinding
-import com.student.Compass_Abroad.databinding.SliderDataLayoutBinding
-import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.findAmbassadorModal.RecordsInfo
 import com.student.Compass_Abroad.retrofit.ViewModalClass
-import androidx.core.graphics.drawable.toDrawable
+import com.student.Compass_Abroad.uniteli.adapter.FindAmbassadorChatAdapter
 
 class FindAmbassadorChatFragment : Fragment(), FindAmbassadorChatAdapter.OnChatClick {
     private lateinit var binding: FragmentNewAmbassadorChatBinding
@@ -103,10 +99,15 @@ class FindAmbassadorChatFragment : Fragment(), FindAmbassadorChatAdapter.OnChatC
                 super.onScrolled(recyclerView, dx, dy)
                 val visibleItemCount = layoutManager.childCount
                 val totalItemCount = layoutManager.itemCount
+
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
                 if (!isLoading && hasNextPage) {
+
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount &&
+
                         firstVisibleItemPosition >= 0
+
                     ) {
 
                         fetchDataFromApi(searchUser)

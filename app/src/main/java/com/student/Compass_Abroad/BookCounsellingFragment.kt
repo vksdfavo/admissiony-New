@@ -114,10 +114,7 @@ class BookCounsellingFragment : BaseFragment() {
                 val eventStart = outputFormat.format(start!!)
                 val eventEnd = outputFormat.format(end!!)
 
-                Log.d(
-                    "API_FORMAT",
-                    "event_start_datetime=$eventStart, event_end_datetime=$eventEnd"
-                )
+                Log.d("API_FORMAT", "event_start_datetime=$eventStart, event_end_datetime=$eventEnd")
 
                 LoginViewModal().CreateSlots(
                     activity = requireActivity(),
@@ -166,6 +163,7 @@ class BookCounsellingFragment : BaseFragment() {
 
                     if (slotStartTime != null && slotStartTime.before(currentTime)) {
                         CommonUtils.toast(requireActivity(), "You cannot book a past time slot")
+
                         timeSlotAdapter.clearSelection()
 
                         timeSlotAdapter.notifyDataSetChanged()
@@ -177,7 +175,6 @@ class BookCounsellingFragment : BaseFragment() {
             }
         }
 
-        // ✅ FIX: ATTACH ADAPTER HERE
         binding.recyclerViewTimeSlots.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = timeSlotAdapter

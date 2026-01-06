@@ -53,6 +53,7 @@ class AdapterFragmentNotes(var context: Context?,
             } catch (e: IllegalArgumentException) {
                 Color.WHITE // Default color if parsing fails
             }
+
             binding.cdView.setCardBackgroundColor(color)
 
             val image = record.created_by_info?.profile_picture_url

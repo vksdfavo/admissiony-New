@@ -41,6 +41,7 @@ import com.student.Compass_Abroad.modal.GetCampusModal.GetCampusResponse
 import com.student.Compass_Abroad.modal.GetStudentsModal.GetStudentResponse
 import com.student.Compass_Abroad.modal.intakeModel.IntakeModel
 import com.student.Compass_Abroad.retrofit.ViewModalClass
+import androidx.core.graphics.drawable.toDrawable
 
 class ApplyProgramFragment : BaseFragment() {
     private lateinit var binding: FragmentApplyProgramBinding
@@ -59,8 +60,7 @@ class ApplyProgramFragment : BaseFragment() {
 
     private var courseId: String? = null
     private var previouslySelectedCampusId: String? = null
-    private val arrayListStudents: MutableList<com.student.Compass_Abroad.modal.GetStudentsModal.Data> =
-        mutableListOf()
+
 
     companion object {
         var details: Record? = null
@@ -102,10 +102,10 @@ class ApplyProgramFragment : BaseFragment() {
             setData()
 
 
-            institution =
-                (FragProgramDetailDetails.details?.program?.institution_id ?: 0).toString()
-            destination_country =
-                (FragProgramDetailDetails.details?.program?.institution?.country_id ?: 0).toString()
+            institution = (FragProgramDetailDetails.details?.program?.institution_id ?: 0).toString()
+
+            destination_country = (FragProgramDetailDetails.details?.program?.institution?.country_id ?: 0).toString()
+
 
         }
 
@@ -183,8 +183,6 @@ class ApplyProgramFragment : BaseFragment() {
 
         }
     }
-
-
     private fun getCampusList(requireActivity: FragmentActivity, selectCampus: TextView) {
         if (collage_id.isNullOrEmpty()) {
             CommonUtils.toast(requireActivity, "Select prefer collage first")
@@ -226,14 +224,13 @@ class ApplyProgramFragment : BaseFragment() {
             }
         }
     }
-
     private fun setGetCampusList(selectCampus: TextView) {
         val popupWindow = PopupWindow(requireActivity())
         val layout: View =
             LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
         popupWindow.contentView = layout
 
-        layout.findViewById<TextView>(R.id.etSelect).setHint("Search Campus")
+        layout.findViewById<TextView>(R.id.etSelect).hint = "Search Campus"
 
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.WHITE))
         popupWindow.isOutsideTouchable = true
@@ -244,8 +241,8 @@ class ApplyProgramFragment : BaseFragment() {
 
         val locationOnScreen = IntArray(2)
         selectCampus.getLocationOnScreen(locationOnScreen)
-        val xLocationOfView = locationOnScreen[0]
-        val yLocationOfView = locationOnScreen[1] + selectCampus.height
+        locationOnScreen[0]
+        locationOnScreen[1] + selectCampus.height
 
         val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
@@ -280,8 +277,6 @@ class ApplyProgramFragment : BaseFragment() {
             }
         })
     }
-
-
     private fun getPreferCourseList(requireActivity: FragmentActivity, preferCourse: TextView) {
         if (courseId.isNullOrEmpty()) {
             CommonUtils.toast(requireActivity, "Select campus first")
@@ -346,16 +341,15 @@ class ApplyProgramFragment : BaseFragment() {
         this.prefer_course_id = courseIds.joinToString(prefix = "[", postfix = "]", separator = ",")
     }
 
-
     private fun setGetPreferCourseList(preferCourse: TextView) {
         val popupWindow = PopupWindow(requireActivity())
         val layout: View =
             LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
         popupWindow.contentView = layout
 
-        layout.findViewById<TextView>(R.id.etSelect).setHint("Search Campus")
+        layout.findViewById<TextView>(R.id.etSelect).hint = "Search Campus"
 
-        popupWindow.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+        popupWindow.setBackgroundDrawable(Color.WHITE.toDrawable())
         popupWindow.isOutsideTouchable = true
         popupWindow.isFocusable = true
         popupWindow.elevation = 5f
@@ -396,8 +390,6 @@ class ApplyProgramFragment : BaseFragment() {
                 }
             })
     }
-
-
     private fun createApplication() {
         val programsArray =
             if (prefer_course_id.startsWith("[") && prefer_course_id.endsWith("]")) {
@@ -438,7 +430,6 @@ class ApplyProgramFragment : BaseFragment() {
             }
         }
     }
-
     private fun selectYears() {
         val years =
             arrayListOf("Select Year", "2025", "2026", "2027", "2028", "2029", "2030")
@@ -465,7 +456,6 @@ class ApplyProgramFragment : BaseFragment() {
             }
         }
     }
-
     private fun getSelectIntakeList(requireActivity: FragmentActivity, selectIntake: TextView) {
         ViewModalClass().getIntakeModalLiveData(
             requireActivity,
@@ -497,15 +487,13 @@ class ApplyProgramFragment : BaseFragment() {
             }
         }
     }
-
-
     private fun setGetIntakeDataList(selectIntake: TextView) {
         val popupWindow = PopupWindow(requireActivity())
         val layout: View =
             LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
         popupWindow.contentView = layout
 
-        layout.findViewById<TextView>(R.id.etSelect).setHint("Search Intake")
+        layout.findViewById<TextView>(R.id.etSelect).hint = "Search Intake"
 
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.WHITE))
         popupWindow.isOutsideTouchable = true
@@ -566,4 +554,6 @@ class ApplyProgramFragment : BaseFragment() {
             })
 
     }
+
+
 }

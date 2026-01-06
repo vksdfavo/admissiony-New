@@ -1,7 +1,6 @@
 @file:Suppress("DEPRECATION")
 
 package com.student.Compass_Abroad.activities
-
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Intent

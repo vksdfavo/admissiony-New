@@ -28,6 +28,7 @@ class ApplicationFragment : BaseFragment() {
         setTabAdaptor()
 
         requireActivity().window.statusBarColor = requireActivity().getColor(R.color.white)
+
         requireActivity().window.navigationBarColor =  requireActivity().getColor(R.color.appSecondaryColor)
 
         //tab layout

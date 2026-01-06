@@ -61,7 +61,9 @@ class HybridPlayerActivity : BaseFragment() {
         if (url.contains("youtube.com") || url.contains("youtu.be")) {
 
             isYouTube = true
+
             binding.exoPlayerView.visibility = View.GONE
+
             binding.youTubePlayerView.visibility = View.VISIBLE
 
             binding.youTubePlayerView.addYouTubePlayerListener(object :

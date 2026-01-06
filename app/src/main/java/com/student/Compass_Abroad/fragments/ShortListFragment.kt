@@ -28,7 +28,6 @@ class ShortListFragment : BaseFragment() {
     ): View {
         binding = FragmentShortListBinding.inflate(inflater, container, false)
 
-
         binding.backBtn.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }

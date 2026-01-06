@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import com.student.Compass_Abroad.fragments.BaseFragment
 
 
+@Suppress("DEPRECATION")
 class UploadProgramDocFragment : BaseFragment() {
     private lateinit var binding: FragmentUploadProgramDocBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -23,7 +24,6 @@ class UploadProgramDocFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentUploadProgramDocBinding.inflate(inflater, container, false)
-
 
          status = arguments?.getString("status")
         requireActivity().window.navigationBarColor =

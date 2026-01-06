@@ -2,7 +2,6 @@ package com.student.Compass_Abroad.fragments.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ class FragmentApplicationDocument : BaseFragment() {
     companion object {
         var data: com.student.Compass_Abroad.modal.getApplicationResponse.Record? = null
     }
-
     private lateinit var binding: FragmentApplicationDocumentBinding
     private lateinit var documentAdaptor: DocumentAdaptor
 

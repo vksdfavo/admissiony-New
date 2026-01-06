@@ -41,7 +41,6 @@ class HomeViewModal : ViewModel(){
     private val _bannersCache = MutableLiveData<GetBannerModal?>()
     private val _recommendedProgramsCache = MutableLiveData<AllProgramModel?>()
     private val _vouchersCache = MutableLiveData<getVouchers?>()
-    private val _webinarsCache = MutableLiveData<getWebinarsResponse?>()
     private val _offersUpdatesCache = MutableLiveData<GetOffersandUpdates?>()
     private val _scholarshipsCache = MutableLiveData<GetScholarships?>()
     private val _topDestinationCache = MutableLiveData<TopDestinations?>()

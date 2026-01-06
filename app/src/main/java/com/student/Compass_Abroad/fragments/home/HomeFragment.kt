@@ -2,8 +2,6 @@
 
 package com.student.Compass_Abroad.fragments.home
 
-import androidx.core.content.ContextCompat
-
 import android.app.Activity
 import android.app.Dialog
 import android.content.ContentValues
@@ -20,13 +18,16 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent.*
+import android.view.KeyEvent.KEYCODE_BACK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.AbsListView
 import android.widget.EditText
 import android.widget.ImageView
@@ -35,6 +36,8 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -42,102 +45,95 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.google.android.gms.tasks.Task
-import com.google.firebase.messaging.FirebaseMessaging
-import com.razorpay.Checkout
-import com.stripe.android.PaymentConfiguration
-import com.stripe.android.paymentsheet.PaymentSheet
-import com.stripe.android.paymentsheet.PaymentSheetResult
-import com.student.Compass_Abroad.R
-import com.student.Compass_Abroad.Utils.App
-import com.student.Compass_Abroad.Utils.AppConstants
-import com.student.Compass_Abroad.Utils.CommonUtils
-
-import com.student.Compass_Abroad.activities.MainActivity.Companion.drawer
-
-import com.student.Compass_Abroad.adaptor.AdapterModeOfPaymentVoucherSelector
-import com.student.Compass_Abroad.adaptor.AdapterOffersandUpdate
-import com.student.Compass_Abroad.adaptor.AdapterScholarships
-import com.student.Compass_Abroad.adaptor.AdaptorVouchersRecyclerview
-import com.student.Compass_Abroad.adaptor.AdaptorWebinarsRecyclerview
-import com.student.Compass_Abroad.adaptor.AreaOfInterestAdaptor
-import com.student.Compass_Abroad.adaptor.ProgramTagAdapter
-import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeInterestsAdapter
-import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeLatestUpdateAdapter
-import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeUniversitiesAdapter
-import com.student.Compass_Abroad.adaptor.dashBoardAdapter.TopPreferCountryAdapter
-import com.student.Compass_Abroad.databinding.FragmentHomeBinding
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
-import com.student.Compass_Abroad.databinding.ProgramTagsDialogBinding
-import com.student.Compass_Abroad.databinding.SliderDataLayoutBinding
-import com.student.Compass_Abroad.encrytion.encryptData
-import com.student.Compass_Abroad.modal.clientEventModel.ClientEventResponse
-import com.student.Compass_Abroad.modal.clientEventModel.Record
-import com.student.Compass_Abroad.modal.getDestinationCountryList.Data
-import com.student.Compass_Abroad.modal.getOffersUpdatesModel.GetOffersandUpdates
-import com.student.Compass_Abroad.modal.getScholarships.GetScholarships
-import com.student.Compass_Abroad.modal.getVoucherModel.getVouchers
-import com.student.Compass_Abroad.modal.getVoucherPaymentMode.getVoucherPaymentMode
-import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
-import com.student.Compass_Abroad.modal.staffProfile.StaffProfileModal
-import com.student.Compass_Abroad.retrofit.ViewModalClass
-import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.util.Locale
-import kotlin.random.Random
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.student.Compass_Abroad.BuildConfig
-import com.student.Compass_Abroad.InDemandCoursesAdapter
-import com.student.Compass_Abroad.LatestUpdateAdapter
-import com.student.Compass_Abroad.QuickActionsAdapter
-import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
-import com.student.Compass_Abroad.StudentTestimonialsAdapter
-import com.student.Compass_Abroad.TopDestinationAdapter
-import com.student.Compass_Abroad.TopDestinationModel
-import com.student.Compass_Abroad.TopInDemandIntuitionsAdapter
-import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
-import com.student.Compass_Abroad.Utils.SharedPrefs
-import com.student.Compass_Abroad.activities.MainActivity
-import com.student.Compass_Abroad.adaptor.AdapterProgramsAllProg
-import com.student.Compass_Abroad.adaptor.AdaptorWebinarRecyclerview
-import com.student.Compass_Abroad.adaptor.bannerSlider.SliderAdapter
-import com.student.Compass_Abroad.databinding.EducationloanBinding
-import com.student.Compass_Abroad.modal.getWebinars.getWebinarsResponse
-import com.student.Compass_Abroad.modal.refreshToken.RefreshTokenResonse
-import com.student.Compass_Abroad.retrofit.ApiInterface
-import com.student.Compass_Abroad.retrofit.LoginViewModal
-import com.student.Compass_Abroad.retrofit.RetrofitClient12
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.IOException
-import kotlin.math.abs
-import androidx.core.graphics.drawable.toDrawable
-import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.android.gms.tasks.Task
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.razorpay.Checkout
+import com.stripe.android.PaymentConfiguration
+import com.stripe.android.paymentsheet.PaymentSheet
+import com.stripe.android.paymentsheet.PaymentSheetResult
+import com.student.Compass_Abroad.BuildConfig
+import com.student.Compass_Abroad.InDemandCoursesAdapter
+import com.student.Compass_Abroad.LatestUpdateAdapter
+import com.student.Compass_Abroad.QuickActionsAdapter
+import com.student.Compass_Abroad.R
+import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
+import com.student.Compass_Abroad.StudentTestimonialsAdapter
+import com.student.Compass_Abroad.TopDestinationAdapter
+import com.student.Compass_Abroad.TopDestinationModel
+import com.student.Compass_Abroad.TopInDemandIntuitionsAdapter
+import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
+import com.student.Compass_Abroad.Utils.AppConstants
+import com.student.Compass_Abroad.Utils.CommonUtils
+import com.student.Compass_Abroad.Utils.SharedPrefs
+import com.student.Compass_Abroad.activities.MainActivity
+import com.student.Compass_Abroad.activities.MainActivity.Companion.drawer
+import com.student.Compass_Abroad.adaptor.AdapterModeOfPaymentVoucherSelector
+import com.student.Compass_Abroad.adaptor.AdapterOffersandUpdate
+import com.student.Compass_Abroad.adaptor.AdapterProgramsAllProg
+import com.student.Compass_Abroad.adaptor.AdapterScholarships
+import com.student.Compass_Abroad.adaptor.AdaptorVouchersRecyclerview
+import com.student.Compass_Abroad.adaptor.AdaptorWebinarRecyclerview
+import com.student.Compass_Abroad.adaptor.AdaptorWebinarsRecyclerview
+import com.student.Compass_Abroad.adaptor.AreaOfInterestAdaptor
+import com.student.Compass_Abroad.adaptor.ProgramTagAdapter
+import com.student.Compass_Abroad.adaptor.bannerSlider.SliderAdapter
+import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeInterestsAdapter
+import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeLatestUpdateAdapter
+import com.student.Compass_Abroad.adaptor.dashBoardAdapter.HomeUniversitiesAdapter
+import com.student.Compass_Abroad.adaptor.dashBoardAdapter.TopPreferCountryAdapter
 import com.student.Compass_Abroad.databinding.BannerDataLayoutBinding
 import com.student.Compass_Abroad.databinding.DialogBuyCouponBinding
+import com.student.Compass_Abroad.databinding.EducationloanBinding
+import com.student.Compass_Abroad.databinding.FragmentHomeBinding
+import com.student.Compass_Abroad.databinding.ProgramTagsDialogBinding
+import com.student.Compass_Abroad.databinding.SliderDataLayoutBinding
+import com.student.Compass_Abroad.encrytion.encryptData
 import com.student.Compass_Abroad.fragments.ProgramDetailsHomeFragment
+import com.student.Compass_Abroad.modal.clientEventModel.ClientEventResponse
+import com.student.Compass_Abroad.modal.clientEventModel.Record
 import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
+import com.student.Compass_Abroad.modal.getDestinationCountryList.Data
+import com.student.Compass_Abroad.modal.getOffersUpdatesModel.GetOffersandUpdates
+import com.student.Compass_Abroad.modal.getScholarships.GetScholarships
+import com.student.Compass_Abroad.modal.getVoucherModel.getVouchers
+import com.student.Compass_Abroad.modal.getVoucherPaymentMode.getVoucherPaymentMode
+import com.student.Compass_Abroad.modal.getWebinars.getWebinarsResponse
+import com.student.Compass_Abroad.modal.refreshToken.RefreshTokenResonse
+import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
+import com.student.Compass_Abroad.modal.staffProfile.StaffProfileModal
+import com.student.Compass_Abroad.retrofit.ApiInterface
 import com.student.Compass_Abroad.retrofit.HomeViewModal
+import com.student.Compass_Abroad.retrofit.LoginViewModal
+import com.student.Compass_Abroad.retrofit.RetrofitClient12
+import com.student.Compass_Abroad.retrofit.ViewModalClass
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Locale
+import kotlin.math.abs
+import kotlin.random.Random
 
 @Suppress("DEPRECATION")
 class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
@@ -740,8 +736,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         sharedPre!!.saveString(AppConstants.DOB, staffData.data!!.userInfo.birthday)
         sharedPre!!.saveString(AppConstants.NEW_USER_ID, staffData.data!!.userInfo.id.toString())
 
-        val firstName = staffData.data?.userInfo?.first_name ?: ""
-        val lastName = staffData.data?.userInfo?.last_name ?: ""
+        staffData.data?.userInfo?.first_name ?: ""
+        staffData.data?.userInfo?.last_name ?: ""
 
         //binding!!.name.text = "Hi, " + "$firstName $lastName"
 
@@ -1195,7 +1191,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             popupWindow.contentView = layout
 
-            layout.requireViewById<TextView>(R.id.etSelect).setHint("Search Payment Mode")
+            layout.requireViewById<TextView>(R.id.etSelect).hint = "Search Payment Mode"
 
             popupWindow.setBackgroundDrawable(Color.WHITE.toDrawable())
             popupWindow.isOutsideTouchable = true
@@ -1492,7 +1488,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun onBackPressed() {
-        binding?.getRoot()?.setFocusableInTouchMode(true)
+        binding?.getRoot()?.isFocusableInTouchMode = true
         binding?.getRoot()?.requestFocus()
         binding?.getRoot()?.setOnKeyListener { _, keyCode, _ ->
             if (keyCode === KEYCODE_BACK) {

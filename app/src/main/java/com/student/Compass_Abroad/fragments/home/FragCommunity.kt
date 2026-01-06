@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.activities.MainActivity
@@ -18,7 +16,6 @@ import com.student.Compass_Abroad.adaptor.AdapterCommunityAds
 import com.student.Compass_Abroad.adaptor.AdapterCommunityTabs
 import com.student.Compass_Abroad.databinding.FragmentFragCommunityBinding
 import com.student.Compass_Abroad.fragments.BaseFragment
-import androidx.navigation.findNavController
 
 class FragCommunity : BaseFragment() {
     private var binding: FragmentFragCommunityBinding? = null

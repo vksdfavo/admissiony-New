@@ -37,7 +37,6 @@ class AdapterAssignedStaff(
     interface Select {
         fun onClick(data: Data?, position1: Int)
     }
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val data = applicationAssignedStaffResponse[position]
@@ -68,8 +67,6 @@ class AdapterAssignedStaff(
             context: Context?,
             selector: Select
         ) {
-
-
 
             binding.tvItemName.text =
                 "${data.user?.first_name.orEmpty()} ${data.user?.last_name.orEmpty()}"

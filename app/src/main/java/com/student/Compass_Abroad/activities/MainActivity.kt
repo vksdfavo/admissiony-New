@@ -80,7 +80,6 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
 
         activity = WeakReference(this)
 
-
         SocketManager.initSocket(this)
         SocketManager.on("accessRevoked", accessRevokedListener)
 
@@ -209,6 +208,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
 
 
         intent?.let { handleNotificationIntent(it) }
+
         handleIntent(intent)
     }
 
@@ -276,7 +276,9 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
                 val clientNumber = intent.getStringExtra("client_number")
 
                 // Navigate to ChatFragment
+
                 openChatFragment(leadId, applicationId, moduleId, clientNumber)
+
             }
         }
 

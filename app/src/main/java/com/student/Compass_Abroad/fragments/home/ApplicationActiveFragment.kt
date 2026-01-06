@@ -91,6 +91,7 @@ class ApplicationActiveFragment : Fragment() {
             hasNextPage = true
             fetchDataFromApi(data)
         }
+
         sharedViewModel.refreshDataEvent.observe(viewLifecycleOwner) { shouldRefresh ->
             if (shouldRefresh) {
                 applicationList.clear()

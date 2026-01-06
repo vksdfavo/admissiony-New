@@ -6,7 +6,6 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -30,6 +29,7 @@ class OnBoardingActivity : AppCompatActivity() {
         return binding.viewPager2
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)

@@ -12,7 +12,6 @@ import com.student.Compass_Abroad.fragments.BaseFragment
 
 class FragmentVendorChat : BaseFragment() {
     private lateinit var binding: FragmentVendorChatBinding
-    private lateinit var adapterApplicationDetailConversation : AdapterApplicationDetailConversation
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -31,19 +30,4 @@ class FragmentVendorChat : BaseFragment() {
         }
 
     }
-
-   /* private fun setRecyclerView() {
-
-        adapterApplicationDetailConversation = AdapterApplicationDetailConversation(
-            context,
-            chatRecords
-        )
-        val layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        binding!!.rvMessages.setLayoutManager(layoutManager)
-        binding!!.rvMessages.setAdapter(adapterApplicationDetailConversation)
-
-    }*/
-
-
 }

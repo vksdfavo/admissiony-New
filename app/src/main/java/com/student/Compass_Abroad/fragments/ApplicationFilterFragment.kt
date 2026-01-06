@@ -16,7 +16,6 @@ class ApplicationFilterFragment : BaseFragment() {
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // Inflate the layout for this fragment
      binding = FragmentApplicationFilterBinding.inflate(inflater, container, false)
 
         binding.backBtn.setOnClickListener{

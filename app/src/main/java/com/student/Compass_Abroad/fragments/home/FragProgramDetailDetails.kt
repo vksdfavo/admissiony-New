@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.R
@@ -30,8 +31,6 @@ import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
-import kotlin.toString
-import androidx.navigation.findNavController
 
 
 class FragProgramDetailDetails : BaseFragment() {

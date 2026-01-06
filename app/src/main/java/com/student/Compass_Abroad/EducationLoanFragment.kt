@@ -16,6 +16,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,11 +45,11 @@ class EducationLoanFragment : BaseFragment() {
     var country_id: String? = null
     var admission_status_id: String? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentEducationLoanBinding.inflate(inflater, container, false)
 
         getDestinationCountryList(requireActivity(), binding.destinationCountry)
@@ -198,7 +199,7 @@ class EducationLoanFragment : BaseFragment() {
             val layout = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             dialog.setContentView(layout)
 
-            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
 
             dialog.window?.setLayout(
                 (resources.displayMetrics.widthPixels * 0.9).toInt(),

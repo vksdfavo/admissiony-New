@@ -1,17 +1,22 @@
 package com.student.Compass_Abroad.adaptor
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.databinding.ItemCustomPopupEtsBinding
 import com.student.Compass_Abroad.modal.admissionStatus.Data
 
-class AdapterAdmissionStatus(var requireActivity: FragmentActivity, var arraylist: MutableList<Data>, var popupBinding: View, ) : RecyclerView.Adapter<AdapterFilterTestScoreSelector.MyViewHolder>() {
+class AdapterAdmissionStatus(var requireActivity: FragmentActivity,
+                             var arraylist: MutableList<Data>,
+                             var popupBinding: View, ) :
+    RecyclerView.Adapter<AdapterFilterTestScoreSelector.MyViewHolder>() {
 
     private var filteredList = arraylist.toMutableList()
     private var selectedItem: Data? = null
@@ -70,6 +75,7 @@ class AdapterAdmissionStatus(var requireActivity: FragmentActivity, var arraylis
             return results
         }
 
+        @RequiresApi(Build.VERSION_CODES.P)
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             filteredList = results?.values as MutableList<Data>
             notifyDataSetChanged()

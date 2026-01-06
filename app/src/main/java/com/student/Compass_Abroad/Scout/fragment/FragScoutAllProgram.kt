@@ -18,8 +18,10 @@ import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
 import com.student.Compass_Abroad.Scout.adaptor.AllScoutProgramAdapter
 import com.student.Compass_Abroad.databinding.FragmentFragScoutAllProgramBinding
 import com.student.Compass_Abroad.fragments.BaseFragment
+import androidx.navigation.findNavController
 
 
+@Suppress("DEPRECATION")
 class FragScoutAllProgram : BaseFragment() {
     private lateinit var binding: FragmentFragScoutAllProgramBinding
     var allScoutProgramAdapter: AllScoutProgramAdapter? = null
@@ -50,7 +52,7 @@ class FragScoutAllProgram : BaseFragment() {
             ScoutMainActivity.drawer!!.open()
         }
         binding!!.fabFpHeart.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.fragScoutShortlistedProgram)
+            requireView().findNavController().navigate(R.id.fragScoutShortlistedProgram)
         }
 
         fetchAllProgramAdapter(binding!!)
@@ -67,7 +69,9 @@ class FragScoutAllProgram : BaseFragment() {
     }
 
     private fun fetchAllProgramAdapter(_binding: FragmentFragScoutAllProgramBinding) {
+
         allScoutProgramAdapter = AllScoutProgramAdapter()
+
         _binding.rvFpAp?.adapter = allScoutProgramAdapter
     }
 

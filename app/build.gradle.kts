@@ -8,9 +8,8 @@ plugins {
 
 }
 
-android {
+android { flavorDimensions("FirmliTest")
 
-        flavorDimensions("FirmliTest")
     productFlavors {
         create("Firmli") {
             dimension = "FirmliTest"

@@ -39,12 +39,14 @@ class FragmentVouchers : BaseFragment() {
         TabLayoutMediator(binding!!.tabLayout, binding!!.viewPager) { tab, pos ->
             tab.text = if (pos == 0) "Buy" else "History"
         }.attach()
+
         return binding!!.getRoot()
     }
 
 
     override fun onResume() {
         super.onResume()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = requireActivity().window.insetsController
             controller?.setSystemBarsAppearance(

@@ -3,8 +3,6 @@ package com.student.Compass_Abroad.fragments.home
 import android.app.Dialog
 import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -18,25 +16,23 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.AbsListView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.BuildConfig
-
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
 import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
-import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.activities.MainActivity.Companion.drawer
@@ -52,12 +48,10 @@ import com.student.Compass_Abroad.modal.AllProgramModel.Record
 import com.student.Compass_Abroad.modal.ProgramTags.RecordsInfo
 import com.student.Compass_Abroad.modal.getCategoryProgramModel.getCategoryProgramModel
 import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
+import com.student.Compass_Abroad.retrofit.HomeViewModal
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
-import androidx.core.graphics.drawable.toDrawable
-import androidx.navigation.findNavController
-import com.student.Compass_Abroad.retrofit.HomeViewModal
 
 class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
     private lateinit var binding: FragmentFragProgramAllProgBinding

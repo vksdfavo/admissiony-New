@@ -35,6 +35,7 @@ class FragApplicationAssignedStaff : BaseFragment() {
     private lateinit var binding: FragmentFragApplicationAssignedStaffBinding
     private lateinit var adapterAssignedStaff: AdapterAssignedStaff
     private val applicationAssignedStaffList: MutableList<Data> = mutableListOf()
+
     companion object {
 
         var data: com.student.Compass_Abroad.modal.getApplicationResponse.Record? = null

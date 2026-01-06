@@ -68,14 +68,12 @@ class HistoryFragment : BaseFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
-
     private fun resetPagination() {
         presentPage = 1
         hasNextPage = true
         arrayListHistoryList.clear()
         adaptorHistoryList?.notifyDataSetChanged()
     }
-
     private fun setupHistoryRecyclerView() {
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvHistory.layoutManager = layoutManager
@@ -92,7 +90,6 @@ class HistoryFragment : BaseFragment() {
             }
         })
     }
-
     private fun loadHistoryData() {
         isLoading = true
 
@@ -136,7 +133,6 @@ class HistoryFragment : BaseFragment() {
             }
         }
     }
-
     private fun getTabs(requireActivity: FragmentActivity) {
         ViewModalClass().getVoucherHistoryTabsDataList(
             requireActivity,
@@ -155,7 +151,6 @@ class HistoryFragment : BaseFragment() {
             }
         }
     }
-
     private fun setupTabsRecyclerView() {
         val adapter = AdapterVoucherHistoryTabs(arraylistTabs) { _ ->
             // Handle item click if needed
