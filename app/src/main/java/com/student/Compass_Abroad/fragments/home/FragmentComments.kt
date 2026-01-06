@@ -1,7 +1,7 @@
 package com.student.Compass_Abroad.fragments.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,13 +21,11 @@ import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.adaptor.AdaptorAllComments
 import com.student.Compass_Abroad.databinding.FragmentCommentsBinding
-
 import com.student.Compass_Abroad.encrytion.decryptData
 import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.getAllComments.Record
 import com.student.Compass_Abroad.modal.getAllComments.getAllComments
 import com.student.Compass_Abroad.retrofit.ViewModalClass
-import java.util.ArrayList
 
 
 class FragmentComments : BaseFragment(), AdaptorAllComments.select {
@@ -73,8 +72,8 @@ class FragmentComments : BaseFragment(), AdaptorAllComments.select {
 
     private fun clickListener() {
         binding.llCaAddComment.setOnClickListener { v:View->
-            AddFragmentComments.data=post
-        Navigation.findNavController(binding.root).navigate(R.id.addFragmentComments)
+            AddFragmentComments.data =post
+         v.findNavController().navigate(R.id.addFragmentComments)
         }
            binding.fabAcBack.setOnClickListener { v:View->
                 requireActivity()!!.onBackPressed()
@@ -82,6 +81,7 @@ class FragmentComments : BaseFragment(), AdaptorAllComments.select {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun setData() {
         var record= post
         val profilePictureUrl = record!!.userInfo?.profile_picture_url

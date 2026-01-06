@@ -65,11 +65,8 @@ class MyAmbassadorChatFragment : Fragment(), MyAmbassadorChatAdapter.OnChatClick
 
 
     }
-
-    // ADD THIS NEW METHOD - Called from parent fragment
     fun forceApiRefresh() {
         Log.d(TAG, "forceApiRefresh called - forcing refresh")
-        // Reset data
         currentPage = 1
         ambassadorList.clear()
         if (myAmbassadorAdapter != null) {
@@ -77,7 +74,6 @@ class MyAmbassadorChatFragment : Fragment(), MyAmbassadorChatAdapter.OnChatClick
         }
         hasNextPage = true
         isLoading = false
-        // Force call API
         fetchDataFromApi(forceRefresh = true)
     }
 
@@ -105,13 +101,11 @@ class MyAmbassadorChatFragment : Fragment(), MyAmbassadorChatAdapter.OnChatClick
 
     // MODIFY THIS METHOD - Add forceRefresh parameter with default false
     fun fetchDataFromApi(forceRefresh: Boolean = false) {
-        // Skip if loading or no more pages, unless force refresh is true
         if (!forceRefresh && (!hasNextPage || isLoading)) {
             Log.d(TAG, "fetchDataFromApi: Skipping - isLoading=$isLoading, hasNextPage=$hasNextPage")
             return
         }
 
-        // If force refresh, reset page
         if (forceRefresh) {
             Log.d(TAG, "fetchDataFromApi: Force refresh - resetting page to 1")
             currentPage = 1

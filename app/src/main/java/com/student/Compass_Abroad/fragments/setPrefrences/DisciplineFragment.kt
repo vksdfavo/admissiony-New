@@ -163,7 +163,6 @@ class DisciplineFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         val window = requireActivity().window
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
         window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)

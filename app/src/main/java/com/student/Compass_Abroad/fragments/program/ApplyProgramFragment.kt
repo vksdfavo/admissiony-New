@@ -141,7 +141,9 @@ class ApplyProgramFragment : BaseFragment() {
 
 
                 prefer_course_id == "[]" -> {
+
                     CommonUtils.toast(requireActivity(), "Please select a preferred course")
+
                 }
 
                 binding.selectYear.selectedItemPosition == 0 -> {

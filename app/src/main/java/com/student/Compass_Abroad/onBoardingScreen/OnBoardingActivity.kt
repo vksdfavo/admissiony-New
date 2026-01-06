@@ -35,7 +35,6 @@ class OnBoardingActivity : AppCompatActivity() {
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        //view pager
         val fragmentManager = supportFragmentManager
         val adapter = AdapterOnBoarding(fragmentManager, lifecycle, 3)
         binding.viewPager2.setAdapter(adapter)
@@ -69,7 +68,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
                 val animation = ObjectAnimator.ofInt(binding.progressBar, "progress", progress)
                 animation.interpolator = AccelerateDecelerateInterpolator()
-                animation.setDuration(750)
+                animation.duration = 750
                 animation.addListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animation: Animator) {
                     }

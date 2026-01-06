@@ -79,7 +79,6 @@ class CompletedFragment : BaseFragment() {
 
     private fun fetchDataFromApi() {
         if (!hasNextPage || isLoading) return
-
         isLoading = true
         if (currentPage == 1) {
             binding.pbFaActive.visibility = View.VISIBLE

@@ -503,6 +503,7 @@ class FragmentAgentChat : BaseFragment() {
                     currentPage--
                     fetchChatMessagesAndMetaData()
                 }
+
                 if (dy < 0 && firstVisibleItemPosition == 0 && !isLoading && currentPage > 1) {
                     currentPage++
                     fetchChatMessagesAndMetaData()

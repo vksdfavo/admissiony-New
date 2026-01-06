@@ -2,30 +2,25 @@
 
 package com.student.Compass_Abroad.fragments.home
 
-import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.student.Compass_Abroad.R
-import com.student.Compass_Abroad.activities.MainActivity
-import com.student.Compass_Abroad.adaptor.AdapterApplicationDetailTabs
-import com.student.Compass_Abroad.databinding.FragmentApplicationDetailBinding
 import com.google.android.material.tabs.TabLayout
+import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
 import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.AppConstants
+import com.student.Compass_Abroad.activities.MainActivity
+import com.student.Compass_Abroad.adaptor.AdapterApplicationDetailTabs
+import com.student.Compass_Abroad.databinding.FragmentApplicationDetailBinding
 import com.student.Compass_Abroad.modal.getApplicationResponse.Record
-import androidx.navigation.findNavController
-
 
 
 class ApplicationDetail : Fragment() {

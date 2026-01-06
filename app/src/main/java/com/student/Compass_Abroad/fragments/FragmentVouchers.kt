@@ -30,6 +30,7 @@ class FragmentVouchers : BaseFragment() {
         }
 
        binding!!.viewPager.adapter = object : FragmentStateAdapter(this) {
+
             override fun getItemCount() = 2
             override fun createFragment(position: Int): Fragment =
                 if (position == 0) BuyFragment() else HistoryFragment()

@@ -113,7 +113,6 @@ class OnBoardingNewActivity : AppCompatActivity() {
     }
 
     private fun setupButtonActions() {
-        // Next page button
         binding.fabSkip.setOnClickListener {
             val nextItem = binding.viewPagerBanners.currentItem + 1
             if (nextItem < binding.viewPagerBanners.adapter!!.itemCount) {
@@ -121,7 +120,6 @@ class OnBoardingNewActivity : AppCompatActivity() {
             }
         }
 
-        // Get Started button
         binding.tvGetStarted.setOnClickListener {
             startActivity(Intent(this@OnBoardingNewActivity, LoginActivity::class.java))
             finish()

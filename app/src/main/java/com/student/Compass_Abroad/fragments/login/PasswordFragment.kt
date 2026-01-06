@@ -42,7 +42,6 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
 
-
 @Suppress("UNREACHABLE_CODE")
 class PasswordFragment : BaseFragment() {
     var binding: FragmentPasswordBinding? = null
@@ -67,6 +66,7 @@ class PasswordFragment : BaseFragment() {
             )
 
         }
+
         binding!!.terms.setOnClickListener {
 
             val fragment = TermsAndConditionsFragment()

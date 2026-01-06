@@ -45,8 +45,6 @@ class UploadProgramDocFragment : BaseFragment() {
     }
 
     private fun onClick() {
-
-
         binding.uploadDocument.setOnClickListener{
 
             binding.root.findNavController().navigate(R.id.fragmentProgramUploadDocuments)

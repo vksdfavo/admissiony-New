@@ -3,25 +3,16 @@
 package com.student.Compass_Abroad.activities
 
 import android.content.Context
-import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ActivityLoginBinding
-import com.student.Compass_Abroad.fragments.login.SignUpFragment
 import com.student.bt_global.Utils.NeTWorkChange
 
 class LoginActivity : AppCompatActivity() {

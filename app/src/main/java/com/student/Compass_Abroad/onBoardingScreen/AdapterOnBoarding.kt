@@ -14,6 +14,7 @@ class AdapterOnBoarding(
     ) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
+
             1 -> {
 
                 Page2()

@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
@@ -24,10 +23,6 @@ import com.student.Compass_Abroad.fragments.home.FragmentPrograms
 import com.student.Compass_Abroad.fragments.home.FragmentReminders
 import com.student.Compass_Abroad.fragments.home.FragmentUploadDocuments
 import com.student.Compass_Abroad.modal.getApplicationResponse.Record
-import androidx.navigation.findNavController
-import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
-import com.student.Compass_Abroad.Utils.CommonUtils
-import com.student.Compass_Abroad.activities.MainActivity
 
 
 class AdapterApplicationsActive(var activity: Context, var applicationList: MutableList<Record>) :

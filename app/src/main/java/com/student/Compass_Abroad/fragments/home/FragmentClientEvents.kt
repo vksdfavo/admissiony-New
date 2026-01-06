@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -92,15 +91,11 @@ class FragmentClientEvents : BaseFragment() {
 
 
     private fun setClientEventsRecyclerview(arrayList1: ArrayList<Record>) {
-        adaptorClientEvents =
-                AdaptorWebinarsRecyclerview(this.requireActivity(), arrayList1, arrayList1.size)
-        val layoutManager =
-                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        adaptorClientEvents = AdaptorWebinarsRecyclerview(this.requireActivity(), arrayList1, arrayList1.size)
+        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding!!.rvCE.layoutManager = layoutManager
-        binding!!.rvCE.adapter = adaptorClientEvents // Corrected the adapter assignment
-
-        binding!!.rvCE.addOnScrollListener(
-                object : RecyclerView.OnScrollListener() {
+        binding!!.rvCE.adapter = adaptorClientEvents
+        binding!!.rvCE.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                         super.onScrollStateChanged(recyclerView, newState)
                         if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {

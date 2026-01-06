@@ -45,7 +45,6 @@ import com.student.Compass_Abroad.adaptor.AdapterDestinationCountrySelector
 import com.student.Compass_Abroad.databinding.ActivityAddbankAccountBinding
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import java.util.Locale
-import kotlin.collections.set
 
 class AddBankAccountActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddbankAccountBinding

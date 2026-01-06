@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,11 +24,8 @@ import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.adaptor.AdapterAssignedStaff
-import com.student.Compass_Abroad.adaptor.ProgramAdapter
 import com.student.Compass_Abroad.databinding.FragmentFragApplicationAssignedStaffBinding
 import com.student.Compass_Abroad.fragments.BaseFragment
-import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
-import com.student.Compass_Abroad.modal.editProfile.EditProfile
 import com.student.Compass_Abroad.modal.getApplicationAssignedStaff.Data
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 

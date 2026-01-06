@@ -27,7 +27,9 @@ class SingleChatViewModel(app: Application) : BaseViewModel(app) {
     private var joinedRoomEvent: String = "joinedApplicationRoom"
 
     val newMessageLiveData: MutableLiveData<List<Record>> = MutableLiveData()
+
     internal var arrayList: ArrayList<Record> = ArrayList()
+
     var apiInterface = RetrofitClient.retrofitCallerObject!!.create(ApiInterface::class.java)
 
     init {

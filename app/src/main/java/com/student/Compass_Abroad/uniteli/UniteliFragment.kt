@@ -70,7 +70,9 @@ class UniteliFragment : Fragment() {
         )
 
         val uniteliAdapter = AdapterUniteliTabs(childFragmentManager, titles)
+
         binding.vpFc.adapter = uniteliAdapter
+
         binding.tlFc.setupWithViewPager(binding.vpFc)
 
         binding.vpFc.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -85,18 +87,14 @@ class UniteliFragment : Fragment() {
 
 
     private fun refreshFragmentAtPosition(position: Int) {
-        // Use a safer way to find the fragment
         try {
             val fragmentTag = "android:switcher:${binding.vpFc.id}:$position"
             val fragment = childFragmentManager.findFragmentByTag(fragmentTag)
 
             if (fragment is MyAmbassadorChatFragment) {
                 Log.d(TAG, "Found MyAmbassadorChatFragment at position $position, refreshing...")
-                // Make sure view is created before trying to refresh
                 if (fragment.isAdded && fragment.view != null) {
-                    // Clear chat list first
                     fragment.clearChatList()
-                    // Then force refresh data
                     fragment.forceApiRefresh()
                 } else {
                     Log.d(TAG, "Fragment view not ready, scheduling refresh later")
@@ -143,7 +141,6 @@ class UniteliFragment : Fragment() {
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
-        // Refresh current fragment if it's not the first load (to avoid double refresh)
         if (!isFirstLoad) {
             Handler(Looper.getMainLooper()).postDelayed({
                 Log.d(TAG, "onResume: Refreshing current fragment")

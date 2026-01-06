@@ -22,7 +22,6 @@ import com.student.Compass_Abroad.databinding.FragmentHybridPlayerActivityBindin
 
 @UnstableApi
 class HybridPlayerActivity : BaseFragment() {
-
     private lateinit var binding: FragmentHybridPlayerActivityBinding
 
     private var exoPlayer: ExoPlayer? = null
@@ -43,10 +42,8 @@ class HybridPlayerActivity : BaseFragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        // Safely fetch URL from Bundle
         videoUrl = arguments?.getString("media_url") ?: ""
 
-        // Attach lifecycle for YouTube player
         lifecycle.addObserver(binding.youTubePlayerView)
 
         Log.d("onCreateViewonCreateView", videoUrl)

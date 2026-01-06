@@ -41,8 +41,6 @@ class AdapterCommunityPostReply(
         val descriptionString = decryptData(currentItem.content, appSecret, ivHexString)
         val data = CommonUtils.removeHtmlTags(descriptionString.toString())
 
-
-
         holder.binding.ibCommunityMenu.setOnClickListener { view ->
             val popupMenu = PopupMenu(requireActivity, view)
             popupMenu.menuInflater.inflate(R.menu.menu_edit_post, popupMenu.menu)

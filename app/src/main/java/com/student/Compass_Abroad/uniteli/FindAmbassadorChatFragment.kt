@@ -92,13 +92,10 @@ class FindAmbassadorChatFragment : Fragment(), FindAmbassadorChatAdapter.OnChatC
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
-
-
     private fun setApplicationActiveRecyclerview() {
         val layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.rvFaActive.layoutManager = layoutManager
-
         ambassadorAdapter = FindAmbassadorChatAdapter(requireActivity(), ambassadorList, this)
         binding.rvFaActive.adapter = ambassadorAdapter
         binding.rvFaActive.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -118,7 +115,6 @@ class FindAmbassadorChatFragment : Fragment(), FindAmbassadorChatAdapter.OnChatC
             }
         })
     }
-
     private fun fetchDataFromApi(searchQuery: String = "") {
         if (!hasNextPage || isLoading) return
 
@@ -174,7 +170,6 @@ class FindAmbassadorChatFragment : Fragment(), FindAmbassadorChatAdapter.OnChatC
             binding.pbFaActivePagination.visibility = View.GONE
         }
     }
-
     override fun onClick(recordInfo: RecordsInfo) {
         viewModel.joinAmbassadroChatLiveData(
             requireActivity(),
@@ -209,7 +204,6 @@ class FindAmbassadorChatFragment : Fragment(), FindAmbassadorChatAdapter.OnChatC
             }
         }
     }
-
     override fun onClickBio(recordInfo: RecordsInfo) {
         val itemBinding = AmbassadorBioLayoutBinding.inflate(requireActivity().layoutInflater)
         val dialog = Dialog(requireActivity())

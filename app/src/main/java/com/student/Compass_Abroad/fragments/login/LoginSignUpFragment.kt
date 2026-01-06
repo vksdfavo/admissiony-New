@@ -18,6 +18,7 @@ import com.student.Compass_Abroad.databinding.FragmentLoginSignUpBinding
 import androidx.navigation.findNavController
 
 
+@Suppress("DEPRECATION")
 class LoginSignUpFragment : Fragment() {
     var binding: FragmentLoginSignUpBinding? = null
 

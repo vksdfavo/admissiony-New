@@ -1,14 +1,18 @@
 package com.student.Compass_Abroad.adaptor
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.databinding.ItemCustomPopupEtsBinding
+import java.util.Locale
+import java.util.Locale.getDefault
 
 class AdapterCategoriesSelector(var requireActivity: FragmentActivity, var arraylist: ArrayList<com.student.Compass_Abroad.modal.CommunityCategories.Record>, var popupBinding: View, ) : RecyclerView.Adapter<AdapterFilterTestScoreSelector.MyViewHolder>() {
 
@@ -56,10 +60,10 @@ class AdapterCategoriesSelector(var requireActivity: FragmentActivity, var array
                 filteredList.clear()
                 filteredList.addAll(arraylist)
             } else {
-                val filterPattern = constraint.toString().toLowerCase().trim()
+                val filterPattern = constraint.toString().lowercase(getDefault()).trim()
                 filteredList.clear()
                 for (item in arraylist) {
-                    if (item.name.toLowerCase().contains(filterPattern)) {
+                    if (item.name.lowercase(Locale.ROOT).contains(filterPattern)) {
                         filteredList.add(item)
                     }
                 }
@@ -69,17 +73,20 @@ class AdapterCategoriesSelector(var requireActivity: FragmentActivity, var array
             return results
         }
 
+        @RequiresApi(Build.VERSION_CODES.P)
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             filteredList = results?.values as MutableList<com.student.Compass_Abroad.modal.CommunityCategories.Record>
+
             notifyDataSetChanged()
 
-            // Handle "No results found" scenario (optional)
             if (filteredList.isEmpty()) { popupBinding.requireViewById<TextView>(R.id.tvSelect_noData).visibility = View.VISIBLE
 
                 popupBinding.requireViewById<TextView>(R.id.tvSelect_noData).setText("No Category Found")
             }
+
             else { popupBinding.requireViewById<TextView>(R.id.tvSelect_noData).visibility =
-                    View.GONE
+
+                View.GONE
             }
         }
     }

@@ -258,6 +258,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun setQuickActionsAdapter()
+
     {
         val actions = listOf(
 

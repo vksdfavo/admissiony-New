@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,7 @@ import android.view.WindowInsetsController
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.PopupWindow
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +34,6 @@ import com.student.Compass_Abroad.modal.loanApply.LoanAppliedModal
 import com.student.Compass_Abroad.retrofit.LoginViewModal
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import com.student.Compass_Abroad.retrofit.ViewModalGhyanDhan
-
 
 class EducationLoanFragment : BaseFragment() {
     private lateinit var binding: FragmentEducationLoanBinding

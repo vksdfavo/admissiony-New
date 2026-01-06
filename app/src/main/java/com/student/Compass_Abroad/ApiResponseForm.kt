@@ -1,6 +1,5 @@
 package com.student.Compass_Abroad
 
-
     data class ApiResponseForm(
         var statusCode: Int?=null,
         val statusInfo: StatusInfo?=null,

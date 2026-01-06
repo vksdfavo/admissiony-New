@@ -2,14 +2,13 @@ package com.student.Compass_Abroad.fragments.home
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.student.Compass_Abroad.R
@@ -24,7 +23,6 @@ import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
-import java.util.ArrayList
 import kotlin.random.Random
 
 
@@ -36,11 +34,11 @@ class CompareProgram : BaseFragment(), AdapterProgramsCompareProgram.select {
     var arrayList1=java.util.ArrayList<com.student.Compass_Abroad.modal.shorlistedProgram.Record>()
     var isScrolling = false
     var currentVisibleItems = 0
-    var totalItemsInAdapter: kotlin.Int = 0
-    var scrolledOutItems: kotlin.Int = 0
+    var totalItemsInAdapter: Int = 0
+    var scrolledOutItems: Int = 0
     var dataPerPage = 6
-    var presentPage: kotlin.Int = 1
-    var nextPage: kotlin.Int = 0
+    var presentPage: Int = 1
+    var nextPage: Int = 0
     var contentKey=""
     private val selectedRecords = ArrayList<com.student.Compass_Abroad.modal.AllProgramModel.Record>()
 
@@ -61,7 +59,7 @@ class CompareProgram : BaseFragment(), AdapterProgramsCompareProgram.select {
         binding!!.tvViewComparision.setOnClickListener { v: View ->
             if (selectedRecords.size >= 2) {
                 Comparison.comparisonList = selectedRecords
-                Navigation.findNavController(binding!!.getRoot()).navigate(R.id.comparison)
+                v.findNavController().navigate(R.id.comparison)
             } else {
                 Toast.makeText(requireActivity(), "Select at least two programs for comparison", Toast.LENGTH_LONG).show()
             }
@@ -91,7 +89,7 @@ class CompareProgram : BaseFragment(), AdapterProgramsCompareProgram.select {
 
         binding?.rvFpAp?.setLayoutManager(linearLayoutManager)
         val dividerItemDecoration =
-            DividerItemDecoration(binding?.rvFpAp?.getContext(), DividerItemDecoration.VERTICAL)
+            DividerItemDecoration(binding?.rvFpAp?.context, DividerItemDecoration.VERTICAL)
         binding?.rvFpAp?.addItemDecoration(dividerItemDecoration)
         adaptorCompareProgram =
             AdapterProgramsCompareProgram(requireActivity(), arrayList1!!, this)
@@ -113,10 +111,10 @@ class CompareProgram : BaseFragment(), AdapterProgramsCompareProgram.select {
         val publicKey = hexString
         val privateKey = AppConstants.privateKey
         //form data with email login code start
-        val formData = JSONObject();
+        val formData = JSONObject()
 
         formData.put("program_campus_identifier", record.identifier) //email or phone
-        val data = formData.toString();
+        val data = formData.toString()
         val dataToEncrypt = data
         val app_secret = AppConstants.appSecret
 
@@ -145,10 +143,10 @@ class CompareProgram : BaseFragment(), AdapterProgramsCompareProgram.select {
         var publicKey = hexString
         var privateKey = AppConstants.privateKey
 //form data with email login code start
-        val formData = JSONObject();
+        val formData = JSONObject()
 
         formData.put("program_campus_identifier", record.identifier) //email or phone
-        val data = formData.toString();
+        val data = formData.toString()
         val dataToEncrypt = data
         val app_secret = AppConstants.appSecret
 

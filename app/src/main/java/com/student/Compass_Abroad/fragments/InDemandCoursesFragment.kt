@@ -101,7 +101,6 @@ class InDemandCoursesFragment : BaseFragment() {
                         arrayListInDemand.clear()
                         arrayListInDemand.addAll(destinations)
 
-                        // Update adapter with actual data and click listeners
                         binding?.rvIndemand?.adapter = InDemandCoursesAdapter(
                             courseList = arrayListInDemand,
                             listener = object : InDemandCoursesAdapter.OnCourseClickListener {
