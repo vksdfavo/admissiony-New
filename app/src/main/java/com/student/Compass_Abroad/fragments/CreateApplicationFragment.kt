@@ -19,7 +19,6 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -99,9 +98,6 @@ class  CreateApplicationFragment : BaseFragment() {
         return binding.root
     }
 
-
-
-
     private fun onClicks() {
         binding.btnCreateApplication.setOnClickListener {
             when {
@@ -174,7 +170,6 @@ class  CreateApplicationFragment : BaseFragment() {
         }
 
     }
-
     private fun createApplication() {
         val programsArray = if (prefer_course_id!!.startsWith("[") && prefer_course_id!!.endsWith("]")) {
             prefer_course_id!!
@@ -222,7 +217,6 @@ class  CreateApplicationFragment : BaseFragment() {
             }
         }
     }
-
     private fun getSelectIntakeList(requireActivity: FragmentActivity, selectIntake: TextView) {
         ViewModalClass().getIntakeModalLiveData(
             requireActivity,
@@ -250,7 +244,6 @@ class  CreateApplicationFragment : BaseFragment() {
             }
         }
     }
-
     private fun setGetIntakeDataList(selectIntake: TextView) {
         val popupWindow = PopupWindow(requireActivity())
         val layout: View =
@@ -363,8 +356,6 @@ class  CreateApplicationFragment : BaseFragment() {
             }
         }
     }
-
-
     private fun getPreferCourseList(requireActivity: FragmentActivity, preferCourse: TextView) {
         if (courseId.isNullOrEmpty()) {
             CommonUtils.toast(requireActivity, "Select campus first")
@@ -458,17 +449,12 @@ class  CreateApplicationFragment : BaseFragment() {
                 }
             })
     }
-
     private fun getCampusList(requireActivity: FragmentActivity, selectCampus: TextView) {
         if (collageId.isNullOrEmpty()) {
             CommonUtils.toast(requireActivity, "Select prefer collage first")
             return
         }
-
-        // Clear the previous campus list and related fields
         arrayListCampus.clear()
-
-
         ViewModalClass().getCampusListData(
             requireActivity,
             AppConstants.fiClientNumber,
@@ -539,7 +525,6 @@ class  CreateApplicationFragment : BaseFragment() {
             previouslySelectedCampusId = courseId
 
             popupWindow.dismiss()
-            // You can perform additional actions based on the selected country here
         }
 
         popupWindow.showAsDropDown(selectCampus)
@@ -556,7 +541,6 @@ class  CreateApplicationFragment : BaseFragment() {
     private fun clearRelatedFields() {
         binding.preferCourse.text = ""
         binding.selectIntake.text = ""
-        // Clear the text of the select year Spinner
         binding.selectYear.setSelection(0)
         collageId = ""
         courseId = ""
@@ -639,7 +623,6 @@ class  CreateApplicationFragment : BaseFragment() {
             }
         })
     }
-
     private fun getDestinationCountryList(requireActivity: FragmentActivity, et_destination_Country: TextView) {
         ViewModalClass().getDestinationCountryLiveData(
             requireActivity,
@@ -740,7 +723,6 @@ class  CreateApplicationFragment : BaseFragment() {
                 })
         }
     }
-
     override fun onResume() {
         super.onResume()
 

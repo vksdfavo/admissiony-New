@@ -20,6 +20,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 import com.student.Compass_Abroad.Utils.errorDialogOpen
+import com.student.Compass_Abroad.fragments.SubmitRequest
 import com.student.Compass_Abroad.modal.inDemandCourse.InDemandCourse
 import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
 import com.student.Compass_Abroad.modal.admissionStatus.AdmissionStatus
@@ -144,53 +145,6 @@ class LoginViewModal : ViewModel() {
     /**For Submit SignUp From**/
 
     var submitDataModalMutableLiveData: MutableLiveData<SubmitSinUpForm?>? = null
-
-    fun signUpFormModalLiveData(
-        activity: Activity?,
-        client_number: String,
-        content: String
-    ): LiveData<SubmitSinUpForm?> {
-
-        submitDataModalMutableLiveData = MutableLiveData()
-
-        activity?.let {
-            val apiErrorHandler = ApiErrorHandler(it.applicationContext)
-
-            if (CommonUtils.isNetworkConnected(it)) {
-                apiInterface.submitLeadForm(client_number, content)
-                    ?.enqueue(object : Callback<SubmitSinUpForm?> {
-                        override fun onResponse(
-                            call: Call<SubmitSinUpForm?>,
-                            response: Response<SubmitSinUpForm?>
-                        ) {
-                            if (response.isSuccessful && response.body() != null) {
-                                submitDataModalMutableLiveData!!.postValue(response.body())
-                            } else {
-                                handleErrorSubmitLead(
-                                    code = response.code(),
-                                    backendMessage = "Error occurred",
-                                    response = response,
-                                    activity = activity
-                                )
-                                /*val errorMessage =
-                                    apiErrorHandler.handleError(HttpException(response))
-                                errorDialogOpen(activity, errorMessage)*/
-                            }
-                        }
-
-                        override fun onFailure(call: Call<SubmitSinUpForm?>, t: Throwable) {
-                            val errorMessage = apiErrorHandler.handleError(t)
-                            errorDialogOpen(activity, errorMessage.toString())
-                        }
-                    })
-            } else {
-                val noInternetMessage = "No internet connection"
-                errorDialogOpen(activity, noInternetMessage)
-            }
-        }
-
-        return submitDataModalMutableLiveData!!
-    }
 
 
     private fun handleErrorSubmitLead(
@@ -1249,6 +1203,52 @@ class LoginViewModal : ViewModel() {
         }
 
         return liveData
+    }
+
+
+    var submitDataStatus: MutableLiveData<Pair<Boolean, String?>>? = null
+
+    fun signUpFormModalLiveData(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        accessToken: String,
+        content: SubmitRequest
+    ): LiveData<Pair<Boolean, String?>> {
+
+        submitDataStatus = MutableLiveData()
+        activity?.let {
+            val apiErrorHandler = ApiErrorHandler(it.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(it)) {
+                apiInterface.submitLeadForm(client_number, device_number, accessToken, content)
+                    ?.enqueue(object : Callback<Void> {
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            if (response.isSuccessful) {
+                                // ✅ Success (status 200 / 201)
+                                submitDataStatus?.postValue(Pair(true, null))
+                            } else {
+                                // ❌ Error
+                                val errorBody = response.errorBody()?.string()
+                                val errorMessage = apiErrorHandler.handleErrorFromBody(
+                                    errorBody,
+                                    response.code()
+                                )
+                                submitDataStatus?.postValue(Pair(false, errorMessage))
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            val errorMessage = apiErrorHandler.handleError(t)
+                            submitDataStatus?.postValue(Pair(false, errorMessage))
+                        }
+                    })
+            } else {
+                submitDataStatus?.postValue(Pair(false, "No internet connection"))
+            }
+        }
+
+        return submitDataStatus!!
     }
 
 }

@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.student.Compass_Abroad.databinding.LatestUpdatesLayoutBinding
 import com.student.Compass_Abroad.modal.getTestimonials.Row
 
-class LatestUpdateAdapter(
+class  LatestUpdateAdapter(
     private val destinationList: List<Row>,
     private val onItemClick: ((Row) -> Unit)? = null
 ) : RecyclerView.Adapter<LatestUpdateAdapter.ViewHolder>() {

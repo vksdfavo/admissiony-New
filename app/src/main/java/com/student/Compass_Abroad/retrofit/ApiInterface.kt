@@ -9,6 +9,7 @@ import com.student.firmliagent.modal.getLeadModel.getLeadResponse
 import com.student.Compass_Abroad.ChatMessageModels
 import com.student.Compass_Abroad.CreateApplicationRequest
 import com.student.Compass_Abroad.SavePreferencesRequest
+import com.student.Compass_Abroad.fragments.SubmitRequest
 import com.student.Compass_Abroad.modal.inDemandCourse.InDemandCourse
 import com.student.Compass_Abroad.modal.AllProgramModel.AllProgramModel
 import com.student.Compass_Abroad.modal.BecomeScoutModel.BecomeaScout
@@ -47,6 +48,8 @@ import com.student.Compass_Abroad.modal.counsellingModal.CounsellingResponse
 import com.student.Compass_Abroad.modal.countryModel.CountryResponse
 import com.student.Compass_Abroad.modal.createAttende.CreateAttende
 import com.student.Compass_Abroad.modal.createCounsellingModel.createCounsellingModel
+import com.student.Compass_Abroad.modal.createDynamicApplication.CreateDynamicApplication
+import com.student.Compass_Abroad.modal.createDynamicApplication.dropdown.DropdownResponse
 import com.student.Compass_Abroad.modal.createPostResponse.CreatePostResponse
 import com.student.Compass_Abroad.modal.createRefreralLink.getRefferalLink
 import com.student.Compass_Abroad.modal.createTimeSlots.SlotResponse
@@ -55,6 +58,7 @@ import com.student.Compass_Abroad.modal.deletePostResponse.DeletePostResponse
 import com.student.Compass_Abroad.modal.deleteReplyModel.DeleteReplyResponse
 import com.student.Compass_Abroad.modal.discipline.DisciplineModel
 import com.student.Compass_Abroad.modal.documentType.DocumentTypeModal
+import com.student.Compass_Abroad.modal.dynamicApplication.PostDynamicApplication
 import com.student.Compass_Abroad.modal.editProfile.EditProfile
 import com.student.Compass_Abroad.modal.editProfile.UploadImages
 import com.student.Compass_Abroad.modal.findAmbassadorModal.AmbassadorModal
@@ -76,6 +80,7 @@ import com.student.Compass_Abroad.modal.getChatResponse.getChatResponse
 import com.student.Compass_Abroad.modal.getCommentReplies.getCommentReplies
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import com.student.Compass_Abroad.modal.getDestintionManager.getDestinationmanager
+import com.student.Compass_Abroad.modal.getDocumentChecklistModal.getDocumentChecklistModal
 import com.student.Compass_Abroad.modal.getDocumentTypes.getDocumentTypes
 import com.student.Compass_Abroad.modal.getHistoryListModel.getHistoryListModel
 import com.student.Compass_Abroad.modal.getLeadCounsellings.getLeadCounsellings
@@ -134,6 +139,7 @@ import com.student.Compass_Abroad.modal.testScoreModel.TestScoreModel
 import com.student.Compass_Abroad.modal.top_destinations.TopDestinations
 import com.student.Compass_Abroad.modal.uploadDocuments.uploadDocuments
 import com.student.Compass_Abroad.modal.verifyOtp.VerifyOtp
+import com.student.Compass_Abroad.newdynamicapi.SubmitPayload
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -542,17 +548,21 @@ interface ApiInterface {
         @Path("ReplyIdentifier") ReplyIdentifier: String,
     ): Call<DeleteReplyResponse?>
 
-    @GET("landing_page/LFO1716112595567K56USAHJ02")
+    @GET("public/forms/lead")
     fun getLeadForm(
         @Header("fi-client-number") fiClientNumber: String?,
+        @Header("fi-device-number") device_number: String?,
+        @Header("Authorization") authorization: String?,
+        @Query("identifier") identifier: String?,
     ): Call<ApiResponseForm?>?
 
-    @FormUrlEncoded
-    @POST("landing_page/create"   )
+    @POST("public/forms/create")
     fun submitLeadForm(
         @Header("fi-client-number") fiClientNumber: String?,
-        @Field("content") content: String?,
-    ): Call<SubmitSinUpForm?>?
+        @Header("fi-device-number") deviceNumber: String?,
+        @Header("Authorization") authorization: String?,
+        @Body body: SubmitRequest
+    ): Call<Void>
 
     @GET
     fun getAllFields(
@@ -1640,6 +1650,38 @@ interface ApiInterface {
         @Query("program_identifier") program_identifier: String,
     ): Call<ProgramDetailsModal>
 
+    @GET("masters/forms/fields")
+    fun createDynamicApplication(
+        @Header("fi-client-number") fiClientNumber: String?,
+        @Header("fi-device-number") device_number: String?,
+        @Header("Authorization") authorization: String?,
+        @Query("module_type") module_type: String,
+    ): Call<CreateDynamicApplication?>?
+
+    @GET
+    fun getAllDropDownFields(
+        @Header("fi-client-number") fiClientNumber: String?,
+        @Header("fi-device-number") device_number: String?,
+        @Header("Authorization") authorization: String?,
+        @Url url: String
+    ): Call<DropdownResponse?>?
+
+
+    @POST("service-form/create")
+    fun submitApplication(
+        @Header("fi-client-number") clientNumber: String?,
+        @Header("fi-device-number") deviceNumber: String?,
+        @Header("Authorization") authorization: String?,
+        @Body payload: SubmitPayload
+    ): Call<PostDynamicApplication>
+
+    @GET("applications/documents-checklist/{identifier}")
+    fun getDocumentsChecklist(
+        @Header("fi-client-number") fiClientNumber: String?,
+        @Header("fi-device-number") device_number: String?,
+        @Header("Authorization") authorization: String?,
+        @Path("identifier") identifier: String?,
+    ): Call<getDocumentChecklistModal?>?
 
 }
 

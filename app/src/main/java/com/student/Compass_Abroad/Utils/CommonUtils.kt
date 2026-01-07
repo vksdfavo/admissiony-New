@@ -16,6 +16,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Environment
 import android.util.Log
+import android.util.TypedValue
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -632,4 +633,11 @@ object CommonUtils {
         }
     }
 
+    fun dpToPx(dp: Int, context: Context): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            context.resources.displayMetrics
+        ).toInt()
+    }
 }

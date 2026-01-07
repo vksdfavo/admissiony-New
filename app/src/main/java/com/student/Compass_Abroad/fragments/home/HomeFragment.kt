@@ -2068,9 +2068,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             Toast.makeText(activity, "Error in payment: " + e.message, Toast.LENGTH_LONG).show()
             e.printStackTrace()
         }
-
     }
-
     private fun onPaymentResult(
         paymentSheetResult: PaymentSheetResult,
         dialog: Dialog

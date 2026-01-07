@@ -87,7 +87,6 @@ class OnBoardingNewActivity : AppCompatActivity() {
                         override fun onAnimationStart(animation: Animator) {}
                         override fun onAnimationCancel(animation: Animator) {}
                         override fun onAnimationRepeat(animation: Animator) {}
-
                         override fun onAnimationEnd(animation: Animator) {
                             if (position == 2) {
                                 // Last slide

@@ -125,11 +125,70 @@ class ApiErrorHandler(private val context: Context) {
         }
     }
 
+    fun handleErrorFromBody(errorBody: String?, code: Int): String {
+        return when (code) {
+            400, 401, 403, 404, 422, 500 -> extractCleanErrorMessage1(errorBody)
+            else -> "HTTP Error $code: ${extractCleanErrorMessage1(errorBody)}"
+        }
+    }
+
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkCapabilities =
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
+
+    private fun extractCleanErrorMessage1(errorBody: String?): String {
+        if (errorBody.isNullOrEmpty()) return "An unknown error occurred"
+
+        return try {
+            val jsonObject = JSONObject(errorBody)
+            val messages = mutableListOf<String>()
+
+            // ✅ Handle errors as JSONObject
+            if (jsonObject.has("errors")) {
+                val errors = jsonObject.get("errors")
+                when (errors) {
+                    is JSONObject -> {
+                        for (key in errors.keys()) {
+                            val keyString = key as? String ?: continue
+                            val message = errors.optString(keyString)
+                            if (message.isNotEmpty()) {
+                                messages.add(message)
+                            }
+                        }
+                    }
+                    is org.json.JSONArray -> {
+                        for (i in 0 until errors.length()) {
+                            val errorObj = errors.optJSONObject(i) ?: continue
+                            for (key in errorObj.keys()) {
+                                val keyString = key as? String ?: continue
+                                val message = errorObj.optString(keyString)  // ✅ get from errorObj
+                                if (message.isNotEmpty()) {
+                                    messages.add(message)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // ✅ Fallback to direct "message" field
+            if (jsonObject.has("message")) {
+                val message = jsonObject.optString("message")
+                if (message.isNotEmpty()) messages.add(message)
+            }
+
+
+
+            // Return all collected messages or a default
+            if (messages.isNotEmpty()) messages.joinToString("\n") else "An unknown error occurred"
+
+        } catch (e: Exception) {
+            "Failed to parse error message"
+        }
     }
 }

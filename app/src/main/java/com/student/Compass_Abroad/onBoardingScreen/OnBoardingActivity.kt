@@ -50,6 +50,7 @@ class OnBoardingActivity : AppCompatActivity() {
                 super.onPageSelected(position)
                 val progress = when (binding.viewPager2.currentItem) {
                     0 -> {
+
                         50
                     }
                     1 -> {
@@ -69,8 +70,12 @@ class OnBoardingActivity : AppCompatActivity() {
                 val animation = ObjectAnimator.ofInt(binding.progressBar, "progress", progress)
                 animation.interpolator = AccelerateDecelerateInterpolator()
                 animation.duration = 750
+
                 animation.addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator) {
+
+                    override fun onAnimationStart(animation: Animator)
+                    {
+
                     }
 
                     override fun onAnimationEnd(animation: Animator) {
@@ -108,7 +113,9 @@ class OnBoardingActivity : AppCompatActivity() {
 
 
         binding.indicatorOb.setViewPager( binding.viewPager2)
+
         binding.fabSkip.setOnClickListener { binding.viewPager2.currentItem += 1 }
+
         binding.tvGetStarted.setOnClickListener {
             startActivity(Intent(
                 this@OnBoardingActivity,

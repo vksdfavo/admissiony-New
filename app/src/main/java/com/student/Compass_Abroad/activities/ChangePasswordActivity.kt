@@ -1,19 +1,13 @@
 package com.student.Compass_Abroad.activities
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.os.Looper
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.postDelayed
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -27,7 +21,6 @@ import com.student.Compass_Abroad.encrytion.PasswordConverter
 import com.student.Compass_Abroad.modal.forgotPasswordModel.ForgotPasswordModel
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import com.student.bt_global.Utils.NeTWorkChange
-import java.util.logging.Handler
 
 class ChangePasswordActivity : AppCompatActivity() {
     var binding: ActivityChangePasswordBinding? = null

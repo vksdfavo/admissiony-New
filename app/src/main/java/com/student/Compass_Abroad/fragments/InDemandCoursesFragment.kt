@@ -144,7 +144,6 @@ class InDemandCoursesFragment : BaseFragment() {
         }
     }
 
-    // Helper function to handle shortlist like/dislike
     private fun handleShortlist(
         data: com.student.Compass_Abroad.modal.inDemandCourse.Data,
         isLike: Boolean

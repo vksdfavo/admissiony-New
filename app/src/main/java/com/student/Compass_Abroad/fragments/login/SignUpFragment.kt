@@ -5,13 +5,14 @@ package com.student.Compass_Abroad.fragments.login
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -22,7 +23,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -36,18 +36,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.student.Compass_Abroad.ApiResponseForm
 import com.student.Compass_Abroad.BuildConfig
-import com.student.Compass_Abroad.LeadField
-import com.student.Compass_Abroad.ParamInfo
+import com.student.Compass_Abroad.DependentParam
+import com.student.Compass_Abroad.FormField
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
@@ -55,17 +52,15 @@ import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.Utils.errorDialogOpen
 import com.student.Compass_Abroad.databinding.FragmentSignUpBinding
-import com.student.Compass_Abroad.encrytion.encryptData
-import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.fragments.PrivacyPolicyFragment
+import com.student.Compass_Abroad.fragments.SubmitRequest
 import com.student.Compass_Abroad.fragments.TermsAndConditionsFragment
-import com.student.Compass_Abroad.modal.checkUserModel.CheckUserModel
-import com.student.Compass_Abroad.modal.submitSinUp.SubmitSinUpForm
+import com.student.Compass_Abroad.newdynamicapi.UnifiedDropdownItem
+import com.student.Compass_Abroad.retrofit.HomeViewModal
 import com.student.Compass_Abroad.retrofit.LoginViewModal
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import java.util.Locale
 import kotlin.random.Random
@@ -76,28 +71,18 @@ class SignUpFragment : Fragment() {
     private val dependentSpinners: MutableMap<String, Spinner> = mutableMapOf()
     private val fieldValues: MutableMap<String, String> = mutableMapOf()
     var contentKey = ""
-    var referralCode: String? = null
     var statusValidation: Int? = null
     private val editTextFields: MutableMap<String, EditText> = mutableMapOf()
-    private var isFirstTimeErrorHandled = false
-    private var requiredFieldsArray: JSONArray? = null
     val list = ArrayList<String>()
+    var leadFormIdentifier:String=""
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
+    ): View {
 
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE //
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         viewModel = ViewModelProvider(requireActivity())[ViewModalClass::class.java]
-
 
         statusValidation = App.singleton!!.statusValidation
 
@@ -105,8 +90,6 @@ class SignUpFragment : Fragment() {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-        referralCode = arguments?.getString("referral")
-
 
 
         fetchLeadForm()
@@ -114,40 +97,53 @@ class SignUpFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        // ✅ Safe to access window here
-       if(isAdded){
-           val activity = activity ?: return
-           val window = activity.window ?: return
-
-           requireActivity().window.statusBarColor =
-               requireActivity().getColor(R.color.teall)
-           window.navigationBarColor =
-               ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
-
-           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-               val controller = window.insetsController
-               controller?.setSystemBarsAppearance(
-                   WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                   WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-               )
-           } else {
-               @Suppress("DEPRECATION")
-               window.decorView.systemUiVisibility =
-                   View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-           }
-       }
-    }
-
     private fun fetchLeadForm() {
-        viewModel.leadFormResponseLiveData(requireActivity(), AppConstants.fiClientNumber)
-            .observe(requireActivity()) { leadFormResponse: ApiResponseForm? ->
-                leadFormResponse?.let { response ->
-                    if (response.statusCode == 200 && response.success) {
-                        val formName = response.data?.name ?: "Submit"
+        val currentFlavor = BuildConfig.FLAVOR.lowercase()
+        Log.d("CurrentFlavor", "Detected flavor: $currentFlavor")
 
-                        createDynamicForm(response.data?.lead_fields ?: emptyList(), formName)
+        // ✅ Decide identifier BEFORE API call
+        val formIdentifier = when (currentFlavor) {
+            "mrconsultants" -> "FRM1766382941687O25HGYST84"
+            "zarnab" -> "FRM1764242607713U25JKBXD78"
+            "edunetwork" -> "FRM1749619036014D25KMCAL44"
+            else -> "FRM1749619036014D25KMCAL44"
+        }
+
+        HomeViewModal().leadFormResponseLiveData(
+            requireActivity(),
+            AppConstants.fiClientNumber,
+            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
+            "Bearer ${CommonUtils.accessToken}",
+            formIdentifier
+        ).observe(requireActivity()) { leadFormResponse: ApiResponseForm? ->
+
+            leadFormResponse?.let { response ->
+
+                if (response.statusCode == 200 && response.success) {
+
+                    // ✅ Use forced identifier for specific flavors
+                    leadFormIdentifier = when (currentFlavor) {
+                        "mrconsultants" -> "FRM1766382941687O25HGYST84"
+                        "zarnab" -> "FRM1764242607713U25JKBXD78"
+                        "edunetwork" -> "FRM1749619036014D25KMCAL44"
+                        else -> response.data?.identifier.orEmpty()
+                    }
+
+                    if (leadFormIdentifier.isNotEmpty()) {
+
+                        fieldValues["form_identifier"] = leadFormIdentifier
+
+                        val stepCount = response.data?.step_count ?: 0
+                        val fieldsMap = response.data?.fields
+
+                        for (step in 1..stepCount) {
+                            val stepKey = step.toString()
+                            val field = fieldsMap?.get(stepKey).orEmpty()
+
+                            if (isAdded) {
+                                createDynamicForm(field, "Submit")
+                            }
+                        }
 
                     } else {
                         CommonUtils.toast(
@@ -157,26 +153,32 @@ class SignUpFragment : Fragment() {
                     }
                 }
             }
+        }
     }
 
-
     @SuppressLint("ClickableViewAccessibility")
-    private fun createDynamicForm(fields: List<LeadField>, formName: String) {
+    private fun createDynamicForm(fields: List<FormField>, formName: String) {
         binding.formContainer.removeAllViews()
-
-        fields.sortedBy { it.lead_form_field.order_by }.forEach { field ->
+        fields.sortedBy { it.order_by }.forEach { field ->
             when (field.type) {
                 "text", "email", "number" -> if (isAdded) {
                     createEditText(field)
                 }
 
                 "radio" -> if (isAdded) {
+
                     createRadioButton(field)
                 }
 
                 "single_select" -> if (isAdded) {
                     createSpinner(field, fields)
                 }
+
+                "mobile"->
+                    if (isAdded) {
+                        addDynamicPhoneInputWithCountryCode(field)
+                    }
+
             }
         }
 
@@ -188,6 +190,14 @@ class SignUpFragment : Fragment() {
             "Referral Code"
         }
 
+        val spaceAfterFields = View(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                resources.getDimensionPixelSize(R.dimen.dp_8)
+            )
+        }
+
+
         val spannableLabel = SpannableString(referralLabelText)
         val starStart = referralLabelText.indexOf("*")
         if (starStart != -1) {
@@ -198,61 +208,9 @@ class SignUpFragment : Fragment() {
                 starEnd,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-        }
-
-        val referralLabel = TextView(requireContext()).apply {
-            text = spannableLabel
-            textSize = 14f
-            setTextColor(Color.BLACK)
-            gravity = Gravity.START
-            setPadding(0, resources.getDimensionPixelSize(R.dimen.dp_10), 0, 0)
-            typeface = Typeface.DEFAULT_BOLD
-        }
-
-
-
-
-// Space after radio buttons
-        val spaceAfterRadioButtons = View(requireContext()).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                resources.getDimensionPixelSize(R.dimen.dp_8)
-            )
-        }
-
-// Referral EditText
-        val referralEditText = EditText(requireContext()).apply {
-            hint = "Enter Referral Code"
-            setHintTextColor(Color.GRAY)
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-            val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
-            setPadding(padding, padding, padding, padding)
-            background = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.shape_rectangle_all_radius_et_login
-            )
-        }
-
-        if (referralCode.isNotEmpty()) {
-            referralEditText.setText(referralCode)
-        } else {
 
         }
 
-        val currentFlavor = BuildConfig.FLAVOR.lowercase()
-
-        when (currentFlavor) {
-            "admisiony", "firmli","eeriveurope", "unitedglobalservices" -> {
-                binding.formContainer.addView(referralLabel)
-                 binding.formContainer.addView(spaceAfterRadioButtons)
-                binding.formContainer.addView(referralEditText)
-
-
-            }
-        }
-
-
-        // Parent layout to hold checkbox and text side by side or vertically
         val containerLayout = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.HORIZONTAL  // or VERTICAL, based on your design
             gravity = Gravity.CENTER_VERTICAL
@@ -273,9 +231,9 @@ class SignUpFragment : Fragment() {
         }
 
 // 2. Create clickable text separately
+
         val termsText = "I accept the Terms & Conditions and Privacy Policy."
         val spannableText = SpannableString(termsText)
-        val linkColor = ContextCompat.getColor(requireContext(), R.color.black)
 
         val termsStart = termsText.indexOf("Terms & Conditions")
         val termsEnd = termsStart + "Terms & Conditions".length
@@ -288,13 +246,6 @@ class SignUpFragment : Fragment() {
                 if (fragmentManager.findFragmentByTag(TermsAndConditionsFragment::class.java.simpleName) == null) {
                     TermsAndConditionsFragment().show(fragmentManager, TermsAndConditionsFragment::class.java.simpleName)
                 }
-
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.color = linkColor          // 👈 set your custom color here
-                ds.isUnderlineText = false    // optional: remove underline
             }
         }, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
@@ -304,22 +255,13 @@ class SignUpFragment : Fragment() {
                 if (fragmentManager.findFragmentByTag(PrivacyPolicyFragment::class.java.simpleName) == null) {
                     PrivacyPolicyFragment().show(fragmentManager, PrivacyPolicyFragment::class.java.simpleName)
                 }
-
-
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.color = linkColor          // 👈 set your custom color here
-                ds.isUnderlineText = false    // optional: remove underline
             }
         }, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-// 3. Create TextView for clickable terms
         val termsTextView = TextView(requireContext()).apply {
             text = spannableText
             movementMethod = LinkMovementMethod.getInstance()
-            setTextColor(resources.getColor(R.color.signup_hint))
+            setTextColor(Color.BLACK)
             textSize = 14f
             typeface = Typeface.DEFAULT_BOLD
             layoutParams = LinearLayout.LayoutParams(
@@ -331,13 +273,10 @@ class SignUpFragment : Fragment() {
             }
         }
 
-// Add views to the container layout
         containerLayout.addView(termsCheckBox)
         containerLayout.addView(termsTextView)
 
-// Finally, add to your form container
         binding.formContainer.addView(containerLayout)
-
 
         val loginText = "Already have an account? Login"
 
@@ -351,20 +290,19 @@ class SignUpFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         spannable.setSpan(
-            ForegroundColorSpan(Color.GRAY),
+            ForegroundColorSpan(Color.BLACK),
             loginStart,
             loginEnd,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                findNavController().navigate(R.id.signInEmailFragment)
+                findNavController().navigate(R.id.signInFragment)
             }
 
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = linkColor          // 👈 set your custom color here
-                ds.isUnderlineText = false    // optional: remove underline
+                ds.isUnderlineText = false  // Remove underline
             }
         }
         spannable.setSpan(clickableSpan, loginStart, loginEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -374,24 +312,19 @@ class SignUpFragment : Fragment() {
             movementMethod = LinkMovementMethod.getInstance()  // Enable clickability
             gravity = Gravity.CENTER
             textSize = 14f
-            setTextColor(resources.getColor(R.color.signup_hint))  // Set overall text color
+            setTextColor(Color.BLACK)  // Set overall text color
             setPadding(0, resources.getDimensionPixelSize(R.dimen.dp_10), 0, 0)
         }
 
 
-        if (statusValidation == 1) {
-            handleSubmit(termsCheckBox, referralCode)
-        } else if (statusValidation == 0) {
-            // Do nothing or show a message if needed
-        }
 
         val submitButton = Button(requireActivity()).apply {
             text = formName
-            setBackgroundResource(R.drawable.shape_rectangle_all_radius_btn_yellow)
+            setBackgroundResource(R.drawable.shape_rectangle_all_radius_btn_dark)
             setTextColor(Color.WHITE)
             setOnClickListener {
 
-                handleSubmit(termsCheckBox, referralCode)
+                handleSubmit(termsCheckBox)
             }
         }
 
@@ -404,352 +337,194 @@ class SignUpFragment : Fragment() {
         submitButton.layoutParams = layoutParams
 
         binding.formContainer.addView(submitButton)
-
         binding.formContainer.addView(loginTextView)
+
     }
 
-
-    private fun handleSubmit(termsCheckBox: CheckBox?, referralCode1: String) {
-        var isValid = true
-        var enteredEmail: String? = null
-        val isMaven = BuildConfig.FLAVOR.equals("MavenConsulting", ignoreCase = true)
-
-        val originalCountryCode = fieldValues["country_code"] ?: ""
-        val extractedCountryCode = if (originalCountryCode.contains(" - ")) {
-            originalCountryCode.split(" - ")[0].trim().removePrefix("+")
-        } else {
-            ""
+    private fun handleSubmit(termsCheckBox: CheckBox) {
+        val formIdentifier = fieldValues["form_identifier"] as? String
+        if (formIdentifier.isNullOrBlank()) {
+            Toast.makeText(requireActivity(), "Form Identifier is missing.", Toast.LENGTH_LONG).show()
+            return
         }
 
-        val originalAlternativeCountryCode = fieldValues["alternate_country_code"] ?: ""
-        val extractedAlternativeCountryCode = if (originalAlternativeCountryCode.contains(" - ")) {
-            originalAlternativeCountryCode.split(" - ")[0].trim().removePrefix("+")
-        } else {
-            ""
-        }
+        val filteredEntries = fieldValues
+            .filterKeys { it != "form_identifier" }
+            .mapValues { (_, value) ->
+                when (value) {
+                    is String -> {
+                        val trimmed = value.trim()
+                        if (placeholderValues.any { trimmed.equals(it, ignoreCase = true) }) {
+                            null
+                        } else if (trimmed.startsWith("Select", ignoreCase = true) || trimmed.isBlank()) {
+                            null
+                        } else {
+                            trimmed
+                        }
+                    }
 
+                    is List<*> -> if (value.isEmpty()) null else value
 
-
-        list.clear()
-
-        if (requiredFieldsArray != null) {
-            for (i in 0 until requiredFieldsArray!!.length()) {
-                val errorObject = requiredFieldsArray!!.getJSONObject(i)
-                val field = errorObject.keys().next().toString()
-                list.add(field)
-            }
-
-
-            val errors = mutableListOf<String>()
-
-            for (field in list) {
-                val value = fieldValues[field]
-                Log.d("FieldValidation", "Field: $field, Value: $value")
-
-                if (value == null ||
-                    (value is String && (value.isBlank() || value.startsWith("Select") || value.startsWith(
-                        "Country"
-                    ))) ||
-                    (value is ArrayList<*> && value.isEmpty())
-                ) {
-                    val fieldName = field.replace("_", " ").replaceFirstChar { it.uppercase() }
-                    errors.add("$fieldName is required.")
+                    else -> value
                 }
             }
+            .filterValues { it != null }
 
-            if (termsCheckBox?.isChecked != true) {
-                errors.add("Please accept Terms and conditions")
-            }
+        val requestPayload = SubmitRequest(
+            data = filteredEntries,
+            form_identifier = formIdentifier
+        )
 
-
-            val unwantedMessages = listOf("Message is required.")
-            val filteredErrors =
-                errors.filterNot { it.contains(unwantedMessages[0], ignoreCase = true) }
-
-            if (filteredErrors.isNotEmpty()) {
-                errorDialogOpen(requireActivity(), filteredErrors.joinToString("\n"))
-                return
-            } else {
-                Log.d("apiSubmitSignUps", "No important error to show.")
-            }
-
-            for ((fieldName, editText) in editTextFields) {
-                val value = editText.text.toString()
-                if (fieldName.contains("email", ignoreCase = true)) {
-                    enteredEmail = value
-                    break
-                }
-            }
-
-            enteredEmail?.let {
-
-                sharedPre?.saveString(AppConstants.USER_EMAIL, it)
-
-            }
-
-            if (isValid) {
-                val hexString = generateRandomHexString(16)
-                val publicKey = hexString
-                val privateKey = AppConstants.privateKey
-                val appSecret = AppConstants.appSecret
-                val ivHexString = "$privateKey$publicKey"
-
-                val formData = JSONObject()
-
-                try {
-                    fieldValues.forEach { (key, value) ->
-                        val stringValue = value as? String ?: ""
-                        val finalValue = if (stringValue.startsWith("Select")) null else stringValue
-                        formData.put(key, finalValue)
-                    }
-
-                    if (!referralCode1.isNullOrEmpty()) {
-                        formData.put("referral_identifier", referralCode1)
-                    }
-
-                    formData.put("lead_form_identifier", "LFO1716112595567K56USAHJ02")
-                    formData.put("country_code", extractedCountryCode)
-                    if (isMaven) {
-                        formData.put("alternate_country_code", extractedAlternativeCountryCode)
-                    }
-
-                    sharedPre?.saveString(AppConstants.publicKey, formData.toString())
-                    Log.d("loginUser", formData.toString())
-
-                    val encryptedString = encryptData(formData.toString(), appSecret, ivHexString)
-                    if (encryptedString != null) {
-                        contentKey = "$publicKey^#^$encryptedString"
-                        Log.d("loginUser", contentKey)
-
-                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
-                    } else {
-                        Log.e("loginUser", "Encryption failed.")
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    Toast.makeText(
-                        requireActivity(),
-                        "Failed to prepare form data",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        } else {
-
-
-            for ((fieldName, editText) in editTextFields) {
-                val value = editText.text.toString()
-                if (fieldName.contains("email", ignoreCase = true)) {
-                    enteredEmail = value
-                    break
-                }
-            }
-
-            enteredEmail?.let {
-                sharedPre?.saveString(AppConstants.USER_EMAIL, it)
-            }
-
-
-
-            if (isValid) {
-                val hexString = generateRandomHexString(16)
-                val publicKey = hexString
-                val privateKey = AppConstants.privateKey
-                val appSecret = AppConstants.appSecret
-                val ivHexString = "$privateKey$publicKey"
-
-                val formData = JSONObject()
-
-                try {
-                    fieldValues.forEach { (key, value) ->
-                        val stringValue = value as? String ?: ""
-                        val finalValue = if (stringValue.startsWith("Select")) null else stringValue
-                        formData.put(key, finalValue)
-                    }
-
-                    if (!referralCode1.isNullOrEmpty()) {
-                        formData.put("referral_identifier", referralCode1)
-                    }
-
-                    formData.put("lead_form_identifier", "LFO1716112595567K56USAHJ02")
-                    formData.put("country_code", extractedCountryCode)
-                    if (isMaven) {
-                        formData.put("alternate_country_code", extractedAlternativeCountryCode)
-                    }
-
-                    sharedPre?.saveString(AppConstants.publicKey, formData.toString())
-                    Log.d("loginUser", formData.toString())
-
-                    val encryptedString = encryptData(formData.toString(), appSecret, ivHexString)
-                    if (encryptedString != null) {
-                        contentKey = "$publicKey^#^$encryptedString"
-                        Log.d("loginUser", contentKey)
-
-                        apiSubmitSignUp(contentKey, publicKey, termsCheckBox)
-                    } else {
-                        Log.e("loginUser", "Encryption failed.")
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    Toast.makeText(
-                        requireActivity(),
-                        "Failed to prepare form data",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
+        Log.d("handleSubmit", "Final Payload: $filteredEntries")
+        apiSubmitForm(requestPayload, termsCheckBox)
     }
-
-    private fun apiSubmitSignUp(
-        encrytedContent: String?,
-        publicKey: String,
-        termsCheckBox: CheckBox?
-    ) {
-        if (encrytedContent != null) {
+    private val placeholderValues = listOf(
+        "Select",
+        "Select Country",
+        "Select Discipline",
+        "Select Category",
+        "Select Level",
+        "Enter Alternate Country Code",
+        "Enter Testscore"
+    )
+    private fun apiSubmitForm(requestPayload: SubmitRequest, termsCheckBox: CheckBox) {
+        if (requestPayload != null) {
             LoginViewModal().signUpFormModalLiveData(
                 requireActivity(),
                 AppConstants.fiClientNumber,
-                contentKey
-            ).observe(requireActivity()) { submitSinUpForm: SubmitSinUpForm? ->
-                submitSinUpForm?.let { response ->
-                    if (response.statusCode == 201) {
+                sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
+                "Bearer ${CommonUtils.accessToken}",
+                requestPayload
+            ).observe(viewLifecycleOwner) { response ->
+                response?.let { (isSuccess, errorMessage) ->
+                    if (isSuccess) {
+                        // ✅ Success
 
-                        val encryptedContent = CommonUtils.createContentCheckUser(
-                            requireActivity(),
-                            publicKey,
-                            response.data?.userInfo?.email,
-                            "signup"
-                        )
-
-                        apiCheckUser(encryptedContent, publicKey)
-
-                    }
-                    if (response.statusCode == 422) {
-                        if (response.errors != null) {
-                            if (response.errors is JSONArray) {
-                                requiredFieldsArray = response.errors
-                                Log.e("Error", "Expected JSONArray but got: ${response.errors}")
-                                if (isFirstTimeErrorHandled) {
-
-                                    handleError(requiredFieldsArray)
-
-                                } else {
-                                    isFirstTimeErrorHandled = true
-                                }
-                            } else {
-                                Log.e(
-                                    "Error",
-                                    "Expected JSONArray but got: ${response.errors?.javaClass?.name}"
-                                )
-                            }
-                        } else {
-                            val errorMessage = response.message ?: "An unknown error occurred."
-                            //CommonUtils.toast(this, errorMessage)
+                        val staticErrors = getStaticValidationErrors(termsCheckBox)
+                        if (staticErrors.isNotEmpty()) {
+                            // Show errors & stop navigation
+                            val message = staticErrors.joinToString("\n")
+                            errorDialogOpen(requireActivity(), message)
+                            return@observe // 🚫 stop here, no navigation
                         }
-                    }
+                        Toast.makeText(requireActivity(), "Sign up successfully! Please login to continue.", Toast.LENGTH_SHORT).show()
 
-
-                }
-            }
-        } else {
-
-            Toast.makeText(requireActivity(), "Failed to prepare form data", Toast.LENGTH_SHORT)
-                .show()
-
-        }
-    }
-
-    private fun handleError(errorsArray: JSONArray?) {
-        if (errorsArray != null && errorsArray.length() > 0) {
-            val errorMessages = StringBuilder()
-
-            for (i in 0 until errorsArray.length()) {
-                val firstError = errorsArray.getJSONObject(i)
-                val keys = firstError.keys()
-
-                while (keys.hasNext()) {
-                    val key = keys.next()
-                    val keyStr = key.toString()
-                    val value = firstError.optString(keyStr, "")
-
-                    val fieldName = keyStr.replace("_", " ").replaceFirstChar {
-
-                        it.toString().uppercase(Locale.getDefault())
-
-                    }
-
-                    errorMessages.append("$fieldName: $value\n")
-                }
-
-            }
-
-            val fullErrorMessage = errorMessages.toString().trim()
-            if (fullErrorMessage.isNotEmpty()) {
-                errorDialogOpen(requireActivity(), fullErrorMessage)
-                Log.d("apiSubmitSignUp", fullErrorMessage)
-            } else {
-                Log.d("handleError", "No important error to show in popup.")
-            }
-        } else {
-            Log.e("ErrorParsing", "Error response does not contain 'errors' array or is empty")
-            CommonUtils.toast(activity, "Unexpected error format")
-        }
-    }
-
-
-    private fun apiCheckUser(content: String?, publicKey: String) {
-        contentKey = "$publicKey^#^$content"
-
-        LoginViewModal().checkUserModelLiveData(requireActivity(), contentKey)
-            .observe(viewLifecycleOwner) { loginModal: CheckUserModel? ->
-                loginModal?.let { nonNullLoginModal ->
-                    if (nonNullLoginModal.statusCode == 200) {
-
-                        if (loginModal.data?.oneTimePasswordInfo?.p_set == false || loginModal.data?.oneTimePasswordInfo?.v_set == false) {
-                            findNavController(binding.root)
-                                .navigate(R.id.verifyOtpFragment)
-                            requiredFieldsArray = JSONArray()
-                            list.clear()
-
-                            with(sharedPre!!) {
-
-                                saveString(
-                                    AppConstants.OTP_IDENTIFIER,
-                                    loginModal.data!!.oneTimePasswordInfo.identifier
-                                )
-                                saveString(
-                                    AppConstants.User_IDENTIFIER,
-                                    loginModal.data!!.userInfo.identifier
-                                )
-                                saveString(
-                                    AppConstants.Device_IDENTIFIER,
-                                    loginModal.data!!.userDeviceInfo.identifier
-                                )
-                            }
-
-                        } else {
-
-                            findNavController(
-                                binding
-                                    .getRoot()
-                            )
-                                .navigate(R.id.passwordFragment)
-
-                        }
+                        findNavController(binding.root).navigate(R.id.signInFragment)
 
                     } else {
-                        CommonUtils.toast(
-                            requireActivity(),
-                            nonNullLoginModal.message ?: "Forget Failed"
-                        )
+                        val messageToShow = errorMessage ?: "Failed to submit form. Please try again."
+                        handleError(messageToShow,termsCheckBox)
                     }
                 }
             }
+        }
+    }
+    private fun handleError(errors: Any?, termsCheckBox: CheckBox) {
+        if (errors == null) {
+            Log.e("handleError", "No 'errors' field found")
+            CommonUtils.toast(requireActivity(), "Unexpected error format")
+            return
+        }
+
+        val errorMessages = mutableListOf<String>()
+
+        try {
+            when (errors) {
+
+                is JSONObject -> {
+                    val keys = errors.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next().toString() // ✅ ensure String
+                        val formattedKey = key.replace("_", " ")
+                            .replaceFirstChar { it.uppercaseChar() }
+
+                        when (val value = errors.get(key)) {
+                            is JSONArray -> {
+                                for (i in 0 until value.length()) {
+                                    val msg = value.optString(i)
+                                    if (msg.isNotEmpty()) errorMessages.add("$formattedKey: $msg")
+                                }
+                            }
+                            else -> {
+                                val msg = value.toString()
+                                if (msg.isNotEmpty()) errorMessages.add("$formattedKey: $msg")
+                            }
+                        }
+                    }
+                }
+
+                // ✅ Case 2: errors is a JSONArray
+                is JSONArray -> {
+                    for (i in 0 until errors.length()) {
+                        when (val item = errors.get(i)) {
+                            is JSONObject -> {
+                                val keys = item.keys()
+                                while (keys.hasNext()) {
+                                    val key = keys.next().toString() // ✅ ensure String
+                                    val formattedKey = key.replace("_", " ")
+                                        .replaceFirstChar { it.uppercaseChar() }
+                                    val msg = item.optString(key)
+                                    if (msg.isNotEmpty()) errorMessages.add("$formattedKey: $msg")
+                                }
+                            }
+                            else -> {
+                                val msg = item.toString()
+                                if (msg.isNotEmpty()) errorMessages.add(msg)
+                            }
+                        }
+                    }
+                }
+
+                // ✅ Case 3: errors is just a String or other type
+                else -> {
+                    val msg = errors.toString()
+                    if (msg.isNotEmpty()) errorMessages.add(msg)
+                }
+            }
+
+            val staticErrors = getStaticValidationErrors(termsCheckBox)
+            if (staticErrors.isNotEmpty()) {
+                errorMessages.addAll(staticErrors)
+            }
+
+
+            // ✅ Show all combined messages
+            val fullMessage = errorMessages.joinToString("\n").trim()
+            if (fullMessage.isNotEmpty()) {
+                errorDialogOpen(requireActivity(), fullMessage)
+                Log.e("API Error", fullMessage)
+            } else {
+                Log.e("handleError", "No readable error message found")
+                CommonUtils.toast(requireActivity(), "Unexpected error format")
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("handleError", "Error parsing response: ${e.message}")
+            CommonUtils.toast(requireActivity(), "Error parsing response")
+        }
     }
 
-    @SuppressLint("ResourceType")
-    private fun createEditText(field: LeadField) {
+    private fun getStaticValidationErrors(termsCheckBox: CheckBox): List<String> {
+        val staticErrors = mutableListOf<String>()
+
+        // Example: Checkbox validation
+        if (!termsCheckBox.isChecked) {
+            staticErrors.add("Please accept Terms and Conditions.")
+        }
+
+        // (Optional) If you want to check for other required fields:
+        fieldValues.forEach { (key, value) ->
+            if (value is String && value.trim().isEmpty()) {
+                val formattedKey = key.replace("_", " ").replaceFirstChar { it.uppercaseChar() }
+                staticErrors.add("$formattedKey is required.")
+            }
+        }
+
+        return staticErrors
+    }
+
+    private fun createEditText(field: FormField) {
         val container = LinearLayout(requireActivity()).apply {
             orientation = LinearLayout.VERTICAL
             layoutParams = LinearLayout.LayoutParams(
@@ -757,20 +532,20 @@ class SignUpFragment : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
 
-                setMargins(0, resources.getDimensionPixelSize(R.dimen.dp_20), 0, 0)
+                setMargins(0, resources.getDimensionPixelSize(R.dimen.dp_10), 0, 0)
             }
         }
 
-       /* val label = TextView(requireActivity()).apply {
-            val labelText = field.label.replaceFirstChar {
+        val label = TextView(requireActivity()).apply {
+            val labelText = field.label?.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
             }
             val spannableLabel =
-                SpannableString("$labelText${if (field.is_required == 1) " *" else ""}")
-            if (field.is_required == 1) {
+                SpannableString("$labelText${if (field.validations?.required == true) " *" else ""}")
+            if (field.validations?.required == true) {
                 spannableLabel.setSpan(
                     ForegroundColorSpan(ContextCompat.getColor(requireActivity(), R.color.red)),
-                    labelText.length,
+                    labelText!!.length,
                     spannableLabel.length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
@@ -780,16 +555,15 @@ class SignUpFragment : Fragment() {
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setTypeface(typeface, Typeface.BOLD)
             setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-        }*/
+        }
 
         val editText = EditText(requireActivity()).apply {
-            hint = field.lead_form_field.placeholder
+            hint = field.placeholder
             inputType = when (field.type) {
                 "email" -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS or InputType.TYPE_CLASS_TEXT
                 "number" -> InputType.TYPE_CLASS_NUMBER
                 else -> InputType.TYPE_CLASS_TEXT
             }
-            setHintTextColor(Color.GRAY)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setBackgroundResource(R.drawable.shape_rectangle_all_radius_et_login)
             val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
@@ -803,12 +577,12 @@ class SignUpFragment : Fragment() {
         }
         editTextFields[field.name] = editText
 
-        //container.addView(label)
+        container.addView(label)
         container.addView(editText)
         binding.formContainer.addView(container)
     }
 
-    private fun createRadioButton(field: LeadField) {
+    private fun createRadioButton(field: FormField) {
         val container = LinearLayout(requireActivity()).apply {
             orientation = LinearLayout.VERTICAL
             layoutParams = LinearLayout.LayoutParams(
@@ -820,12 +594,12 @@ class SignUpFragment : Fragment() {
         }
 
         // Add a label for the radio group
-        val labelText = field.label.replaceFirstChar {
+        val labelText = field.label?.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
         }
         val spannableLabel =
-            SpannableString("$labelText${if (field.is_required == 1) " *" else ""}")
-        if (field.is_required == 1) {
+            SpannableString("$labelText${if (field.validations?.required == true) " *" else ""}")
+        if (field.validations?.required == true) {
             spannableLabel.setSpan(
                 ForegroundColorSpan(
                     ContextCompat.getColor(
@@ -833,7 +607,7 @@ class SignUpFragment : Fragment() {
                         R.color.red
                     )
                 ), // Red color for the star
-                labelText.length + 1,
+                labelText!!.length + 1,
                 spannableLabel.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
@@ -850,7 +624,7 @@ class SignUpFragment : Fragment() {
             setPadding(padding, padding, padding, padding)
         }
 
-        field.options_data?.options?.forEach { option ->
+        field.field_options?.options?.forEach { option ->
             val radioButton = RadioButton(requireActivity()).apply {
                 text = option.label
                 id = View.generateViewId()
@@ -870,7 +644,7 @@ class SignUpFragment : Fragment() {
         binding.formContainer.addView(container)
     }
 
-    private fun createSpinner(field: LeadField, fields: List<LeadField>) {
+    private fun  createSpinner(field: FormField, fields: List<FormField>) {
         val container = LinearLayout(requireActivity()).apply {
             orientation = LinearLayout.VERTICAL
             layoutParams = LinearLayout.LayoutParams(
@@ -879,17 +653,17 @@ class SignUpFragment : Fragment() {
             ).apply { topMargin = resources.getDimensionPixelSize(R.dimen.dp_10) }
         }
 
-        /*val label = TextView(requireActivity()).apply {
-            val labelText = field.label.capitalize(Locale.ROOT)
+        val label = TextView(requireActivity()).apply {
+            val labelText = field.label!!.capitalize(Locale.ROOT)
             val spannableLabel =
-                SpannableString("$labelText${if (field.is_required == 1) " *" else ""}")
+                SpannableString("$labelText${if (field.validations?.required == true) " *" else ""}")
             spannableLabel.setSpan(
                 StyleSpan(Typeface.BOLD),
                 0,
                 labelText.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            if (field.is_required == 1) {
+            if (field.validations?.required == true) {
                 spannableLabel.setSpan(
                     ForegroundColorSpan(ContextCompat.getColor(requireActivity(), R.color.red)),
                     labelText.length,
@@ -901,11 +675,11 @@ class SignUpFragment : Fragment() {
             text = spannableLabel
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             setTextColor(ContextCompat.getColor(context, R.color.black))
-        }*/
+        }
 
         val searchableSpinner = SearchableSpinner(requireActivity()).apply {
             setBackgroundResource(R.drawable.shape_rectangle_all_radius_et_login)
-            setTitle("${field.label.capitalize(Locale.ROOT)}")
+            setTitle("${field.label!!.capitalize(Locale.ROOT)}")
             setPositiveButton("Close")
 
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -917,7 +691,7 @@ class SignUpFragment : Fragment() {
                 ) {
                     val selectedItem = parent.getItemAtPosition(position) as String
                     fieldValues[field.name] = selectedItem
-                    field.options_data?.related_fields?.forEach { relatedField ->
+                    field.assigned_field_options?.children_fields?.forEach { relatedField ->
                         fields.find { it.name == relatedField }?.let { relatedLeadField ->
                             updateDependentSpinner(selectedItem, relatedLeadField)
                         }
@@ -928,91 +702,212 @@ class SignUpFragment : Fragment() {
             }
         }
 
-        //container.addView(label)
+        container.addView(label)
         container.addView(searchableSpinner)
         binding.formContainer.addView(container)
         dependentSpinners[field.name] = searchableSpinner
 
-        if (field.options_data?.type == "manual") {
-            val manualOptions = field.options_data?.options?.map { it.label } ?: emptyList()
+        if (field.field_options?.type == "manual") {
+            val manualOptions = field.field_options?.options?.map { it.label } ?: emptyList()
             val items =
-                mutableListOf(field.lead_form_field.placeholder).apply { addAll(manualOptions) }
+                mutableListOf(field.placeholder).apply { addAll(manualOptions) }
             setupSpinnerAdapter(searchableSpinner, items)
-        } else if (field.options_data?.type == "api") {
-            field.options_data?.url?.let { url ->
+        } else if (field.field_options?.type == "api") {
+            field.field_options?.url?.let { url ->
                 fetchDataAndUpdateSpinner(url, searchableSpinner, field)
             }
         }
     }
 
-    private fun fetchDataAndUpdateSpinner(url: String, spinner: Spinner, field: LeadField) {
+    @SuppressLint("SetTextI18n")
+    private fun addDynamicPhoneInputWithCountryCode(field: FormField) {
+        val context = requireContext()
+
+        // Create label
+        val labelText = field.label?.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }
+        val spannableLabel = SpannableString("$labelText${if (field.validations!!.required == true) " *" else ""}")
+        if (field.validations!!.required == true) {
+            spannableLabel.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(context, R.color.red)),
+                labelText!!.length,
+                spannableLabel.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+        val phoneLabel = TextView(context).apply {
+            text = spannableLabel
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            setTextColor(ContextCompat.getColor(context, R.color.black))
+        }
+
+        val inputHeight = resources.getDimensionPixelSize(R.dimen.dp_40)
+
+        // Country Code Picker
+        val ccp = com.hbb20.CountryCodePicker(context).apply {
+            setAutoDetectedCountry(true)
+            showFlag(true)
+            showFullName(false)
+            setBackgroundResource(R.drawable.shape_rectangle_all_radius_et_country_code_no)
+            setContentColor(ContextCompat.getColor(context, R.color.black))
+            layoutParams = LinearLayout.LayoutParams(
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 50f, resources.displayMetrics
+                ).toInt(), inputHeight
+            )
+        }
+
+        // Phone EditText
+        val phoneEditText = EditText(context).apply {
+            hint = "Enter phone number"
+            inputType = InputType.TYPE_CLASS_PHONE
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+            setBackgroundResource(R.drawable.shape_rectangle_all_radius_et_phone_no)
+            setPadding(16, 0, 16, 0)
+            gravity = Gravity.CENTER_VERTICAL
+            layoutParams = LinearLayout.LayoutParams(0, inputHeight, 1f)
+        }
+
+        // Helper function to keep value updated
+        fun updateMobileValue() {
+            val code = "+${ccp.selectedCountryCode}"
+            val mobile = phoneEditText.text.toString().trim()
+            fieldValues[field.name] = "$code-$mobile"
+        }
+
+        ccp.setOnCountryChangeListener { updateMobileValue() }
+
+        phoneEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) = updateMobileValue()
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        val phoneContainer = LinearLayout(context).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                topMargin = resources.getDimensionPixelSize(R.dimen.dp_8)
+            }
+            addView(ccp)
+            addView(phoneEditText)
+        }
+
+        binding.formContainer.addView(phoneLabel)
+        binding.formContainer.addView(phoneContainer)
+    }
+    private fun fetchDataAndUpdateSpinner(
+        url: String,
+        spinner: Spinner,
+        field: FormField
+    ) {
         viewModel.getCountryList(
             requireActivity(),
             url,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
-            "Bearer " + CommonUtils.accessToken
-        ).observe(requireActivity()) { response ->
-            response?.data?.map { it.label }?.let { options ->
-                val items =
-                    mutableListOf(field.lead_form_field.placeholder).apply { addAll(options) }
-                if (isAdded) {
-                    setupSpinnerAdapter(spinner, items)
+            "Bearer ${CommonUtils.accessToken}"
+        ).observe(viewLifecycleOwner) { response ->
 
+            // Safety check for fragment lifecycle
+            if (!isAdded || context == null) return@observe
+
+            if (response?.statusCode == 200 && response.success == true) {
+                try {
+                    val items: List<UnifiedDropdownItem> = when (val rawData = response.data) {
+
+                        // ✅ Case 1: Direct data array
+                        is List<*> -> rawData.mapNotNull { item ->
+                            val mapItem = item as? Map<*, *> ?: return@mapNotNull null
+                            val label = mapItem["label"]?.toString()?.trim()
+                            val value = when (val rawValue = mapItem["value"]) {
+                                is Double -> rawValue.toInt().toString()
+                                is Float -> rawValue.toInt().toString()
+                                is Int -> rawValue.toString()
+                                is Long -> rawValue.toString()
+                                else -> rawValue?.toString()?.trim()?.removeSuffix(".0")
+                            }
+                            if (!label.isNullOrEmpty() && !value.isNullOrEmpty()) {
+                                UnifiedDropdownItem(value, label)
+                            } else null
+                        }
+
+                        // ✅ Case 2: data is object with "recordInfo"/"recordsInfo"
+                        is Map<*, *> -> {
+                            val recordArray = rawData["recordsInfo"] as? List<*>
+                                ?: rawData["recordsInfo"] as? List<*>
+                                ?: emptyList<Any>()
+
+                            recordArray.mapNotNull { item ->
+                                val mapItem = item as? Map<*, *> ?: return@mapNotNull null
+                                val label = mapItem["label"]?.toString()?.trim()
+                                val value = when (val rawValue = mapItem["value"]) {
+                                    is Double -> rawValue.toInt().toString()
+                                    is Float -> rawValue.toInt().toString()
+                                    is Int -> rawValue.toString()
+                                    is Long -> rawValue.toString()
+                                    else -> rawValue?.toString()?.trim()?.removeSuffix(".0")
+                                }
+                                if (!label.isNullOrEmpty() && !value.isNullOrEmpty()) {
+                                    UnifiedDropdownItem(value, label)
+                                } else null
+                            }
+                        }
+
+                        else -> {
+                            Log.e("DropdownData", "❌ Unexpected data format: $rawData")
+                            emptyList()
+                        }
+                    }
+
+                    // ✅ Add placeholder and set adapter
+                    val labels = mutableListOf(field.placeholder).apply {
+                        addAll(items.map { it.label })
+                    }
+
+                    setupSpinnerAdapter(spinner, labels)
+                    spinner.setSelection(0)
+
+                    Log.d(
+                        "DropdownData",
+                        "✅ Spinner updated for '${field.label}' with ${items.size} items"
+                    )
+
+                } catch (e: Exception) {
+                    Log.e("DropdownParser", "❌ Parsing error: ${e.localizedMessage}", e)
+                    CommonUtils.toast(requireContext(), "Error parsing dropdown data.")
                 }
-                spinner.setSelection(0)
+
+            } else {
+                Log.e("SpinnerData", "❌ API Error: ${response?.message}")
+                CommonUtils.toast(requireContext(), response?.message ?: "Failed to fetch dropdown data")
             }
         }
     }
 
-    private fun setupSpinnerAdapter(spinner: Spinner, options: List<String>) {
-        val adapter = object : ArrayAdapter<String>(
-            requireActivity(),
-            android.R.layout.simple_spinner_item,
-            options
-        ) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getView(position, convertView, parent)
+    private fun setupSpinnerAdapter(spinner: Spinner, options: List<String?>) {
 
-                if (position == 0) {
-                    (view as TextView).setTextColor(Color.GRAY)
-                } else {
-                    (view as TextView).setTextColor(Color.BLACK)
-                }
-                val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
-                (view as TextView).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-
-                (view as TextView).setPadding(padding, padding, padding, padding)
-                return view
-            }
-
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, convertView, parent)
-                if (position == 0) {
-                    (view as TextView).setTextColor(Color.GRAY)
-                } else {
-                    (view as TextView).setTextColor(Color.BLACK)
-                }
-                (view as TextView).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
-                (view as TextView).setPadding(padding, padding, padding, padding)
-                return view
-            }
-        }
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
+        spinner.adapter =
+            ArrayAdapter(
+                requireActivity(),
+                android.R.layout.simple_spinner_dropdown_item,
+                options
+            )
     }
 
-
-    private fun updateDependentSpinner(selectedOption: String, field: LeadField) {
+    private fun updateDependentSpinner(selectedOption: String, field: FormField) {
         fieldValues[field.name] = selectedOption
 
-        val url = buildUrlWithParams(field.options_data?.url, field.options_data?.param_info)
+        val url = buildUrlWithParams(field.field_options?.url, field.assigned_field_options?.params)
 
         dependentSpinners[field.name]?.let { spinner ->
             setupSpinnerAdapter(
                 spinner,
-                listOf(field.lead_form_field.placeholder)
+                listOf(field.placeholder)
             )
 
             if (url != null) {
@@ -1022,10 +917,10 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun buildUrlWithParams(baseUrl: String?, paramInfo: List<ParamInfo>?): String {
+    private fun buildUrlWithParams(baseUrl: String?, paramInfo: List<DependentParam>?,): String {
         val params = paramInfo?.joinToString("&") { param ->
-            val paramValue = fieldValues[param.field_name] ?: ""
-            "${param.param_name}=$paramValue"
+            val paramValue = fieldValues[param.form_field_key] ?: ""
+            "${param.name}=$paramValue"
         }
 
         val url = if (baseUrl?.contains("?") == true) {
@@ -1042,43 +937,61 @@ class SignUpFragment : Fragment() {
     private fun fetchDataAndUpdateDependentSpinner(
         url: String,
         spinner: Spinner,
-        field: LeadField
+        field: FormField
     ) {
         viewModel.getCountryList(
             requireActivity(),
             url,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
-            "Bearer " + CommonUtils.accessToken
-        )
-            .observe(requireActivity()) { response ->
-                response?.let { formAllFieldResponse ->
-                    if (formAllFieldResponse.statusCode == 200 && formAllFieldResponse.success) {
-                        val options =
-                            formAllFieldResponse.data?.map { it.label }?.toMutableList()
-                                ?: mutableListOf()
-                        options.add(
-                            0,
-                            field.lead_form_field.placeholder
-                        )
+            "Bearer ${CommonUtils.accessToken}"
+        ).observe(viewLifecycleOwner) { response ->
 
-                        setupSpinnerAdapter(spinner, options)
+            // ✅ Avoid crash if fragment not attached
+            if (!isAdded || context == null) return@observe
 
-                    } else {
-                        CommonUtils.toast(
-                            requireActivity(),
-                            formAllFieldResponse.message ?: "Failed"
-                        )
+            try {
+                if (response?.statusCode == 200 && response.success) {
+
+                    val dataArray = response.data as? List<*> ?: emptyList<Any>()
+
+                    val items = dataArray.mapNotNull { entry ->
+                        val mapItem = entry as? Map<*, *> ?: return@mapNotNull null
+                        val label = mapItem["label"]?.toString()?.trim()
+                        val value = when (val rawValue = mapItem["value"]) {
+                            is Double -> rawValue.toInt().toString()
+                            is Float -> rawValue.toInt().toString()
+                            is Int -> rawValue.toString()
+                            is Long -> rawValue.toString()
+                            else -> rawValue?.toString()?.trim()?.removeSuffix(".0")
+                        }
+
+                        if (!label.isNullOrEmpty() && !value.isNullOrEmpty()) {
+                            UnifiedDropdownItem(value, label)
+                        } else null
+                    }
+
+                    val labels = mutableListOf(field.placeholder).apply {
+                        addAll(items.map { it.label })
+                    }
+
+                    setupSpinnerAdapter(spinner, labels)
+                    spinner.setSelection(0)
+
+                    Log.d("DependentSpinner", "✅ Loaded ${items.size} items for ${field.label}")
+
+                } else {
+                    Log.e("DependentSpinner", "❌ Error: ${response?.message ?: "Failed to fetch data"}")
+                    context?.let {
+                        CommonUtils.toast(it, response?.message ?: "Failed to fetch dropdown data")
                     }
                 }
+            } catch (e: Exception) {
+                Log.e("DependentSpinner", "Exception parsing dropdown: ${e.localizedMessage}", e)
+                context?.let {
+                    CommonUtils.toast(it, "Something went wrong while loading dropdown")
+                }
             }
-    }
-
-    private fun generateRandomHexString(length: Int): String {
-        val hexChars = "0123456789abcdef"
-        return (1..length)
-            .map { hexChars[Random.nextInt(hexChars.length)] }
-            .joinToString("")
-
+        }
     }
 }

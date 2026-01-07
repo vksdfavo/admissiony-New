@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.student.Compass_Abroad.ApiResponseForm
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.errorHandle.ApiErrorHandler
+import com.student.Compass_Abroad.fragments.SubmitRequest
 import com.student.Compass_Abroad.modal.AllProgramModel.AllProgramModel
 import com.student.Compass_Abroad.modal.BecomeScoutModel.BecomeaScout
 import com.student.Compass_Abroad.modal.clientEventModel.ClientEventResponse
@@ -1785,5 +1787,137 @@ class HomeViewModal : ViewModel(){
 
         return _inDemandInstitutionCache
     }
+
+    fun leadFormResponseLiveData(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        accessToken: String,
+        identifier: String,
+    ): LiveData<ApiResponseForm?> {
+
+        val liveData = MutableLiveData<ApiResponseForm?>()
+
+        activity?.let { act ->
+
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+
+                CommonUtils.showProgress(activity)
+
+                apiInterface.getLeadForm(
+                    client_number,
+                    device_number,
+                    accessToken, identifier
+                )!!.enqueue(object : Callback<ApiResponseForm?> {
+
+                    override fun onResponse(
+                        call: Call<ApiResponseForm?>,
+                        response: Response<ApiResponseForm?>
+                    ) {
+
+                        CommonUtils.dismissProgress()
+
+                        if (response.isSuccessful && response.body() != null) {
+
+                            liveData.postValue(response.body())
+
+                        } else {
+
+                            val errorMsg =
+                                apiErrorHandler.handleError(HttpException(response))
+
+                            liveData.postValue(
+                                ApiResponseForm().apply {
+                                    statusCode = response.code()
+                                    message = errorMsg
+                                }
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponseForm?>, t: Throwable) {
+
+                        CommonUtils.dismissProgress()
+
+                        val errorMsg = apiErrorHandler.handleError(t)
+
+                        liveData.postValue(
+                            ApiResponseForm().apply {
+                                statusCode = 0
+                                message = errorMsg
+                            }
+                        )
+                    }
+                })
+
+            } else {
+
+                val errorMsg =
+                    apiErrorHandler.handleError(IOException("No internet connection"))
+
+                liveData.postValue(
+                    ApiResponseForm().apply {
+                        statusCode = 0
+                        message = errorMsg
+                    }
+                )
+            }
+        }
+
+        return liveData
+    }
+
+
+
+    var submitDataStatus: MutableLiveData<Pair<Boolean, String?>>? = null
+
+    fun signUpFormModalLiveData(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        accessToken: String,
+        content: SubmitRequest
+    ): LiveData<Pair<Boolean, String?>> {
+
+        submitDataStatus = MutableLiveData()
+        activity?.let {
+            val apiErrorHandler = ApiErrorHandler(it.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(it)) {
+                apiInterface.submitLeadForm(client_number, device_number, accessToken, content)
+                    ?.enqueue(object : Callback<Void> {
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            if (response.isSuccessful) {
+                                // ✅ Success (status 200 / 201)
+                                submitDataStatus?.postValue(Pair(true, null))
+                            } else {
+                                // ❌ Error
+                                val errorBody = response.errorBody()?.string()
+                                val errorMessage = apiErrorHandler.handleErrorFromBody(
+                                    errorBody,
+                                    response.code()
+                                )
+                                submitDataStatus?.postValue(Pair(false, errorMessage))
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            val errorMessage = apiErrorHandler.handleError(t)
+                            submitDataStatus?.postValue(Pair(false, errorMessage))
+                        }
+                    })
+            } else {
+                submitDataStatus?.postValue(Pair(false, "No internet connection"))
+            }
+        }
+
+        return submitDataStatus!!
+    }
+
+
+
+
 
 }

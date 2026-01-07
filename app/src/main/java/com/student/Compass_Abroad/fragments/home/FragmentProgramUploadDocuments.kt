@@ -20,7 +20,6 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -30,12 +29,16 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.adaptor.AdapterDocumentSelector
 import com.student.Compass_Abroad.adaptor.AdapterUploadDocuments
+import com.student.Compass_Abroad.databinding.FragmentProgramUploadDocumentsBinding
+import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.fragments.widgets.Path
 import com.student.Compass_Abroad.modal.getDocumentTypes.getDocumentTypes
 import com.student.Compass_Abroad.modal.saveApplicationDocuments.FileData
@@ -44,15 +47,10 @@ import com.student.Compass_Abroad.modal.saveApplicationDocuments.saveApplication
 import com.student.Compass_Abroad.modal.uploadDocuments.Data
 import com.student.Compass_Abroad.modal.uploadDocuments.uploadDocuments
 import com.student.Compass_Abroad.retrofit.ViewModalClass
-import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.student.Compass_Abroad.databinding.FragmentProgramUploadDocumentsBinding
-import com.student.Compass_Abroad.fragments.BaseFragment
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.util.concurrent.Callable
 
 
 class FragmentProgramUploadDocuments : BaseFragment() {

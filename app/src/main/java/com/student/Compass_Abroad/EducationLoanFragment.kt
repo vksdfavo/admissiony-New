@@ -163,7 +163,6 @@ class EducationLoanFragment : BaseFragment() {
         }
     }
 
-
     private fun getAdmissionStatus(
         requireActivity: FragmentActivity,
         admissionStatus: TextView

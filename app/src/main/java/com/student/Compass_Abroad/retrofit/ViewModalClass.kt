@@ -13,6 +13,7 @@ import com.student.Compass_Abroad.CreateApplicationRequest
 import com.student.Compass_Abroad.SavePreferencesRequest
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
+import com.student.Compass_Abroad.errorHandle.ApiErrorHandler
 import com.student.Compass_Abroad.modal.AllProgramModel.AllProgramModel
 import com.student.Compass_Abroad.modal.BecomeScoutModel.BecomeaScout
 import com.student.Compass_Abroad.modal.ChangeLeadStatus
@@ -77,7 +78,10 @@ import com.student.Compass_Abroad.modal.changeStatusReminder.changeStatusReminde
 import com.student.Compass_Abroad.modal.counsellingModal.CounsellingResponse
 import com.student.Compass_Abroad.modal.createAttende.CreateAttende
 import com.student.Compass_Abroad.modal.createCounsellingModel.createCounsellingModel
+import com.student.Compass_Abroad.modal.createDynamicApplication.CreateDynamicApplication
+import com.student.Compass_Abroad.modal.createDynamicApplication.dropdown.DropdownResponse
 import com.student.Compass_Abroad.modal.createRefreralLink.getRefferalLink
+import com.student.Compass_Abroad.modal.dynamicApplication.PostDynamicApplication
 import com.student.Compass_Abroad.modal.editProfile.EditProfile
 import com.student.Compass_Abroad.modal.editProfile.UploadImages
 import com.student.Compass_Abroad.modal.findAmbassadorModal.AmbassadorModal
@@ -87,6 +91,7 @@ import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.modal.getCategoryProgramModel.getCategoryProgramModel
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import com.student.Compass_Abroad.modal.getDestintionManager.getDestinationmanager
+import com.student.Compass_Abroad.modal.getDocumentChecklistModal.getDocumentChecklistModal
 import com.student.Compass_Abroad.modal.getHistoryListModel.getHistoryListModel
 import com.student.Compass_Abroad.modal.getLeadCounsellings.getLeadCounsellings
 import com.student.Compass_Abroad.modal.getLeadNotes.getLeadNotesResponse
@@ -131,13 +136,16 @@ import com.student.Compass_Abroad.modal.studyLevelModel.StudyLevelModal
 import com.student.Compass_Abroad.modal.testScoreModel.TestScoreModel
 import com.student.Compass_Abroad.modal.uploadDocuments.uploadDocuments
 import com.student.Compass_Abroad.modal.verifyOtp.VerifyOtp
+import com.student.Compass_Abroad.newdynamicapi.SubmitPayload
 import com.student.Compass_Abroad.retrofit.RetrofitClient.retrofitCallerObject
 import com.student.Compass_Abroad.retrofit.RetrofitClient2.retrofitCallerObject2
 import com.student.Compass_Abroad.retrofit.RetrofitClient3.retrofitCallerObject3
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
+import java.io.IOException
 
 
 class ViewModalClass : ViewModel() {
@@ -2228,61 +2236,6 @@ class ViewModalClass : ViewModel() {
 
     var leadFormPostMutableLiveData: MutableLiveData<ApiResponseForm?>? = null
 
-    fun leadFormResponseLiveData(
-        activity: Activity?,
-        client_number: String,
-
-        ): LiveData<ApiResponseForm?> {
-
-        leadFormPostMutableLiveData = MutableLiveData()
-
-        if (activity?.let { CommonUtils.isNetworkConnected(it) } == true) {
-            CommonUtils.showProgress(activity)
-
-            apiInterface.getLeadForm(
-                client_number
-            )!!.enqueue(object : Callback<ApiResponseForm?> {
-                override fun onResponse(
-                    call: Call<ApiResponseForm?>,
-                    response: Response<ApiResponseForm?>
-                ) {
-                    CommonUtils.dismissProgress()
-
-                    if (response.isSuccessful && response.body() != null) {
-                        leadFormPostMutableLiveData!!.postValue(response.body())
-                        CommonUtils.dismissProgress()
-
-
-                    } else {
-                        val apiError = parseError(response)
-                        handleError36(response.code(), getErrorMessage(apiError))
-                    }
-                }
-
-                override fun onFailure(call: Call<ApiResponseForm?>, t: Throwable) {
-                    CommonUtils.dismissProgress()
-
-                    handleError36(0, "Network error: " + t.message)
-                }
-            })
-        } else {
-            handleError36(0, "No internet connection.")
-        }
-        return leadFormPostMutableLiveData!!
-    }
-
-    private fun handleError36(code: Int, backendMessage: String?) {
-        var leadFormResponse = ApiResponseForm()
-        leadFormResponse.statusCode = code
-        val errorMessage: String = when (code) {
-            401 -> backendMessage ?: "Please check your credentials."
-            500 -> backendMessage ?: "$code"
-            else -> backendMessage ?: "Error $code"
-        }
-        leadFormResponse.message = errorMessage
-        Log.e("API Error", leadFormResponse.message!!)
-        leadFormPostMutableLiveData!!.postValue(leadFormResponse)
-    }
 
     // agent signup
 
@@ -8916,4 +8869,290 @@ class ViewModalClass : ViewModel() {
         Log.e("API Error", createCounsellingModelResponse.message!!)
         logoutUserMutableLiveData!!.postValue(createCounsellingModelResponse)
     }
+
+    fun createDynamicApplication(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        accessToken: String,
+        module_type: String
+    ): LiveData<CreateDynamicApplication?> {
+
+        val liveData = MutableLiveData<CreateDynamicApplication?>()
+
+        activity?.let { act ->
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+                apiInterface.createDynamicApplication(
+                    client_number,
+                    device_number,
+                    accessToken,
+                    module_type
+                )?.enqueue(object : Callback<CreateDynamicApplication?> {
+                    override fun onResponse(
+                        call: Call<CreateDynamicApplication?>,
+                        response: Response<CreateDynamicApplication?>
+                    ) {
+                        if (response.isSuccessful && response.body() != null) {
+                            liveData.postValue(response.body())
+                        } else {
+                            val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                            liveData.postValue(
+                                CreateDynamicApplication(
+                                    statusCode = response.code(),
+                                    success = false,
+                                    message = errorMsg,
+                                    statusInfo = null,
+                                    data = null
+                                )
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CreateDynamicApplication?>, t: Throwable) {
+                        val errorMsg = apiErrorHandler.handleError(t)
+                        liveData.postValue(
+                            CreateDynamicApplication(
+                                statusCode = 0,
+                                success = false,
+                                message = errorMsg,
+                                statusInfo = null,
+                                data = null
+                            )
+                        )
+                    }
+                })
+            } else {
+                val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
+                liveData.postValue(
+                    CreateDynamicApplication(
+                        statusCode = 0,
+                        success = false,
+                        message = errorMsg,
+                        statusInfo = null,
+                        data = null
+                    )
+                )
+            }
+        }
+
+        return liveData
+    }
+
+
+    fun dropdownUrlFromApi(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        accessToken: String,
+        fullUrl: String
+    ): LiveData<DropdownResponse?>
+    {
+
+        val liveData = MutableLiveData<DropdownResponse?>()
+
+        activity?.let { act ->
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+                apiInterface.getAllDropDownFields(
+                    client_number,
+                    device_number,
+                    accessToken,
+                    fullUrl
+                )?.enqueue(object : Callback<DropdownResponse?> {
+                    override fun onResponse(
+                        call: Call<DropdownResponse?>,
+                        response: Response<DropdownResponse?>
+                    ) {
+                        if (response.isSuccessful && response.body() != null) {
+                            liveData.postValue(response.body())
+                            val rawError = response.errorBody()?.string()
+                            Log.e("DropdownError", "Error Body: $rawError")
+
+                        } else {
+                            val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                            liveData.postValue(
+                                DropdownResponse(
+                                    statusCode = response.code(),
+                                    success = false,
+                                    message = errorMsg,
+                                    statusInfo = null,
+                                    data = null // ❗ fixed: not a list anymore
+                                )
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<DropdownResponse?>, t: Throwable) {
+                        val errorMsg = apiErrorHandler.handleError(t)
+
+                        liveData.postValue(
+                            DropdownResponse(
+                                statusCode = 0,
+                                success = false,
+                                message = errorMsg,
+                                statusInfo = null,
+                                data = null
+                            )
+                        )
+                    }
+                })
+            } else {
+                val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
+                liveData.postValue(
+                    DropdownResponse(
+                        statusCode = 0,
+                        success = false,
+                        message = errorMsg,
+                        statusInfo = null,
+                        data = null
+                    )
+                )
+            }
+        }
+
+        return liveData
+    }
+
+
+    fun createApplication(
+        activity: Activity?,
+        clientNumber: String,
+        deviceNumber: String,
+        accessToken: String,
+        payload: SubmitPayload
+    ): LiveData<PostDynamicApplication?> {
+        val liveData = MutableLiveData<PostDynamicApplication?>()
+
+        activity?.let { act ->
+            val apiErrorHandler = ApiErrorHandler(act.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(act)) {
+                apiInterface.submitApplication(
+                    clientNumber,
+                    deviceNumber,
+                    accessToken,
+                    payload
+                ).enqueue(object : Callback<PostDynamicApplication?> {
+                    override fun onResponse(
+                        call: Call<PostDynamicApplication?>,
+                        response: Response<PostDynamicApplication?>
+                    ) {
+                        if (response.isSuccessful && response.body() != null) {
+                            liveData.postValue(response.body())
+                        } else {
+                            val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                            liveData.postValue(
+                                PostDynamicApplication(
+                                    statusCode = response.code(),
+                                    success = false,
+                                    message = errorMsg,
+                                    data = null
+                                )
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PostDynamicApplication?>, t: Throwable) {
+                        val errorMsg = apiErrorHandler.handleError(t)
+                        liveData.postValue(
+                            PostDynamicApplication(
+                                statusCode = 0,
+                                success = false,
+                                message = errorMsg,
+                                data = null
+                            )
+                        )
+                    }
+                })
+            } else {
+                val errorMsg = apiErrorHandler.handleError(IOException("No internet connection"))
+                liveData.postValue(
+                    PostDynamicApplication(
+                        statusCode = 0,
+                        success = false,
+                        message = errorMsg,
+                        data = null
+                    )
+                )
+            }
+        }
+
+        return liveData
+    }
+
+    var DocumentChecklistMutableLiveData: MutableLiveData<getDocumentChecklistModal?>? = null
+
+    fun getDocumentChecklist(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        acessToken: String,
+        identifier:String
+    ): LiveData<getDocumentChecklistModal?> {
+
+        DocumentChecklistMutableLiveData = MutableLiveData()
+
+        activity?.let {
+            val apiErrorHandler = ApiErrorHandler(it.applicationContext)
+
+            if (CommonUtils.isNetworkConnected(it)) {
+                apiInterface.getDocumentsChecklist(
+                    client_number,
+                    device_number,
+                    acessToken,
+                    identifier
+                )!!.enqueue(object : Callback<getDocumentChecklistModal?> {
+                    override fun onResponse(
+                        call: Call<getDocumentChecklistModal?>,
+                        response: Response<getDocumentChecklistModal?>
+                    ) {
+
+                        if (response.isSuccessful && response.body() != null) {
+                            DocumentChecklistMutableLiveData!!.postValue(response.body())
+                        } else {
+                            val errorMsg = apiErrorHandler.handleError(HttpException(response))
+                            val errorResponse = getDocumentChecklistModal(
+                                message = errorMsg,
+                                statusCode = response.code(),
+                                success = false
+                            )
+                            DocumentChecklistMutableLiveData!!.postValue(
+                                errorResponse
+                            )
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<getDocumentChecklistModal?>,
+                        t: Throwable
+                    ) {
+                        CommonUtils.dismissProgress()
+                        val errorMsg = apiErrorHandler.handleError(t)
+                        val errorResponse = getDocumentChecklistModal(
+                            message = errorMsg,
+                            statusCode = 0,
+                            success = false
+                        )
+                        DocumentChecklistMutableLiveData!!.postValue(errorResponse)
+                    }
+                })
+            } else {
+                val errorMsg = ApiErrorHandler(it.applicationContext)
+                    .handleError(IOException("No internet connection"))
+                val errorResponse = getDocumentChecklistModal(
+                    message = errorMsg,
+                    statusCode = 0,
+                    success = false
+                )
+                DocumentChecklistMutableLiveData!!.postValue(errorResponse)
+            }
+        }
+
+        return DocumentChecklistMutableLiveData!!
+    }
+
+
 }

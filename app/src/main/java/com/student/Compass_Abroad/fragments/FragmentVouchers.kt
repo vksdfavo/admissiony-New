@@ -26,6 +26,7 @@ class FragmentVouchers : BaseFragment() {
         binding = FragmentVouchersBinding.inflate(getLayoutInflater(), container, false)
 
         binding!!.backBtn.setOnClickListener {
+
              requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
@@ -46,7 +47,6 @@ class FragmentVouchers : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = requireActivity().window.insetsController
             controller?.setSystemBarsAppearance(

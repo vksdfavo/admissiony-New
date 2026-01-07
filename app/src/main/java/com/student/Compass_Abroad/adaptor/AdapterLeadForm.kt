@@ -52,7 +52,7 @@ import java.util.Locale
 
 class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: List<LeadField>) :RecyclerView.Adapter<AdapterLeadForm.MyViewHolder>(), MultiSelectSpinner.OnMultipleItemsSelectedListener {
 
-  var adapter:ArrayAdapter<String>?=null
+    var adapter:ArrayAdapter<String>?=null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -330,13 +330,13 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
                     Log.e("testing-dependent", options.related_fields.toString())
                 }
 
-            false
+                false
+            }
         }
+
+
+
     }
-
-
-
-}
 
 
     private fun createManualDropdown(
@@ -393,7 +393,7 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
             formResponseModal?.let { nonNullCountryResponseModal ->
                 if (formResponseModal.statusCode == 200) {
                     // If the API call is successful, populate the dropdown with the retrieved data
-                    val options = nonNullCountryResponseModal.data ?: emptyList()
+                    /*val options = nonNullCountryResponseModal.data ?: emptyList()
                     // Toast.makeText(requireActivity(),options1!!.is_dependent.toString(),Toast.LENGTH_SHORT).show()
                     createDropdownFromApi(
                         options,
@@ -406,7 +406,7 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
                         list,
                         spinnerObjectMap
 
-                    )
+                    )*/
 
 
                 } else {
@@ -437,10 +437,10 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
         var placeholderItem = leadField.lead_form_field.placeholder ?: "Select an option"
         // Combine placeholder item with the rest of the options
 
-     val allOptions = listOf(placeholderItem) + options.map { it.label }
+        val allOptions = listOf(placeholderItem) + options.map { it.label }
         val allValues = listOf("") + options.map { it.value }
         // Create an ArrayAdapter for the spinner
-         adapter = ArrayAdapter(
+        adapter = ArrayAdapter(
             requireActivity,
             android.R.layout.simple_spinner_item,
             allOptions
@@ -464,59 +464,59 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
         spinner.layoutParams = layoutParams
         // Set the default value if specified
         val defaultValue = leadField.lead_form_field.default_value
-            if (defaultValue != null && allValues.contains(defaultValue)) {
-                val defaultPosition = allValues.indexOf(defaultValue)
-                spinner.setSelection(defaultPosition)
-            } else {
-                spinner.setSelection(0) // Default to placeholder
-            }
+        if (defaultValue != null && allValues.contains(defaultValue)) {
+            val defaultPosition = allValues.indexOf(defaultValue)
+            spinner.setSelection(defaultPosition)
+        } else {
+            spinner.setSelection(0) // Default to placeholder
+        }
 
 
 
-            // Set item selected listener
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedItemLabel = parent?.getItemAtPosition(position).toString()
-                    val selectedItemIndex = allOptions!!.indexOf(selectedItemLabel)
-                    if (selectedItemIndex != -1 && selectedItemLabel != placeholderItem) {
+        // Set item selected listener
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                val selectedItemLabel = parent?.getItemAtPosition(position).toString()
+                val selectedItemIndex = allOptions!!.indexOf(selectedItemLabel)
+                if (selectedItemIndex != -1 && selectedItemLabel != placeholderItem) {
 
-                        var selectedValue = allValues[selectedItemIndex]
-                        // Toast.makeText(requireActivity(), "$selectedValue", Toast.LENGTH_SHORT).show()
-                        Toast.makeText(requireActivity,"$selectedValue",Toast.LENGTH_SHORT).show()
-
-
+                    var selectedValue = allValues[selectedItemIndex]
+                    // Toast.makeText(requireActivity(), "$selectedValue", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity,"$selectedValue",Toast.LENGTH_SHORT).show()
 
 
-                        if (options1 != null && options1.related_fields != null) {
-                            for (i in 0 until options1.related_fields.size) {
-                                val key = options1.related_fields[i]
-                                if (App.sharedPre != null && key != null) {
-                                    App.sharedPre!!.saveString(key, "")
 
-                                }
+
+                    if (options1 != null && options1.related_fields != null) {
+                        for (i in 0 until options1.related_fields.size) {
+                            val key = options1.related_fields[i]
+                            if (App.sharedPre != null && key != null) {
+                                App.sharedPre!!.saveString(key, "")
 
                             }
 
                         }
 
-                        App.sharedPre!!.saveString(leadField.name, "$selectedValue")
-
-
-                    } else {
-                        // Handle selection of the placeholder item
-
                     }
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Do nothing
+                    App.sharedPre!!.saveString(leadField.name, "$selectedValue")
+
+
+                } else {
+                    // Handle selection of the placeholder item
+
                 }
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
 
 
 
@@ -590,14 +590,14 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
                 if (stateResponse.statusCode == 200) {
 
                     // If the API call is successful, populate the dropdown with the retrieved data
-                    val states = nonNullStateResponse.data ?: emptyList()
+                    /*val states = nonNullStateResponse.data ?: emptyList()
                     createDropdownFromApi(
                         states,
                         linearLayout,
                         spinner,
                         options1,
                         leadField, position, this.arrayList1, list, spinnerObjectMap
-                    )
+                    )*/
                 } else {
                     CommonUtils.toast(
                         requireActivity,
@@ -629,7 +629,7 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
             formResponseModal?.let { nonNullCountryResponseModal ->
                 if (formResponseModal.statusCode == 200) {
                     // If the API call is successful, populate the dropdown with the retrieved data
-                    val options = nonNullCountryResponseModal.data ?: emptyList()
+                    /*val options = nonNullCountryResponseModal.data ?: emptyList()
 
 
                     val list = mutableListOf<String>() // Initialize an empty list
@@ -640,13 +640,13 @@ class AdapterLeadForm(var requireActivity: FragmentActivity, var arrayList1: Lis
                         list.add(value) // Add the value to the list
                         // If you want to display or use the value, you can do so here
                         // For example: Toast.makeText(activity, "Selected Companies: $value", Toast.LENGTH_LONG).show()
-                    }
+                    }*/
 
-                    val multiSelectSpinner = layout as MultiSelectSpinner
-                    multiSelectSpinner.setItems(list!!)
-                    multiSelectSpinner.hasNoneOption(true)
-                    multiSelectSpinner.setSelection(intArrayOf(0))
-                    multiSelectSpinner.setListener(this)
+                    /* val multiSelectSpinner = layout as MultiSelectSpinner
+                     multiSelectSpinner.setItems(list!!)
+                     multiSelectSpinner.hasNoneOption(true)
+                     multiSelectSpinner.setSelection(intArrayOf(0))
+                     multiSelectSpinner.setListener(this)*/
 
                 } else {
                     CommonUtils.toast(

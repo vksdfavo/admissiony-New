@@ -52,6 +52,7 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 
 
+@Suppress("DEPRECATION")
 class BuyFragment : BaseFragment() {
     private var binding: FragmentBuyBinding? = null
     private var adaptorVouchers: AdaptorVouchersRecyclerview? = null
@@ -109,7 +110,9 @@ class BuyFragment : BaseFragment() {
                         binding!!.rvVoucher.visibility = View.VISIBLE
                         binding!!.noVoucherFound.visibility = View.GONE
                         arrayListVouchers.addAll(getVouchersModal.data!!.records)
+
                         setVouchersRecyclerview(arrayListVouchers)
+
                     }
                 } else {
                     val errorMessage = nonNullForgetModal.message ?: "Failed"
@@ -386,9 +389,11 @@ class BuyFragment : BaseFragment() {
                     }
 
                     409 -> {
+
                         CommonUtils.toast(requireActivity, it.message ?: "Already exists")
 
                         dialog.dismiss()
+
                     }
 
                     else -> {
@@ -448,9 +453,13 @@ class BuyFragment : BaseFragment() {
     private fun initPayment() {
         paymentSheet = PaymentSheet(
             this
-        ) { paymentSheetResult: PaymentSheetResult? ->
+        ) {
+            paymentSheetResult: PaymentSheetResult? ->
+
             paymentSheetResult?.let {
+
                 onPaymentResult(
+
                     it, dialog
                 )
             }

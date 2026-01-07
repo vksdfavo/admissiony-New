@@ -33,7 +33,7 @@ class Page2 : BaseFragment() {
         YoYo.with(Techniques.BounceInUp)
             .duration(700)
             .repeat(0)
-            .playOn(view.findViewById<View>(R.id.ivObP2_vector));
+            .playOn(view.findViewById(R.id.ivObP2_vector));
 
         view.findViewById<View>(R.id.tvSkip2).setOnClickListener {
 

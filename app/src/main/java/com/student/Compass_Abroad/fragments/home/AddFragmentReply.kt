@@ -1,7 +1,6 @@
 package com.student.Compass_Abroad.fragments.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import com.student.Compass_Abroad.encrytion.encryptData
 import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.getAllPosts.Record
 import com.student.Compass_Abroad.modal.replyModel.ReplyComment
-
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
@@ -64,7 +62,9 @@ class AddFragmentReply : BaseFragment() {
         comment: com.student.Compass_Abroad.modal.getAllComments.Record,
     ) {
         if (reply.isEmpty()) {
+
             CommonUtils.toast(requireActivity(), "Please type a Reply")
+
             return
         }
 

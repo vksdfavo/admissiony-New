@@ -50,6 +50,7 @@ class SettingActivity : AppCompatActivity() {
 
         }
         binding!!.tvSettingsDeactivate.setOnClickListener {v:View->
+
             showDeativateDialog()
 
         }
@@ -107,7 +108,6 @@ class SettingActivity : AppCompatActivity() {
             App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
             "Bearer " + CommonUtils.accessToken,
         ).observe(this) { deleteResponse ->
-
             deleteResponse?.let { response ->
                 val statusCode = response.statusCode
                 if (statusCode == 200||statusCode==204) {
