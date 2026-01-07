@@ -104,6 +104,7 @@ class EducationLoanFragment : BaseFragment() {
             if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || mobileNumber.isEmpty() || loanAmount.isEmpty()  || admission_status_id.isNullOrEmpty()) {
 
                 CommonUtils.toast(requireActivity(), "Please fill all the fields")
+
             }else
             {
                applyLoan(firstName,lastName,email,mobileNumber,loanAmount,admission_status_id!!)

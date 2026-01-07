@@ -109,6 +109,7 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
                     val newRecords = shorlistedProgramModal.data?.records ?: emptyList()
                     newRecords.forEach { record ->
                         if (!arrayList1.contains(record)) {
+
                             arrayList1.add(record)
                         }
                     }

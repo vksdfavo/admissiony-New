@@ -381,6 +381,10 @@
         android:id="@+id/programDetailsHomeFragment"
         android:name="com.student.Compass_Abroad.fragments.ProgramDetailsHomeFragment"
         android:label="ProgramDetailsHomeFragment" />
+    <fragment
+        android:id="@+id/dynamicCreateApplicationFragment"
+        android:name="com.student.Compass_Abroad.newdynamicapi.DynamicCreateApplicationFragment"
+        android:label="DynamicCreateApplicationFragment" />
 
 
 </navigation>

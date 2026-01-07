@@ -140,8 +140,24 @@ class AdapterApplicationsActive(var activity: Context, var applicationList: Muta
 
 
             appId.text = "App Id: ${application.id}"
-            tvStatus.text = application.statusInfo.name
+            val status = application.statusInfo?.name
+            val subStatus = application.subStatusInfo?.name
 
+
+            if (!status.isNullOrEmpty()) {
+                tvStatus.text = if (!subStatus.isNullOrEmpty()) {
+                    "$status ($subStatus)"
+                } else {
+                    status
+                }
+            } else {
+                tvStatus.text = if (!status.isNullOrEmpty()) {
+                    if (!subStatus.isNullOrEmpty()) "$status ($subStatus)" else status
+                } else {
+                    "N/A"
+                }
+
+            }
             /* if(application.leadInfo.mobile !=null){
                  holder.binding.number.text=application.leadInfo.mobile
              }else{

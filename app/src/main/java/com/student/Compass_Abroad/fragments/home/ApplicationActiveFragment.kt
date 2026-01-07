@@ -130,12 +130,9 @@ class ApplicationActiveFragment : Fragment() {
         }
 
 
-
-
-
         binding!!.fabCreateApplication.setOnClickListener{
 
-            binding!!.root.findNavController().navigate(R.id.createApplicationFragment)
+            binding!!.root.findNavController().navigate(R.id.dynamicCreateApplicationFragment)
 
         }
 

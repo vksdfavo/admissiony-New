@@ -13,7 +13,8 @@ data class Record(
     val intakeInfo: IntakeInfo,
     val latestInstitutionInfo: LatestInstitutionInfo,
     val leadInfo: LeadInfo,
-    val statusInfo: StatusInfo
+    val statusInfo: StatusInfo,
+    var subStatusInfo: SubStatusInfo
 ) : Parcelable {
     override fun describeContents(): Int {
         TODO("Not yet implemented")

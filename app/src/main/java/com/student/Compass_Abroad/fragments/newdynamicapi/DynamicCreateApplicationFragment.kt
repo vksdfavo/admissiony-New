@@ -73,9 +73,23 @@ class DynamicCreateApplicationFragment : BaseFragment() {
 
         fetchLeadForm()
 
+        binding.ivHeader.apply {
+            alpha = 0f
+            scaleX = 0.8f
+            scaleY = 0.8f
+            animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(800)
+                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .start()
+        }
+
+
         setData()
 
-        binding.fabBack.setOnClickListener {
+        binding.backBtn.setOnClickListener {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
 

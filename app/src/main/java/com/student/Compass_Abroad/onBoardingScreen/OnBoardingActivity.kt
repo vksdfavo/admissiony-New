@@ -19,8 +19,6 @@ import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.activities.LoginActivity
 import com.student.Compass_Abroad.databinding.ActivityOnBoardingBinding
-
-
 class OnBoardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardingBinding
 

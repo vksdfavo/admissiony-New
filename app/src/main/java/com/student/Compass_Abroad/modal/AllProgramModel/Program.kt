@@ -5,6 +5,7 @@ data class Program(
     val discipline: Discipline,
     val duration: String?,        // Only applicable for higher education programs
     val duration_type: String?,
+    val study_level_id:Int,
 
     val institution_id: Int,
     val identifier: String,

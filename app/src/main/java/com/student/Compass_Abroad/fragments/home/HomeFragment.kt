@@ -711,15 +711,14 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                         }, 9
                     )
 
-                    val layoutManager = FlexboxLayoutManager(requireContext()).apply {
-                        flexDirection = FlexDirection.ROW          // items left → right
-                        flexWrap =
-                            FlexWrap.WRAP                   // move to next line automatically
-                        justifyContent = JustifyContent.FLEX_START // align items to start
-                        alignItems = AlignItems.FLEX_START         // align properly vertically
-                    }
+                    val layoutManager = LinearLayoutManager(
+                        requireContext(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
 
                     binding!!.rvAreaOfInterest.layoutManager = layoutManager
+
                     binding!!.rvAreaOfInterest.adapter = disciplineAdapter
                 }
             } else {

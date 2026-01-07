@@ -89,14 +89,9 @@ class ProgramDetailsHomeFragment : BaseFragment() {
 
         binding!!.tvFpddApply.setOnClickListener{
 
-            val bundle = Bundle().apply {
-                putString("ProgramDetailStatus", "1")
-            }
-
-            ApplyProgramFragment.programDetails = programDetails
-
-            binding!!.root.findNavController().navigate(R.id.applyProgramFragment, bundle)
+            binding!!.root.findNavController().navigate(R.id.applyProgramFragment)
         }
+
 
         setNewDetailsData(programDetails)
 

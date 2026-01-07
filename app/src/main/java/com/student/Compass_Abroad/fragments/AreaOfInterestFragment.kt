@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.view.WindowInsetsController
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -70,14 +72,14 @@ class AreaOfInterestFragment : BaseFragment() {
                         },allDisciplineList.size
                     )
 
-                    val layoutManager = FlexboxLayoutManager(requireContext()).apply {
-                        flexDirection = FlexDirection.ROW          // items left → right
-                        flexWrap = FlexWrap.WRAP                   // move to next line automatically
-                        justifyContent = JustifyContent.FLEX_START // align items to start
-                        alignItems = AlignItems.FLEX_START         // align properly vertically
-                    }
+                    val layoutManager = GridLayoutManager(
+                        requireContext(),
+                        3, // span count
+                        GridLayoutManager.VERTICAL,
+                        false
+                    )
 
-                    binding.rvAreaOfInterest.layoutManager = layoutManager
+                    binding!!.rvAreaOfInterest.layoutManager = layoutManager
                     binding.rvAreaOfInterest.adapter = disciplineAdapter
 
 
