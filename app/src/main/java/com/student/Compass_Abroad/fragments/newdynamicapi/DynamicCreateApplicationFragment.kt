@@ -418,7 +418,6 @@ class DynamicCreateApplicationFragment : BaseFragment() {
         return container
     }
 
-
     private fun createTextView(field: FormField, context: Context): View {
         val container = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
@@ -481,8 +480,6 @@ class DynamicCreateApplicationFragment : BaseFragment() {
 
         return container
     }
-
-
     private fun addDynamicPhoneInputWithCountryCode(x1: FormField, context: Context): View {
 
         val labelText = x1.label.replaceFirstChar {
@@ -721,7 +718,6 @@ class DynamicCreateApplicationFragment : BaseFragment() {
 
         return finalUrl
     }
-
 
     private fun loadDropdownData(field: FormField) {
         val url = field.field_options?.url ?: return

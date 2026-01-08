@@ -229,7 +229,7 @@ class AddBankAccountActivity : AppCompatActivity() {
             setTextColor(ContextCompat.getColor(this@AddBankAccountActivity, R.color.black))
         }
 
-        val editText = EditText(this).apply {
+        val editText = EditText(this).apply  {
             hint = field.bank_information_form_field.placeholder
             inputType = when (field.type) {
                 "email" -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS or InputType.TYPE_CLASS_TEXT
@@ -247,10 +247,12 @@ class AddBankAccountActivity : AppCompatActivity() {
 
             }
         }
+
         editTextFields[field.name] = editText
 
         container.addView(label)
         container.addView(editText)
+
         binding.formContainer.addView(container)
     }
     private fun getDestinationCountryList(requireActivity: FragmentActivity, et_destination_Country: TextView) {

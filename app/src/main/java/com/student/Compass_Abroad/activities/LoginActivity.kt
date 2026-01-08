@@ -37,11 +37,13 @@ class LoginActivity : AppCompatActivity() {
         navGraph.setStartDestination(startDest)
 
         val bundle = Bundle().apply {
+
             if (isReferred) {
 
                 putString("referral", referralCode)
 
             }
+
         }
 
         navController.setGraph(navGraph, bundle)

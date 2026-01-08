@@ -105,8 +105,6 @@ class AllStaffFragment : Fragment() {
             }
             binding.pbFadAs.visibility = View.GONE
         })
-
-
     }
     private fun showReviewDialog(context: Context, data: Data?) {
         val dialog = Dialog(context)

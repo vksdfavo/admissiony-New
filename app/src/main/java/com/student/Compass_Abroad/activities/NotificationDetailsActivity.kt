@@ -103,7 +103,9 @@ class NotificationDetailsActivity : AppCompatActivity() {
                 if (it.statusCode == 200 && it.success) {
                     CommonUtils.toast(this, it.message ?: "Notification read successfully")
                     if (data != null) {
+
                         setNotificationData(data)
+
                     }
 
                 } else {

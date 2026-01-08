@@ -69,7 +69,6 @@ class ChangePasswordActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-
         binding?.tvSp2Save?.setOnClickListener { v: View ->
             val old_passcode = binding!!.etOldPasscode.text.toString().trim()
             val new_passcode = binding!!.etPasscode.text.toString().trim()
@@ -106,6 +105,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
 
         // Show/Hide Old Password
+
         binding!!.ibOldShowPasscode.setOnClickListener {
             val cursorPosition = binding!!.etOldPasscode.selectionEnd
             if (num_old_password % 2 == 0) {

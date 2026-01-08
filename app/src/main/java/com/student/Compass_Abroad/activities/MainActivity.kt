@@ -758,5 +758,3 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         }
     }
 }
-
-

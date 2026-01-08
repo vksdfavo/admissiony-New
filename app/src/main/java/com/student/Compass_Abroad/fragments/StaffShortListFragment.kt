@@ -79,6 +79,7 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
                 binding?.pbFpApPagination?.visibility = View.VISIBLE
                 Handler(Looper.getMainLooper()).postDelayed({
                     onGetAllShorlistedPrograms(requireActivity(), dataPerPage, presentPage)
+
                 }, 2000)
             }
         }
@@ -93,8 +94,7 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
     private fun onGetAllShorlistedPrograms(
         requireActivity: FragmentActivity,
         dataPerPage: Int,
-        presentPage: Int
-    ) {
+        presentPage: Int) {
         ViewModalClass().getshortlistedModalLiveDataStaff(
             requireActivity,
             AppConstants.fiClientNumber,

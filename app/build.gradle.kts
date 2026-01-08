@@ -28,6 +28,7 @@ android { flavorDimensions("FirmliTest")
             resValue("string", "app_name", "Admissiony.com")
             buildConfigField("String", "BASE_URL", "\"https://c120h25steps19-api.firmli.com/v1\"")
         }
+
     }
 
     namespace = "com.student.Compass_Abroad"

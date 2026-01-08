@@ -128,7 +128,9 @@ class HistoryFragment : BaseFragment() {
                         hasNextPage = model.data?.metaInfo?.hasNextPage == true
                     }
                 } else {
+
                     CommonUtils.toast(requireActivity(), model.message ?: "Something went wrong")
+
                 }
             }
         }

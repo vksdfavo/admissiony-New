@@ -64,6 +64,7 @@ class PaymentDetailFragment : BaseFragment() {
         binding.etFpSearch.setText(search)
 
         search?.let { fetchDataFromApi(it) }
+
         searchData()
 
         return binding.root
@@ -104,7 +105,6 @@ class PaymentDetailFragment : BaseFragment() {
         }
     }
 
-
     private fun setPaymentDetailRecyclerview(context: Context) {
         val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.rvFpAp.layoutManager = layoutManager
@@ -119,7 +119,6 @@ class PaymentDetailFragment : BaseFragment() {
             }
         })
     }
-
 
     private fun fetchDataFromApi( search:String) {
         if (!hasNextPage || isLoading) return

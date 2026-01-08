@@ -59,6 +59,7 @@ class AreaOfInterestFragment : BaseFragment() {
                     allDisciplineList.addAll(it)
 
                     binding.noAreaOfInterestFound.visibility = View.GONE
+
                     binding.rvAreaOfInterest.visibility = View.VISIBLE
 
                     disciplineAdapter = AreaOfInterestAdaptor(
@@ -72,9 +73,7 @@ class AreaOfInterestFragment : BaseFragment() {
                         },allDisciplineList.size
                     )
 
-                    val layoutManager = GridLayoutManager(
-                        requireContext(),
-                        3, // span count
+                    val layoutManager = GridLayoutManager(requireContext(), 3, // span count
                         GridLayoutManager.VERTICAL,
                         false
                     )

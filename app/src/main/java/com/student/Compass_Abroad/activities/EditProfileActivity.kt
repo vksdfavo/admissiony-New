@@ -377,7 +377,6 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-
     private fun genderSpinner(genderSpinner: Spinner) {
         val savedGender = App.sharedPre?.getString(AppConstants.GENDER, "") ?: ""
 
@@ -429,7 +428,6 @@ class EditProfileActivity : AppCompatActivity() {
             .start(102)
 
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {
@@ -490,7 +488,6 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun postDocuments(requireActivity: FragmentActivity, imagePath: String) {
         val file = File(imagePath)
         if (file.exists()) {
@@ -524,13 +521,11 @@ class EditProfileActivity : AppCompatActivity() {
             CommonUtils.toast(this, "File does not exist")
         }
     }
-
     override fun onStart() {
         val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(neTWorkChange, intentFilter)
         super.onStart()
     }
-
     override fun onStop() {
         unregisterReceiver(neTWorkChange)
         super.onStop()

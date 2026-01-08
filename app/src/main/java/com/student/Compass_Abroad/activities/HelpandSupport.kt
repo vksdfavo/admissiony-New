@@ -27,26 +27,28 @@ class HelpandSupport : AppCompatActivity() {
 
         window.statusBarColor = getColor(android.R.color.white)
         window.navigationBarColor = getColor(android.R.color.white)
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
             view.setPadding(
                 systemBars.left,
                 systemBars.top,
                 systemBars.right,
                 systemBars.bottom
             )
+
             insets
         }
 
 
-        setclickListeners()
+        setClickListeners()
 
     }
 
-    private fun setclickListeners() {
+    private fun setClickListeners() {
         binding.fabFpBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }

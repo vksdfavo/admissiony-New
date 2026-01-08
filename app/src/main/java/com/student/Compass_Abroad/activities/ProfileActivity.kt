@@ -135,8 +135,6 @@ class ProfileActivity : AppCompatActivity() {
             binding?.tvBankDetails?.visibility = View.GONE
         }
 
-
-
         binding?.tvmyTransaction?.setOnClickListener {
             PaymentDetailFragment.data = ""
             startActivity(Intent(this, PaymentDetailFragment::class.java))

@@ -54,7 +54,9 @@ class BookCounsellingFragment : BaseFragment() {
         binding = FragmentBookCouncellingBinding.inflate(inflater, container, false)
 
         setupDates()
+
         setupRecyclerView()
+
         setupTimeSlotRecycler()
 
         ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->

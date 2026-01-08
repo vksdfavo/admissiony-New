@@ -65,6 +65,7 @@ class InDemandCoursesFragment : BaseFragment() {
         }
 
         onClick()
+
         setupRecyclerViewInDemand()
 
         return binding!!.root

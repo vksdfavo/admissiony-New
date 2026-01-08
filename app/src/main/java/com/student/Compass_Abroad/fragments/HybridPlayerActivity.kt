@@ -39,6 +39,7 @@ class HybridPlayerActivity : BaseFragment() {
         binding = FragmentHybridPlayerActivityBinding.inflate(inflater, container, false)
 
         binding.fabAcBack.setOnClickListener {
+
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
