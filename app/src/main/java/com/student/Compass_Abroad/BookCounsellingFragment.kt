@@ -154,8 +154,8 @@ class BookCounsellingFragment : BaseFragment() {
             if (selectedSlot != null) {
                 val calendar = Calendar.getInstance()
                 val todayApi = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
-
                 if (selectedDate == todayApi) {
+
                     val currentTime = calendar.time
 
                     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
@@ -167,7 +167,9 @@ class BookCounsellingFragment : BaseFragment() {
                         timeSlotAdapter.clearSelection()
 
                         timeSlotAdapter.notifyDataSetChanged()
+
                         return@TimeSlotAdapter
+
                     }
                 }
 

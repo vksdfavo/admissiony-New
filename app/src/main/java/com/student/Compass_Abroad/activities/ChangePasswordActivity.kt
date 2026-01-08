@@ -37,7 +37,8 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         window.statusBarColor = getColor(android.R.color.white)
         window.navigationBarColor = getColor(android.R.color.white)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         onClicks()
@@ -74,7 +75,6 @@ class ChangePasswordActivity : AppCompatActivity() {
             val new_passcode = binding!!.etPasscode.text.toString().trim()
             val confirm_passcode = binding!!.confirmEtPasscode.text.toString().trim()
 
-
             if (old_passcode.isEmpty() || new_passcode.isEmpty() || confirm_passcode.isEmpty()) {
                 CommonUtils.toast(this, "Please enter all fields")
                 return@setOnClickListener
@@ -101,11 +101,11 @@ class ChangePasswordActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-             forgetOtp(old_passcode, confirm_passcode,new_passcode)
+            forgetOtp(old_passcode, confirm_passcode, new_passcode)
         }
 
 
-          // Show/Hide Old Password
+        // Show/Hide Old Password
         binding!!.ibOldShowPasscode.setOnClickListener {
             val cursorPosition = binding!!.etOldPasscode.selectionEnd
             if (num_old_password % 2 == 0) {
@@ -122,7 +122,8 @@ class ChangePasswordActivity : AppCompatActivity() {
         }
 
         binding!!.ibHideOldPasscode.setOnClickListener {
-            binding!!.etOldPasscode.transformationMethod = PasswordTransformationMethod.getInstance()
+            binding!!.etOldPasscode.transformationMethod =
+                PasswordTransformationMethod.getInstance()
             binding!!.etOldPasscode.setSelection(binding!!.etOldPasscode.text.length)
             binding!!.ibHideOldPasscode.visibility = View.GONE
             binding!!.ibOldShowPasscode.visibility = View.VISIBLE
@@ -169,7 +170,8 @@ class ChangePasswordActivity : AppCompatActivity() {
         }
 
         binding!!.confirmIBHidePasscode.setOnClickListener {
-            binding!!.confirmEtPasscode.transformationMethod = PasswordTransformationMethod.getInstance()
+            binding!!.confirmEtPasscode.transformationMethod =
+                PasswordTransformationMethod.getInstance()
             binding!!.confirmEtPasscode.setSelection(binding!!.confirmEtPasscode.text.length)
             binding!!.confirmIBHidePasscode.visibility = View.GONE
             binding!!.confirmIbShowPasscode.visibility = View.VISIBLE
@@ -178,9 +180,9 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private fun forgetOtp(oldPasscode: String, confirmPasscode: String, new_passcode: String) {
         val passwordConverter = PasswordConverter()
-        val confirmPassword=confirmPasscode
-        val Password=confirmPasscode
-        val oldpasswordMd5= passwordConverter.convertPasswordToMD5(oldPasscode)
+        val confirmPassword = confirmPasscode
+        val Password = confirmPasscode
+        val oldpasswordMd5 = passwordConverter.convertPasswordToMD5(oldPasscode)
 
         ViewModalClass().changePasswordModalLiveData(
             this,
@@ -188,7 +190,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
             "Bearer " + CommonUtils.accessToken,
             oldpasswordMd5,
-            App.sharedPre!!.getString(AppConstants.User_IDENTIFIER,"")!!,
+            App.sharedPre!!.getString(AppConstants.User_IDENTIFIER, "")!!,
             confirmPassword,
             Password
         ).observe(this) { forgetModal: ForgotPasswordModel? ->

@@ -51,8 +51,6 @@ data class UnifiedDropdownItem(
     val value: String,
     val label: String
 )
-
-
 class DynamicCreateApplicationFragment : BaseFragment() {
     private lateinit var binding: FragmentDynamicCreateApplicationBinding
     private lateinit var viewModel: ViewModalClass
@@ -144,7 +142,6 @@ class DynamicCreateApplicationFragment : BaseFragment() {
                     binding.formContainer.addView(it)
                     fieldViews[field.name] = it
 
-                    // Load dropdown data if needed
                     if (field.field_options != null) {
                         when (field.field_options.type) {
                             "api" -> {
@@ -308,7 +305,6 @@ class DynamicCreateApplicationFragment : BaseFragment() {
             }
         }
     }
-
 
     private fun createMultiSelectView(field: FormField, context: Context): View {
         val container = LinearLayout(context).apply {

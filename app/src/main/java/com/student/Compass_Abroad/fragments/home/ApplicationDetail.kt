@@ -35,7 +35,8 @@ class ApplicationDetail : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //
+        requireActivity().window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //
         requireActivity().window.navigationBarColor =
             ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
 
@@ -68,7 +69,6 @@ class ApplicationDetail : Fragment() {
     }
 
 
-
     private fun onSetData(data: Record) {
         //binding.tvIADetailId.setText("Application ID: ${data.id}")
         val institutionData = data.latestInstitutionInfo.institution_data
@@ -89,9 +89,9 @@ class ApplicationDetail : Fragment() {
         binding.tvItemAaIntakeFee.text =
             "$intakeName $intakeYear"
         binding.applicationFeeNew.text =
-                    "$applicationFee"
+            "$applicationFee"
 
-        binding.nameCountry.text="${campus},${country}"
+        binding.nameCountry.text = "${campus},${country}"
 
     }
 
@@ -135,13 +135,12 @@ class ApplicationDetail : Fragment() {
         binding.fabFadBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-
-
     }
 
     private fun setTabAdaptor() {
         val fragmentManager = requireActivity().supportFragmentManager
-        val adapter = AdapterApplicationDetailTabs(fragmentManager, lifecycle, binding!!.tlTa.tabCount)
+        val adapter =
+            AdapterApplicationDetailTabs(fragmentManager, lifecycle, binding!!.tlTa.tabCount)
         binding!!.vpTa.setOffscreenPageLimit(2)
         binding!!.vpTa.setAdapter(adapter)
     }
@@ -157,7 +156,6 @@ class ApplicationDetail : Fragment() {
             MainActivity.bottomNav!!.isVisible = false
 
         }
-
 
 
     }

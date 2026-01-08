@@ -1,6 +1,7 @@
 @file:Suppress("DEPRECATION")
 
 package com.student.Compass_Abroad.activities
+
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -62,7 +63,6 @@ class OnBoardingNewActivity : AppCompatActivity() {
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             layoutDirection = ViewPager2.LAYOUT_DIRECTION_LTR
 
-            // Slide animation
             setPageTransformer { page, position ->
                 val r = 1 - abs(position)
                 page.scaleY = 0.85f + r * 0.15f

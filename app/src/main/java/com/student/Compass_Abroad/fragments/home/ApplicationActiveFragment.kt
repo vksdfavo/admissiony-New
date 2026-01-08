@@ -259,10 +259,7 @@ class ApplicationActiveFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-
-
         val currentFlavor = BuildConfig.FLAVOR.lowercase()
-
 
         if (currentFlavor=="admisiony")
         {

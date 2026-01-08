@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewDocument"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Left side icon -->
+        <ImageView
+            android:id="@+id/imageViewPdf"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/shape_background"
+            android:padding="3dp"
+            android:src="@drawable/tick_svgrepo_com"
+            android:layout_centerVertical="true"
+            />
+
+        <!-- Document name -->
+        <TextView
+            android:id="@+id/textViewFileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imageViewPdf"
+            android:layout_marginStart="16dp"
+            android:text="Document Name"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:singleLine="true" />
+
+        <!-- View Document icon -->
+        <ImageView
+            android:id="@+id/tvViewDocument"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_background"
+            android:src="@drawable/ic_show_password"
+            android:padding="3dp"
+            android:visibility="gone"
+            card_view:tint="#4CAF50" />
+
+        <!-- Pending Badge -->
+        <TextView
+            android:id="@+id/tvPending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_pending_badge"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="PENDING"
+            android:textAllCaps="true"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

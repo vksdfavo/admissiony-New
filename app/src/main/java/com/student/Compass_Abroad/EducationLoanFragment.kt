@@ -91,6 +91,8 @@ class EducationLoanFragment : BaseFragment() {
 
                 }
             }
+
+
     }
 
     private fun onClicks() {
@@ -166,8 +168,7 @@ class EducationLoanFragment : BaseFragment() {
 
     private fun getAdmissionStatus(
         requireActivity: FragmentActivity,
-        admissionStatus: TextView
-    ) {
+        admissionStatus: TextView) {
         LoginViewModal().getAdmissionStatus(
             requireActivity,
             AppConstants.fiClientNumber,
@@ -360,4 +361,5 @@ class EducationLoanFragment : BaseFragment() {
         }
 
     }
+
 }

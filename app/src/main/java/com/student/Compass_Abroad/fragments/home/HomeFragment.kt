@@ -374,7 +374,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 } else {
                     val errorMsg = result.message ?: "Failed"
                     if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
-                        CommonUtils.toast(requireActivity(), errorMsg)
                     }
                 }
             }
@@ -1275,8 +1274,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     scrolledOutItems = layoutManager.findFirstVisibleItemPosition()
                     if (isScrolling && scrolledOutItems + currentVisibleItems == totalItemsInAdapter) {
                         isScrolling = false
-
-                        //fetch data
                         if (presentPage < nextPage) {
                             presentPage += 1
 
@@ -1318,9 +1315,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     Log.d("hitApiUserDetails", currentFlavor)
 
                     when (currentFlavor) {
+
                         "admisiony", "firmli", "eeriveurope", "compassabroad", "studiepoint", "unitedglobalservices" -> {
 
                             if (size > 1) {
+
                                 binding?.switchStu?.visibility = View.VISIBLE
 
                             } else {
@@ -1372,7 +1371,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                             staffData.data?.studentProfileInfo?.assignedStaffInfo?.country_code?.toString()
 
                         if (!phoneNumber.isNullOrEmpty() && !countryCode.isNullOrEmpty()) {
-                            // Ensure the country code starts with '+'
                             val formattedCountryCode =
                                 if (countryCode.startsWith("+")) countryCode else "+$countryCode"
                             val fullNumber = formattedCountryCode + phoneNumber
@@ -1401,8 +1399,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
 
                     binding!!.fabFdStuCoordinatorChat.setOnClickListener { v: View ->
-                        App.singleton?.applicationIdentifierChat =
-                            staffData.data!!.studentProfileInfo.identifier
+                        App.singleton?.applicationIdentifierChat = staffData.data!!.studentProfileInfo.identifier
                         App.singleton?.chatStatus = "1"
                         App.singleton?.idetity = "leads"
                         Navigation.findNavController(v).navigate(R.id.fragmentAgentChat)
@@ -1453,6 +1450,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     }
 
                     binding!!.cdReferEarn.setOnClickListener {
+
                         createReferandShare(requireActivity())
                     }
 

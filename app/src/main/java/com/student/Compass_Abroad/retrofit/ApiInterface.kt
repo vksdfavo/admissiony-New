@@ -227,7 +227,6 @@ interface ApiInterface {
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") fiDeviceNumber: String?,
         @Field("content") content: String?,
-
         ): Call<ForgotPasswordModel?>
 
 
@@ -604,7 +603,7 @@ interface ApiInterface {
         @Path("entity") entity: String,
     ): Call<getApplicationDocuments?>?
 
-    @GET("leads")
+    @GET("leads/v2")
     fun getLeads(
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
@@ -718,7 +717,7 @@ interface ApiInterface {
     ): Call<getLeadPaymentLinks?>?
 
 
-    @GET("applications")
+    @GET("applications-v2")
     fun getApplications(
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
@@ -753,7 +752,7 @@ interface ApiInterface {
     ): Call<getApplicationAssignedStaff?>?
 
 
-    @GET("applications/{identifier}/timeline")
+    @GET("applications-v2/{identifier}/timeline")
     fun getApplicationTimeLine(
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
@@ -1407,7 +1406,7 @@ interface ApiInterface {
         @Header("Authorization") authorization: String?,
     ): Call<GetBannerModal>
 
-    @GET("leads")
+    @GET("leads/v2")
     fun getLeads(
         @Header("fi-client-number") client_number: String?,
         @Header("fi-device-number") device_number: String?,

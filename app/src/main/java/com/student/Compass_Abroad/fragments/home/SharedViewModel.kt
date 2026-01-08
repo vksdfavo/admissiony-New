@@ -33,6 +33,10 @@ class SharedViewModel : ViewModel() {
         _selectedSubTab.value = subTab
     }
 
+    private val _documentChecklistTrigger = MutableLiveData<Boolean>()
+    val documentChecklistTrigger: LiveData<Boolean> get() = _documentChecklistTrigger
+
+
     private val _refreshDataEvent = MutableLiveData<Boolean>()
     val refreshDataEvent: LiveData<Boolean> get() = _refreshDataEvent
 

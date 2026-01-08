@@ -11,9 +11,10 @@ import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ShimmerTopDestinationBinding
 import com.student.Compass_Abroad.databinding.TopDestinationLayoutBinding
 import com.student.Compass_Abroad.modal.top_destinations.Data
+import java.util.Locale
 
 class TopDestinationAdapter(
-    private var  context: Context,
+    private var context: Context,
     private var destinationList: List<Data>,
     private val onItemClick: ((Data) -> Unit)? = null,
     private var isLoading: Boolean = true
@@ -35,16 +36,12 @@ class TopDestinationAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_SHIMMER) {
             val binding = ShimmerTopDestinationBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
             ShimmerViewHolder(binding)
         } else {
             val binding = TopDestinationLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
             DataViewHolder(binding)
         }
@@ -68,21 +65,27 @@ class TopDestinationAdapter(
             countryName.text = item.country_name
             totalIns.text = "${item.total_institutions} institutions"
 
+            // Institution Image
             Glide.with(root.context)
                 .load(item.institution_logo)
                 .placeholder(R.drawable.circle_img)
+                .error(R.drawable.circle_img)
                 .into(imgDestination)
 
-            Glide.with(root.context)
-                .load(item.country_logo)
-                .placeholder(R.drawable.circle_img)
-                .into(flag)
+            // 🌍 AUTO FLAG FROM COUNTRY NAME
+            val flagUrl = getCountryFlagUrl(item.country_name)
 
+            Glide.with(root.context)
+                .load(flagUrl)
+                .placeholder(R.drawable.circle_img)
+                .error(R.drawable.circle_img)
+                .into(flag)
         }
 
         holder.binding.itemContainers.setOnClickListener {
-            val valueString = item!!.country_id.toString() // Ensure it's a string
-            val labelString = item.country_name.toString() // Ensure it's a stri
+            val valueString = item.country_id.toString()
+            val labelString = item.country_name.toString()
+
             App.sharedPre!!.clearKey(AppConstants.PGWP_KEY)
             App.sharedPre!!.clearKey(AppConstants.ATTENDANCE_KEY)
             App.sharedPre!!.clearKey(AppConstants.PROGRAM_TYPE_KEY)
@@ -92,7 +95,11 @@ class TopDestinationAdapter(
             App.sharedPre!!.clearKey(AppConstants.MAX_APPLICATION_KEY)
 
             clearAllSelectedValues()
-            saveSelectedToSharedPreferences(AppConstants.CountryList, valueString, labelString)
+            saveSelectedToSharedPreferences(
+                AppConstants.CountryList,
+                valueString,
+                labelString
+            )
             onItemClick?.invoke(item)
         }
     }
@@ -103,27 +110,43 @@ class TopDestinationAdapter(
         notifyDataSetChanged()
     }
 
+    // ================= FLAG UTILITY =================
+
+    private fun getCountryFlagUrl(countryName: String?): String {
+        if (countryName.isNullOrEmpty()) return ""
+
+        val countryCode = Locale.getISOCountries().firstOrNull { code ->
+            Locale("", code).displayCountry.equals(countryName, ignoreCase = true)
+        }
+
+        return countryCode?.let {
+            "https://flagcdn.com/w320/${it.lowercase()}.png"
+        } ?: ""
+    }
+
+    // ================= SHARED PREFS =================
+
     private fun saveSelectedToSharedPreferences(
         keyPrefix: String,
         ids: String,
-        labels:String
+        labels: String
     ) {
-        val sharedPrefs = SharedPrefs(context!!)
+        val sharedPrefs = SharedPrefs(context)
         sharedPrefs.putString11("${keyPrefix}Id", ids)
         sharedPrefs.putString11("${keyPrefix}Label", labels)
     }
 
-
     private fun clearAllSelectedValues() {
-        // Call this method for each key prefix you use
+
         clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
         clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
         clearSelectedValuesFromSharedPreferences(AppConstants.studyLevelList)
         clearSelectedValuesFromSharedPreferences(AppConstants.disciplineList)
         clearSelectedValuesFromSharedPreferences(AppConstants.IntakeList)
+
     }
 
-    fun clearSelectedValuesFromSharedPreferences(keyPrefix: String) {
+    private fun clearSelectedValuesFromSharedPreferences(keyPrefix: String) {
         val sharedPrefs = SharedPrefs(context)
         sharedPrefs.clearStringList("${keyPrefix}Id")
         sharedPrefs.clearStringList("${keyPrefix}Label")

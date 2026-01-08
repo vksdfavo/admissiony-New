@@ -9094,7 +9094,6 @@ class ViewModalClass : ViewModel() {
     ): LiveData<getDocumentChecklistModal?> {
 
         DocumentChecklistMutableLiveData = MutableLiveData()
-
         activity?.let {
             val apiErrorHandler = ApiErrorHandler(it.applicationContext)
 
