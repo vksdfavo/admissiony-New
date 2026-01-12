@@ -284,13 +284,12 @@ class BookCounsellingFragment : BaseFragment() {
 
             val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            val adapter =
-                AdapterDestinationCountrySelector(requireActivity(), arrayListBranch, layout)
+            val adapter = AdapterDestinationCountrySelector(requireActivity(), arrayListBranch, layout)
             recyclerView.adapter = adapter
 
             adapter.onItemClickListener = { selectedBranch ->
                 etBranch.text = selectedBranch.label
-                branch_id = selectedBranch.value.toString()
+                branch_id = selectedBranch.value
 
                 arrayListStaff.clear()
                 staffId = ""

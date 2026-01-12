@@ -2,10 +2,12 @@
 
 package com.student.Compass_Abroad.fragments.home
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -147,6 +149,9 @@ class ApplicationDetail : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+
+
         if (App.sharedPre?.getString(AppConstants.SCOUtLOGIN, "") == "true") {
 
             ScoutMainActivity.bottomNav!!.isVisible = false

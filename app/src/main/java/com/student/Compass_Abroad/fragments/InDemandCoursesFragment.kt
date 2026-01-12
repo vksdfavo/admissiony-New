@@ -91,6 +91,7 @@ class InDemandCoursesFragment : BaseFragment() {
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
 
+
         HomeViewModal().get_in_demandCourses(
             requireActivity(),
             AppConstants.fiClientNumber,

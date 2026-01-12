@@ -21,6 +21,7 @@ import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.getAllPosts.Record
 import com.student.Compass_Abroad.modal.getAllPosts.getAllPostResponse
 import com.student.Compass_Abroad.retrofit.ViewModalClass
+import androidx.navigation.findNavController
 
 class FragCommunityFollowing : BaseFragment(),AdapterCommunityAllFeeds.select {
     private lateinit var binding: FragmentFragCommunityFollowingBinding
@@ -42,8 +43,10 @@ class FragCommunityFollowing : BaseFragment(),AdapterCommunityAllFeeds.select {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View { binding=FragmentFragCommunityFollowingBinding.inflate(inflater,container,false)
+
         binding.fabAfAddStu.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.fragAddCommunityPost)
+
+            binding.root.findNavController().navigate(R.id.fragAddCommunityPost)
         }
 
         arrayList1.clear();
@@ -51,11 +54,10 @@ class FragCommunityFollowing : BaseFragment(),AdapterCommunityAllFeeds.select {
 
 
         setupRecyclerView()
-        // Load initial data
         loadInitialData()
 
         return binding.root
-        // Inflate the layout for this fragment
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -167,8 +169,6 @@ class FragCommunityFollowing : BaseFragment(),AdapterCommunityAllFeeds.select {
             adapterCommunityAllFeeds.notifyDataSetChanged()
             isLoading = false
             binding.pbFcAfPagination.visibility = View.INVISIBLE
-
-
     }
     private fun deletePost(
         requireActivity: FragmentActivity,
@@ -183,7 +183,6 @@ class FragCommunityFollowing : BaseFragment(),AdapterCommunityAllFeeds.select {
             "Bearer " + CommonUtils.accessToken,
             identifier
         ).observe(requireActivity()) { deleteResponse ->
-
             deleteResponse?.let { response ->
                 val statusCode = response.statusCode
                 if (statusCode == 204) {

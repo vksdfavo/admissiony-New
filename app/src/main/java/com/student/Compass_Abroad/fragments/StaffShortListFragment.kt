@@ -37,6 +37,7 @@ import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
+import androidx.navigation.findNavController
 
 
 class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.select {
@@ -134,7 +135,7 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
 
     override fun onCLick(record: Record) {
         ProgramDetails.details = record
-        Navigation.findNavController(binding!!.root).navigate(R.id.programDetails)
+        binding!!.root.findNavController().navigate(R.id.programDetails)
     }
 
     override fun likeClick(

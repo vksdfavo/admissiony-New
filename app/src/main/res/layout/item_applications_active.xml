@@ -81,7 +81,7 @@
             android:layout_below="@+id/app_id"
             android:ellipsize="end"
             android:textStyle="bold"
-
+            android:maxLines="1"
             android:text="Atlantic Business College, Canada"
             android:textColor="@color/black"
             android:textSize="13sp"

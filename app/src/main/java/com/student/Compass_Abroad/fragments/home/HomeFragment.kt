@@ -54,11 +54,6 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.google.android.flexbox.AlignItems
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.messaging.FirebaseMessaging
@@ -147,7 +142,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     var webinarsList1 = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
     var arrayListVouchers = ArrayList<com.student.Compass_Abroad.modal.getVoucherModel.Record>()
 
-    var arrayListInDemandInstitution = ArrayList<com.student.Compass_Abroad.modal.in_demandInstitution.Data>()
+    var arrayListInDemandInstitution =
+        ArrayList<com.student.Compass_Abroad.modal.in_demandInstitution.Data>()
     var arrayListInDemand = ArrayList<com.student.Compass_Abroad.modal.inDemandCourse.Data>()
     private val modeOfPaymentList: MutableList<com.student.Compass_Abroad.modal.getVoucherPaymentMode.RecordsInfo> =
         mutableListOf()
@@ -184,13 +180,17 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     var token: String? = null
     private var payment_gateway_identifier = ""
     private var arrayList = ArrayList<com.student.Compass_Abroad.modal.AllProgramModel.Record>()
-    private var arrayListBanner = ArrayList<com.student.Compass_Abroad.modal.getBannerModel.Record>()
+    private var arrayListBanner =
+        ArrayList<com.student.Compass_Abroad.modal.getBannerModel.Record>()
     private var identityInfo: com.student.Compass_Abroad.modal.staffProfile.Data? = null
     var arrayListInLatestUpdate = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
-    var arrayListInStudentTestimonials = ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
+    var arrayListInStudentTestimonials =
+        ArrayList<com.student.Compass_Abroad.modal.getTestimonials.Row>()
     private val sliderHandler: Handler = Handler()
-    private val sliderItems = mutableListOf<com.student.Compass_Abroad.modal.getBannerModel.Record>()
-    private val sliderRunnable: Runnable = Runnable { binding!!.viewPagerImageSlider.currentItem += 1 }
+    private val sliderItems =
+        mutableListOf<com.student.Compass_Abroad.modal.getBannerModel.Record>()
+    private val sliderRunnable: Runnable =
+        Runnable { binding!!.viewPagerImageSlider.currentItem += 1 }
     private var adapter: AdaptorWebinarRecyclerview? = null
     private val webinarsList = ArrayList<com.student.Compass_Abroad.modal.getWebinars.Record>()
 
@@ -214,7 +214,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             insets
         }
 
-        binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvWebinars?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
         binding?.rvWebinars?.adapter = adapter
 
@@ -230,6 +231,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
             findNavController().navigate(R.id.fragProgramAllProg)
         }
+
         binding!!.ablSelect.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             val totalScrollRange = appBarLayout.totalScrollRange
             val percentage = Math.abs(verticalOffset).toFloat() / totalScrollRange.toFloat()
@@ -241,6 +243,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     activity?.window?.decorView?.systemUiVisibility =
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 }
+
             } else {
                 activity?.window?.statusBarColor =
                     ContextCompat.getColor(requireContext(), R.color.secondary_color)
@@ -253,9 +256,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         return binding!!.root
     }
 
-    private fun setQuickActionsAdapter()
-
-    {
+    private fun setQuickActionsAdapter() {
         val actions = listOf(
 
             TopDestinationModel("Education Loan", R.drawable.loan),
@@ -280,7 +281,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 }
             })
 
-        binding!!.rvQuciAction.layoutManager = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
+        binding!!.rvQuciAction.layoutManager =
+            GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
         binding!!.rvQuciAction.adapter = adapter
     }
 
@@ -292,7 +294,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             AppConstants.fiClientNumber,
             deviceId, token,
             forceRefresh = false  // Set true if you want to force refresh
-
         ).observe(viewLifecycleOwner) { response ->
             response?.let { topDestinations ->
                 if (topDestinations.statusCode == 200) {
@@ -437,11 +438,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
     }
 
     private fun setupRecyclerViewTopDestination() {
-        val shimmerAdapter = TopDestinationAdapter( requireActivity(),emptyList(),onItemClick = { selectedItem ->
-            AppConstants.PROGRAM_STATUS = "1"
-            FragProgramAllProg.selectedTab = "all"
-            binding!!.root.findNavController().navigate(R.id.fragProgramAllProg)
-        }, isLoading = true)
+        val shimmerAdapter =
+            TopDestinationAdapter(requireActivity(), emptyList(), onItemClick = { selectedItem ->
+                AppConstants.PROGRAM_STATUS = "1"
+                FragProgramAllProg.selectedTab = "all"
+                binding!!.root.findNavController().navigate(R.id.fragProgramAllProg)
+            }, isLoading = true)
         binding?.rvTopDestination?.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding?.rvTopDestination?.adapter = shimmerAdapter
@@ -930,7 +932,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         presentPage: Int,
         dataPerPage: Int,
     ) {
-            viewModelHome.clientEventsModalLiveData(
+        viewModelHome.clientEventsModalLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
@@ -1399,7 +1401,8 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
 
                     binding!!.fabFdStuCoordinatorChat.setOnClickListener { v: View ->
-                        App.singleton?.applicationIdentifierChat = staffData.data!!.studentProfileInfo.identifier
+                        App.singleton?.applicationIdentifierChat =
+                            staffData.data!!.studentProfileInfo.identifier
                         App.singleton?.chatStatus = "1"
                         App.singleton?.idetity = "leads"
                         Navigation.findNavController(v).navigate(R.id.fragmentAgentChat)
@@ -1960,7 +1963,11 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             response?.let {
                 when (it.statusCode) {
                     201 -> {
-                        calltheApiPay(requireActivity, it.data!!.feePaymentInfo.identifier, it.data!!.feePaymentInfo.payment_gateway_info.name)
+                        calltheApiPay(
+                            requireActivity,
+                            it.data!!.feePaymentInfo.identifier,
+                            it.data!!.feePaymentInfo.payment_gateway_info.name
+                        )
                     }
 
                     409 -> {
@@ -2066,6 +2073,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
             e.printStackTrace()
         }
     }
+
     private fun onPaymentResult(
         paymentSheetResult: PaymentSheetResult,
         dialog: Dialog

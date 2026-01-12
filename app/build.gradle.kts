@@ -73,6 +73,7 @@ android { flavorDimensions("FirmliTest")
 
         jvmTarget = "1.8"
     }
+
 }
 
 tasks.whenTaskAdded {

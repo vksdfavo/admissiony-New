@@ -574,10 +574,8 @@ class BuyFragment : BaseFragment() {
 
 
                 } else {
-                    CommonUtils.toast(
-                        requireActivity,
-                        getVoucherPaymentMode.message ?: " Failed"
-                    )
+
+                    CommonUtils.toast(requireActivity, getVoucherPaymentMode.message ?: " Failed")
                 }
             }
         }

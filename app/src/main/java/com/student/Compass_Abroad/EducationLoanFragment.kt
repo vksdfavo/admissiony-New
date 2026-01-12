@@ -91,8 +91,6 @@ class EducationLoanFragment : BaseFragment() {
 
                 }
             }
-
-
     }
 
     private fun onClicks() {

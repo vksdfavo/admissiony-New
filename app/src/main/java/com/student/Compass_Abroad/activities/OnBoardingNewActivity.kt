@@ -26,7 +26,9 @@ class OnBoardingNewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
+
         binding = ActivityOnBoardingNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -111,9 +113,13 @@ class OnBoardingNewActivity : AppCompatActivity() {
     }
 
     private fun setupButtonActions() {
+
         binding.fabSkip.setOnClickListener {
+
             val nextItem = binding.viewPagerBanners.currentItem + 1
-            if (nextItem < binding.viewPagerBanners.adapter!!.itemCount) {
+
+            if (nextItem < binding.viewPagerBanners.adapter!!.itemCount)
+            {
                 binding.viewPagerBanners.currentItem = nextItem
             }
         }

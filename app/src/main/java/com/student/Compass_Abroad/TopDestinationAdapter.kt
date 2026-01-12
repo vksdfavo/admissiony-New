@@ -84,7 +84,7 @@ class TopDestinationAdapter(
 
         holder.binding.itemContainers.setOnClickListener {
             val valueString = item.country_id.toString()
-            val labelString = item.country_name.toString()
+            val labelString = item.country_name
 
             App.sharedPre!!.clearKey(AppConstants.PGWP_KEY)
             App.sharedPre!!.clearKey(AppConstants.ATTENDANCE_KEY)
