@@ -25,13 +25,13 @@ class ApplicationFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentApplicationBinding.inflate(inflater, container, false)
+
         setTabAdaptor()
 
         requireActivity().window.statusBarColor = requireActivity().getColor(R.color.white)
 
         requireActivity().window.navigationBarColor =  requireActivity().getColor(R.color.appSecondaryColor)
 
-        //tab layout
         onTabCLickListener()
 
         binding!!.fabCreateApplication.setOnClickListener{

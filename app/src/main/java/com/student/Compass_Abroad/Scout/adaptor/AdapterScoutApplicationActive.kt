@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.databinding.ItemscoutapplicationactiveBinding
+import androidx.navigation.findNavController
 
 class AdapterScoutApplicationActive(): RecyclerView.Adapter<AdapterScoutApplicationActive.ViewHolder>() {
     var context: Context? = null
@@ -21,7 +22,7 @@ class AdapterScoutApplicationActive(): RecyclerView.Adapter<AdapterScoutApplicat
 
 
         holder.itemView.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.scoutApplicationDetail)
+            it.findNavController().navigate(R.id.scoutApplicationDetail)
         }
     }
 

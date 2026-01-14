@@ -31,7 +31,6 @@ class  LatestUpdateAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = destinationList[position]
         val url = item.media_url ?: ""
-
         holder.binding.btnTestimonials.text = item.description ?: ""
         holder.binding.tvTitle.text = item.title ?: ""
         holder.binding.date.text = item.created_at?.take(10) ?: ""

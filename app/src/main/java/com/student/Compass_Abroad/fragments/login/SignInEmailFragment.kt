@@ -23,32 +23,31 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.Utils.errorDialogOpen
+import com.student.Compass_Abroad.activities.MainActivity
+import com.student.Compass_Abroad.activities.SetPreferencesActivity
 import com.student.Compass_Abroad.databinding.FragmentSignInEmailBinding
 import com.student.Compass_Abroad.encrytion.PasswordConverter
 import com.student.Compass_Abroad.encrytion.encryptData
+import com.student.Compass_Abroad.fragments.PrivacyPolicyFragment
+import com.student.Compass_Abroad.fragments.TermsAndConditionsFragment
+import com.student.Compass_Abroad.modal.LoginResponseModel.LoginResponseModel
+import com.student.Compass_Abroad.modal.TokenFcmData.TokenFcmData
 import com.student.Compass_Abroad.modal.checkUserModel.CheckUserModel
 import com.student.Compass_Abroad.modal.checkUserModel.PublicUserInfo
 import com.student.Compass_Abroad.retrofit.LoginViewModal
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.google.android.gms.tasks.Task
-import com.google.firebase.messaging.FirebaseMessaging
-import com.student.Compass_Abroad.activities.MainActivity
-import com.student.Compass_Abroad.activities.SetPreferencesActivity
-import com.student.Compass_Abroad.fragments.PrivacyPolicyFragment
-import com.student.Compass_Abroad.fragments.TermsAndConditionsFragment
-import com.student.Compass_Abroad.modal.LoginResponseModel.LoginResponseModel
-import com.student.Compass_Abroad.modal.TokenFcmData.TokenFcmData
-import kotlin.String
 
 class SignInEmailFragment : Fragment() {
 
@@ -56,8 +55,12 @@ class SignInEmailFragment : Fragment() {
     var contentKey = ""
     private var num_password = 0
     var contentKeyPassword = ""
-    var token=""
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    var token = ""
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentSignInEmailBinding.inflate(inflater, container, false)
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE //
 
@@ -210,7 +213,8 @@ class SignInEmailFragment : Fragment() {
             //fix form fields
             formData.put("data_type", "email") //email or phone
             formData.put("username", email) //get from login screen
-            formData.put("has_device_identifier", hasDeviceIdentifier
+            formData.put(
+                "has_device_identifier", hasDeviceIdentifier
             );
 
             if (hasDeviceIdentifier === "no") {
@@ -301,9 +305,9 @@ class SignInEmailFragment : Fragment() {
                                     saveModel(AppConstants.SAVE_MODAL, nonNullLoginModal.data)
                                 }
 
-                                binding!!.btLoginPassword.visibility=View.VISIBLE
-                                binding!!.llEnterPasscode.visibility=View.VISIBLE
-                                binding!!.tvForgotPasscode.visibility=View.VISIBLE
+                                binding!!.btLoginPassword.visibility = View.VISIBLE
+                                binding!!.llEnterPasscode.visibility = View.VISIBLE
+                                binding!!.tvForgotPasscode.visibility = View.VISIBLE
 
 //                                Navigation.findNavController(binding!!.getRoot())
 //                                    .navigate(R.id.passwordFragment)
@@ -492,9 +496,15 @@ class SignInEmailFragment : Fragment() {
                                             )
 
                                             if (!it.data!!.hasAllPreferencesSet) {
-                                                sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
+                                                sharedPre!!.saveString(
+                                                    AppConstants.ISLOggedIn,
+                                                    "true"
+                                                )
 
-                                                val intent = Intent(requireActivity(), SetPreferencesActivity::class.java)
+                                                val intent = Intent(
+                                                    requireActivity(),
+                                                    SetPreferencesActivity::class.java
+                                                )
                                                 startActivity(intent)
                                                 requireActivity().finish()
                                             } else {
@@ -513,17 +523,26 @@ class SignInEmailFragment : Fragment() {
                                                     sendFcmToken(token, requireActivity())
                                                 }
 
-                                                val intent = Intent(requireActivity(), MainActivity::class.java)
+                                                val intent = Intent(
+                                                    requireActivity(),
+                                                    MainActivity::class.java
+                                                )
                                                 startActivity(intent)
                                                 requireActivity().finish()
-                                                sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
+                                                sharedPre!!.saveString(
+                                                    AppConstants.ISLOggedIn,
+                                                    "true"
+                                                )
                                             }
                                         }
 
                                         422 -> {
                                             // Handle invalid or missing preference data (session expired / data issue)
                                             App.singleton?.SHOW_PASSCODE_SECTION = false
-                                            Log.w("getPreferencesDataList", "Received 422, refreshing fragment...")
+                                            Log.w(
+                                                "getPreferencesDataList",
+                                                "Received 422, refreshing fragment..."
+                                            )
 
                                             CommonUtils.toast(
                                                 requireActivity(),
@@ -545,8 +564,9 @@ class SignInEmailFragment : Fragment() {
                                         }
                                     }
                                 }
+                            }
                         }
-                        }
+
                         422 -> {
                             // Handle 422 status code
                             App.singleton?.SHOW_PASSCODE_SECTION = false

@@ -15,12 +15,16 @@ class AdapterScoutApplicationDetailTabs(fragmentManager: FragmentManager?,
     ) :
     FragmentStateAdapter(fragmentManager!!, lifecycle!!) {
         override fun createFragment(position: Int): Fragment {
-            return (if (position == 2){
-                FragmentScoutChat()
-            } else if (position == 1) {
-                FragScoutApplicationAssignedStaff()
-            } else {
-                FragScoutApplicationTimeline()
+            return (when (position) {
+                2 -> {
+                    FragmentScoutChat()
+                }
+                1 -> {
+                    FragScoutApplicationAssignedStaff()
+                }
+                else -> {
+                    FragScoutApplicationTimeline()
+                }
             }) as Fragment
         }
 

@@ -32,7 +32,6 @@ import com.student.bt_global.Utils.NeTWorkChange
 
 @Suppress("DEPRECATION")
 class BankDetails : AppCompatActivity(), BankDetailsAdapter.SetOnClickListener {
-
     private lateinit var binding: ActivityBankDetailsBinding
     private var neTWorkChange: NeTWorkChange = NeTWorkChange(this)
     private var bankDetailsAdapter: BankDetailsAdapter? = null
@@ -61,6 +60,7 @@ class BankDetails : AppCompatActivity(), BankDetailsAdapter.SetOnClickListener {
         }
 
         binding.addBankAccount.setOnClickListener {
+
             startActivity(Intent(this, AddBankAccountActivity::class.java))
         }
 

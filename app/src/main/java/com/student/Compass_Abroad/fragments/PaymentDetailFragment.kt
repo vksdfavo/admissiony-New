@@ -50,6 +50,7 @@ class PaymentDetailFragment : BaseFragment() {
         var  data:String?=null
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,

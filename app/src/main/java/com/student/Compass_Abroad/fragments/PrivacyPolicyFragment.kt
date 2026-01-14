@@ -32,6 +32,7 @@ class PrivacyPolicyFragment : BottomSheetDialogFragment() {
 
 
         val url = getString(R.string.privacy_policy_url)
+
         App.singleton?.statusValidation = 0
 
         if (url.isNotEmpty()) {
@@ -44,7 +45,6 @@ class PrivacyPolicyFragment : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        // ✅ Safe to access window here
         if(isAdded){
             val activity = activity ?: return
             val window = activity.window ?: return
@@ -81,7 +81,6 @@ class PrivacyPolicyFragment : BottomSheetDialogFragment() {
             behavior.skipCollapsed = true
             behavior.isDraggable = false
         }
-
 
         binding.backBtn.setOnClickListener {
 

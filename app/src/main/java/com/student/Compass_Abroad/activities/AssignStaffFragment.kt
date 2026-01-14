@@ -27,7 +27,6 @@ class AssignStaffFragment : BaseFragment() {
         requireActivity().window.navigationBarColor = requireActivity().getColor(android.R.color.white)
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
 
-
         setViewPager()
 
         binding.fabBiBack.setOnClickListener {

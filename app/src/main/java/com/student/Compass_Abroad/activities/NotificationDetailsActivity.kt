@@ -63,11 +63,13 @@ class NotificationDetailsActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
     }
+
     override fun attachBaseContext(newBase: Context?) {
         val lang = SharedPrefs.getLang(newBase ?: return) ?: "en"
         val context = App.updateBaseContextLocale(newBase, lang)
         super.attachBaseContext(context)
     }
+
     @SuppressLint("SetTextI18n")
     private fun setNotificationData(notification: RecordsInfo?) {
         notification?.let {

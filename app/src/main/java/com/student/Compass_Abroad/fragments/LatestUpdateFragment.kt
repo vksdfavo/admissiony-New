@@ -30,8 +30,8 @@ class LatestUpdateFragment : BaseFragment() {
         binding = FragmentLatestUpdateBinding.inflate(inflater, container, false)
         val window = requireActivity().window
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
-        window.navigationBarColor =
-            ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+
+        window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = window.insetsController
             controller?.setSystemBarsAppearance(

@@ -59,6 +59,9 @@ class BookCounsellingFragment : BaseFragment() {
 
         setupTimeSlotRecycler()
 
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, 0, systemBars.right, 0)
@@ -149,7 +152,6 @@ class BookCounsellingFragment : BaseFragment() {
 
         return binding.root
     }
-
     private fun setupTimeSlotRecycler() {
         timeSlotAdapter = TimeSlotAdapter(arrayListSlots) { selectedSlot ->
             val selectedDate = dateList.find { it.isSelected }?.apiDate ?: return@TimeSlotAdapter
@@ -274,7 +276,7 @@ class BookCounsellingFragment : BaseFragment() {
             val popupWindow = PopupWindow(requireActivity())
             val layout: View = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             popupWindow.contentView = layout
-            layout.findViewById<TextView>(R.id.etSelect).setHint("Search nearest branch")
+            layout.findViewById<TextView>(R.id.etSelect).hint = "Search nearest branch"
             popupWindow.setBackgroundDrawable(Color.WHITE.toDrawable())
             popupWindow.isOutsideTouchable = true
             popupWindow.isFocusable = true
@@ -296,16 +298,12 @@ class BookCounsellingFragment : BaseFragment() {
                 binding.staffTxt.text = "Select"
 
                 popupWindow.dismiss()
-
-                // 🔹 Automatically load today's slots after branch selection
                 val today = dateList.firstOrNull { it.label == "Today" }
-                today?.let {
-                    getSlotesData(it.apiDate)
+                today?.let { getSlotesData(it.apiDate)
                 }
             }
 
             popupWindow.showAsDropDown(etBranch)
-
             layout.findViewById<EditText>(R.id.etSelect)
                 .addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
@@ -335,7 +333,7 @@ class BookCounsellingFragment : BaseFragment() {
         val popupWindow = PopupWindow(requireActivity())
         val layout: View = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
         popupWindow.contentView = layout
-        layout.findViewById<TextView>(R.id.etSelect).setHint("Search staff")
+        layout.findViewById<TextView>(R.id.etSelect).hint = "Search staff"
         popupWindow.setBackgroundDrawable(Color.WHITE.toDrawable())
         popupWindow.isOutsideTouchable = true
         popupWindow.isFocusable = true

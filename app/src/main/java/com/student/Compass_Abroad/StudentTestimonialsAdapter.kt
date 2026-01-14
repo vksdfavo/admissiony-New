@@ -53,9 +53,11 @@ class StudentTestimonialsAdapter(private val testimonialList: List<Row>,
                         .into(holder.binding.iv)
 
                 } else {
+
                     // -------------------------------------------------------------
                     // ✅ OTHER VIDEO (MP4 / M3U8 / Other Media)
                     // -------------------------------------------------------------
+
                     val thumb = getVideoFrame(url)
 
                     if (thumb != null) {

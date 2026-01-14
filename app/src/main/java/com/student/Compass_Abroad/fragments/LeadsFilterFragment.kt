@@ -70,6 +70,7 @@ class LeadsFilterFragment : BaseFragment() {
 
 
         onClicks()
+
         setRadioButton()
 
         return binding.root

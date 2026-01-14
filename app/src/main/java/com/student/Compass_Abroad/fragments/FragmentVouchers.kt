@@ -44,7 +44,6 @@ class FragmentVouchers : BaseFragment() {
         return binding!!.getRoot()
     }
 
-
     override fun onResume() {
         super.onResume()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -58,5 +57,4 @@ class FragmentVouchers : BaseFragment() {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
-
 }

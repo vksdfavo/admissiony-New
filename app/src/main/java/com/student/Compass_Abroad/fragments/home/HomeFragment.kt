@@ -234,7 +234,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
         binding!!.ablSelect.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             val totalScrollRange = appBarLayout.totalScrollRange
-            val percentage = Math.abs(verticalOffset).toFloat() / totalScrollRange.toFloat()
+            val percentage = abs(verticalOffset).toFloat() / totalScrollRange.toFloat()
 
             if (percentage >= 0.9f) {
                 activity?.window?.statusBarColor =
@@ -258,7 +258,6 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
 
     private fun setQuickActionsAdapter() {
         val actions = listOf(
-
             TopDestinationModel("Education Loan", R.drawable.loan),
             TopDestinationModel("Visa Application", R.drawable.visa),
             TopDestinationModel("Find Accommodation", R.drawable.accommodation),
@@ -281,8 +280,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 }
             })
 
-        binding!!.rvQuciAction.layoutManager =
-            GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
+        binding!!.rvQuciAction.layoutManager = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
         binding!!.rvQuciAction.adapter = adapter
     }
 
@@ -329,8 +327,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
         val deviceId = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
         val token = "Bearer ${CommonUtils.accessToken}"
         val shimmerAdapter = InDemandCoursesAdapter(emptyList(), isLoading = true)
-        binding?.rvIndemand?.apply {
-            layoutManager =
+        binding?.rvIndemand?.apply { layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = shimmerAdapter
         }

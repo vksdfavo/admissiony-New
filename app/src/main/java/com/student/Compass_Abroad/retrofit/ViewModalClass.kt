@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.student.Compass_Abroad.ApiResponseForm
-import com.student.firmliagent.modal.getLeadModel.getLeadResponse
 import com.student.Compass_Abroad.ChatMessageModels
 import com.student.Compass_Abroad.CreateApplicationRequest
 import com.student.Compass_Abroad.SavePreferencesRequest
@@ -26,77 +25,66 @@ import com.student.Compass_Abroad.modal.EditReplyModel.EditReplyResponse
 import com.student.Compass_Abroad.modal.GetCampusModal.GetCampusResponse
 import com.student.Compass_Abroad.modal.GetStudentsModal.GetStudentResponse
 import com.student.Compass_Abroad.modal.LeadSourceModal
+import com.student.Compass_Abroad.modal.PostLeadNotesResponse.postLeadNotesResponse
+import com.student.Compass_Abroad.modal.PreferCollageModal.PreferCollageModal
+import com.student.Compass_Abroad.modal.ProgramTags.ProgramTags
 import com.student.Compass_Abroad.modal.ReportReasons.ReportReasonresponse
+import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
+import com.student.Compass_Abroad.modal.TokenFcmData.TokenFcmData
+import com.student.Compass_Abroad.modal.UtmModal.UtmModalResponse
 import com.student.Compass_Abroad.modal.allFieldResponse.formAllFieldResponse
+import com.student.Compass_Abroad.modal.ambassadorAddConversation.AmbassadorAddConversation
+import com.student.Compass_Abroad.modal.ambassadroChatList.AmbassadorChatListModal
+import com.student.Compass_Abroad.modal.applicationProgramDetails.ApplicationProgramResponse
 import com.student.Compass_Abroad.modal.campusModel.CampusModel
+import com.student.Compass_Abroad.modal.changeStatusReminder.changeStatusReminder
 import com.student.Compass_Abroad.modal.chatMessage.ChatMessageResponse
 import com.student.Compass_Abroad.modal.checkUserModel.CheckUserModel
 import com.student.Compass_Abroad.modal.cityModel.CityModel
 import com.student.Compass_Abroad.modal.clientEventModel.ClientEventResponse
+import com.student.Compass_Abroad.modal.counsellingModal.CounsellingResponse
 import com.student.Compass_Abroad.modal.countryModel.CountryResponse
+import com.student.Compass_Abroad.modal.createAttende.CreateAttende
+import com.student.Compass_Abroad.modal.createCounsellingModel.createCounsellingModel
+import com.student.Compass_Abroad.modal.createDynamicApplication.CreateDynamicApplication
+import com.student.Compass_Abroad.modal.createDynamicApplication.dropdown.DropdownResponse
 import com.student.Compass_Abroad.modal.createPostResponse.CreatePostResponse
+import com.student.Compass_Abroad.modal.createRefreralLink.getRefferalLink
 import com.student.Compass_Abroad.modal.deleteCommentResponse.DeleteCommentResponse
 import com.student.Compass_Abroad.modal.deletePostResponse.DeletePostResponse
 import com.student.Compass_Abroad.modal.deleteReplyModel.DeleteReplyResponse
 import com.student.Compass_Abroad.modal.discipline.DisciplineModel
+import com.student.Compass_Abroad.modal.dynamicApplication.PostDynamicApplication
+import com.student.Compass_Abroad.modal.editProfile.EditProfile
+import com.student.Compass_Abroad.modal.editProfile.UploadImages
 import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.getErrorMessage
 import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.parseError
+import com.student.Compass_Abroad.modal.findAmbassadorModal.AmbassadorModal
 import com.student.Compass_Abroad.modal.forgotPasswordModel.ForgotPasswordModel
+import com.student.Compass_Abroad.modal.generatingPaymentLinkVoucher.generatingPaymentLinkVoucher
 import com.student.Compass_Abroad.modal.generatingPaymentLinkforApplication.generatingPaymentLinkApplication
-
 import com.student.Compass_Abroad.modal.getAllComments.getAllComments
 import com.student.Compass_Abroad.modal.getAllPosts.getAllPostResponse
 import com.student.Compass_Abroad.modal.getApplicationAssignedStaff.getApplicationAssignedStaff
 import com.student.Compass_Abroad.modal.getApplicationDocuments.getApplicationDocuments
 import com.student.Compass_Abroad.modal.getApplicationNotes.getApplicationNotes
 import com.student.Compass_Abroad.modal.getApplicationRemider.getApplicationReminderResponse
+import com.student.Compass_Abroad.modal.getApplicationResponse.getApplicationResponse
 import com.student.Compass_Abroad.modal.getApplicationTimelineResponse.getApplicationTimelineResponse
 import com.student.Compass_Abroad.modal.getCategoryLeadStat.getCategoryLeadStat
-import com.student.Compass_Abroad.modal.getCommentReplies.getCommentReplies
-import com.student.Compass_Abroad.modal.getDocumentTypes.getDocumentTypes
-import com.student.Compass_Abroad.modal.getLeadAssignedStaffResponse.getLeadAssignedStaffResponse
-import com.student.Compass_Abroad.modal.getLeadPaymentLinks.getLeadPaymentLinks
-import com.student.Compass_Abroad.modal.getLeadShorlistedProgram.getLeadShortlistedProgram
-import com.student.Compass_Abroad.modal.getLeadTimelineResponse.getLeadTimelineResponse
-import com.student.Compass_Abroad.modal.getPaymentForDropDown.getPaymentForDropDown
-import com.student.Compass_Abroad.modal.getPaymentMode.getPaymentMode
-import com.student.Compass_Abroad.modal.intakeModel.IntakeModel
-import com.student.Compass_Abroad.modal.likePost.LikeResponse
-import com.student.Compass_Abroad.modal.postApplicationNotes.PostApplicationNotes
-import com.student.Compass_Abroad.modal.postComment.PostComment
-import com.student.Compass_Abroad.modal.PostLeadNotesResponse.postLeadNotesResponse
-import com.student.Compass_Abroad.modal.PreferCollageModal.PreferCollageModal
-import com.student.Compass_Abroad.modal.ProgramTags.ProgramTags
-import com.student.Compass_Abroad.modal.SaveReviewResponse.SaveReviewResponse
-import com.student.Compass_Abroad.modal.TokenFcmData.TokenFcmData
-import com.student.Compass_Abroad.modal.UtmModal.UtmModalResponse
-import com.student.Compass_Abroad.modal.ambassadorAddConversation.AmbassadorAddConversation
-import com.student.Compass_Abroad.modal.ambassadorGetChat.AmbassadorGetChatData
-import com.student.Compass_Abroad.modal.ambassadroChatList.AmbassadorChatListModal
-import com.student.Compass_Abroad.modal.applicationProgramDetails.ApplicationProgramResponse
-import com.student.Compass_Abroad.modal.changeStatusReminder.changeStatusReminder
-import com.student.Compass_Abroad.modal.counsellingModal.CounsellingResponse
-import com.student.Compass_Abroad.modal.createAttende.CreateAttende
-import com.student.Compass_Abroad.modal.createCounsellingModel.createCounsellingModel
-import com.student.Compass_Abroad.modal.createDynamicApplication.CreateDynamicApplication
-import com.student.Compass_Abroad.modal.createDynamicApplication.dropdown.DropdownResponse
-import com.student.Compass_Abroad.modal.createRefreralLink.getRefferalLink
-import com.student.Compass_Abroad.modal.dynamicApplication.PostDynamicApplication
-import com.student.Compass_Abroad.modal.editProfile.EditProfile
-import com.student.Compass_Abroad.modal.editProfile.UploadImages
-import com.student.Compass_Abroad.modal.findAmbassadorModal.AmbassadorModal
-import com.student.Compass_Abroad.modal.generatingPaymentLinkVoucher.generatingPaymentLinkVoucher
-import com.student.Compass_Abroad.modal.getApplicationResponse.getApplicationResponse
-import com.student.Compass_Abroad.modal.getBannerModel.GetBannerModal
 import com.student.Compass_Abroad.modal.getCategoryProgramModel.getCategoryProgramModel
+import com.student.Compass_Abroad.modal.getCommentReplies.getCommentReplies
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import com.student.Compass_Abroad.modal.getDestintionManager.getDestinationmanager
 import com.student.Compass_Abroad.modal.getDocumentChecklistModal.getDocumentChecklistModal
+import com.student.Compass_Abroad.modal.getDocumentTypes.getDocumentTypes
 import com.student.Compass_Abroad.modal.getHistoryListModel.getHistoryListModel
 import com.student.Compass_Abroad.modal.getLeadCounsellings.getLeadCounsellings
 import com.student.Compass_Abroad.modal.getLeadNotes.getLeadNotesResponse
+import com.student.Compass_Abroad.modal.getLeadPaymentLinks.getLeadPaymentLinks
 import com.student.Compass_Abroad.modal.getLeadReminderResponse.GetLeadReminderResponse
-
+import com.student.Compass_Abroad.modal.getLeadShorlistedProgram.getLeadShortlistedProgram
+import com.student.Compass_Abroad.modal.getLeadTimelineResponse.getLeadTimelineResponse
 import com.student.Compass_Abroad.modal.getLeads.getLeadsModal
 import com.student.Compass_Abroad.modal.getLeadsDocuments.getLeadsDocuments
 import com.student.Compass_Abroad.modal.getNotification.getNotificationResponse
@@ -105,10 +93,11 @@ import com.student.Compass_Abroad.modal.getNotificationReadAll.getNotificationRe
 import com.student.Compass_Abroad.modal.getOffersUpdatesModel.GetOffersandUpdates
 import com.student.Compass_Abroad.modal.getPaymentApplication.getPaymentApplication
 import com.student.Compass_Abroad.modal.getPaymentApplicationPay.GetPaymentApplicationPay
+import com.student.Compass_Abroad.modal.getPaymentForDropDown.getPaymentForDropDown
+import com.student.Compass_Abroad.modal.getPaymentMode.getPaymentMode
 import com.student.Compass_Abroad.modal.getProgramFilters.getProgramFIltersResponse
 import com.student.Compass_Abroad.modal.getReviewList.getReviewList
 import com.student.Compass_Abroad.modal.getScholarships.GetScholarships
-import com.student.Compass_Abroad.modal.getStudentPref.GetStudentPreferences
 import com.student.Compass_Abroad.modal.getSubWorkliiTabs.getSubWorkliiTabInfo
 import com.student.Compass_Abroad.modal.getVoucherModel.getVouchers
 import com.student.Compass_Abroad.modal.getVoucherPaymentMode.getVoucherPaymentMode
@@ -116,13 +105,16 @@ import com.student.Compass_Abroad.modal.getVouchersHistoryTabs.getVouchersHistor
 import com.student.Compass_Abroad.modal.getWebinars.getWebinarsResponse
 import com.student.Compass_Abroad.modal.getWorkliiTabs.getWorklliTabs
 import com.student.Compass_Abroad.modal.institutionModel.InstitutionModel
+import com.student.Compass_Abroad.modal.intakeModel.IntakeModel
 import com.student.Compass_Abroad.modal.joinAmbassadorChat.JoinAmbassadorChatModal
+import com.student.Compass_Abroad.modal.likePost.LikeResponse
 import com.student.Compass_Abroad.modal.logoutUser.Logout
 import com.student.Compass_Abroad.modal.paymentDetails.ApplicationPaymentDetails
+import com.student.Compass_Abroad.modal.postApplicationNotes.PostApplicationNotes
+import com.student.Compass_Abroad.modal.postComment.PostComment
 import com.student.Compass_Abroad.modal.postLeadReminder.postLeadReminder
 import com.student.Compass_Abroad.modal.postLeadStatus.postLeadStatus
 import com.student.Compass_Abroad.modal.preferCountryList.GetPreferCountryList
-
 import com.student.Compass_Abroad.modal.reactionModel.REactionResponse
 import com.student.Compass_Abroad.modal.replyModel.ReplyComment
 import com.student.Compass_Abroad.modal.reportPost.ReportResponse
@@ -140,13 +132,13 @@ import com.student.Compass_Abroad.newdynamicapi.SubmitPayload
 import com.student.Compass_Abroad.retrofit.RetrofitClient.retrofitCallerObject
 import com.student.Compass_Abroad.retrofit.RetrofitClient2.retrofitCallerObject2
 import com.student.Compass_Abroad.retrofit.RetrofitClient3.retrofitCallerObject3
+import com.student.firmliagent.modal.getLeadModel.getLeadResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-
 
 class ViewModalClass : ViewModel() {
     var apiInterface = retrofitCallerObject!!.create(ApiInterface::class.java)
@@ -206,8 +198,6 @@ class ViewModalClass : ViewModel() {
     }
 
     //For Login
-
-
 
 
     //verifyOTP
@@ -7710,7 +7700,6 @@ class ViewModalClass : ViewModel() {
     // save-preferences
 
 
-
     var getVouchersMutableLiveData1: MutableLiveData<getVouchers?>? = null
     fun getVouchersModalLiveData(
         activity: Activity?,
@@ -8132,7 +8121,6 @@ class ViewModalClass : ViewModel() {
         Log.e("API Error", allProgramModel.message!!)
         AllRecommendedProgramMutableLiveData1!!.postValue(allProgramModel)
     }
-
 
 
     var getLeadMutableLiveData1: MutableLiveData<getLeadsModal?>? = null
@@ -8947,8 +8935,7 @@ class ViewModalClass : ViewModel() {
         device_number: String,
         accessToken: String,
         fullUrl: String
-    ): LiveData<DropdownResponse?>
-    {
+    ): LiveData<DropdownResponse?> {
 
         val liveData = MutableLiveData<DropdownResponse?>()
 
@@ -9090,7 +9077,7 @@ class ViewModalClass : ViewModel() {
         client_number: String,
         device_number: String,
         acessToken: String,
-        identifier:String
+        identifier: String
     ): LiveData<getDocumentChecklistModal?> {
 
         DocumentChecklistMutableLiveData = MutableLiveData()

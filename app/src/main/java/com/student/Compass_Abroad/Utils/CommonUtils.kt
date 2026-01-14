@@ -141,7 +141,7 @@ object CommonUtils {
     fun showProgress(activity: Activity) {
         alertDialog?.dismiss()
         val alert = AlertDialog.Builder(activity)
-        val mview = activity.layoutInflater.inflate( R.layout.dialog_progress, null)
+        val mview = activity.layoutInflater.inflate(R.layout.dialog_progress, null)
         alert.setView(mview)
         alertDialog = alert.create()
         alertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -220,8 +220,9 @@ object CommonUtils {
                 currentVisibleItems = layoutManager.childCount
                 totalItemsInAdapter = layoutManager.itemCount
                 scrolledOutItems = layoutManager.findFirstVisibleItemPosition()
-                if (isScrolling && scrolledOutItems + currentVisibleItems == totalItemsInAdapter) { isScrolling = false
-                     onLoadMore(nextPage)
+                if (isScrolling && scrolledOutItems + currentVisibleItems == totalItemsInAdapter) {
+                    isScrolling = false
+                    onLoadMore(nextPage)
                 }
             }
         })
@@ -248,20 +249,20 @@ object CommonUtils {
             val now = System.currentTimeMillis()
             val diffMillis = now - istDate.time
 
-            val diffSeconds = abs(diffMillis   / 1000)
+            val diffSeconds = abs(diffMillis / 1000)
             val diffMinutes = abs(diffSeconds / 60)
             val diffHours = abs(diffMinutes / 60)
             val diffDays = abs(diffHours / 24)
-            val diffWeeks = abs(diffDays     / 7)
-            val diffMonths = abs(diffDays  / 30)
+            val diffWeeks = abs(diffDays / 7)
+            val diffMonths = abs(diffDays / 30)
             val diffYears = abs(diffDays / 365)
 
             when {
-                diffYears >  0 -> "$diffYears years ago"
+                diffYears > 0 -> "$diffYears years ago"
                 diffMonths > 0 -> "$diffMonths months ago"
-                diffWeeks >  0 -> "$diffWeeks weeks ago"
-                diffDays >   0 -> "$diffDays days ago"
-                diffHours >  0 -> "$diffHours hours ago"
+                diffWeeks > 0 -> "$diffWeeks weeks ago"
+                diffDays > 0 -> "$diffDays days ago"
+                diffHours > 0 -> "$diffHours hours ago"
                 diffMinutes > 0 -> "$diffMinutes minutes ago"
                 else -> "just now"
             }
@@ -353,6 +354,7 @@ object CommonUtils {
 
         return cleanedHtml
     }
+
     fun hasReadAndWriteStoragePermissions(activity: Activity?): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager()
@@ -391,7 +393,7 @@ object CommonUtils {
             try {
                 Thread.sleep(time.toLong())
             } catch (e: java.lang.Exception) {
-                toast(activity,e.message)
+                toast(activity, e.message)
 
             }
         }.start()
@@ -467,7 +469,7 @@ object CommonUtils {
                             activity,
                             e.message,
 
-                        )
+                            )
                     }
                 } else if (!cancelableValue) {
                     if (progressDialog != null && progressDialog!!.isShowing()) {
@@ -492,7 +494,7 @@ object CommonUtils {
                             )
                     }
                 } else if (!cancelableValue) {
-                    if (progressDialog != null &&progressDialog!!.isShowing()) {
+                    if (progressDialog != null && progressDialog!!.isShowing()) {
                         progressDialogueDismiss()
                     }
                     dialog.dismiss()
@@ -565,6 +567,7 @@ object CommonUtils {
         val matcher = compiledPattern.matcher(identifier)
         return matcher.matches()
     }
+
     fun createContentCheckUser(
         context: Context?,
         publicKey: String,

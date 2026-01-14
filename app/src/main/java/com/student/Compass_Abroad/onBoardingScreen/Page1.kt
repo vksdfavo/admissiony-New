@@ -32,9 +32,11 @@ class Page1 : BaseFragment() {
             .repeat(0)
             .playOn(view.findViewById<View>(R.id.ivObP1_vector));
 
-        //click listeners
+
         view.findViewById<View>(R.id.tvSkip).setOnClickListener { _: View? ->
+
             (requireActivity() as OnBoardingActivity).getViewPager2().currentItem = 3
+
         }
 
         return view

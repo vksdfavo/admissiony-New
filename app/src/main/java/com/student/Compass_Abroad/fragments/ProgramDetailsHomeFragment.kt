@@ -172,16 +172,12 @@ class ProgramDetailsHomeFragment : BaseFragment() {
 
         binding!!.tvFpddWebsite.text = url ?: "---"
 
-
-// Validate and ensure URL starts with "https://"
         val finalUrl =
             if (!url.isNullOrBlank() && !url.startsWith("http://") && !url.startsWith("https://")) {
                 "https://$url"
             } else {
                 url
             }
-
-// Set click listener to open URL or do nothing if URL is null
         if (!finalUrl.isNullOrBlank()) {
             binding!!.tvFpddVisit.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl))
@@ -190,18 +186,26 @@ class ProgramDetailsHomeFragment : BaseFragment() {
                 }
             }
         } else {
+
             binding!!.tvFpddVisit.setOnClickListener(null) // Remove click listener if URL is null
+
         }
 
         if (!finalUrl.isNullOrBlank()) {
+
             binding!!.tvFpddVisit.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl))
                 if (intent.resolveActivity(requireActivity().packageManager) != null) {
                     startActivity(intent)
                 }
             }
-        } else {
+
+        }
+
+        else {
+
             binding!!.tvFpddVisit.setOnClickListener(null) // Remove click listener if URL is null
+
         }
 
         val minRequirement  = programDetails!!.program?.min_requirement
@@ -217,7 +221,6 @@ class ProgramDetailsHomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
         if (sharedPre?.getString(AppConstants.SCOUtLOGIN, "") == "true") {
             ScoutMainActivity.bottomNav!!.isVisible = false
         } else {

@@ -36,11 +36,13 @@ class FragmentScoutChat : BaseFragment() {
     private fun setupChatAdapter() {
 
         adapterScoutApplicationDetailConversation = AdapterScoutApplicationDetailConversation(requireActivity())
+
         binding.rvMessages.adapter = adapterScoutApplicationDetailConversation
 
     }
     override fun onResume() {
         super.onResume()
+
         ScoutMainActivity.bottomNav!!.visibility = View.GONE
     }
 

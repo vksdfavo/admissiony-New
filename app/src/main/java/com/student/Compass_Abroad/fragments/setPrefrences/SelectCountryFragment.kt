@@ -29,7 +29,6 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONArray
 
 class SelectCountryFragment : Fragment() {
-
     private lateinit var binding: FragmentSelectCountryBinding
     private var countryAdapter: CountryAdaptor? = null
     private var isSelectCountry: Boolean = false

@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ComponentActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
@@ -26,24 +25,24 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
-import com.student.Compass_Abroad.R
-import com.student.Compass_Abroad.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.student.Compass_Abroad.Utils.App
-import com.student.Compass_Abroad.Utils.AppConstants
-import com.student.Compass_Abroad.Utils.CommonUtils
-import com.student.Compass_Abroad.modal.staffProfile.StaffProfileModal
-import com.student.Compass_Abroad.retrofit.ViewModalClass
 import com.razorpay.PaymentResultListener
 import com.student.Compass_Abroad.BuildConfig
+import com.student.Compass_Abroad.R
+import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
+import com.student.Compass_Abroad.Utils.AppConstants
+import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.Utils.SocketManager
+import com.student.Compass_Abroad.databinding.ActivityMainBinding
 import com.student.Compass_Abroad.fragments.NotificationFragment
 import com.student.Compass_Abroad.fragments.PaymentDetailFragment
 import com.student.Compass_Abroad.fragments.home.ApplicationActiveFragment
 import com.student.Compass_Abroad.modal.logoutUser.Logout
+import com.student.Compass_Abroad.modal.staffProfile.StaffProfileModal
 import com.student.Compass_Abroad.notifications.NotificationPermissionHelper
+import com.student.Compass_Abroad.retrofit.ViewModalClass
 import com.student.bt_global.Utils.NeTWorkChange
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -58,7 +57,8 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
     var neTWorkChange: NeTWorkChange = NeTWorkChange(this)
     private lateinit var notificationPermissionHelper: NotificationPermissionHelper
 
-    private val requestStoragePermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+    private val requestStoragePermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
 
 
@@ -103,7 +103,6 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
 
         }
 
-
         checkAndRequestStoragePermission()
 
         val versionCode = BuildConfig.VERSION_NAME.takeIf { it?.isNotEmpty() == true } ?: "N/A"
@@ -112,15 +111,14 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         onClicks()
 
 
-        sharedPre?.getString(AppConstants.Device_IDENTIFIER, ""
+        sharedPre?.getString(
+            AppConstants.Device_IDENTIFIER, ""
         )?.let { Log.d("useraccesstoken", it) }
 
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         setupWithNavController(bottomNav!!, navController!!)
         setSupportActionBar(binding!!.toolbarDa)
-
-
 
         binding?.tvMyApplicationsNav?.setOnClickListener {
             binding!!.drawerLayout.close()
@@ -183,7 +181,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         }
 
         navController!!.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.fragmentProgram ||destination.id == R.id.bookCounsellingFragment ||destination.id == R.id.educationLoanFragment || destination.id == R.id.homeFragment || destination.id == R.id.fragmentAmbassadorGetChat || destination.id == R.id.studyLevelFragment|| destination.id == R.id.dynamicCreateApplicationFragment || destination.id == R.id.programDetailsHomeFragment || destination.id == R.id.fragProgramDetailDetails || destination.id == R.id.uniteliFragment || destination.id == R.id.areaOfInterestFragment || destination.id == R.id.paymentDetailFragment || destination.id == R.id.shortListFragment || destination.id == R.id.fragmentNotification || destination.id == R.id.counsellingFragment2 || destination.id == R.id.viewDocFragment || destination.id == R.id.applicationActiveFragment || destination.id == R.id.fragProgramAllProg || destination.id == R.id.fragmentUploadDocuments || destination.id == R.id.fragmentClientEvents || destination.id == R.id.fragmentAgentChat || destination.id == R.id.programFilterFragment || destination.id == R.id.applyProgramFragment || destination.id == R.id.uploadProgramDocFragment || destination.id == R.id.viewAttachmentFragment || destination.id == R.id.compareProgram || destination.id == R.id.programDetails || destination.id == R.id.comparison || destination.id == R.id.shortListedFragment || destination.id == R.id.applicationFilterFragment || destination.id == R.id.leadsFilterFragment || destination.id == R.id.createApplicationFragment || destination.id == R.id.fragAddCommunityPost || destination.id == R.id.applicationFragment || destination.id == R.id.fragmentProgramUploadDocuments || destination.id == R.id.fragmentComments || destination.id == R.id.assignStaffFragment || destination.id == R.id.addFragmentComments || destination.id == R.id.fragmentPostEdit || destination.id == R.id.reactionFragment || destination.id == R.id.addFragmentReply || destination.id == R.id.fragmentCommentEdit || destination.id == R.id.fragmentEditRelpy || destination.id == R.id.applicationDetail || destination.id == R.id.fragmentConversation || destination.id == R.id.fragmentMessage2 || destination.id == R.id.leadFragment || destination.id == R.id.newLeadFragment || destination.id == R.id.fragmentUploadDocuments || destination.id == R.id.webViewFragment || destination.id == R.id.viewReviewFragment || destination.id == R.id.qrFragment || destination.id == R.id.fragmentLeadUploadDocuments || destination.id == R.id.fragmentWorkli || destination.id == R.id.fragmentViewDetail || destination.id == R.id.fragmentVouchers || destination.id == R.id.webViewButton || destination.id == R.id.fragmentWebinars || destination.id == R.id.topDestinationFragment || destination.id == R.id.inDemandCoursesFragment || destination.id == R.id.inDemandInstitution || destination.id == R.id.studentTestimonials || destination.id == R.id.latestUpdateFragment || destination.id == R.id.hybridPlayerActivity
+            if (destination.id == R.id.fragmentProgram || destination.id == R.id.bookCounsellingFragment || destination.id == R.id.educationLoanFragment || destination.id == R.id.homeFragment || destination.id == R.id.fragmentAmbassadorGetChat || destination.id == R.id.studyLevelFragment || destination.id == R.id.dynamicCreateApplicationFragment || destination.id == R.id.programDetailsHomeFragment || destination.id == R.id.fragProgramDetailDetails || destination.id == R.id.uniteliFragment || destination.id == R.id.areaOfInterestFragment || destination.id == R.id.paymentDetailFragment || destination.id == R.id.shortListFragment || destination.id == R.id.fragmentNotification || destination.id == R.id.counsellingFragment2 || destination.id == R.id.viewDocFragment || destination.id == R.id.applicationActiveFragment || destination.id == R.id.fragProgramAllProg || destination.id == R.id.fragmentUploadDocuments || destination.id == R.id.fragmentClientEvents || destination.id == R.id.fragmentAgentChat || destination.id == R.id.programFilterFragment || destination.id == R.id.applyProgramFragment || destination.id == R.id.uploadProgramDocFragment || destination.id == R.id.viewAttachmentFragment || destination.id == R.id.compareProgram || destination.id == R.id.programDetails || destination.id == R.id.comparison || destination.id == R.id.shortListedFragment || destination.id == R.id.applicationFilterFragment || destination.id == R.id.leadsFilterFragment || destination.id == R.id.createApplicationFragment || destination.id == R.id.fragAddCommunityPost || destination.id == R.id.applicationFragment || destination.id == R.id.fragmentProgramUploadDocuments || destination.id == R.id.fragmentComments || destination.id == R.id.assignStaffFragment || destination.id == R.id.addFragmentComments || destination.id == R.id.fragmentPostEdit || destination.id == R.id.reactionFragment || destination.id == R.id.addFragmentReply || destination.id == R.id.fragmentCommentEdit || destination.id == R.id.fragmentEditRelpy || destination.id == R.id.applicationDetail || destination.id == R.id.fragmentConversation || destination.id == R.id.fragmentMessage2 || destination.id == R.id.leadFragment || destination.id == R.id.newLeadFragment || destination.id == R.id.fragmentUploadDocuments || destination.id == R.id.webViewFragment || destination.id == R.id.viewReviewFragment || destination.id == R.id.qrFragment || destination.id == R.id.fragmentLeadUploadDocuments || destination.id == R.id.fragmentWorkli || destination.id == R.id.fragmentViewDetail || destination.id == R.id.fragmentVouchers || destination.id == R.id.webViewButton || destination.id == R.id.fragmentWebinars || destination.id == R.id.topDestinationFragment || destination.id == R.id.inDemandCoursesFragment || destination.id == R.id.inDemandInstitution || destination.id == R.id.studentTestimonials || destination.id == R.id.latestUpdateFragment || destination.id == R.id.hybridPlayerActivity
             ) {
                 supportActionBar?.hide()
             } else {
@@ -215,7 +213,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
 
     private fun checkForPendingNotifications() {
         val hasPendingNotification =
-             sharedPre?.getString("has_pending_notification", "") == "true"
+            sharedPre?.getString("has_pending_notification", "") == "true"
 
         if (hasPendingNotification) {
             Log.d("NotificationDebug", "Processing pending notification after login")
@@ -309,7 +307,8 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         val clientNumber = intent.getStringExtra("client_number")
         val application_identifier = intent.getStringExtra("application_identifier")
         val lead_identifier = intent.getStringExtra("lead_identifier")
-        val ambassador_conversation_identifier = intent.getStringExtra("ambassador_conversation_identifier")
+        val ambassador_conversation_identifier =
+            intent.getStringExtra("ambassador_conversation_identifier")
 
         intent.removeExtra("module_type")
         val navController = findNavController(R.id.main_nav)
@@ -461,15 +460,14 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
 
         }
 
-
-
     }
 
     private val accessRevokedListener = Emitter.Listener { args ->
         if (args.isNotEmpty()) {
             val data = args[0] as JSONObject
             val serverDeviceIdentifier = data.optString("device_identifier", null)
-            val localDeviceIdentifier = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
+            val localDeviceIdentifier =
+                sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: ""
             if (serverDeviceIdentifier == null || serverDeviceIdentifier == localDeviceIdentifier) {
                 runOnUiThread {
 
@@ -518,6 +516,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         val dialog = builder.create()
         dialog.show()
     }
+
     override fun onResume() {
         super.onResume()
 
@@ -549,7 +548,10 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
                     binding?.tvMyDocumentsNav?.setOnClickListener {
 
                         val intent = Intent(this@MainActivity, MyDocumentActivity::class.java)
-                        intent.putExtra("identifier", staffData.data?.studentProfileInfo?.identifier)
+                        intent.putExtra(
+                            "identifier",
+                            staffData.data?.studentProfileInfo?.identifier
+                        )
                         startActivity(intent)
 
                         App.singleton?.studentIdentifier =
@@ -564,7 +566,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
                     val currentFlavor = BuildConfig.FLAVOR.lowercase()
 
                     when (currentFlavor) {
-                         "firmli", "compassabroad","eeriveurope", "studiepoint" , "unitedglobalservices" -> {
+                        "firmli", "compassabroad", "eeriveurope", "studiepoint", "unitedglobalservices" -> {
                             val user =
                                 staffData.data?.userInfo?.identityInfo?.filter { it.identifier == "RO1743976880086Y25NOHVF85" }
 
@@ -619,7 +621,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
         binding!!.name.text = "Hi, " + "$firstName $lastName"
 
         binding?.tvRole?.text =
-            "Student ID: "+staffData.data.studentProfileInfo?.student_id.toString() ?: "----"
+            "Student ID: " + staffData.data.studentProfileInfo?.student_id.toString() ?: "----"
 
 
         val profilePictureUrl = staffData.data?.userInfo?.profile_picture_url
@@ -651,7 +653,8 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentSuccess(p0: String?) {
 
-        Toast.makeText(this, "Payment Success! Payment ID: ${p0.orEmpty()}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Payment Success! Payment ID: ${p0.orEmpty()}", Toast.LENGTH_SHORT)
+            .show()
 
     }
 

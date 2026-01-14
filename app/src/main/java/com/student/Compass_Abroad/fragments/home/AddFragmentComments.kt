@@ -32,8 +32,6 @@ class AddFragmentComments : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentAddBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
-
 
         clickListener()
         return binding.root
@@ -59,7 +57,6 @@ class AddFragmentComments : BaseFragment() {
             var privateKey = AppConstants.privateKey
             var app_secret = AppConstants.appSecret
             val ivHexString = "$privateKey$publicKey"
-
 
             //form data with email login code start
             val formData = JSONObject();

@@ -13,30 +13,30 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.student.Compass_Abroad.BuildConfig
 import com.student.Compass_Abroad.R
+import com.student.Compass_Abroad.Scout.activities.BankDetails
 import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonDialog
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.Utils.SharedPrefs
 import com.student.Compass_Abroad.databinding.ActivityProfileBinding
 import com.student.Compass_Abroad.databinding.DialogCommonDialogBinding
-import com.student.Compass_Abroad.modal.staffProfile.StaffProfileModal
-import com.student.Compass_Abroad.retrofit.ViewModalClass
-import com.student.bt_global.Utils.NeTWorkChange
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import com.student.Compass_Abroad.BuildConfig
-import com.student.Compass_Abroad.Scout.activities.BankDetails
-import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.databinding.LangLayBinding
 import com.student.Compass_Abroad.fragments.PaymentDetailFragment
 import com.student.Compass_Abroad.fragments.PrivacyPolicyFragment
 import com.student.Compass_Abroad.fragments.TermsAndConditionsFragment
 import com.student.Compass_Abroad.modal.logoutUser.Logout
+import com.student.Compass_Abroad.modal.staffProfile.StaffProfileModal
+import com.student.Compass_Abroad.retrofit.ViewModalClass
+import com.student.bt_global.Utils.NeTWorkChange
 
 class ProfileActivity : AppCompatActivity() {
     var binding: ActivityProfileBinding? = null
@@ -52,7 +52,8 @@ class ProfileActivity : AppCompatActivity() {
         window.statusBarColor = getColor(android.R.color.white)
         window.navigationBarColor = getColor(android.R.color.white)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -157,8 +158,6 @@ class ProfileActivity : AppCompatActivity() {
 
 
         }
-
-
     }
 
     private fun showLogoutDialog() {

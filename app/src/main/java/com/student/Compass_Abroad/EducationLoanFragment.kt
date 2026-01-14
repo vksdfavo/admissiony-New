@@ -73,9 +73,11 @@ class EducationLoanFragment : BaseFragment() {
         val adapter = ArrayAdapter.createFromResource(
             requireActivity(),
             R.array.currency_list,
+            
             android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         binding.spinnerCurrency.adapter = adapter
         binding.spinnerCurrency.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {

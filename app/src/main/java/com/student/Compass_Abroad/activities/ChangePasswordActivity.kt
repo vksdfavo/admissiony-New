@@ -42,6 +42,8 @@ class ChangePasswordActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         onClicks()
+
+
         ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(
@@ -61,7 +63,6 @@ class ChangePasswordActivity : AppCompatActivity() {
         val context = App.updateBaseContextLocale(newBase, lang)
         super.attachBaseContext(context)
     }
-
 
     private fun onClicks() {
 
@@ -83,7 +84,6 @@ class ChangePasswordActivity : AppCompatActivity() {
                 CommonUtils.toast(this, "Password must be at least 8 characters long")
                 return@setOnClickListener
             }
-
 
             if (new_passcode != confirm_passcode) {
 

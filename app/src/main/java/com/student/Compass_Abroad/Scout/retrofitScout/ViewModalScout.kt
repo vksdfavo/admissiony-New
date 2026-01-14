@@ -284,11 +284,7 @@ class ViewModalScout {
         return addBankAccountFormMutableLiveData!!
     }
 
-
-
     /** make primary bank Api**/
-
-
     var makePrimaryAccountMutableLiveData: MutableLiveData<MakePrimaryAccount?>? = null
 
     fun makePrimaryAccountFormListLiveData(

@@ -149,11 +149,12 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
         record: Record,
         pos: Int
     ) {
+
         handleLikeOrDislike(record, pos)
+
     }
 
     override fun openTagCLick(record: Record, position: Int) {
-
         val itemBinding = ProgramTagsDialogBinding.inflate(requireActivity().layoutInflater)
         val dialog = Dialog(requireActivity())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -172,21 +173,26 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
 
 
         itemBinding.backBtn.setOnClickListener {
+
             dialog.dismiss()
+
         }
-        val layoutManager =
-            LinearLayoutManager(binding!!.root.context, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = LinearLayoutManager(binding!!.root.context, LinearLayoutManager.HORIZONTAL, false)
         itemBinding.recyclerTags.layoutManager = layoutManager
 
 
         if (record.program.tags.isNotEmpty()) {
 
             itemBinding.recyclerLay.visibility = View.VISIBLE
+
             val tagsAdapter = ProgramTagAdapter(record.program.tags)
-            itemBinding.recyclerTags.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            itemBinding.recyclerTags.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
             itemBinding.recyclerTags.adapter = tagsAdapter
-        } else {
+
+        }
+        else {
 
             itemBinding.recyclerLay.visibility = View.GONE
         }

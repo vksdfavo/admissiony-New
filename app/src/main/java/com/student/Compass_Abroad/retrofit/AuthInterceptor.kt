@@ -47,6 +47,7 @@ class AuthInterceptor(
                         Log.e("AuthInterceptor", "Token refresh failed: ${e.message}", e)
                         logoutUser()
                     } finally {
+
                         isRefreshing = false
                     }
                 } else {
@@ -80,7 +81,6 @@ class AuthInterceptor(
                 )
 
                 val refreshResponse = refreshCall?.execute()
-
                 if (refreshResponse?.isSuccessful == true) {
                     val newToken = refreshResponse.body()?.data?.tokensInfo?.accessToken
                     newToken?.let {

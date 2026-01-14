@@ -18,9 +18,6 @@ import com.student.Compass_Abroad.databinding.FragmentApplicationDocumentCheckli
 import com.student.Compass_Abroad.fragments.home.SharedViewModel
 import com.student.Compass_Abroad.modal.getDocumentChecklistModal.Data
 import com.student.Compass_Abroad.retrofit.ViewModalClass
-
-
-
 class FragmentApplicationDocumentChecklist : BaseFragment() {
 
     private val recordInfoList: MutableList<Data> = mutableListOf()

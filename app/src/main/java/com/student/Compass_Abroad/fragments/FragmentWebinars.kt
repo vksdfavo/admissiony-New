@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,19 +13,16 @@ import android.widget.AbsListView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.student.Compass_Abroad.R
-import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.adaptor.AdaptorWebinarRecyclerview
 import com.student.Compass_Abroad.databinding.FragmentWebinarsBinding
-import com.student.Compass_Abroad.modal.getWebinars.Record
 import com.student.Compass_Abroad.modal.getWebinars.getWebinarsResponse
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 
@@ -51,7 +46,8 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
 
         val window = requireActivity().window
         window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
-        window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+        window.navigationBarColor =
+            ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // Android 11+
             val controller = window.insetsController
@@ -70,6 +66,7 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
 
         return binding!!.root
     }
+
     private fun setupRecyclerView1() {
         binding?.rvWebinars?.layoutManager = LinearLayoutManager(requireContext())
         adapter = AdaptorWebinarRecyclerview(requireActivity(), webinarsList, this)
@@ -136,10 +133,10 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
         if (isLoading) return
         isLoading = true
 
-        if(presentPage == 1){
+        if (presentPage == 1) {
             binding?.pbPagination?.visibility = View.GONE
             binding?.pb?.visibility = View.VISIBLE
-        }else{
+        } else {
             binding?.pbPagination?.visibility = View.VISIBLE
             binding?.pb?.visibility = View.GONE
         }
@@ -204,7 +201,8 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
     private fun postAttendee(currentItem: com.student.Compass_Abroad.modal.getWebinars.Record) {
         val deviceIdentifier = sharedPre?.getString(AppConstants.Device_IDENTIFIER, "").orEmpty()
         val token = "Bearer ${CommonUtils.accessToken}"
-        val firstName = sharedPre?.getString(AppConstants.FIRST_NAME, "")?.takeIf { it.isNotBlank() }
+        val firstName =
+            sharedPre?.getString(AppConstants.FIRST_NAME, "")?.takeIf { it.isNotBlank() }
         val lastName = sharedPre?.getString(AppConstants.LAST_NAME, "")?.takeIf { it.isNotBlank() }
         val email = sharedPre?.getString(AppConstants.USER_EMAIL, "")?.takeIf { it.isNotBlank() }
         val phone = sharedPre?.getString(AppConstants.PHONE, "")?.takeIf { it.isNotBlank() }
@@ -223,7 +221,8 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
             "internal"
         ).observe(viewLifecycleOwner) { response ->
             if (response == null) {
-                Toast.makeText(requireActivity(), "Error: Response is null", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "Error: Response is null", Toast.LENGTH_SHORT)
+                    .show()
                 Log.e("SaveReviewResponse", "Response is null")
                 return@observe
             }
@@ -233,7 +232,11 @@ class FragmentWebinars : BaseFragment(), AdaptorWebinarRecyclerview.select {
                 intent.data = Uri.parse(currentItem.event_detail)
                 requireActivity().startActivity(intent)
             } else {
-                Toast.makeText(requireActivity(), response.message ?: "Failed to submit review", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireActivity(),
+                    response.message ?: "Failed to submit review",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 

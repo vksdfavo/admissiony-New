@@ -44,8 +44,13 @@ class AreaOfInterestFragment : BaseFragment() {
 
         }
 
+
+
         return binding.root
     }
+    
+
+
     private fun getDisciplineList() {
         ViewModalClass().getDisciplineDataList(
             requireActivity(),

@@ -39,6 +39,7 @@ class FragApplicationAssignedStaff : BaseFragment() {
     companion object {
 
         var data: com.student.Compass_Abroad.modal.getApplicationResponse.Record? = null
+
     }
 
     override fun onCreateView(

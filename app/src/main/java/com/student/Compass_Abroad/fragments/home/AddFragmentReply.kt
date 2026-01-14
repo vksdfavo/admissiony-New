@@ -23,6 +23,7 @@ class AddFragmentReply : BaseFragment() {
     private var reply = ""
     private var contentKey = ""
 
+
     companion object {
         var postId: Record? = null
         var commentId: com.student.Compass_Abroad.modal.getAllComments.Record? = null
