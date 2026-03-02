@@ -19,6 +19,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
@@ -78,6 +79,12 @@ class Scout_home_fragment : Fragment() {
 
         binding!!.llMaReferEarn.setOnClickListener {
             createReferandShare(requireActivity())
+        }
+
+        binding!!.fabFpNotificationStu.setOnClickListener {
+
+            Navigation.findNavController(binding.root).navigate(R.id.notificationFragment)
+
         }
 
         if (getString(R.string.app_name).trim().equals("Admissiony.com", ignoreCase = true)) {

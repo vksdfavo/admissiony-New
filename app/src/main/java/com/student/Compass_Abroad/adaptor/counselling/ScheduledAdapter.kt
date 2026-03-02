@@ -35,7 +35,12 @@ class ScheduledAdapter(
         val currentItem = arrayList1[position]
 
         holder.binding.completedId.text = "Counselling ID: " + currentItem.id.toString()
-        holder.binding.destination.text = currentItem.destination_country ?: "N/A"
+        var location=currentItem.destination_country ?:""
+        if(location.isEmpty()){
+            holder.binding.destination.text = currentItem.dynamic_lead.country ?: "N/A"
+        }else{
+            holder.binding.destination.text = currentItem.destination_country ?:"N/A"
+        }
         holder.binding.counsellingBy.text = currentItem.assigned_user_info?.first_name
             ?: ("" + " " + (currentItem.assigned_user_info?.last_name ?: "")) ?: "N/A"
 

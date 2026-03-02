@@ -275,7 +275,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                         "Find Accommodation" -> findNavController().navigate(R.id.webViewButton)
                         "IELTS Booking" -> showInfoBottomSheet()
                         "SOP Guidance" -> showInfoBottomSheet()
-                        "My Applications" -> findNavController().navigate(R.id.createApplicationFragment)
+                        "My Applications" -> findNavController().navigate(R.id.dynamicCreateApplicationFragment)
                     }
                 }
             })

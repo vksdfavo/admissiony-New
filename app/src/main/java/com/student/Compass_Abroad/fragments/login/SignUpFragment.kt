@@ -86,6 +86,9 @@ class SignUpFragment : Fragment() {
 
         statusValidation = App.singleton!!.statusValidation
 
+        requireActivity().window.statusBarColor =
+            requireActivity().getColor(R.color.colorPrimary)
+
         binding.back.setOnClickListener {
 
             requireActivity().onBackPressedDispatcher.onBackPressed()
@@ -242,6 +245,7 @@ class SignUpFragment : Fragment() {
 
         spannableText.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
+                AppConstants.Login_STATUS_Value="0"
                 val fragmentManager = (widget.context as AppCompatActivity).supportFragmentManager
                 if (fragmentManager.findFragmentByTag(TermsAndConditionsFragment::class.java.simpleName) == null) {
                     TermsAndConditionsFragment().show(fragmentManager, TermsAndConditionsFragment::class.java.simpleName)
@@ -251,6 +255,7 @@ class SignUpFragment : Fragment() {
 
         spannableText.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
+                AppConstants.Login_STATUS_Value="0"
                 val fragmentManager = (widget.context as AppCompatActivity).supportFragmentManager
                 if (fragmentManager.findFragmentByTag(PrivacyPolicyFragment::class.java.simpleName) == null) {
                     PrivacyPolicyFragment().show(fragmentManager, PrivacyPolicyFragment::class.java.simpleName)

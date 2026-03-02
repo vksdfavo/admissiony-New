@@ -10,7 +10,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.student.Compass_Abroad.R
+import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
 import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.activities.MainActivity
@@ -127,7 +129,13 @@ class NotificationFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        MainActivity.bottomNav!!.isVisible = false
+        if (sharedPre!!.getString(AppConstants.SCOUtLOGIN, "") == "true") {
+            ScoutMainActivity.bottomNav!!.isVisible = false
+        } else {
+            MainActivity.bottomNav!!.isVisible = false
+        }
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = requireActivity().window.insetsController

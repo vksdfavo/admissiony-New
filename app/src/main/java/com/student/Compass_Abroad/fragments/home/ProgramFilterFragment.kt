@@ -29,6 +29,7 @@ import com.google.android.material.slider.RangeSlider
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Scout.activities.ScoutMainActivity
 import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.Utils.SharedPrefs
@@ -57,55 +58,60 @@ import java.util.Locale
 
 
 class ProgramFilterFragment : BaseFragment() {
-    var   binding: FragmentProgramFilterBinding?=null
-    var   popupWindow:PopupWindow?=null
-    var   PGWP:String =""
-    var   Attendance:String =""
-    var   ProgramType:String =""
-    var   accomodation:String =""
-    var   minTutionFee: String = ""
-    var   maxTutionFee: String = ""
-    var   minApplicationFee: String = ""
-    var   maxApllicationFee: String = ""
-    private lateinit var   selectedInstitutionId:ArrayList<String>
-    private  var   selectedCountryId:String=""
+    var binding: FragmentProgramFilterBinding? = null
+    var popupWindow: PopupWindow? = null
+    var PGWP: String = ""
+    var Attendance: String = ""
+    var ProgramType: String = ""
+    var accomodation: String = ""
+    var minTutionFee: String = ""
+    var maxTutionFee: String = ""
+    var minApplicationFee: String = ""
+    var maxApllicationFee: String = ""
+    private lateinit var selectedInstitutionId: ArrayList<String>
+    private var selectedCountryId: String = ""
 
-    private  var   selectedStateId:String=""
-    private  var   selectedCityId:String=""
-    private lateinit var   selectedStudyLevelId:ArrayList<String>
-    private lateinit var  selectedDisciplineId:ArrayList<String>
-    private lateinit var   selectedIntakeId:ArrayList<String>
+    private var selectedStateId: String = ""
+    private var selectedCityId: String = ""
+    private lateinit var selectedStudyLevelId: ArrayList<String>
+    private lateinit var selectedDisciplineId: ArrayList<String>
+    private lateinit var selectedIntakeId: ArrayList<String>
 
 
+    private lateinit var selectedInstitutionLabel: ArrayList<String>
+    private var selectedCountryLabel: String = ""
+    private var selectedStateLabel: String = ""
+    private var selectedCityLabel: String = ""
+    private lateinit var selectedStudyLevelLabel: ArrayList<String>
+    private lateinit var selectedDisciplineLabel: ArrayList<String>
+    private lateinit var selectedIntakeLabel: ArrayList<String>
 
-    private lateinit var   selectedInstitutionLabel:ArrayList<String>
-    private  var   selectedCountryLabel:String=""
-    private  var   selectedStateLabel:String=""
-    private  var   selectedCityLabel:String=""
-    private lateinit var   selectedStudyLevelLabel:ArrayList<String>
-    private lateinit var  selectedDisciplineLabel:ArrayList<String>
-    private lateinit var   selectedIntakeLabel:ArrayList<String>
-    var arrayListCountry=ArrayList<com.student.Compass_Abroad.modal.countryModel.DataX>()
-    var arrayListState=ArrayList<com.student.Compass_Abroad.modal.stateModel.Data>()
-    var arrayListCity=ArrayList<com.student.Compass_Abroad.modal.cityModel.Data>()
 
-    var arrayListInstitution=ArrayList<com.student.Compass_Abroad.modal.institutionModel.RecordsInfo>()
+    var arrayListCountry = ArrayList<com.student.Compass_Abroad.modal.countryModel.DataX>()
+    var arrayListState = ArrayList<com.student.Compass_Abroad.modal.stateModel.Data>()
+    var arrayListCity = ArrayList<com.student.Compass_Abroad.modal.cityModel.Data>()
+
+    var arrayListInstitution =
+        ArrayList<com.student.Compass_Abroad.modal.institutionModel.RecordsInfo>()
     private lateinit var selectedInstitutionItems: MutableList<com.student.Compass_Abroad.modal.institutionModel.RecordsInfo>
     private lateinit var selectedCountryItems: com.student.Compass_Abroad.modal.countryModel.DataX
     private lateinit var selectedStateItems1: com.student.Compass_Abroad.modal.stateModel.Data
     private lateinit var selectedCityItems1: com.student.Compass_Abroad.modal.cityModel.Data
+
+
     private lateinit var selectedStateItems: String
     private lateinit var selectedCityItems: String
-    private lateinit var selectedStudyLevelItems:MutableList<com.student.Compass_Abroad.modal.studyLevelModel.Data>
-    private lateinit var selectedDisciplineItems:MutableList<com.student.Compass_Abroad.modal.discipline.Data>
-    private lateinit var selectedIntakeItems:MutableList<com.student.Compass_Abroad.modal.intakeModel.Data>
-    var arrayListStudyLevel=ArrayList<com.student.Compass_Abroad.modal.studyLevelModel.Data>()
-    var arrayListDiscipline=ArrayList<com.student.Compass_Abroad.modal.discipline.Data>()
-    var arrayListIntake=ArrayList<com.student.Compass_Abroad.modal.intakeModel.Data>()
-    var fragment:Fragment?=null
-    var xLocationOfView=0
-    var yLocationOfView=0
-    var value:Boolean=false
+
+    private lateinit var selectedStudyLevelItems: MutableList<Data>
+    private lateinit var selectedDisciplineItems: MutableList<com.student.Compass_Abroad.modal.discipline.Data>
+    private lateinit var selectedIntakeItems: MutableList<com.student.Compass_Abroad.modal.intakeModel.Data>
+    var arrayListStudyLevel = ArrayList<Data>()
+    var arrayListDiscipline = ArrayList<com.student.Compass_Abroad.modal.discipline.Data>()
+    var arrayListIntake = ArrayList<com.student.Compass_Abroad.modal.intakeModel.Data>()
+    var fragment: Fragment? = null
+    var xLocationOfView = 0
+    var yLocationOfView = 0
+    var value: Boolean = false
 
 
     companion object {
@@ -118,8 +124,8 @@ class ProgramFilterFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding= FragmentProgramFilterBinding.inflate(inflater,container,false)
+    ): View {
+        binding = FragmentProgramFilterBinding.inflate(inflater, container, false)
 
         if (data.equals("language_program")) {
             binding!!.tvIntake.visibility = View.GONE
@@ -128,6 +134,10 @@ class ProgramFilterFragment : BaseFragment() {
             binding!!.rlAttendance.visibility = View.GONE
             binding!!.tvProgramType.visibility = View.GONE
             binding!!.rlProgramType.visibility = View.GONE
+
+
+            binding!!.tvPGMP.visibility = View.GONE
+            binding!!.tvFilterPGMP.visibility = View.GONE
 
             binding!!.tvTutionList.visibility = View.GONE
             binding!!.tvFilterRs1.visibility = View.GONE
@@ -140,11 +150,18 @@ class ProgramFilterFragment : BaseFragment() {
             binding!!.rsFilter2.visibility = View.GONE
 
 
+            binding!!.tvStudyLevel.visibility = View.GONE
+            binding!!.tvFilterStudyLevel.visibility = View.GONE
+
             binding!!.tvAccomodation.visibility = View.VISIBLE
             binding!!.rlAccomodation.visibility = View.VISIBLE
 
             binding!!.tvEnglishLevel.visibility = View.GONE
             binding!!.rlEnglishLevel.visibility = View.GONE
+
+
+            binding!!.tvlookingFor.visibility = View.GONE
+            binding!!.tvFilterLookingFor.visibility = View.GONE
 
             binding!!.tvAge.visibility = View.GONE
             binding!!.rlAge.visibility = View.GONE
@@ -175,12 +192,14 @@ class ProgramFilterFragment : BaseFragment() {
             binding!!.tvStudyLevel.visibility = View.GONE
             binding!!.tvFilterStudyLevel.visibility = View.GONE
 
-
             binding!!.tvlookingFor.visibility = View.GONE
             binding!!.tvFilterLookingFor.visibility = View.GONE
 
             binding!!.tvIntake.visibility = View.GONE
             binding!!.rlIntake.visibility = View.GONE
+
+
+
 
 
             binding!!.tvAccomodation.visibility = View.GONE
@@ -189,13 +208,16 @@ class ProgramFilterFragment : BaseFragment() {
             binding!!.tvEnglishLevel.visibility = View.GONE
             binding!!.rlEnglishLevel.visibility = View.GONE
 
+
+            binding!!.tvStudyLevel.visibility = View.GONE
+            binding!!.tvFilterStudyLevel.visibility = View.GONE
+
             binding!!.tvAge.visibility = View.GONE
             binding!!.rlAge.visibility = View.GONE
 
             binding!!.tvPGMP.visibility = View.GONE
             binding!!.tvFilterPGMP.visibility = View.GONE
-        }
-        else if (data == "career_program") {
+        } else if (data == "career_program") {
             binding!!.tvIntake.visibility = View.GONE
             binding!!.rlIntake.visibility = View.GONE
 
@@ -240,8 +262,96 @@ class ProgramFilterFragment : BaseFragment() {
             binding!!.tvPGMP.visibility = View.VISIBLE
             binding!!.tvFilterPGMP.visibility = View.VISIBLE
         }
+        else if (data == "high_school") {
+            binding!!.tvIntake.visibility = View.GONE
+            binding!!.rlIntake.visibility = View.GONE
 
-        else {
+            binding!!.tvAttendance.visibility = View.GONE
+            binding!!.rlAttendance.visibility = View.GONE
+
+
+            binding!!.tvProgramType.visibility = View.GONE
+            binding!!.rlProgramType.visibility = View.GONE
+
+            binding!!.tvTutionList.visibility = View.GONE
+            binding!!.tvFilterRs1.visibility = View.GONE
+            binding!!.tvFilterRs11.visibility = View.GONE
+            binding!!.rsFilter1.visibility = View.GONE
+
+            binding!!.tvApplicationList11.visibility = View.GONE
+            binding!!.tvFilterRs2.visibility = View.GONE
+            binding!!.tvFilterRs22.visibility = View.GONE
+            binding!!.rsFilter2.visibility = View.GONE
+
+
+            binding!!.tvStudyLevel.visibility = View.GONE
+            binding!!.tvFilterStudyLevel.visibility = View.GONE
+
+
+            binding!!.tvlookingFor.visibility = View.GONE
+            binding!!.tvFilterLookingFor.visibility = View.GONE
+
+            binding!!.tvIntake.visibility = View.GONE
+            binding!!.rlIntake.visibility = View.GONE
+
+
+            binding!!.tvAccomodation.visibility = View.GONE
+            binding!!.rlAccomodation.visibility = View.GONE
+
+            binding!!.tvEnglishLevel.visibility = View.GONE
+            binding!!.rlEnglishLevel.visibility = View.GONE
+
+            binding!!.tvAge.visibility = View.GONE
+            binding!!.rlAge.visibility = View.GONE
+
+            binding!!.tvPGMP.visibility = View.GONE
+            binding!!.tvFilterPGMP.visibility = View.GONE
+        }
+        else if (data == "boarding_and_camps") {
+            binding!!.tvIntake.visibility = View.GONE
+            binding!!.rlIntake.visibility = View.GONE
+
+            binding!!.tvAttendance.visibility = View.GONE
+            binding!!.rlAttendance.visibility = View.GONE
+
+
+            binding!!.tvProgramType.visibility = View.GONE
+            binding!!.rlProgramType.visibility = View.GONE
+
+            binding!!.tvTutionList.visibility = View.GONE
+            binding!!.tvFilterRs1.visibility = View.GONE
+            binding!!.tvFilterRs11.visibility = View.GONE
+            binding!!.rsFilter1.visibility = View.GONE
+
+            binding!!.tvApplicationList11.visibility = View.GONE
+            binding!!.tvFilterRs2.visibility = View.GONE
+            binding!!.tvFilterRs22.visibility = View.GONE
+            binding!!.rsFilter2.visibility = View.GONE
+
+
+            binding!!.tvStudyLevel.visibility = View.GONE
+            binding!!.tvFilterStudyLevel.visibility = View.GONE
+
+
+            binding!!.tvlookingFor.visibility = View.GONE
+            binding!!.tvFilterLookingFor.visibility = View.GONE
+
+            binding!!.tvIntake.visibility = View.GONE
+            binding!!.rlIntake.visibility = View.GONE
+
+
+            binding!!.tvAccomodation.visibility = View.GONE
+            binding!!.rlAccomodation.visibility = View.GONE
+
+            binding!!.tvEnglishLevel.visibility = View.GONE
+            binding!!.rlEnglishLevel.visibility = View.GONE
+
+            binding!!.tvAge.visibility = View.GONE
+            binding!!.rlAge.visibility = View.GONE
+
+            binding!!.tvPGMP.visibility = View.GONE
+            binding!!.tvFilterPGMP.visibility = View.GONE
+        } else {
 
             binding!!.tvIntake.visibility = View.VISIBLE
             binding!!.rlIntake.visibility = View.VISIBLE
@@ -280,18 +390,16 @@ class ProgramFilterFragment : BaseFragment() {
 
         initilalizeList()
 
-        val previousCountryIds=getSavedSelectedItemId(AppConstants.CountryList)
-        val previousCountryLabels=getSavedSelectedItemLabel(AppConstants.CountryList)
+        val previousCountryIds = getSavedSelectedItemId(AppConstants.CountryList)
+        val previousCountryLabels = getSavedSelectedItemLabel(AppConstants.CountryList)
 
 
-        val previousStateIds=getSavedSelectedItemId(AppConstants.StateList)
-        val previousStateLabels=getSavedSelectedItemLabel(AppConstants.StateList)
+        val previousStateIds = getSavedSelectedItemId(AppConstants.StateList)
+        val previousStateLabels = getSavedSelectedItemLabel(AppConstants.StateList)
 
 
-        val previousCityIds=getSavedSelectedItemId(AppConstants.CityList)
-        val previousCityLabels=getSavedSelectedItemLabel(AppConstants.CityList)
-
-
+        val previousCityIds = getSavedSelectedItemId(AppConstants.CityList)
+        val previousCityLabels = getSavedSelectedItemLabel(AppConstants.CityList)
 
 
         val studyLevel = getSavedStudyLevelItems(AppConstants.studyLevelList)
@@ -323,8 +431,6 @@ class ProgramFilterFragment : BaseFragment() {
         maxTutionFee = sharedPrefs.getString11(AppConstants.MAX_TUTION_KEY)
         minApplicationFee = sharedPrefs.getString11(AppConstants.MIN_APPLICATION_KEY)
         maxApllicationFee = sharedPrefs.getString11(AppConstants.MAX_APPLICATION_KEY)
-
-
 
 
 // Process the data
@@ -360,12 +466,30 @@ class ProgramFilterFragment : BaseFragment() {
 
 
 // Example of setting data
-        setData(formattedCountryIds, formattedInstitutionIds, formattedIntakeIds, formattedDisciplineIds, formattedStudyLevelIds, formattedStateIds,
-            formattedCityIds)
-        updateUIWithFilterData(formattedCountryLabels, formattedInstitutionLabels, formattedIntakeLabels, formattedDisciplineLabels, formattedStudyLevelLabels, formattedStateLabels,
-            formattedCityLabels)
+        setData(
+            formattedCountryIds,
+            formattedInstitutionIds,
+            formattedIntakeIds,
+            formattedDisciplineIds,
+            formattedStudyLevelIds,
+            formattedStateIds,
+            formattedCityIds
+        )
+        updateUIWithFilterData(
+            formattedCountryLabels,
+            formattedInstitutionLabels,
+            formattedIntakeLabels,
+            formattedDisciplineLabels,
+            formattedStudyLevelLabels,
+            formattedStateLabels,
+            formattedCityLabels
+        )
 // Save values
-        saveSelectedToSharedPreferences(AppConstants.CountryList, formattedCountryIds, formattedCountryLabels)
+        saveSelectedToSharedPreferences(
+            AppConstants.CountryList,
+            formattedCountryIds,
+            formattedCountryLabels
+        )
         saveSelectedToSharedPreferences(
             AppConstants.StateList,
             formattedStateIds,
@@ -376,10 +500,26 @@ class ProgramFilterFragment : BaseFragment() {
             formattedCityIds,
             formattedCityLabels
         )
-        saveSelectedValuesToSharedPreferences(AppConstants.institutionList, formattedInstitutionIds, formattedInstitutionLabels)
-        saveSelectedValuesToSharedPreferences(AppConstants.IntakeList, formattedIntakeIds, formattedIntakeLabels)
-        saveSelectedValuesToSharedPreferences(AppConstants.disciplineList, formattedDisciplineIds, formattedDisciplineLabels)
-        saveSelectedValuesToSharedPreferences(AppConstants.studyLevelList, formattedStudyLevelIds, formattedStudyLevelLabels)
+        saveSelectedValuesToSharedPreferences(
+            AppConstants.institutionList,
+            formattedInstitutionIds,
+            formattedInstitutionLabels
+        )
+        saveSelectedValuesToSharedPreferences(
+            AppConstants.IntakeList,
+            formattedIntakeIds,
+            formattedIntakeLabels
+        )
+        saveSelectedValuesToSharedPreferences(
+            AppConstants.disciplineList,
+            formattedDisciplineIds,
+            formattedDisciplineLabels
+        )
+        saveSelectedValuesToSharedPreferences(
+            AppConstants.studyLevelList,
+            formattedStudyLevelIds,
+            formattedStudyLevelLabels
+        )
 
         saveValues(minTutionFee, maxTutionFee, minApplicationFee, maxApllicationFee)
 
@@ -389,36 +529,36 @@ class ProgramFilterFragment : BaseFragment() {
         setDropDown()
         binding!!.tvFilterClearAll.setOnClickListener {
 
-            PGWP=""
-            Attendance=""
-            ProgramType=""
-            accomodation=""
+            PGWP = ""
+            Attendance = ""
+            ProgramType = ""
+            accomodation = ""
 
 
-            selectedCountryItems.value=0
-            selectedCountryItems.label=""
+            selectedCountryItems.value = 0
+            selectedCountryItems.label = ""
             selectedStateItems1.value = 0
             selectedStateItems1.label = ""
             selectedCityItems1.value = 0
             selectedCityItems1.label = ""
-            selectedCityItems=""
-            selectedStateItems=""
+            selectedCityItems = ""
+            selectedStateItems = ""
             selectedInstitutionItems.clear()
             selectedIntakeItems.clear()
             selectedStudyLevelItems.clear()
             selectedDisciplineItems.clear()
 
-            selectedCountryId=""
-            selectedStateId=""
-            selectedCityId=""
+            selectedCountryId = ""
+            selectedStateId = ""
+            selectedCityId = ""
             selectedInstitutionId.clear()
             selectedStudyLevelId.clear()
             selectedDisciplineId.clear()
             selectedIntakeId.clear()
 
-            selectedCountryLabel=""
-            selectedStateLabel=""
-            selectedCityLabel=""
+            selectedCountryLabel = ""
+            selectedStateLabel = ""
+            selectedCityLabel = ""
             selectedInstitutionLabel.clear()
             selectedStudyLevelLabel.clear()
             selectedDisciplineLabel.clear()
@@ -439,15 +579,17 @@ class ProgramFilterFragment : BaseFragment() {
 
 
             binding!!.rsFilter1.values = listOf(0f, 244000f)
-            binding!!.tvFilterRs1.text = String.format(Locale.getDefault(), "%.0f - %.0f", 0f, 244000f)
-            minTutionFee=""
-            maxTutionFee=""
-            minApplicationFee=""
-            maxApllicationFee=""
+            binding!!.tvFilterRs1.text =
+                String.format(Locale.getDefault(), "%.0f - %.0f", 0f, 244000f)
+            minTutionFee = ""
+            maxTutionFee = ""
+            minApplicationFee = ""
+            maxApllicationFee = ""
 
             // Reset application fee slider
             binding!!.rsFilter2.values = listOf(0f, 6200f)
-            binding!!.tvFilterRs2.text = String.format(Locale.getDefault(), "%.0f - %.0f", 0f, 6200f)
+            binding!!.tvFilterRs2.text =
+                String.format(Locale.getDefault(), "%.0f - %.0f", 0f, 6200f)
 
             App.sharedPre!!.clearKey(AppConstants.PGWP_KEY)
             App.sharedPre!!.clearKey(AppConstants.ATTENDANCE_KEY)
@@ -484,23 +626,55 @@ class ProgramFilterFragment : BaseFragment() {
                         PGWP.isNullOrEmpty() &&
                         Attendance.isNullOrEmpty() &&
                         ProgramType.isNullOrEmpty() &&
-                        accomodation.isNullOrEmpty()&&
+                        accomodation.isNullOrEmpty() &&
                         (minTutionFee.isNullOrEmpty() || maxTutionFee.isNullOrEmpty()) &&
                         (minApplicationFee.isNullOrEmpty() || maxApllicationFee.isNullOrEmpty())
 
             if (noFilterSelected) {
-                Toast.makeText(requireActivity(), "Please select at least one filter", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireActivity(),
+                    "Please select at least one filter",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
             // Save filters
-            saveSelectedToSharedPreferences(AppConstants.CountryList, selectedCountryId, selectedCountryLabel)
-            saveSelectedToSharedPreferences(AppConstants.StateList, selectedStateId, selectedStateLabel)
-            saveSelectedToSharedPreferences(AppConstants.CityList, selectedCityId, selectedCityLabel)
-            saveSelectedValuesToSharedPreferences(AppConstants.institutionList, selectedInstitutionId, selectedInstitutionLabel)
-            saveSelectedValuesToSharedPreferences(AppConstants.studyLevelList, selectedStudyLevelId, selectedStudyLevelLabel)
-            saveSelectedValuesToSharedPreferences(AppConstants.disciplineList, selectedDisciplineId, selectedDisciplineLabel)
-            saveSelectedValuesToSharedPreferences(AppConstants.IntakeList, selectedIntakeId, selectedIntakeLabel)
+            saveSelectedToSharedPreferences(
+                AppConstants.CountryList,
+                selectedCountryId,
+                selectedCountryLabel
+            )
+            saveSelectedToSharedPreferences(
+                AppConstants.StateList,
+                selectedStateId,
+                selectedStateLabel
+            )
+            saveSelectedToSharedPreferences(
+                AppConstants.CityList,
+                selectedCityId,
+                selectedCityLabel
+            )
+            saveSelectedValuesToSharedPreferences(
+                AppConstants.institutionList,
+                selectedInstitutionId,
+                selectedInstitutionLabel
+            )
+            saveSelectedValuesToSharedPreferences(
+                AppConstants.studyLevelList,
+                selectedStudyLevelId,
+                selectedStudyLevelLabel
+            )
+            saveSelectedValuesToSharedPreferences(
+                AppConstants.disciplineList,
+                selectedDisciplineId,
+                selectedDisciplineLabel
+            )
+            saveSelectedValuesToSharedPreferences(
+                AppConstants.IntakeList,
+                selectedIntakeId,
+                selectedIntakeLabel
+            )
 
             saveValues(minTutionFee, maxTutionFee, minApplicationFee, maxApllicationFee)
 
@@ -533,6 +707,7 @@ class ProgramFilterFragment : BaseFragment() {
         selectedDisciplineId = ArrayList(previousDisciplineIds)
         selectedIntakeId = ArrayList(previousIntakeIds)
 
+        // PGWP and Attendance should be set if they are not null
         PGWP = PGWP ?: ""
         Attendance = Attendance ?: ""
         ProgramType = ProgramType ?: ""
@@ -559,7 +734,7 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
     private fun updateUIWithFilterData(
-        previousCountryLabels:String,
+        previousCountryLabels: String,
         previousInstitutionLabels: List<String>,
         previousIntakeLabels: List<String>,
         previousDisciplineLabels: List<String>,
@@ -568,7 +743,7 @@ class ProgramFilterFragment : BaseFragment() {
         formattedCityLabels: String,
     ) {
         // Update selected labels
-        selectedCountryLabel=previousCountryLabels
+        selectedCountryLabel = previousCountryLabels
         selectedCountryItems.label = previousCountryLabels
         selectedInstitutionLabel = ArrayList(previousInstitutionLabels)
         selectedStudyLevelLabel = ArrayList(previousStudyLevelLabels)
@@ -580,16 +755,16 @@ class ProgramFilterFragment : BaseFragment() {
         selectedCityItems1.label = formattedCityLabels
 
         // Set text to EditText fields
-        binding!!.tvFilterCountry.setText(selectedCountryLabel)
-        binding!!.tvFilterState.setText(selectedStateLabel)
-        binding!!.tvFilterCity.setText(selectedCityLabel)
-        binding!!.tvFilterInstitute.setText(selectedInstitutionLabel.joinToString("\n"))
-        binding!!.tvFilterStudyLevel.setText(selectedStudyLevelLabel.joinToString("\n"))
-        binding!!.tvFilterLookingFor.setText(selectedDisciplineLabel.joinToString("\n"))
-        binding!!.tvFilterIntakeSelector.setText(selectedIntakeLabel.joinToString("\n"))
-        binding!!.tvFilterPGMP.setText(PGWP)
-        binding!!.tvFilterAttendance.setText(Attendance)
-        binding!!.tvFilterAccomodation.setText(accomodation)
+        binding!!.tvFilterCountry.text = selectedCountryLabel
+        binding!!.tvFilterState.text = selectedStateLabel
+        binding!!.tvFilterCity.text = selectedCityLabel
+        binding!!.tvFilterInstitute.text = selectedInstitutionLabel.joinToString("\n")
+        binding!!.tvFilterStudyLevel.text = selectedStudyLevelLabel.joinToString("\n")
+        binding!!.tvFilterLookingFor.text = selectedDisciplineLabel.joinToString("\n")
+        binding!!.tvFilterIntakeSelector.text = selectedIntakeLabel.joinToString("\n")
+        binding!!.tvFilterPGMP.text = PGWP
+        binding!!.tvFilterAttendance.text = Attendance
+        binding!!.tvFilterAccomodation.text = accomodation
 
 
         // Program Type
@@ -602,13 +777,11 @@ class ProgramFilterFragment : BaseFragment() {
         val minFee = minTutionFee.toFloatOrNull() ?: 0f
         val maxFee = maxTutionFee.toFloatOrNull() ?: 0f
 
-        binding!!.tvFilterRs1.setText(
-            String.format(
-                Locale.getDefault(),
-                "%.0f - %.0f",
-                minFee,
-                maxFee
-            )
+        binding!!.tvFilterRs1.text = String.format(
+            Locale.getDefault(),
+            "%.0f - %.0f",
+            minFee,
+            maxFee
         )
 
         binding!!.rsFilter1.setValues(minFee, maxFee)
@@ -617,22 +790,17 @@ class ProgramFilterFragment : BaseFragment() {
         val minApplicationFee = minApplicationFee.toFloatOrNull() ?: 0f
         val maxApplicationFee = maxApllicationFee.toFloatOrNull() ?: 0f
 
-        binding!!.tvFilterRs2.setText(
-            String.format(
-                Locale.getDefault(),
-                "%.0f - %.0f",
-                minApplicationFee,
-                maxApplicationFee
-            )
+        binding!!.tvFilterRs2.text = String.format(
+            Locale.getDefault(),
+            "%.0f - %.0f",
+            minApplicationFee,
+            maxApplicationFee
         )
 
         binding!!.rsFilter2.setValues(minApplicationFee, maxApplicationFee)
 
 
     }
-
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.P)
@@ -654,15 +822,19 @@ class ProgramFilterFragment : BaseFragment() {
         getCountry(requireActivity())
 
         if (!selectedCountryId.isNullOrEmpty() && !selectedStateId.isNullOrEmpty()) {
-            getState(requireActivity(),selectedCountryId.toInt())
-             getCity(requireActivity(),selectedStateId.toInt())
+            getState(requireActivity(), selectedCountryId.toInt())
+            getCity(requireActivity(), selectedStateId.toInt())
             arrayListInstitution.clear()
-            getInstitution(requireActivity(),getSavedSelectedItemId(AppConstants.CountryList))
+            getInstitution(requireActivity(), getSavedSelectedItemId(AppConstants.CountryList),data)
 
         } else if (!selectedCountryId.isNullOrEmpty()) {
-             getState(requireActivity(),selectedCountryId.toInt())
+            getState(requireActivity(), selectedCountryId.toInt())
             arrayListInstitution.clear()
-            getInstitution(requireActivity(),getSavedSelectedItemId(AppConstants.CountryList))
+            getInstitution(
+                requireActivity(),
+                getSavedSelectedItemId(AppConstants.CountryList),
+                data
+            )
 
         } else {
             getCountry(requireActivity())
@@ -676,23 +848,23 @@ class ProgramFilterFragment : BaseFragment() {
     private fun initilalizeList() {
 
 
-        selectedInstitutionItems= mutableListOf()
-        selectedStudyLevelItems= mutableListOf()
-        selectedDisciplineItems= mutableListOf()
-        selectedIntakeItems= mutableListOf()
+        selectedInstitutionItems = mutableListOf()
+        selectedStudyLevelItems = mutableListOf()
+        selectedDisciplineItems = mutableListOf()
+        selectedIntakeItems = mutableListOf()
 
 
-        selectedInstitutionId= ArrayList<String>()
+        selectedInstitutionId = ArrayList<String>()
 
-        selectedStudyLevelId= ArrayList<String>()
-        selectedDisciplineId= ArrayList<String>()
-        selectedIntakeId=ArrayList<String>()
+        selectedStudyLevelId = ArrayList<String>()
+        selectedDisciplineId = ArrayList<String>()
+        selectedIntakeId = ArrayList<String>()
 
-        selectedInstitutionLabel= ArrayList<String>()
+        selectedInstitutionLabel = ArrayList<String>()
 
-        selectedStudyLevelLabel= ArrayList<String>()
-        selectedDisciplineLabel= ArrayList<String>()
-        selectedIntakeLabel=ArrayList<String>()
+        selectedStudyLevelLabel = ArrayList<String>()
+        selectedDisciplineLabel = ArrayList<String>()
+        selectedIntakeLabel = ArrayList<String>()
 
         selectedCountryItems = com.student.Compass_Abroad.modal.countryModel.DataX("", 0)
 
@@ -708,7 +880,7 @@ class ProgramFilterFragment : BaseFragment() {
 
             post {
                 val min = minTutionFee.toFloatOrNull() ?: 0f
-                val max = maxTutionFee.toFloatOrNull() ?:244000f
+                val max = maxTutionFee.toFloatOrNull() ?: 244000f
                 values = listOf(min, max)
 
                 binding!!.tvFilterRs1.text = String.format(
@@ -742,7 +914,7 @@ class ProgramFilterFragment : BaseFragment() {
 
             post {
                 val min = minApplicationFee.toFloatOrNull() ?: 0f
-                val max = maxApllicationFee.toFloatOrNull() ?:6200f
+                val max = maxApllicationFee.toFloatOrNull() ?: 6200f
                 values = listOf(min, max)
 
                 binding!!.tvFilterRs2.text = String.format(
@@ -761,12 +933,13 @@ class ProgramFilterFragment : BaseFragment() {
                 minApplicationFee = Math.round(slider.values[0]).toString()
                 maxApllicationFee = Math.round(slider.values[1]).toString()
 
-                binding!!.tvFilterRs2.text = "Selected Range :${minApplicationFee + "-" + maxApllicationFee}"
+                binding!!.tvFilterRs2.text =
+                    "Selected Range :${minApplicationFee + "-" + maxApllicationFee}"
             }
         })
 
-        binding!!.tvFilterRs11.setText("Selected Range-US$0- US$244k")
-        binding!!.tvFilterRs22.setText("Selected Range-US$0- US$6.2k")
+        binding!!.tvFilterRs11.text = "Selected Range-US$0- US$244k"
+        binding!!.tvFilterRs22.text = "Selected Range-US$0- US$6.2k"
 
     }
 
@@ -774,7 +947,8 @@ class ProgramFilterFragment : BaseFragment() {
     private fun setupPFMIDropdown() {
 
         binding!!.tvFilterPGMP.setOnClickListener {
-            val popupView = LayoutInflater.from(requireActivity()).inflate(R.layout.custom_popup, null)
+            val popupView =
+                LayoutInflater.from(requireActivity()).inflate(R.layout.custom_popup, null)
             val popupWindow = PopupWindow(
                 popupView,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -821,9 +995,6 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
 
-
-
-
     @SuppressLint("MissingInflatedId")
     private fun setupAccomodationDropdown() {
 
@@ -841,7 +1012,7 @@ class ProgramFilterFragment : BaseFragment() {
             popupWindow.isFocusable = true
             popupWindow.elevation = 5f
             popupWindow.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            popupWindow.width = binding!!.tvFilterPGMP.width
+            popupWindow.width = binding!!.tvFilterAccomodation.width
 
             // Option views
             val tvYes = popupView.findViewById<TextView>(R.id.tvYes)
@@ -877,8 +1048,6 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
 
-
-
     @SuppressLint("MissingInflatedId")
     private fun setupAttendanceDropdown() {
 
@@ -910,9 +1079,26 @@ class ProgramFilterFragment : BaseFragment() {
 
             // ✅ Show tick for selected attendance type
             when (Attendance) {
-                "On Campus" -> tvOnCampus.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick_svgrepo_com, 0)
-                "Online" -> tvOnline.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick_svgrepo_com, 0)
-                "Blended" -> tvBlended.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick_svgrepo_com, 0)
+                "On Campus" -> tvOnCampus.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.tick_svgrepo_com,
+                    0
+                )
+
+                "Online" -> tvOnline.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.tick_svgrepo_com,
+                    0
+                )
+
+                "Blended" -> tvBlended.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.tick_svgrepo_com,
+                    0
+                )
             }
 
             tvOnCampus.setOnClickListener {
@@ -967,8 +1153,19 @@ class ProgramFilterFragment : BaseFragment() {
 
             // ✅ Show tick for selected ProgramType
             when (ProgramType) {
-                "full_time" -> tvFullTime.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick_svgrepo_com, 0)
-                "part_time" -> tvPartTime.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick_svgrepo_com, 0)
+                "full_time" -> tvFullTime.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.tick_svgrepo_com,
+                    0
+                )
+
+                "part_time" -> tvPartTime.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.tick_svgrepo_com,
+                    0
+                )
             }
 
             tvFullTime.setOnClickListener {
@@ -988,19 +1185,11 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
 
-
     private fun setDropDownCountry() {
-
         binding!!.tvFilterCountry.setOnClickListener {
-
-            // 💥 Remove duplicate countries BEFORE showing popup
-            val uniqueCountryList = arrayListCountry.distinctBy { it.value }
-            arrayListCountry.clear()
-            arrayListCountry.addAll(uniqueCountryList)
-
             val popupWindow = PopupWindow(requireActivity())
-            val layout: View =
-                LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
+            val layout: View = LayoutInflater.from(requireContext())
+                .inflate(R.layout.custom_popup2, null)
             popupWindow.contentView = layout
 
             layout.findViewById<TextView>(R.id.etSelect).hint = "Search Country"
@@ -1015,51 +1204,42 @@ class ProgramFilterFragment : BaseFragment() {
             val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-            // 💥 Adapter will now receive CLEANED list
+            // 🧹 Ensure no duplicate entries
+            val uniqueCountryList = arrayListCountry.distinctBy { it.value }
             val adapter = AdapterFilterCollegeCountrySelector(
                 requireActivity(),
-                arrayListCountry,
+                ArrayList(uniqueCountryList),
                 layout,
                 object : AdapterFilterCollegeCountrySelector.OnCountrySelectionListener {
 
                     override fun onCountryChecked(country: com.student.Compass_Abroad.modal.countryModel.DataX) {
-
-                        // Clear state
                         clearSelectedValuesFromSharedPreferences(AppConstants.StateList)
                         clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
                         clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
 
+                        // Reset state + city
                         selectedStateItems1.label = ""
                         selectedStateItems1.value = 0
                         selectedStateItems = ""
                         selectedStateId = ""
                         selectedStateLabel = ""
-                        binding!!.tvFilterState.setText("")
+                        binding!!.tvFilterState.text = ""
                         arrayListState.clear()
 
-                        // Clear city
                         selectedCityItems = ""
                         selectedCityId = ""
                         selectedCityLabel = ""
-                        binding!!.tvFilterCity.setText("")
+                        binding!!.tvFilterCity.text = ""
                         arrayListCity.clear()
 
-                        // Load new State list
+                        // Load new states + institutions
                         getState(requireActivity(), country.value)
-
-                        // Clear Institution
-                        selectedInstitutionItems.clear()
-                        selectedInstitutionId.clear()
-                        selectedInstitutionLabel.clear()
-                        arrayListInstitution.clear()
-
-                        getInstitution(requireActivity(), country.value.toString())
+                        getInstitution(requireActivity(), country.value.toString(), data)
                         setDropDownInstitution()
                         binding!!.tvFilterInstitute.text = ""
                     }
 
                     override fun onCountryUnchecked(country: com.student.Compass_Abroad.modal.countryModel.DataX) {
-
                         clearSelectedValuesFromSharedPreferences(AppConstants.StateList)
                         clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
                         clearSelectedValuesFromSharedPreferences(AppConstants.institutionList)
@@ -1069,84 +1249,85 @@ class ProgramFilterFragment : BaseFragment() {
                         selectedStateItems = ""
                         selectedStateId = ""
                         selectedStateLabel = ""
-                        binding!!.tvFilterState.setText("")
+                        binding!!.tvFilterState.text = ""
                         arrayListState.clear()
 
                         selectedCityItems = ""
                         selectedCityId = ""
                         selectedCityLabel = ""
-                        binding!!.tvFilterCity.setText("")
+                        binding!!.tvFilterCity.text = ""
                         arrayListCity.clear()
 
                         getState(requireActivity(), null)
-
-                        selectedInstitutionItems.clear()
-                        selectedInstitutionId.clear()
-                        selectedInstitutionLabel.clear()
-                        arrayListInstitution.clear()
-
-                        getInstitution(requireActivity(), "")
+                        getInstitution(requireActivity(), "", data)
                         setDropDownInstitution()
                         binding!!.tvFilterInstitute.text = ""
                     }
-                })
+                }
+            )
 
             recyclerView.adapter = adapter
 
+            getSavedSelectedCountryItem(AppConstants.CountryList)
             adapter.setInitialSelection(selectedCountryItems)
 
             adapter.onItemClickListener = { selectedCountry ->
+                val selectedCountryName = selectedCountry?.label ?: ""
+                val selectedCountryIdValue = selectedCountry?.value ?: 0
 
-                val selectedCountryLabels = selectedCountry?.label ?: "Default Label"
-                val selectedCountryIds = selectedCountry?.value ?: "Default ID"
-
-                binding!!.tvFilterCountry.text = selectedCountry?.label
-
-                selectedCountryItems.label = selectedCountry?.label ?: ""
-                selectedCountryItems.value = selectedCountry?.value ?: 0
-
-                selectedCountryId = selectedCountryIds.toString()
-                selectedCountryLabel = selectedCountry?.label ?: ""
+                binding!!.tvFilterCountry.text = selectedCountryName
+                selectedCountryItems.label = selectedCountryName
+                selectedCountryItems.value = selectedCountryIdValue
+                selectedCountryId = selectedCountryIdValue.toString()
+                selectedCountryLabel = selectedCountryName
             }
 
             popupWindow.showAsDropDown(binding!!.tvFilterCountry)
 
+            // 🔍 Country search
             layout.findViewById<EditText>(R.id.etSelect)
                 .addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
-                        s: CharSequence,
+                        s: CharSequence?,
                         start: Int,
                         count: Int,
                         after: Int
-                    ) {}
+                    ) {
+                    }
 
                     override fun onTextChanged(
-                        s: CharSequence,
+                        s: CharSequence?,
                         start: Int,
                         before: Int,
                         count: Int
-                    ) {}
+                    ) {
+                    }
 
-                    override fun afterTextChanged(s: Editable) {
+                    override fun afterTextChanged(s: Editable?) {
                         adapter.getFilter().filter(s.toString())
                     }
                 })
         }
     }
 
-
     private fun setDropDownInstitution() {
         binding!!.tvFilterInstitute.setOnClickListener {
 
-            if (selectedCountryItems.label.isEmpty() || selectedCountryItems.value.toString().isEmpty()) {
-                Toast.makeText(requireActivity(), "Please select a country first", Toast.LENGTH_SHORT).show()
+            if (selectedCountryItems.label.isEmpty() || selectedCountryItems.value.toString()
+                    .isEmpty()
+            ) {
+                Toast.makeText(
+                    requireActivity(),
+                    "Please select a country first",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener // Stop execution here
             }
 
 
-
             val popupWindow = PopupWindow(requireActivity())
-            val layout: View = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
+            val layout: View =
+                LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             popupWindow.contentView = layout
             layout.findViewById<TextView>(R.id.etSelect).hint = "Search Institution"
 
@@ -1159,10 +1340,11 @@ class ProgramFilterFragment : BaseFragment() {
 
             val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            val adapter = AdapterFilterInstitutionSelector(requireActivity(), arrayListInstitution, layout)
+            val adapter =
+                AdapterFilterInstitutionSelector(requireActivity(), arrayListInstitution, layout)
             recyclerView.adapter = adapter
 
-            val getSavedSelectedInstituionItemsId = getSavedSelectedInstitutionItems(AppConstants.institutionList)
+            getSavedSelectedInstitutionItems(AppConstants.institutionList)
             adapter.setInitialSelection(selectedInstitutionItems)
 
 
@@ -1172,7 +1354,8 @@ class ProgramFilterFragment : BaseFragment() {
                 val selectedInstitutionIds = selectedInstitution.map { it.value.toString() }
                     .distinct() // Ensure unique IDs
 
-                binding!!.tvFilterInstitute.text = selectedInstitution.joinToString("\n") { it.label }
+                binding!!.tvFilterInstitute.text =
+                    selectedInstitution.joinToString("\n") { it.label }
 
                 // Save selected items, ensuring no duplicates
                 selectedInstitutionItems = selectedInstitution.distinct().toMutableList()
@@ -1193,7 +1376,7 @@ class ProgramFilterFragment : BaseFragment() {
                         selectedInstitutionLabel.add(label)
                     }
                 }
-                val currentSelectedlabels = selectedInstitution.map { it.label}
+                val currentSelectedlabels = selectedInstitution.map { it.label }
                 selectedInstitutionLabel.retainAll(currentSelectedlabels)
 
                 // Remove deselected IDs
@@ -1205,15 +1388,28 @@ class ProgramFilterFragment : BaseFragment() {
 
             popupWindow.showAsDropDown(binding!!.tvFilterInstitute)
 
-            layout.findViewById<EditText>(R.id.etSelect).addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            layout.findViewById<EditText>(R.id.etSelect)
+                .addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                    }
 
-                override fun afterTextChanged(s: Editable) {
-                    adapter.getFilter().filter(s.toString())
-                }
-            })
+                    override fun afterTextChanged(s: Editable) {
+                        adapter.getFilter().filter(s.toString())
+                    }
+                })
         }
     }
 
@@ -1237,14 +1433,14 @@ class ProgramFilterFragment : BaseFragment() {
             // Calculate popup window position based on fragment view (if within a fragment)
             val locationOnScreen = IntArray(2)
             binding?.tvFilterStudyLevel?.getLocationOnScreen(locationOnScreen)
-            val xLocationOfView = locationOnScreen[0]
-            val yLocationOfView = locationOnScreen[1] + binding?.tvFilterStudyLevel?.height!!
+            locationOnScreen[0]
+            locationOnScreen[1] + binding?.tvFilterStudyLevel?.height!!
             val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
             val adapter =
                 AdapterFilterStudyLevelSelector(requireActivity(), arrayListStudyLevel, layout)
             recyclerView.adapter = adapter
-            val getSavedSelectedItemsId = getSavedSelectedItems(AppConstants.studyLevelList)
+            getSavedSelectedItems(AppConstants.studyLevelList)
 
 
             adapter.setInitialSelection(selectedStudyLevelItems)
@@ -1320,7 +1516,8 @@ class ProgramFilterFragment : BaseFragment() {
         binding?.tvFilterLookingFor?.setOnClickListener { v: View ->
 
             val popupWindow = PopupWindow(requireActivity())
-            val layout: View = LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
+            val layout: View =
+                LayoutInflater.from(requireContext()).inflate(R.layout.custom_popup2, null)
             popupWindow.contentView = layout
 
             layout.requireViewById<TextView>(R.id.etSelect).setHint("Search Discipline")
@@ -1335,16 +1532,17 @@ class ProgramFilterFragment : BaseFragment() {
             // Calculate popup window position based on fragment view (if within a fragment)
             val locationOnScreen = IntArray(2)
             binding?.tvFilterLookingFor?.getLocationOnScreen(locationOnScreen)
-            val xLocationOfView = locationOnScreen[0]
-            val yLocationOfView = locationOnScreen[1] + binding?.tvFilterLookingFor?.height!!
+            locationOnScreen[0]
+            locationOnScreen[1] + binding?.tvFilterLookingFor?.height!!
 
             // Set recycler view adapter
             val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            val adapter = AdapterFilterDisplineSelector(requireActivity(), arrayListDiscipline, layout)
+            val adapter =
+                AdapterFilterDisplineSelector(requireActivity(), arrayListDiscipline, layout)
             recyclerView.adapter = adapter
 
-            val getSavedSelectedDisciplineItemsId = getSavedDisplineItems(AppConstants.disciplineList)
+            getSavedDisplineItems(AppConstants.disciplineList)
 
 
             adapter.setInitialSelection(selectedDisciplineItems)
@@ -1355,7 +1553,8 @@ class ProgramFilterFragment : BaseFragment() {
                 val selectedDisciplineIds = selectedDiscipline.map { it.value.toString() }
                     .distinct() // Ensure unique IDs
 
-                binding!!.tvFilterLookingFor.text = selectedDiscipline.joinToString("\n") { it.label }
+                binding!!.tvFilterLookingFor.text =
+                    selectedDiscipline.joinToString("\n") { it.label }
 
                 // Save selected items, ensuring no duplicates
                 selectedDisciplineItems = selectedDiscipline.distinct().toMutableList()
@@ -1387,20 +1586,30 @@ class ProgramFilterFragment : BaseFragment() {
 
             popupWindow.showAsDropDown(binding!!.tvFilterLookingFor)
 
-            layout.findViewById<EditText>(R.id.etSelect).addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            layout.findViewById<EditText>(R.id.etSelect)
+                .addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                    }
 
-                override fun afterTextChanged(s: Editable) {
-                    adapter.getFilter().filter(s.toString())
-                }
-            })
+                    override fun afterTextChanged(s: Editable) {
+                        adapter.getFilter().filter(s.toString())
+                    }
+                })
         }
     }
-
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.P)
@@ -1438,21 +1647,22 @@ class ProgramFilterFragment : BaseFragment() {
             // Set recycler view adapter
             val recyclerView = layout.findViewById<RecyclerView>(R.id.rvSelect)
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            val adapter = AdapterFilterIntakeSelector(requireActivity(),arrayListIntake, layout)
+            val adapter = AdapterFilterIntakeSelector(requireActivity(), arrayListIntake, layout)
             recyclerView.adapter = adapter
 
-            val getSavedSelectedIntakeItemsId = getSavedIntakeItems(AppConstants.IntakeList)
+            getSavedIntakeItems(AppConstants.IntakeList)
 
 
             adapter.setInitialSelection(selectedIntakeItems)
 
 
             adapter.onItemClickListener = { selectedIntake ->
-                val selectedintakeLabels = selectedIntake.map { it.label}
+                val selectedintakeLabels = selectedIntake.map { it.label }
                 val selectedInatkeIds = selectedIntake.map { it.value.toString() }
                     .distinct() // Ensure unique IDs
 
-                binding!!.tvFilterIntakeSelector.text = selectedIntake.joinToString("\n") { it.label }
+                binding!!.tvFilterIntakeSelector.text =
+                    selectedIntake.joinToString("\n") { it.label }
 
                 // Save selected items, ensuring no duplicates
                 selectedIntakeItems = selectedIntake.distinct().toMutableList()
@@ -1479,20 +1689,32 @@ class ProgramFilterFragment : BaseFragment() {
                 selectedIntakeLabel.retainAll(currentSelectedLabel)
 
 
-
             }
 
-            popupWindow.showAtLocation(binding!!.tvFilterIntakeSelector,Gravity.CENTER,0,-500)
+            popupWindow.showAtLocation(binding!!.tvFilterIntakeSelector, Gravity.CENTER, 0, -500)
 
-            layout.findViewById<EditText>(R.id.etSelect).addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            layout.findViewById<EditText>(R.id.etSelect)
+                .addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                    }
 
-                override fun afterTextChanged(s: Editable) {
-                    adapter.getFilter().filter(s.toString())
-                }
-            })
+                    override fun afterTextChanged(s: Editable) {
+                        adapter.getFilter().filter(s.toString())
+                    }
+                })
         }
     }
 
@@ -1511,13 +1733,16 @@ class ProgramFilterFragment : BaseFragment() {
             countryResponseModal?.let { nonNullCountryResponseModal ->
                 if (countryResponseModal.statusCode == 200) {
 
-                    if(countryResponseModal.data != null) {
+                    if (countryResponseModal.data != null) {
                         for (i in 0 until countryResponseModal!!.data!!.size) {
                             arrayListCountry?.add(countryResponseModal.data!![i])
                         }
                     } else {
                         // Handle the case where data is null from the API response
-                        CommonUtils.toast(requireActivity, "Failed to retrieve countries. Please try again.");
+                        CommonUtils.toast(
+                            requireActivity,
+                            "Failed to retrieve countries. Please try again."
+                        )
                     }
 
                 } else {
@@ -1534,6 +1759,7 @@ class ProgramFilterFragment : BaseFragment() {
     private fun getInstitution(
         requireActivity: FragmentActivity,
         selectedCountryId: String,
+        category: String?,
 
         ) {
 
@@ -1542,18 +1768,22 @@ class ProgramFilterFragment : BaseFragment() {
             AppConstants.fiClientNumber,
             App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
             "Bearer " + CommonUtils.accessToken,
-            selectedCountryId
+            selectedCountryId,
+            category
         ).observe(requireActivity) { InstitutionModel: InstitutionModel? ->
             InstitutionModel?.let { nonNullInstitutionModel ->
                 if (InstitutionModel.statusCode == 200) {
 
-                    if(InstitutionModel.data != null) {
+                    if (InstitutionModel.data != null) {
                         for (i in 0 until InstitutionModel!!.data!!.recordsInfo.size) {
                             arrayListInstitution?.add(InstitutionModel.data!!.recordsInfo[i])
                         }
                     } else {
                         // Handle the case where data is null from the API response
-                        CommonUtils.toast(requireActivity, "Failed to retrieve countries. Please try again.");
+                        CommonUtils.toast(
+                            requireActivity,
+                            "Failed to retrieve countries. Please try again."
+                        )
                     }
 
                 } else {
@@ -1566,7 +1796,6 @@ class ProgramFilterFragment : BaseFragment() {
         }
 
     }
-
 
 
     private fun getStudyLevel(
@@ -1583,13 +1812,16 @@ class ProgramFilterFragment : BaseFragment() {
             studyLevelResponseModal?.let { nonNullCampusResponseModal ->
                 if (studyLevelResponseModal.statusCode == 200) {
 
-                    if(studyLevelResponseModal.data != null) {
+                    if (studyLevelResponseModal.data != null) {
                         for (i in 0 until studyLevelResponseModal!!.data!!.size) {
                             arrayListStudyLevel?.add(studyLevelResponseModal.data!![i])
                         }
                     } else {
                         // Handle the case where data is null from the API response
-                        CommonUtils.toast(requireActivity, "Failed to retrieve StudyLevel. Please try again.");
+                        CommonUtils.toast(
+                            requireActivity,
+                            "Failed to retrieve StudyLevel. Please try again."
+                        )
                     }
 
 
@@ -1605,28 +1837,30 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
 
-
     private fun getState(
         requireActivity: FragmentActivity,
-        countryId:Int?
-        ) {
+        countryId: Int?
+    ) {
 
         ViewModalClass().getStateModalLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
-            "Bearer " + CommonUtils.accessToken,countryId
+            "Bearer " + CommonUtils.accessToken, countryId
         ).observe(requireActivity) { stateModelModal: stateModel? ->
             stateModelModal?.let { stateModelModal ->
                 if (stateModelModal.statusCode == 200) {
 
-                    if(stateModelModal.data != null) {
+                    if (stateModelModal.data != null) {
                         for (i in 0 until stateModelModal!!.data!!.size) {
                             arrayListState?.add(stateModelModal.data!![i])
                         }
                     } else {
                         // Handle the case where data is null from the API response
-                        CommonUtils.toast(requireActivity, "Failed to retrieve countries. Please try again.");
+                        CommonUtils.toast(
+                            requireActivity,
+                            "Failed to retrieve countries. Please try again."
+                        )
                     }
 
                 } else {
@@ -1643,25 +1877,28 @@ class ProgramFilterFragment : BaseFragment() {
 
     private fun getCity(
         requireActivity: FragmentActivity,
-        stateId:Int?
+        stateId: Int?
     ) {
 
         ViewModalClass().getCityModalLiveData(
             requireActivity,
             AppConstants.fiClientNumber,
             App.sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
-            "Bearer " + CommonUtils.accessToken,stateId
-        ).observe(requireActivity) { CityModelModal:CityModel ? ->
+            "Bearer " + CommonUtils.accessToken, stateId
+        ).observe(requireActivity) { CityModelModal: CityModel? ->
             CityModelModal?.let { CityModel ->
                 if (CityModelModal.statusCode == 200) {
 
-                    if(CityModelModal.data != null) {
+                    if (CityModelModal.data != null) {
                         for (i in 0 until CityModelModal!!.data!!.size) {
                             arrayListCity?.add(CityModelModal.data!![i])
                         }
                     } else {
                         // Handle the case where data is null from the API response
-                        CommonUtils.toast(requireActivity, "Failed to retrieve countries. Please try again.");
+                        CommonUtils.toast(
+                            requireActivity,
+                            "Failed to retrieve countries. Please try again."
+                        )
                     }
 
                 } else {
@@ -1690,16 +1927,18 @@ class ProgramFilterFragment : BaseFragment() {
             displineResponseModal?.let { nonNullCampusResponseModal ->
                 if (displineResponseModal.statusCode == 200) {
 
-                    if(displineResponseModal.data != null) {
+                    if (displineResponseModal.data != null) {
                         for (i in 0 until displineResponseModal!!.data!!.size) {
                             arrayListDiscipline?.add(displineResponseModal.data!![i])
 
                         }
                     } else {
                         // Handle the case where data is null from the API response
-                        CommonUtils.toast(requireActivity, "Failed to retrieve StudyLevel. Please try again.");
+                        CommonUtils.toast(
+                            requireActivity,
+                            "Failed to retrieve StudyLevel. Please try again."
+                        )
                     }
-
 
 
                 } else {
@@ -1714,9 +1953,9 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
 
-
     private fun getIntake(
-        requireActivity: FragmentActivity) {
+        requireActivity: FragmentActivity
+    ) {
 
         ViewModalClass().getIntakeModalLiveData(
             requireActivity,
@@ -1727,13 +1966,16 @@ class ProgramFilterFragment : BaseFragment() {
             intakeModelResponseModal?.let { nonNullCampusResponseModal ->
                 if (intakeModelResponseModal.statusCode == 200) {
 
-                    if(intakeModelResponseModal.data != null) {
+                    if (intakeModelResponseModal.data != null) {
                         for (i in 0 until intakeModelResponseModal!!.data!!.size) {
                             arrayListIntake?.add(intakeModelResponseModal.data!![i])
                         }
                     } else {
                         // Handle the case where data is null from the API response
-                        CommonUtils.toast(requireActivity, "Failed to retrieve testScore. Please try again.");
+                        CommonUtils.toast(
+                            requireActivity,
+                            "Failed to retrieve testScore. Please try again."
+                        )
                     }
 
                 } else {
@@ -1763,6 +2005,7 @@ class ProgramFilterFragment : BaseFragment() {
 
         return ids // Adjust this according to your data format
     }
+
     private fun getSavedSelectedItemsLabel(keyPrefix: String): List<String> {
         val sharedPrefs = SharedPrefs(requireContext())
         val labels = sharedPrefs.getStringList("${keyPrefix}Label") ?: emptyList()
@@ -1773,7 +2016,7 @@ class ProgramFilterFragment : BaseFragment() {
     private fun saveSelectedToSharedPreferences(
         keyPrefix: String,
         ids: String,
-        labels:String
+        labels: String
     ) {
         val sharedPrefs = SharedPrefs(requireContext())
         sharedPrefs.putString11("${keyPrefix}Id", ids)
@@ -1787,6 +2030,7 @@ class ProgramFilterFragment : BaseFragment() {
 
         return id
     }
+
     private fun getSavedSelectedItemLabel(keyPrefix: String): String {
         val sharedPrefs = SharedPrefs(requireContext())
         // Get the single string from SharedPrefs
@@ -1794,6 +2038,7 @@ class ProgramFilterFragment : BaseFragment() {
 
         return label
     }
+
     private fun getSavedSelectedItems(keyPrefix: String): List<Data> {
         val sharedPrefs = SharedPrefs(requireContext())
         val ids = sharedPrefs.getStringList("${keyPrefix}Id") ?: emptyList()
@@ -1813,6 +2058,7 @@ class ProgramFilterFragment : BaseFragment() {
             }
         }
     }
+
     private fun getSavedSelectedInstitutionItems(keyPrefix: String): List<com.student.Compass_Abroad.modal.institutionModel.RecordsInfo> {
         val sharedPrefs = SharedPrefs(requireContext())
         val ids = sharedPrefs.getStringList("${keyPrefix}Id") ?: emptyList()
@@ -1826,7 +2072,10 @@ class ProgramFilterFragment : BaseFragment() {
             val id = ids.getOrNull(index)?.toIntOrNull()
             val label = labels.getOrNull(index)
             if (id != null && label != null) {
-                com.student.Compass_Abroad.modal.institutionModel.RecordsInfo(label = label, value = id)
+                com.student.Compass_Abroad.modal.institutionModel.RecordsInfo(
+                    label = label,
+                    value = id
+                )
             } else {
                 null
             }
@@ -1843,7 +2092,10 @@ class ProgramFilterFragment : BaseFragment() {
             val id = ids.firstOrNull()?.toIntOrNull()
             val label = labels.firstOrNull()
             if (id != null && label != null) {
-                return com.student.Compass_Abroad.modal.countryModel.DataX(label = label, value = id)
+                return com.student.Compass_Abroad.modal.countryModel.DataX(
+                    label = label,
+                    value = id
+                )
             }
         }
         // Return null if no valid data is found
@@ -1851,16 +2103,18 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
 
-
-
-
-
     @RequiresApi(Build.VERSION_CODES.P)
     private fun setDropDownState() {
         binding!!.tvFilterState.setOnClickListener {
 
-            if (selectedCountryItems.label.isEmpty() || selectedCountryItems.value.toString().isEmpty()) {
-                Toast.makeText(requireActivity(), "Please select a country first", Toast.LENGTH_SHORT).show()
+            if (selectedCountryItems.label.isEmpty() || selectedCountryItems.value.toString()
+                    .isEmpty()
+            ) {
+                Toast.makeText(
+                    requireActivity(),
+                    "Please select a country first",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener // Stop execution here
             }
 
@@ -1888,12 +2142,12 @@ class ProgramFilterFragment : BaseFragment() {
             recyclerView.adapter = adapter
 
             // Restore previously selected items
-            val getSavedSelectedStateItemsId = getSavedSelectedStateItem(AppConstants.StateList)
+            getSavedSelectedStateItem(AppConstants.StateList)
             adapter.setInitialSelection(selectedStateItems1)
 
             adapter.onItemClickListener = { selectedState ->
 
-                val selectedStateLabels = selectedState?.label ?: "Default Label"
+                selectedState?.label ?: "Default Label"
                 val selectedStateIds = selectedState?.value ?: "Default ID"
 
                 binding!!.tvFilterState.text = selectedState?.label
@@ -1922,11 +2176,11 @@ class ProgramFilterFragment : BaseFragment() {
                 selectedInstitutionItems.clear()
                 selectedInstitutionId.clear()
                 selectedInstitutionLabel.clear()
-                binding!!.tvFilterInstitute.setText("")
+                binding!!.tvFilterInstitute.text = ""
                 arrayListInstitution.clear()
 
 
-                getCity(requireActivity(),selectedState?.value  )
+                getCity(requireActivity(), selectedState?.value)
 
                 selectedStateId = selectedStateIds.toString()
 
@@ -1963,8 +2217,11 @@ class ProgramFilterFragment : BaseFragment() {
     private fun setDropDownCity() {
         binding!!.tvFilterCity.setOnClickListener {
 
-            if (selectedStateItems1.label.isEmpty() || selectedStateItems1.value.toString().isEmpty()) {
-                Toast.makeText(requireActivity(), "Please select a State first", Toast.LENGTH_SHORT).show()
+            if (selectedStateItems1.label.isEmpty() || selectedStateItems1.value.toString()
+                    .isEmpty()
+            ) {
+                Toast.makeText(requireActivity(), "Please select a State first", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener // Stop execution here
             }
 
@@ -1985,12 +2242,12 @@ class ProgramFilterFragment : BaseFragment() {
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
             val adapter = AdapterFilterCollegeCitySelector(requireActivity(), arrayListCity, layout)
             recyclerView.adapter = adapter
-            val getSavedSelectedCityItemsId = getSavedSelectedCityItem(AppConstants.CityList)
+            getSavedSelectedCityItem(AppConstants.CityList)
             adapter.setInitialSelection(selectedCityItems1)
 
             adapter.onItemClickListener = { selectedCity ->
 
-                val selectedCityLabels = selectedCity?.label ?: "Default Label"
+                selectedCity?.label ?: "Default Label"
                 val selectedCityIds = selectedCity?.value ?: "Default ID"
 
                 binding!!.tvFilterCity.text = selectedCity?.label
@@ -2010,7 +2267,7 @@ class ProgramFilterFragment : BaseFragment() {
                 selectedInstitutionItems.clear()
                 selectedInstitutionId.clear()
                 selectedInstitutionLabel.clear()
-                binding!!.tvFilterInstitute.setText("")
+                binding!!.tvFilterInstitute.text = ""
                 arrayListInstitution.clear()
 
 
@@ -2046,12 +2303,12 @@ class ProgramFilterFragment : BaseFragment() {
     }
 
 
-
     fun clearSelectedValuesFromSharedPreferences(keyPrefix: String) {
         val sharedPrefs = SharedPrefs(requireContext())
         sharedPrefs.clearStringList("${keyPrefix}Id")
         sharedPrefs.clearStringList("${keyPrefix}Label")
     }
+
     private fun clearAllSelectedValues() {
         // Call this method for each key prefix you use
         clearSelectedValuesFromSharedPreferences(AppConstants.CountryList)
@@ -2121,10 +2378,8 @@ class ProgramFilterFragment : BaseFragment() {
         sharedPrefs.putString11(AppConstants.MAX_APPLICATION_KEY, maxApllicationFee)
     }
 
-    override fun onResume() {
-        super.onResume()
-        MainActivity.bottomNav!!.isVisible=false
-    }
+
+
     private fun getSavedDisplineItems(keyPrefix: String): List<com.student.Compass_Abroad.modal.getProgramFilters.Discipline> {
         val sharedPrefs = SharedPrefs(requireContext())
         val ids = sharedPrefs.getStringList("${keyPrefix}Id") ?: emptyList()
@@ -2168,7 +2423,7 @@ class ProgramFilterFragment : BaseFragment() {
         }
     }
 
-    private fun getSavedStudyLevelItems(keyPrefix: String): List<com.student.Compass_Abroad.modal.studyLevelModel.Data> {
+    private fun getSavedStudyLevelItems(keyPrefix: String): List<Data> {
         val sharedPrefs = SharedPrefs(requireContext())
         val ids = sharedPrefs.getStringList("${keyPrefix}Id") ?: emptyList()
         val labels = sharedPrefs.getStringList("${keyPrefix}Label") ?: emptyList()
@@ -2181,7 +2436,7 @@ class ProgramFilterFragment : BaseFragment() {
             val id = ids.getOrNull(index)?.toIntOrNull()
             val label = labels.getOrNull(index)
             if (id != null && label != null) {
-                com.student.Compass_Abroad.modal.studyLevelModel.Data(
+                Data(
                     label = label,
                     value = id
                 )
@@ -2214,6 +2469,7 @@ class ProgramFilterFragment : BaseFragment() {
         }
     }
 
+
     private fun getSavedIntakesItems(keyPrefix: String): List<com.student.Compass_Abroad.modal.intakeModel.Data> {
         val sharedPrefs = SharedPrefs(requireContext())
         val ids = sharedPrefs.getStringList("${keyPrefix}Id") ?: emptyList()
@@ -2233,6 +2489,7 @@ class ProgramFilterFragment : BaseFragment() {
             }
         }
     }
+
 
     private fun getSavedInstutionItems(keyPrefix: String): List<com.student.Compass_Abroad.modal.institutionModel.RecordsInfo> {
         val sharedPrefs = SharedPrefs(requireContext())
@@ -2254,6 +2511,15 @@ class ProgramFilterFragment : BaseFragment() {
             } else {
                 null
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (sharedPre!!.getString(AppConstants.SCOUtLOGIN, "") == "true") {
+            ScoutMainActivity.bottomNav!!.visibility = View.GONE
+        } else {
+            MainActivity.bottomNav!!.visibility = View.GONE
         }
     }
 }

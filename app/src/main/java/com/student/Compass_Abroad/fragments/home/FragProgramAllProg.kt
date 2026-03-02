@@ -180,39 +180,58 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         tvMaxApplicationFee = if (tvMaxApplicationFee.isNullOrEmpty()) null else tvMaxApplicationFee
 
 
-        FilterClearAll()
+        //FilterClearAll()
         ProgramFilterFragment.data = category
         status = 0
-        ProgramFilterFragment.clearData = 1
+       // ProgramFilterFragment.clearData = 1
         sharedPre!!.saveString("status", status.toString())
 
-        if (category == "higher_education") {
+        if (category=="higher_education")
+        {
             ProgramFilterFragment.data = category
-            category = "higher_education"
+            category="higher_education"
             status = 0
             ProgramFilterFragment.clearData = 1
-            sharedPre!!.saveString("status", status.toString())
+            sharedPre!!.saveString("status",status.toString())
 
-        } else if (category == "summer_school") {
+        }
+        else if(category=="summer_school"){
             ProgramFilterFragment.data = category
             ProgramFilterFragment.clearData = 1
             category = "summer_school"
             status = 2
             sharedPre!!.saveString("status", status.toString())
 
-        } else if (category == "career_program") {
+        }
+        else if(category=="career_program"){
             ProgramFilterFragment.data = category
             ProgramFilterFragment.clearData = 1
             category = "career_program"
             status = 3
             sharedPre!!.saveString("status", status.toString())
 
-        } else {
+        } else if (category == "high_school") {
+            ProgramFilterFragment.data = category
+            ProgramFilterFragment.clearData = 1
+            category = "high_school"
+            status = 4
+            sharedPre!!.saveString("status", status.toString())
+
+        } else if (category == "boarding_and_camps") {
+            ProgramFilterFragment.data = category
+            ProgramFilterFragment.clearData = 1
+            category = "boarding_and_camps"
+            status = 5
+            sharedPre!!.saveString("status", status.toString())
+
+        }
+
+        else{
             status = 1
             ProgramFilterFragment.data = category
-            category = "language_program"
+            category="language_program"
             ProgramFilterFragment.clearData = 1
-            sharedPre!!.saveString("status", status.toString())
+            sharedPre!!.saveString("status",status.toString())
 
 
         }
@@ -337,7 +356,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
                 ProgramFilterFragment.clearData = 1
                 loadInitialData(search, category, isRecommended)
             }
-            binding.rvCategory.visibility = View.GONE
+            binding.rvCategory.visibility = View.VISIBLE
             binding.rll.visibility = View.VISIBLE
             binding!!.view1.visibility = View.GONE
             binding!!.view2.visibility = View.VISIBLE
@@ -465,7 +484,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
                 ProgramFilterFragment.clearData = 1
                 loadInitialData(search, category, isRecommended)
             }
-            binding.rvCategory.visibility = View.GONE
+            binding.rvCategory.visibility = View.VISIBLE
             binding.rll.visibility = View.VISIBLE
             binding!!.view1.visibility = View.GONE
             binding!!.view2.visibility = View.VISIBLE
@@ -944,7 +963,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         if (encryptedString != null) {
             contentKey = "$publicKey^#^$encryptedString"
             Log.d("shortlisted", contentKey)
-            removeFromShortlist(record)
+            //removeFromShortlist(record)
             addToShortlist(requireActivity(), contentKey)
         } else {
             Log.d("shortlisted", "Encryption failed.")
@@ -1189,6 +1208,8 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
                                 "higher_education" -> 0
                                 "summer_school" -> 2
                                 "career_program" -> 3
+                                "high_school" -> 4
+                                "boarding_and_camps" -> 5
                                 else -> 1
                             }
 
@@ -1225,25 +1246,42 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
 
 
 
-                                if (category == "higher_education") {
+                              if (category == "higher_education") {
                                     ProgramFilterFragment.data = category
                                     ProgramFilterFragment.clearData = 1
                                     category = "higher_education"
                                     status = 0
                                     sharedPre!!.saveString("status", status.toString())
-                                } else if (category == "summer_school") {
+                                }
+                                else if(category=="summer_school"){
                                     ProgramFilterFragment.data = category
                                     ProgramFilterFragment.clearData = 1
                                     category = "summer_school"
                                     status = 2
                                     sharedPre!!.saveString("status", status.toString())
-                                } else if (category == "career_program") {
+                                }
+                                else if(category=="career_program"){
                                     ProgramFilterFragment.data = category
                                     ProgramFilterFragment.clearData = 1
                                     category = "career_program"
                                     status = 3
                                     sharedPre!!.saveString("status", status.toString())
-                                } else {
+                                }
+                                else if(category=="high_school"){
+                                    ProgramFilterFragment.data = category
+                                    ProgramFilterFragment.clearData = 1
+                                    category = "high_school"
+                                    status = 4
+                                    sharedPre!!.saveString("status", status.toString())
+                                }
+                                else if(category=="boarding_and_camps"){
+                                    ProgramFilterFragment.data = category
+                                    ProgramFilterFragment.clearData = 1
+                                    category = "boarding_and_camps"
+                                    status = 5
+                                    sharedPre!!.saveString("status", status.toString())
+                                }
+                                else {
                                     ProgramFilterFragment.data = category
                                     ProgramFilterFragment.clearData = 1
                                     category = "language_program"
@@ -1428,7 +1466,7 @@ class FragProgramAllProg : BaseFragment(), AdapterProgramsAllProg.select {
         } else {
             binding!!.view1.visibility = View.GONE
             binding!!.view2.visibility = View.VISIBLE
-            binding.rvCategory.visibility = View.GONE
+            binding.rvCategory.visibility = View.VISIBLE
             binding.rll.visibility = View.VISIBLE
         }
     }

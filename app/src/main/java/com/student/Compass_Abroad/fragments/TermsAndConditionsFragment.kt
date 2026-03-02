@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.student.Compass_Abroad.R
 import com.student.Compass_Abroad.Utils.App
+import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.databinding.FragmentTermsAndConditionsBinding
 
 
@@ -49,26 +50,72 @@ class TermsAndConditionsFragment : BottomSheetDialogFragment()  {
     override fun onResume() {
         super.onResume()
         // ✅ Safe to access window here
-        if(isAdded){
-            val activity = activity ?: return
-            val window = activity.window ?: return
+        if(AppConstants.Login_STATUS_Value == "1"){
+            requireActivity().window.statusBarColor =
+                requireActivity().getColor(R.color.secondary_color)
 
-            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teall)
-            window.navigationBarColor =
-                ContextCompat.getColor(requireContext(), R.color.bottom_gradient_one)
+            // ✅ Set status & navigation bar colors
+            requireActivity().window.navigationBarColor =
+                requireActivity().getColor(R.color.bottom_gradient_one)
 
+            // ✅ Make status bar icons black (for light background)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val controller = window.insetsController
+                val controller = requireActivity().window.insetsController
                 controller?.setSystemBarsAppearance(
                     WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
                     WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
                 )
             } else {
                 @Suppress("DEPRECATION")
-                window.decorView.systemUiVisibility =
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                requireActivity().window.decorView.systemUiVisibility =
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
+        else if(AppConstants.Login_STATUS_Value == "2"){
+            requireActivity().window.statusBarColor =
+                requireActivity().getColor(R.color.white)
+
+            // ✅ Set status & navigation bar colors
+            requireActivity().window.navigationBarColor =
+                requireActivity().getColor(R.color.bottom_gradient_one)
+
+            // ✅ Make status bar icons black (for light background)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val controller = requireActivity().window.insetsController
+                controller?.setSystemBarsAppearance(
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                requireActivity().window.decorView.systemUiVisibility =
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
+        else{
+            requireActivity().window.statusBarColor =
+                requireActivity().getColor(R.color.teall)
+
+            // ✅ Set status & navigation bar colors
+            requireActivity().window.navigationBarColor =
+                requireActivity().getColor(R.color.bottom_gradient_one)
+
+            // ✅ Make status bar icons black (for light background)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val controller = requireActivity().window.insetsController
+                controller?.setSystemBarsAppearance(
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                requireActivity().window.decorView.systemUiVisibility =
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
+
+
+
     }
 
     override fun onStart() {

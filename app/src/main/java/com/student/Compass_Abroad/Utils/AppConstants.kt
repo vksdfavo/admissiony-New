@@ -11,6 +11,7 @@ object AppConstants {
     const val SCOUtLOGIN = "scoutLogin"
     var profileStatus = "0"
     var PROGRAM_STATUS = "0"
+    var Login_STATUS_Value = "0"
 
     val fiClientNumber: String
         get() = App.context.getString(R.string.fiClientNumber)

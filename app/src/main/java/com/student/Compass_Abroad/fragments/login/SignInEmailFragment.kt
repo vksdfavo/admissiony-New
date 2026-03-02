@@ -73,6 +73,7 @@ class SignInEmailFragment : Fragment() {
 
     private fun onClick() {
         binding!!.privacyPolicy.setOnClickListener {
+            AppConstants.Login_STATUS_Value="1"
             val fragment = PrivacyPolicyFragment()
             fragment.show(
                 (requireActivity() as AppCompatActivity).supportFragmentManager,
@@ -81,7 +82,7 @@ class SignInEmailFragment : Fragment() {
 
         }
         binding!!.terms.setOnClickListener {
-
+            AppConstants.Login_STATUS_Value="1"
             val fragment = TermsAndConditionsFragment()
             fragment.show(
                 (requireActivity() as AppCompatActivity).supportFragmentManager,
@@ -570,6 +571,9 @@ class SignInEmailFragment : Fragment() {
                         422 -> {
                             // Handle 422 status code
                             App.singleton?.SHOW_PASSCODE_SECTION = false
+
+
+                            errorDialogOpen(requireActivity(), nonNullLoginModal.message.toString())
 
                             // Refresh fragment using Navigation Component
                             findNavController().navigate(

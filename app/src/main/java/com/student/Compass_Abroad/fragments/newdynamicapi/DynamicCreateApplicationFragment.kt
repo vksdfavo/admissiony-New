@@ -102,6 +102,7 @@ class DynamicCreateApplicationFragment : BaseFragment() {
     }
 
     private fun fetchLeadForm() {
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.createDynamicApplication(
             requireActivity(),
             AppConstants.fiClientNumber,
@@ -110,6 +111,7 @@ class DynamicCreateApplicationFragment : BaseFragment() {
             "application"
         ).observe(requireActivity()) { leadFormResponse: CreateDynamicApplication? ->
             leadFormResponse?.let { response ->
+                binding.progressBar.visibility=View.GONE
                 if (response.statusCode == 200 && response.success) {
                     response.data?.let { formData ->
                         formData.name ?: "Submit"
@@ -757,6 +759,7 @@ class DynamicCreateApplicationFragment : BaseFragment() {
     }
 
     private fun updateSpinnerAdapter(fieldName: String, data: List<UnifiedDropdownItem>, placeholder: String?) {
+        if (!isAdded) return
         val spinner = dependentSpinners[fieldName] ?: return
 
         val labels = mutableListOf<String>().apply {

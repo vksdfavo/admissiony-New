@@ -59,6 +59,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
         android:gravity="center"
+        android:visibility="gone"
         android:text="To submit relevant document kindly upload documents"
         android:textColor="@android:color/white"
         android:textSize="13sp" />
@@ -74,6 +75,7 @@
         android:text="Upload Documents"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:visibility="gone"
         android:textAllCaps="false"
         android:background="@drawable/bg_button_teal" />
 
@@ -86,7 +88,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Skip"
+        android:text="Explore More"
         android:textColor="#558B6E"
         android:textStyle="bold" />
 </RelativeLayout>

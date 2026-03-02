@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/view"
             android:background="@color/white"
-            android:visibility="gone">
+           >
 
 
             <TextView

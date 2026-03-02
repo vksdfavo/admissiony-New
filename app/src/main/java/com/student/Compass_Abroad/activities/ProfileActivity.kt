@@ -8,9 +8,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toDrawable
@@ -114,7 +116,7 @@ class ProfileActivity : AppCompatActivity() {
 
         }
         binding!!.terms.setOnClickListener {
-
+            AppConstants.Login_STATUS_Value="2"
             val fragment = TermsAndConditionsFragment()
             fragment.show(
                 supportFragmentManager,
@@ -242,6 +244,8 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+      window.statusBarColor = getColor(R.color.white)
 
         hitApiUserDetails()
     }

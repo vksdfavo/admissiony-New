@@ -345,7 +345,8 @@ interface ApiInterface {
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
-        @Query("country_id") countryId: String
+        @Query("country_id") countryId: String,
+        @Query("program_category") program_category: String?,
     ): Call<InstitutionModel?>?
 
     @GET("program-finder")

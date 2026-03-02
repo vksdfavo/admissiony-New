@@ -14,9 +14,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.student.Compass_Abroad.R
@@ -38,6 +41,13 @@ import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONObject
 import kotlin.random.Random
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
+import com.student.Compass_Abroad.adaptor.CategoryProgramAdapter
+import com.student.Compass_Abroad.databinding.FragmentShortListedBinding
+import com.student.Compass_Abroad.fragments.home.CompareProgram
+import com.student.Compass_Abroad.modal.getCategoryProgramModel.getCategoryProgramModel
+import kotlinx.coroutines.launch
 
 
 class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.select {
@@ -58,8 +68,6 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
 
         setupRecyclerView()
 
-
-
         return binding!!.root
     }
 
@@ -73,17 +81,19 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
             this,
             viewLifecycleOwner
         )
+
         binding?.rvFpAp?.adapter = adapterShortListedProgram
+
         binding?.rvFpAp?.addOnPaginationListener(nextPage) { nextPage ->
             if (presentPage < nextPage) {
                 presentPage++
                 binding?.pbFpApPagination?.visibility = View.VISIBLE
                 Handler(Looper.getMainLooper()).postDelayed({
                     onGetAllShorlistedPrograms(requireActivity(), dataPerPage, presentPage)
-
                 }, 2000)
             }
         }
+
     }
 
     private fun loadInitialData() {
@@ -95,7 +105,8 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
     private fun onGetAllShorlistedPrograms(
         requireActivity: FragmentActivity,
         dataPerPage: Int,
-        presentPage: Int) {
+        presentPage: Int
+    ) {
         ViewModalClass().getshortlistedModalLiveDataStaff(
             requireActivity,
             AppConstants.fiClientNumber,
@@ -110,7 +121,6 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
                     val newRecords = shorlistedProgramModal.data?.records ?: emptyList()
                     newRecords.forEach { record ->
                         if (!arrayList1.contains(record)) {
-
                             arrayList1.add(record)
                         }
                     }
@@ -149,18 +159,17 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
         record: Record,
         pos: Int
     ) {
-
         handleLikeOrDislike(record, pos)
-
     }
 
     override fun openTagCLick(record: Record, position: Int) {
+
         val itemBinding = ProgramTagsDialogBinding.inflate(requireActivity().layoutInflater)
         val dialog = Dialog(requireActivity())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
         dialog.setContentView(itemBinding.root)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
 
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.copyFrom(dialog.window!!.attributes)
@@ -173,26 +182,21 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
 
 
         itemBinding.backBtn.setOnClickListener {
-
             dialog.dismiss()
-
         }
-        val layoutManager = LinearLayoutManager(binding!!.root.context, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager =
+            LinearLayoutManager(binding!!.root.context, LinearLayoutManager.HORIZONTAL, false)
         itemBinding.recyclerTags.layoutManager = layoutManager
 
 
         if (record.program.tags.isNotEmpty()) {
 
             itemBinding.recyclerLay.visibility = View.VISIBLE
-
             val tagsAdapter = ProgramTagAdapter(record.program.tags)
-
-            itemBinding.recyclerTags.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
+            itemBinding.recyclerTags.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             itemBinding.recyclerTags.adapter = tagsAdapter
-
-        }
-        else {
+        } else {
 
             itemBinding.recyclerLay.visibility = View.GONE
         }
@@ -236,6 +240,7 @@ class StaffShortListFragment : Fragment(), AdapterProgramsShortListedProgram.sel
             adapterShortListedProgram.notifyItemRemoved(pos)
             setRecyclerViewVisibility()
         }
+
     }
 
     private fun addToShortlist(

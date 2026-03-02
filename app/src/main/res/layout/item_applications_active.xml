@@ -214,6 +214,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:maxLines="1"
+                    android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/space5"
                     android:text="@string/started_amp_submitted"

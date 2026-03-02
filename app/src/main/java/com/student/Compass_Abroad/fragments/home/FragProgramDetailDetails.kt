@@ -26,6 +26,7 @@ import com.student.Compass_Abroad.adaptor.AdapterProgramDetailDetailsIntakes
 import com.student.Compass_Abroad.databinding.FragmentFragProgramDetailDetailsBinding
 import com.student.Compass_Abroad.encrytion.encryptData
 import com.student.Compass_Abroad.fragments.BaseFragment
+import com.student.Compass_Abroad.fragments.program.ApplyProgramFragment
 import com.student.Compass_Abroad.modal.AllProgramModel.Record
 import com.student.Compass_Abroad.modal.shortListModel.ShortListResponse
 import com.student.Compass_Abroad.retrofit.ViewModalClass
@@ -56,6 +57,7 @@ class FragProgramDetailDetails : BaseFragment() {
 
 
         Log.d("onCreateViewOkk", programStatus)
+        Log.d("onCreateViewOkk", details.toString())
 
 
 
@@ -77,7 +79,7 @@ class FragProgramDetailDetails : BaseFragment() {
         }
 
         binding!!.tvFpddApply.setOnClickListener{
-
+            ApplyProgramFragment.details = details
             binding!!.root.findNavController().navigate(R.id.applyProgramFragment)
         }
 

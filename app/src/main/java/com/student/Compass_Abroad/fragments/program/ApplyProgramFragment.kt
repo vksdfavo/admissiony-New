@@ -54,6 +54,11 @@ import java.util.Calendar
 import java.util.Locale
 import kotlin.collections.set
 
+import kotlin.text.equals
+import kotlin.text.get
+import kotlin.toString
+
+
 // keep your UnifiedDropdownItem if used elsewhere
 data class UnifiedDropdownItem(
     val value: String,
@@ -62,7 +67,7 @@ data class UnifiedDropdownItem(
 
 class ApplyProgramFragment : BaseFragment() {
     private lateinit var binding: FragmentApplyProgramBinding
-    private lateinit var viewModel: ViewModalClass
+
 
     // state and caches (your original fields)
     private val dependentSpinners: MutableMap<String, Spinner> = mutableMapOf()
@@ -78,7 +83,20 @@ class ApplyProgramFragment : BaseFragment() {
     private val pendingRunnables = mutableMapOf<String, Runnable>() // for delayed dropdown checks
     private val handler = Handler(Looper.getMainLooper())
 
-
+    // other fields you had
+    private var prefer_course_id: String = ""
+    private var intake_id: String = ""
+    private val arrayListCampus = mutableListOf<com.student.Compass_Abroad.modal.GetCampusModal.Data>()
+    private val arrayListCourses = mutableListOf<com.student.Compass_Abroad.modal.GetCampusModal.Data>()
+    private val selectedCourses = mutableListOf<com.student.Compass_Abroad.modal.GetCampusModal.Data>()
+    var arrayListIntake = ArrayList<com.student.Compass_Abroad.modal.intakeModel.Data>()
+    private var selected_year: String = ""
+    private var campus_id: String = ""
+    private var collage_id: String = ""
+    private var courseId: String? = null
+    private var previouslySelectedCampusId: String? = null
+    private val arrayListStudents: MutableList<com.student.Compass_Abroad.modal.GetStudentsModal.Data> =
+        mutableListOf()
 
     companion object {
         var details: Record? = null
@@ -91,34 +109,37 @@ class ApplyProgramFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentApplyProgramBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(requireActivity())[ViewModalClass::class.java]
 
-        // set initial values from program details
-        setData()
+
+       setdata()
+
 
         // fetch form after fieldValues seeded — we still fetch form, but pre-populated values exist
         fetchLeadForm()
 
+
         binding.backBtn.setOnClickListener { requireActivity().onBackPressed() }
-        lead_identifier = sharedPre!!.getString(AppConstants.USER_IDENTIFIER, "")?.toString() ?: ""
+        lead_identifier = App.sharedPre!!.getString(AppConstants.USER_IDENTIFIER, "")?.toString() ?: ""
 
         return binding.root
     }
 
-    private fun setData() {
+    private fun setdata() {
         fieldValues["destination_country_id"] =
-            ProgramDetails.details?.program?.institution?.country_id.toString()
+            details?.program?.institution?.country?.id.toString()
         fieldValues["institution_id"] =
-            ProgramDetails.details?.program?.institution_id.toString()
-        fieldValues["campus_id"] = ProgramDetails.details?.campus_id.toString()
+            details?.program?.institution_id.toString()
+        fieldValues["campus_id"] = details?.campus_id.toString()
         fieldValues["study_level_id"] =
-            ProgramDetails.details?.program?.study_level_id.toString()
-        fieldValues["preferred_program_id"] = ProgramDetails.details?.program?.id.toString()
-        fieldValues["lead_id"] = sharedPre!!.getString(AppConstants.USER_ID, "").toString()
+            details?.program?.studylevel?.id.toString()
+        fieldValues["preferred_program_id"] =details?.program?.id.toString()
+        fieldValues["lead_id"] = App.sharedPre!!.getString(AppConstants.USER_ID, "").toString()
     }
 
+
+
     private fun fetchLeadForm() {
-        viewModel.createDynamicApplication(
+        ViewModalClass().createDynamicApplication(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -186,6 +207,10 @@ class ApplyProgramFragment : BaseFragment() {
         }
     }
 
+    /**
+     * SINGLE SELECT: Create spinner, but protect against onItemSelected firing when we set adapter/selection.
+     * We use spinnerInitGuard to ignore the first selection event after programmatic setSelection.
+     */
     private fun createSingleSelectView(field: FormField, context: Context): View {
         val container = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
@@ -618,7 +643,7 @@ class ApplyProgramFragment : BaseFragment() {
         val finalUrl = buildFinalUrl(url, params)
         Log.d("DropdownData", "Loading data with final URL: $finalUrl")
 
-        viewModel.dropdownUrlFromApi(
+        ViewModalClass().dropdownUrlFromApi(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre!!.getString(AppConstants.Device_IDENTIFIER, "").toString(),
@@ -733,7 +758,11 @@ class ApplyProgramFragment : BaseFragment() {
         }
     }
 
-
+    /**
+     * Update spinner adapter safely:
+     * - set spinnerInitGuard so the first onItemSelected after programmatic setSelection is ignored
+     * - temporarily remove listener while replacing adapter and setting selection (safe)
+     */
     private fun updateSpinnerAdapter(fieldName: String, data: List<UnifiedDropdownItem>, placeholder: String?) {
         val spinner = dependentSpinners[fieldName] ?: return
 
@@ -797,7 +826,7 @@ class ApplyProgramFragment : BaseFragment() {
                     val view = editTextFields[childField.name]
                     if (view is EditText && view.tag == childField.name) {
                         view.setText("")
-                        view.hint = formFields.find { it.name == childField.name }?.placeholder ?: "Select"
+                        view.setHint(formFields.find { it.name == childField.name }?.placeholder ?: "Select")
                         view.setTextColor(ContextCompat.getColor(view.context, android.R.color.darker_gray))
                     }
                 }
@@ -831,7 +860,7 @@ class ApplyProgramFragment : BaseFragment() {
             val view = fieldViews[childFieldName]
             if (view is EditText && view.tag == childFieldName) {
                 view.setText("")
-                view.hint = formFields.find { it.name == childFieldName }?.placeholder ?: "Select"
+                view.setHint(formFields.find { it.name == childFieldName }?.placeholder ?: "Select")
                 view.setTextColor(ContextCompat.getColor(view.context, android.R.color.darker_gray))
             }
 
@@ -918,7 +947,7 @@ class ApplyProgramFragment : BaseFragment() {
         val payload = SubmitPayload(form_identifier = form_identifier, data = formData)
         Log.d("CreateApplication", "Payload: $payload")
 
-        viewModel.createApplication(
+        ViewModalClass().createApplication(
             requireActivity(),
             AppConstants.fiClientNumber,
             sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
@@ -927,9 +956,10 @@ class ApplyProgramFragment : BaseFragment() {
         ).observe(requireActivity()) { response ->
             if (response?.success == true) {
                 val bundle = Bundle().apply { putString("status", "1") }
-                App.singleton?.createApplicationIdentifier = response.data?.identifier?.toString()
-
-                binding.root.findNavController().navigate(R.id.uploadProgramDocFragment, bundle)
+                App.singleton?.createApplicationIdentifier=response.data?.identifier.toString()
+                Log.e("jdjjdd",App.singleton?.createApplicationIdentifier.toString())
+                binding.root.findNavController().navigate(R.id.applicationActiveFragment, bundle)
+                // binding.root.findNavController().navigate(R.id.uploadProgramDocFragment, bundle)
                 Toast.makeText(requireContext(), "Application submitted successfully", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Failed: ${response?.message ?: "Unknown error"}", Toast.LENGTH_SHORT).show()
@@ -954,3 +984,4 @@ class ApplyProgramFragment : BaseFragment() {
         super.onDestroyView()
     }
 }
+

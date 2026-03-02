@@ -309,7 +309,6 @@ class ApplicationActiveFragment : Fragment() {
             }else{
                 MainActivity.bottomNav!!.isVisible = true
                 binding?.ablFd?.visibility=View.VISIBLE
-                binding?.rrl?.visibility=View.GONE
                 binding?.fabCreateApplication?.isVisible=true
 
             }

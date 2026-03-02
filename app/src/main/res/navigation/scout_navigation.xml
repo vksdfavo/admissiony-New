@@ -98,4 +98,9 @@
         android:id="@+id/fragProgramDetailDetails2"
         android:name="com.student.Compass_Abroad.fragments.home.FragProgramDetailDetails"
         android:label="FragProgramDetailDetails" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.student.Compass_Abroad.fragments.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 </navigation>

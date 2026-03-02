@@ -23,8 +23,8 @@ android { flavorDimensions("FirmliTest")
         create("Admisiony") {
             dimension = "FirmliTest"
             applicationId = "com.student.Admissiony"
-            versionName = "1.0.9"
-            versionCode = 9
+            versionName = "1.0.11"
+            versionCode = 11
             resValue("string", "app_name", "Admissiony.com")
             buildConfigField("String", "BASE_URL", "\"https://c120h25steps19-api.firmli.com/v1\"")
         }

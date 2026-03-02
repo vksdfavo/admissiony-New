@@ -23,7 +23,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="@dimen/_10dp"
                 android:layout_marginStart="@dimen/_10dp"
-                android:src="@drawable/test_image2"
+                android:src="@drawable/test_image"
                 app:civ_border_color="@color/secondary_color"
                 app:civ_border_width="@dimen/dp_1" />
 

@@ -85,6 +85,7 @@
                 android:backgroundTint="@color/white"
                 android:src="@drawable/ic_notification"
                 app:borderWidth="0dp"
+                android:visibility="gone"
                 app:elevation="0dp"
                 app:fabCustomSize="32dp"
                 app:maxImageSize="21dp"

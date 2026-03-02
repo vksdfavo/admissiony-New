@@ -274,6 +274,7 @@ class SignInPhoneNoFragment : Fragment() {
         }
 
         binding!!.privacyPolicy.setOnClickListener {
+            AppConstants.Login_STATUS_Value="1"
             val fragment = PrivacyPolicyFragment()
             fragment.show(
                 (requireActivity() as AppCompatActivity).supportFragmentManager,
@@ -282,7 +283,7 @@ class SignInPhoneNoFragment : Fragment() {
 
         }
         binding!!.terms.setOnClickListener {
-
+            AppConstants.Login_STATUS_Value="1"
             val fragment = TermsAndConditionsFragment()
             fragment.show(
                 (requireActivity() as AppCompatActivity).supportFragmentManager,

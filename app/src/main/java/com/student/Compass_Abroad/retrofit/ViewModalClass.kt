@@ -6122,13 +6122,14 @@ class ViewModalClass : ViewModel() {
         device_number: String,
         acessToken: String,
         countryId: String,
+        category:String?,
     ): LiveData<InstitutionModel?> {
 
         getInstitutionMutableLiveData1 = MutableLiveData()
 
         if (activity?.let { CommonUtils.isNetworkConnected(it) } == true) {
             CommonUtils.showProgress(activity)
-            apiInterface.getInstitution(client_number, device_number, acessToken, countryId)!!
+            apiInterface.getInstitution(client_number, device_number, acessToken, countryId,category)!!
                 .enqueue(object : Callback<InstitutionModel?> {
                     override fun onResponse(
                         call: Call<InstitutionModel?>,
