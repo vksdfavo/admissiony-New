@@ -1452,7 +1452,7 @@ interface ApiInterface {
     ): Call<CreateAttende?>
 
 
-    @GET("ambassadors")
+    @GET("ambassadors?listingAccess=public")
     fun getAmbassadors(
         @Header("fi-client-number") client_number: String?,
         @Header("fi-device-number") device_number: String?,
@@ -1546,7 +1546,6 @@ interface ApiInterface {
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
         @Query("modules") modules: String?,
-
         ): Call<DocumentTypeModal?>?
 
 
@@ -1601,7 +1600,7 @@ interface ApiInterface {
     ): Call<GetStaffSlots>
 
     @FormUrlEncoded
-    @POST("slot/bookSlot")
+    @POST("slot/bookSlotV2")
     fun bookSlotForUser(
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
