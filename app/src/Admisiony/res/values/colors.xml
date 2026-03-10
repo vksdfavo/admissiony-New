@@ -27,7 +27,7 @@
     <color name="bottom_nav_scout">@color/secondary_color</color>
     <color name="teall">#4BC788</color>
     <color name="black">#0F0305</color>
-    <color name="hint">#332B2A29</color>
+    <color name="hint">#DADCE0</color>
     <color name="signup_hint">#802B2A29</color>
     <color name="light_yellow">#FFF3E0</color>
     <color name="viewAllTextColor">#757575</color>

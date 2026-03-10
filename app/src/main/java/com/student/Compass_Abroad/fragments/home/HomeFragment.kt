@@ -2774,6 +2774,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     if (!records.isNullOrEmpty()) {
                         binding?.relativeLatestUpdates?.visibility = View.VISIBLE
 
+
                         arrayListInLatestUpdate.clear()
                         arrayListInLatestUpdate.addAll(records)
 
@@ -2797,10 +2798,12 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                     } else {
                         // ✅ Hide section when list is empty
                         binding?.relativeLatestUpdates?.visibility = View.GONE
+
                     }
                 } else {
                     // ✅ Hide section on API failure
                     binding?.relativeLatestUpdates?.visibility = View.GONE
+
 
                     val errorMsg = resp.message ?: "Failed"
                     if (!errorMsg.contains("Access token expired", ignoreCase = true)) {
@@ -2809,6 +2812,7 @@ class HomeFragment : Fragment(), AdapterProgramsAllProg.select,
                 }
             } ?: run {
                 binding?.relativeLatestUpdates?.visibility = View.GONE
+
             }
         }
     }

@@ -21,9 +21,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/flag"
-        android:layout_width="50dp"
+        android:layout_width="30dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_marginTop="-20dp"
         android:layout_below="@id/imgDestination"
         android:src="@drawable/flag_united_kingdom" />

@@ -125,7 +125,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-
                             android:layout_marginTop="@dimen/space10"
                             android:background="@drawable/home_back"
                             android:backgroundTint="#F3F4F5">
@@ -317,7 +316,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="70dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
@@ -341,18 +340,28 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/test_image2"
-                                app:civ_border_color="@color/secondary_color"
-                                app:civ_border_width="@dimen/dp_1" />
+                                android:src="@drawable/test_image"
+                               />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_vertical"
+                                android:layout_alignTop="@+id/staff_img"
+                                android:layout_toEndOf="@id/staff_img"
+                                android:layout_alignBottom="@+id/staff_img"
+                                android:layout_toStartOf="@+id/fabFdStu_coordinatorChat"
+                                >
 
                             <TextView
                                 android:id="@+id/need_assistance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="@dimen/_10dp"
-                                android:layout_toEndOf="@id/staff_img"
                                 android:maxLines="1"
+                                android:includeFontPadding="false"
                                 android:text="@string/need_assistance"
                                 android:textColor="@color/secondary_color"
                                 android:textSize="10sp" />
@@ -361,58 +370,62 @@
                                 android:id="@+id/tvFdStu_coordinator"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/need_assistance"
                                 android:layout_marginStart="10dp"
                                 android:layout_toStartOf="@+id/fabFdStu_coordinatorChat"
                                 android:layout_toEndOf="@id/staff_img"
                                 android:maxLines="1"
+                                android:includeFontPadding="false"
                                 android:text="@string/talk_to_your_advisor"
                                 android:textColor="@color/black"
-                                android:textSize="10sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/tvFdStu_coordinator_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tvFdStu_coordinator"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="-5dp"
-                                android:layout_toEndOf="@id/staff_img"
-                                android:maxLines="1"
-                                android:textColor="@color/black"
-                                android:textSize="10sp"
-                                android:visibility="gone" />
+                                <TextView
+                                    android:id="@+id/tvFdStu_coordinator_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/tvFdStu_coordinator"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="-5dp"
+                                    android:layout_toEndOf="@id/staff_img"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp"
+                                    android:visibility="gone" />
 
-                            <TextView
-                                android:id="@+id/emailId"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/tvFdStu_coordinator_name"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="-5dp"
-                                android:layout_toEndOf="@id/staff_img"
-                                android:maxLines="1"
-                                android:text=""
-                                android:textColor="@color/black"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
+                                <TextView
+                                    android:id="@+id/emailId"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/tvFdStu_coordinator_name"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginTop="-5dp"
+                                    android:layout_toEndOf="@id/staff_img"
+                                    android:maxLines="1"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:visibility="gone" />
 
-                            <TextView
-                                android:id="@+id/tvName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_toStartOf="@id/fabFdStu_coordinatorChat"
-                                android:layout_toEndOf="@id/tvFdStu_coordinator"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="Fetching..."
-                                android:textColor="@color/black"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
+                                <TextView
+                                    android:id="@+id/tvName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_toStartOf="@id/fabFdStu_coordinatorChat"
+                                    android:layout_toEndOf="@id/tvFdStu_coordinator"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="Fetching..."
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:visibility="gone" />
+
+                            </LinearLayout>
+
+
 
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:id="@+id/fabFdStu_coordinatorChat"
@@ -599,8 +612,8 @@
                     android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/space18"
-                    android:layout_marginVertical="@dimen/space5"
+                    android:layout_marginHorizontal="@dimen/space20"
+                    android:layout_marginTop="@dimen/space15"
                     android:background="@color/hint" />
 
 
@@ -669,8 +682,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/space18"
-                    android:layout_marginVertical="@dimen/space5"
+                    android:layout_marginHorizontal="@dimen/space20"
+                    android:layout_marginTop="@dimen/space15"
                     android:background="@color/hint" />
 
                 <LinearLayout
@@ -739,8 +752,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/space18"
-                    android:layout_marginVertical="@dimen/space5"
+                    android:layout_marginHorizontal="@dimen/space20"
+                    android:layout_marginTop="@dimen/space15"
                     android:background="@color/hint" />
 
                 <LinearLayout
@@ -845,7 +858,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="@dimen/space20"
-                    android:layout_marginVertical="@dimen/space5"
+                    android:layout_marginTop="@dimen/space15"
                     android:background="@color/hint" />
 
 
@@ -927,6 +940,13 @@
                     app:spanCount="2"
                     tools:listitem="@layout/item_area_of_interest_layout" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/space20"
+                    android:layout_marginTop="@dimen/space15"
+                    android:background="@color/hint" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -997,7 +1017,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="@dimen/space20"
-                    android:layout_marginVertical="@dimen/space5"
+                    android:layout_marginTop="@dimen/space15"
                     android:background="@color/hint" />
 
 
@@ -1161,7 +1181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="@dimen/_20dp"
-                    android:layout_marginVertical="@dimen/space5"
+                    android:layout_marginTop="@dimen/space15"
                     android:background="@color/hint" />
 
                 <LinearLayout
@@ -1226,7 +1246,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="@dimen/_20dp"
-                    android:layout_marginVertical="@dimen/space5"
+                    android:layout_marginTop="@dimen/space15"
                     android:background="@color/hint" />
 
 

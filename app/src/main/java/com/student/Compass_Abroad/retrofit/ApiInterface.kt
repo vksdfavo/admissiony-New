@@ -1400,7 +1400,7 @@ interface ApiInterface {
         @Query("per_page") perPage: Int,
     ): Call<AllProgramModel>
 
-    @GET("banner")
+    @GET("banner?isHide=false")
     fun getBanner(
         @Header("fi-client-number") client_number: String?,
         @Header("fi-device-number") device_number: String?,

@@ -67,7 +67,7 @@ class TopDestinationAdapter(
 
             // Institution Image
             Glide.with(root.context)
-                .load(item.institution_logo)
+                .load(item.country_logo)
                 .placeholder(R.drawable.circle_img)
                 .error(R.drawable.circle_img)
                 .into(imgDestination)

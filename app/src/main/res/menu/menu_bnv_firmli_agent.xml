@@ -19,7 +19,7 @@
 
     <item
         android:id="@+id/counsellingFragment2"
-        android:icon="@drawable/ic_insights"
+        android:icon="@drawable/cal"
         android:title="@string/counsellings" />
 
     <item
