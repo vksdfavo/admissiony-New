@@ -6,5 +6,6 @@ data class Slot(
     val is_booked: Int,
     val is_available: Int,
     val user_booked: Int,
+    val staff_available: Int,
     val start_time: String
 )

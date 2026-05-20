@@ -1,6 +1,5 @@
 package com.student.Compass_Abroad.fragments.setPrefrences
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,158 +13,302 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.student.Compass_Abroad.R
-import com.student.Compass_Abroad.SavePreferencesRequest
 import com.student.Compass_Abroad.Utils.App
 import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
-import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.adaptor.setPrefrences.CountryAdaptor
 import com.student.Compass_Abroad.databinding.FragmentSelectCountryBinding
-import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.modal.preferCountryList.Data
-import com.student.Compass_Abroad.modal.savePeferences.SavePreferences
+import com.student.Compass_Abroad.retrofit.LoginViewModal
 import com.student.Compass_Abroad.retrofit.ViewModalClass
 import org.json.JSONArray
 
 class SelectCountryFragment : Fragment() {
+
     private lateinit var binding: FragmentSelectCountryBinding
+
     private var countryAdapter: CountryAdaptor? = null
-    private var isSelectCountry: Boolean = false
-    private var selectedDisciplinesJson: String? = ""
-    private var prefferedCountriesList: ArrayList<Data> = ArrayList()
+
+    private var prefferedCountriesList:
+            ArrayList<Data> = ArrayList()
+
+    // ✅ Loading flag
+    private var isDataLoaded = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSelectCountryBinding.inflate(inflater, container, false)
-        setPreferredCountriesAdapter()
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+        binding =
+            FragmentSelectCountryBinding.inflate(
+                inflater,
+                container,
+                false
+            )
+
+        ViewCompat.setOnApplyWindowInsetsListener(
+            binding.root
+        ) { v, insets ->
+
+            val systemBars =
+                insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                )
+
+            v.setPadding(
+                systemBars.left,
+                0,
+                systemBars.right,
+                0
+            )
+
             insets
         }
 
-        binding.view1.setBackgroundResource(R.color.secondary_color)       // green
-        binding.view2.setBackgroundResource(R.color.bottom_nav_grey)       // grey
-        binding.view3.setBackgroundResource(R.color.bottom_nav_grey)       // grey
+        // ✅ Step UI
+        binding.view1.setBackgroundResource(
+            R.color.secondary_color
+        )
 
-        sharedPre?.getString(AppConstants.USER_PREFERENCES, "")
+        binding.view2.setBackgroundResource(
+            R.color.bottom_nav_grey
+        )
 
+        binding.view3.setBackgroundResource(
+            R.color.bottom_nav_grey
+        )
+
+        // ✅ Disable next button initially
+        binding.tvNext2.isEnabled = false
 
         binding.fabAcBack.setOnClickListener {
 
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-
+            requireActivity()
+                .onBackPressedDispatcher
+                .onBackPressed()
         }
-
-       /* binding.tvSkip.setOnClickListener {
-
-            binding.root.findNavController().navigate(R.id.disciplineFragment)
-
-        }*/
 
         binding.tvNext2.setOnClickListener {
 
-          selectCountry()
+            // ✅ Prevent fast click
+            if (!isDataLoaded) {
+
+                CommonUtils.toast(
+                    requireContext(),
+                    "Please wait, loading countries..."
+                )
+
+                return@setOnClickListener
+            }
+
+            selectCountry()
         }
+
+        // ✅ API call
+        fetchPreferencesAndLoadCountries()
 
         return binding.root
     }
 
-    private fun selectCountry() {
-        val selectedCountry = countryAdapter?.getSelectedCountry()
+    // ✅ Step 1: Fetch preferences
+    private fun fetchPreferencesAndLoadCountries() {
 
-        if (selectedCountry != null) {
+        LoginViewModal().getPreferencesDataList(
+            requireActivity(),
+            AppConstants.fiClientNumber,
+            sharedPre?.getString(
+                AppConstants.Device_IDENTIFIER,
+                ""
+            ) ?: "",
+            "Bearer ${CommonUtils.accessToken}"
+        ).observe(viewLifecycleOwner) { prefResponse ->
 
-            val selectedValue = selectedCountry.value
+            val apiSelectedCountries =
+                mutableListOf<String>()
 
+            if (prefResponse?.statusCode == 200) {
 
-            App.singleton!!.selectedCountry = selectedValue
+                val destinationCountry =
+                    prefResponse.data
+                        ?.preferencesInfo
+                        ?.destination_country
 
-            sharedPre?.saveString(AppConstants.USER_PREFERENCES,selectedValue)
+                val parsed = when (destinationCountry) {
 
+                    is List<*> -> {
+                        destinationCountry
+                            .filterIsInstance<String>()
+                            .map { it.trim() }
+                    }
 
-            binding.root.findNavController().navigate(R.id.disciplineFragment)
+                    is String -> {
+                        destinationCountry
+                            .split(",")
+                            .map { it.trim() }
+                    }
 
+                    else -> emptyList()
+                }
 
-        } else {
-            CommonUtils.toast(requireContext(), "Please select a country")
+                apiSelectedCountries.addAll(
+                    parsed.filter { it.isNotEmpty() }
+                )
+
+                Log.d(
+                    "API_Countries",
+                    "From API: $apiSelectedCountries"
+                )
+            }
+
+            setPreferredCountriesAdapter(
+                apiSelectedCountries
+            )
         }
     }
 
-    private fun setPreferredCountriesAdapter() {
+    // ✅ Step 2: Load country list
+    private fun setPreferredCountriesAdapter(
+        selectedCountries: List<String>
+    ) {
+
         ViewModalClass().getCountryListProgramList(
             requireActivity(),
             AppConstants.fiClientNumber,
-            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
+            sharedPre?.getString(
+                AppConstants.Device_IDENTIFIER,
+                ""
+            ) ?: "",
             "Bearer ${CommonUtils.accessToken}"
         ).observe(viewLifecycleOwner) { response ->
+
             if (response != null && response.success) {
+
                 val countryList = response.data
 
                 prefferedCountriesList.clear()
+
                 if (countryList != null) {
-                    prefferedCountriesList.addAll(countryList)
+                    prefferedCountriesList
+                        .addAll(countryList)
                 }
 
                 countryAdapter = CountryAdaptor(
                     requireActivity(),
                     prefferedCountriesList,
+
                     object : CountryAdaptor.Select {
-                        override fun click(selectCountry: Data?) {
-                            isSelectCountry = true
+
+                        override fun click(
+                            selectedCountries: List<Data>
+                        ) {
+
+                            // Optional
                         }
                     }
                 )
 
-                // Get saved preference
-                val savedValue = App.sharedPre?.getString(AppConstants.USER_PREFERENCES, "")
+                // ✅ Pre-select countries
+                if (selectedCountries.isNotEmpty()) {
 
-                // Preselect if match found
-                val selectedIndex = prefferedCountriesList.indexOfFirst { it.value == savedValue }
-                if (selectedIndex != -1) {
-                    countryAdapter?.selectedItemPosition = selectedIndex
-                    isSelectCountry = true
+                    countryAdapter
+                        ?.setSelectedByValues(
+                            selectedCountries
+                        )
                 }
 
-                binding.recylcerview.setHasFixedSize(true)
-                binding.recylcerview.adapter = countryAdapter
+                binding.recylcerview
+                    .setHasFixedSize(true)
 
-                // Notify to update UI
-                countryAdapter?.notifyDataSetChanged()
-            } else {
-                // Handle API error
+                binding.recylcerview.adapter =
+                    countryAdapter
+
+                // ✅ Data loaded
+                isDataLoaded = true
+
+                // ✅ Enable next button
+                binding.tvNext2.isEnabled = true
             }
         }
     }
 
-    // Optional: Access selected country
-    private fun getSelectedCountry(): Data? {
-        return countryAdapter?.getSelectedCountry()
+    // ✅ Step 3: Save selected country
+    private fun selectCountry() {
+
+        val selected =
+            countryAdapter?.getSelectedCountries()
+
+        if (!selected.isNullOrEmpty()) {
+
+            val selectedValue =
+                selected.first().value
+
+            App.singleton!!.selectedCountry =
+                listOf(selectedValue)
+
+            sharedPre?.saveString(
+                AppConstants.USER_PREFERENCES,
+                JSONArray(
+                    listOf(selectedValue)
+                ).toString()
+            )
+
+            binding.root
+                .findNavController()
+                .navigate(R.id.disciplineFragment)
+
+        } else {
+
+            CommonUtils.toast(
+                requireContext(),
+                "Please select a country"
+            )
+        }
     }
 
-
     override fun onResume() {
+
         super.onResume()
 
-        val window = requireActivity().window
-        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
-        window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Android 11+
-            val controller = window.insetsController
-            controller?.setSystemBarsAppearance(
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+        val window =
+            requireActivity().window
+
+        window.statusBarColor =
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.white
             )
+
+        window.navigationBarColor =
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.white
+            )
+
+        if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.R
+        ) {
+
+            val controller =
+                window.insetsController
+
+            controller?.setSystemBarsAppearance(
+                WindowInsetsController
+                    .APPEARANCE_LIGHT_STATUS_BARS,
+
+                WindowInsetsController
+                    .APPEARANCE_LIGHT_STATUS_BARS
+            )
+
         } else {
-            // Below Android 11
+
             @Suppress("DEPRECATION")
+
             window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 }

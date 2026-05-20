@@ -21,7 +21,7 @@ var email:String?=null
     var paymentIdentifier:String?=null
     var assignStaffFav:String?=null
     var statusValidation: Int?=null
-    var selectedCountry: String?=null
+    var selectedCountry: List<String>?=null
     var relationIdentifier: String?=null
     var SHOW_PASSCODE_SECTION: Boolean?=null
 

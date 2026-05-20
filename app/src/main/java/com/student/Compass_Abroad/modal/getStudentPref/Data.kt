@@ -4,3 +4,4 @@ data class Data(
     val hasAllPreferencesSet: Boolean,
     val preferencesInfo: PreferencesInfo
 )
+

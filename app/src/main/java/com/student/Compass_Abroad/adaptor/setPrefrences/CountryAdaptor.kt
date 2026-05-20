@@ -17,11 +17,10 @@ class CountryAdaptor(
     private val country: Select
 ) : RecyclerView.Adapter<CountryAdaptor.MyViewHolder>() {
 
-    var selectedItemPosition: Int = RecyclerView.NO_POSITION
+    private var selectedPosition: Int = -1
 
     interface Select {
-
-        fun click(selectCountry: Data?)
+        fun click(selectedCountries: List<Data>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -33,7 +32,7 @@ class CountryAdaptor(
         return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = list[position]
         holder.binding.countryName.text = currentItem.label
 
@@ -41,29 +40,39 @@ class CountryAdaptor(
             .load(currentItem.icon_url)
             .into(holder.binding.imageviewData)
 
-        val isSelected = selectedItemPosition == position
-        if (isSelected) {
+        // ✅ Selection UI
+        if (position == selectedPosition) {
             holder.binding.selectedImage.setBackgroundResource(R.drawable.zz_select_green)
         } else {
             holder.binding.selectedImage.setBackgroundColor(Color.TRANSPARENT)
         }
 
         holder.itemView.setOnClickListener {
-            val previousSelectedPosition = selectedItemPosition
-            selectedItemPosition = position
-            notifyItemChanged(previousSelectedPosition)
-            notifyItemChanged(position)
+            val previousPosition = selectedPosition
+            selectedPosition = position
 
-            country.click(currentItem)
+            // Refresh old + new item
+            if (previousPosition != -1) notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
+
+            country.click(getSelectedCountries())
         }
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun getSelectedCountry(): Data? {
-        return if (selectedItemPosition != RecyclerView.NO_POSITION) {
-            list[selectedItemPosition]
-        } else null
+    fun getSelectedCountries(): List<Data> {
+        return if (selectedPosition != -1) {
+            listOf(list[selectedPosition])
+        } else {
+            emptyList()
+        }
+    }
+
+    // ✅ Pre-select single item
+    fun setSelectedByValues(values: List<String>) {
+        selectedPosition = list.indexOfFirst { it.value in values }
+        notifyDataSetChanged()
     }
 
     class MyViewHolder(val binding: CompleteProfileRecyclerviewBinding) :

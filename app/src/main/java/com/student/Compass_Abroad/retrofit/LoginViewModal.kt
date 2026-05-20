@@ -27,6 +27,8 @@ import com.student.Compass_Abroad.modal.admissionStatus.AdmissionStatus
 import com.student.Compass_Abroad.modal.createTimeSlots.SlotResponse
 import com.student.Compass_Abroad.modal.createTimeSlots.StatusInfo
 import com.student.Compass_Abroad.modal.documentType.DocumentTypeModal
+import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.getErrorMessage
+import com.student.Compass_Abroad.modal.errorHandle.ErrorHandler.parseError
 import com.student.Compass_Abroad.modal.getApplicationAssignedStaff.getApplicationAssignedStaff
 import com.student.Compass_Abroad.modal.getDestinationCountryList.getDestinationCountry
 import com.student.Compass_Abroad.modal.getProgramDetails.ProgramDetailsModal
@@ -35,13 +37,16 @@ import com.student.Compass_Abroad.modal.getStaffSlots.GetStaffSlots
 import com.student.Compass_Abroad.modal.getStudentPref.GetStudentPreferences
 import com.student.Compass_Abroad.modal.getTestimonials.getTestimonials
 import com.student.Compass_Abroad.modal.in_demandInstitution.InDemandInstitution
+import com.student.Compass_Abroad.modal.studyLevelModel.StudyLevelModal
 import com.student.Compass_Abroad.modal.top_destinations.TopDestinations
+import com.student.Compass_Abroad.retrofit.RetrofitClient2.retrofitCallerObject2
 import org.json.JSONException
 import org.json.JSONObject
 
 class LoginViewModal : ViewModel() {
 
     var apiInterface = retrofitCallerObject!!.create(ApiInterface::class.java)
+    var apiInterface2 = retrofitCallerObject2!!.create(ApiInterface::class.java)
 
     /** for check User**/
 
@@ -743,7 +748,7 @@ class LoginViewModal : ViewModel() {
 
         CommonUtils.showProgress(activity)
 
-        apiInterface.bookSlotForUser(clientNumber, deviceNumber, accessToken, branch_identifier,
+        apiInterface.bookSlotForUser(clientNumber, deviceNumber, accessToken, "+05:30",branch_identifier,
             event_start_datetime, event_end_datetime
         )
             .enqueue(object : Callback<SlotResponse?> {
@@ -1251,4 +1256,110 @@ class LoginViewModal : ViewModel() {
         return submitDataStatus!!
     }
 
+
+
+    var getStudyLevelMutableLiveData3: MutableLiveData<StudyLevelModal?>? = null
+    fun getStudyLevelModalLiveData3(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        acessToken: String
+
+    ): LiveData<StudyLevelModal?> {
+
+        getStudyLevelMutableLiveData3 = MutableLiveData()
+
+        if (activity?.let { CommonUtils.isNetworkConnected(it) } == true) {
+            CommonUtils.showProgress(activity)
+            apiInterface2.getStudyLevel2(client_number, device_number, acessToken)!!
+                .enqueue(object : Callback<StudyLevelModal?> {
+                    override fun onResponse(
+                        call: Call<StudyLevelModal?>,
+                        response: Response<StudyLevelModal?>
+                    ) {
+                        CommonUtils.dismissProgress()
+                        if (response.isSuccessful && response.body() != null) {
+                            getStudyLevelMutableLiveData3!!.postValue(response.body())
+                        } else {
+                            val apiError = parseError(response)
+                            handleError131(response.code(), getErrorMessage(apiError))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<StudyLevelModal?>, t: Throwable) {
+                        CommonUtils.dismissProgress()
+                        handleError131(0, "Network error: " + t.message)
+                    }
+                })
+        } else {
+            //handleError(0, "No internet connection.")
+        }
+        return getStudyLevelMutableLiveData3!!
+    }
+
+
+    private fun handleError131(code: Int, backendMessage: String?) {
+        var studyResponse = StudyLevelModal()
+        studyResponse.statusCode = code
+        val errorMessage:          String = when (code) {
+            401 -> backendMessage ?: "Please check your credentials."
+            500 -> backendMessage ?: "$code"
+            else -> backendMessage ?: "Error $code"
+        }
+        studyResponse.message = errorMessage
+        Log.e("API Error", studyResponse.message!!)
+        getStudyLevelMutableLiveData3!!.postValue(studyResponse)
+    }
+
+    var getStudyLevelMutableLiveData2: MutableLiveData<StudyLevelModal?>? = null
+    fun getStudyLevelMavenModalLiveData(
+        activity: Activity?,
+        client_number: String,
+        device_number: String,
+        acessToken: String,
+
+        ): LiveData<StudyLevelModal?> {
+
+        getStudyLevelMutableLiveData2 = MutableLiveData()
+
+        if (activity?.let { CommonUtils.isNetworkConnected(it) } == true) {
+            CommonUtils.showProgress(activity)
+            apiInterface2.getStudyLevelMaven(client_number, device_number, acessToken)!!
+                .enqueue(object : Callback<StudyLevelModal?> {
+                    override fun onResponse(
+                        call: Call<StudyLevelModal?>,
+                        response: Response<StudyLevelModal?>
+                    ) {
+                        CommonUtils.dismissProgress()
+                        if (response.isSuccessful && response.body() != null) {
+                            getStudyLevelMutableLiveData2!!.postValue(response.body())
+                        } else {
+                            val apiError = parseError(response)
+                            handleError1312(response.code(), getErrorMessage(apiError))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<StudyLevelModal?>, t: Throwable) {
+                        CommonUtils.dismissProgress()
+                        handleError1312(0, "Network error: " + t.message)
+                    }
+                })
+        } else {
+            //handleError(0, "No internet connection.")
+        }
+        return getStudyLevelMutableLiveData2!!
+    }
+
+    private fun handleError1312(code: Int, backendMessage: String?) {
+        var studyResponse = StudyLevelModal()
+        studyResponse.statusCode = code
+        val errorMessage: String = when (code) {
+            401 -> backendMessage ?: "Please check your credentials."
+            500 -> backendMessage ?: "$code"
+            else -> backendMessage ?: "Error $code"
+        }
+        studyResponse.message = errorMessage
+        Log.e("API Error", studyResponse.message!!)
+        getStudyLevelMutableLiveData2!!.postValue(studyResponse)
+    }
 }

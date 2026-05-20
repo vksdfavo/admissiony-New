@@ -2,6 +2,8 @@ package com.student.Compass_Abroad.fragments.counselling
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -105,7 +107,16 @@ class ScheduledFragment : Fragment() {
             }
 
         binding.fabFaActive.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.bookCounsellingFragment)
+            try {
+                val url =
+                    "https://tidycal.com/teamconsultancyuk/precas-introductory-session"
+
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+
+            } catch (e: Exception) {
+                Log.e("ScheduledFragment", "Error opening link", e)
+            }
         }
     }
 
@@ -120,22 +131,6 @@ class ScheduledFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("ScheduledFragment", "📱 onViewCreated")
-    }
-
-    // ✅ CRITICAL: Detects when fragment becomes visible in ViewPager
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-
-        Log.d(
-            "ScheduledFragment",
-            "👁️ Visibility: $isVisibleToUser | hasLoadedData: $hasLoadedData | isResumed: $isResumed"
-        )
-
-        // Refresh when becoming visible (after initial load)
-        if (isVisibleToUser && hasLoadedData && isResumed && _binding != null) {
-            Log.d("ScheduledFragment", "🔄 Fragment visible - triggering refresh")
-            refreshData()
-        }
     }
 
     private fun fetchDataFromApi() {
@@ -283,6 +278,14 @@ class ScheduledFragment : Fragment() {
         } else {
             requireActivity().getColor(R.color.navigationBarColor)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        binding.rvFaActive.adapter = null
+        adapterScheduledAdapter = null
+        _binding = null
     }
 
 }

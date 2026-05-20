@@ -26,11 +26,13 @@ import com.student.Compass_Abroad.Utils.App.Companion.sharedPre
 import com.student.Compass_Abroad.Utils.AppConstants
 import com.student.Compass_Abroad.Utils.CommonUtils
 import com.student.Compass_Abroad.Utils.errorDialogOpen
+
 import com.student.Compass_Abroad.activities.MainActivity
 import com.student.Compass_Abroad.activities.SetPreferencesActivity
 import com.student.Compass_Abroad.databinding.FragmentPasswordBinding
 import com.student.Compass_Abroad.encrytion.PasswordConverter
 import com.student.Compass_Abroad.encrytion.encryptData
+
 import com.student.Compass_Abroad.fragments.BaseFragment
 import com.student.Compass_Abroad.fragments.PrivacyPolicyFragment
 import com.student.Compass_Abroad.fragments.TermsAndConditionsFragment
@@ -139,180 +141,176 @@ class PasswordFragment : BaseFragment() {
     }
 
     private fun loginUser() {
-        val password = binding!!.etPassword.getText().toString()
-        if (TextUtils.isEmpty(password)) {
+
+        val password = binding?.etPassword?.text?.toString()?.trim()
+
+        if (password.isNullOrEmpty()) {
             errorDialogOpen(requireActivity(), "Password is required")
-            binding!!.etPassword.requestFocus()
-        } else {
+            binding?.etPassword?.requestFocus()
+            return
+        }
 
-            val hexString = generateRandomHexString(16)
-            val publicKey = hexString
+        try {
+
+            // 🔐 ENCRYPT PASSWORD
+            val publicKey = generateRandomHexString(16)
             val privateKey = AppConstants.privateKey
+            val md5Password = PasswordConverter().convertPasswordToMD5(password)
 
-            val passwordConverter = PasswordConverter()
+            Log.d("Encrypted Password:", "$publicKey^#^$privateKey^#^ $md5Password")
 
-            val pass = password
-            val md5Password = passwordConverter.convertPasswordToMD5(pass)
-
-            println("MD5 Password: $md5Password")
-
-
-            val jsonObject = JSONObject()
-            jsonObject.put("username", sharedPre!!.getString(AppConstants.User_IDENTIFIER, ""))
-            jsonObject.put("password", md5Password)
-
-            val data = jsonObject.toString()
-            val dataToEncrypt = data
-            val app_secret = AppConstants.appSecret
-
+            val jsonObject = JSONObject().apply {
+                put("username", sharedPre?.getString(AppConstants.User_IDENTIFIER, "") ?: "")
+                put("password", md5Password)
+            }
 
             val ivHexString = "$privateKey$publicKey"
-            val encryptedString = encryptData(dataToEncrypt, app_secret, ivHexString)
+            val encryptedString = encryptData(jsonObject.toString(), AppConstants.appSecret, ivHexString)
 
-            if (encryptedString != null) {
-                contentKey = "$publicKey^#^$encryptedString"
-                println("Encrypted data: $encryptedString")
-                Log.d("loginUser", contentKey)
-                sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")
-                    ?.let { Log.d("loginUser", it) }
+            if (encryptedString.isNullOrEmpty()) {
 
-            } else {
-
-                println("Encryption failed.")
-
+                errorDialogOpen(requireActivity(), "Encryption failed")
+                return
             }
+
+            val contentKeyPassword = "$publicKey^#^$encryptedString"
+
+
+
+            // 🔹 LOGIN API
             LoginViewModal().loginModalLiveData(
                 requireActivity(),
                 AppConstants.fiClientNumber,
-                sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
-                contentKey
-            ).observe(requireActivity()) { loginModal: LoginResponseModel? ->
-                loginModal?.let { nonNullLoginModal ->
-                    if (nonNullLoginModal.statusCode == 200) {
+                sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
+                contentKeyPassword
+            ).observe(viewLifecycleOwner) { loginResponse ->
 
-                        with(sharedPre ?: return@observe) {
+                if (loginResponse?.statusCode != 200) {
+                    errorDialogOpen(
+                        requireActivity(),
+                        loginResponse?.message ?: "Login failed"
+                    )
+                    return@observe
+                }
 
-                            saveString(
-                                AppConstants.USER_EMAIL,
-                                nonNullLoginModal.data?.userInfo?.email
+                // 💾 SAVE LOGIN DATA
+                with(sharedPre ?: return@observe) {
+
+                    saveString(AppConstants.USER_EMAIL, loginResponse.data?.userInfo?.email)
+                    saveString(
+                        AppConstants.USER_NAME,
+                        "${loginResponse.data?.userInfo?.first_name.orEmpty()} ${loginResponse.data?.userInfo?.last_name.orEmpty()}"
+                    )
+
+                    saveString(AppConstants.FIRST_NAME, loginResponse.data?.userInfo?.first_name)
+                    saveString(AppConstants.LAST_NAME, loginResponse.data?.userInfo?.last_name)
+
+                    saveString(AppConstants.ACCESS_TOKEN, loginResponse.data?.tokensInfo?.accessToken)
+                    saveString(AppConstants.REFRESH_TOKEN, loginResponse.data?.tokensInfo?.refreshToken)
+
+                    saveString(AppConstants.User_IDENTIFIER, loginResponse.data?.userInfo?.identifier)
+                    saveString(
+                        AppConstants.PHONE,
+                        loginResponse.data?.userInfo?.mobile
+                    )
+
+                    saveString(
+                        AppConstants.COUNTRY_CODE,
+                        loginResponse.data?.userInfo?.country_code?.toString()
+                    )
+
+                    saveModel(
+                        AppConstants.USER_ROLE,
+                        loginResponse.data?.activeIdentityInfo?.identifier
+                    )
+
+                    saveModel(AppConstants.SAVE_MODAL, loginResponse.data)
+                    saveString(AppConstants.ISLOggedIn, "true")
+                }
+
+                // 🔹 PREFERENCES API (FAIL SAFE)
+                LoginViewModal().getPreferencesDataList(
+                    requireActivity(),
+                    AppConstants.fiClientNumber,
+                    sharedPre?.getString(AppConstants.Device_IDENTIFIER, "") ?: "",
+                    "Bearer ${CommonUtils.accessToken}"
+                ).observe(viewLifecycleOwner) { prefResponse ->
+
+                    if (prefResponse?.statusCode == 200) {
+
+                        val info = prefResponse.data?.preferencesInfo
+
+                        sharedPre?.saveString(
+                            AppConstants.USER_PREFERENCES,
+                            (info?.destination_country)?.let { value ->
+                                when (value) {
+                                    is List<*> -> value.filterIsInstance<String>().joinToString(",")  // ✅ ["UK","USA"] → "UK,USA"
+                                    is String  -> value                                                // ✅ "UK" → keep as-is
+                                    else       -> ""
+                                }
+                            } ?: ""
+                        )
+
+                        sharedPre?.saveString(
+                            AppConstants.STUDY_LEVEL,
+                            (info?.preferred_study_level)?.let { value ->
+                                when (value) {
+                                    is List<*> -> value.filterIsInstance<String>().joinToString(",")  // ✅ ["UK","USA"] → "UK,USA"
+                                    is String  -> value                                                // ✅ "UK" → keep as-is
+                                    else       -> ""
+                                }
+                            } ?: ""
+                        )
+
+                        sharedPre?.saveString(
+                            AppConstants.USER_DISCIPLINES,
+                            (info?.disciplines ?: info?.discipline)?.let { value ->
+                                when (value) {
+                                    is List<*> -> value.filterIsInstance<String>().joinToString(",")  // ✅ ["Math","Science"] → "Math,Science"
+                                    is String  -> value                                                // ✅ "Math,Science" → keep as-is
+                                    else       -> ""
+                                }
+                            } ?: ""
+                        )
+                        Log.e("jdhjsjsj",prefResponse.data?.hasAllPreferencesSet.toString())
+
+                        if (prefResponse.data?.hasAllPreferencesSet == false) {
+
+                            startActivity(
+                                Intent(requireActivity(), SetPreferencesActivity::class.java)
                             )
-                            saveString(
-                                AppConstants.USER_NAME,
-                                "${nonNullLoginModal.data?.userInfo?.first_name} ${nonNullLoginModal.data?.userInfo?.last_name}"
-                            )
 
-                            sharedPre?.saveString(
-                                AppConstants.FIRST_NAME,
-                                "${nonNullLoginModal.data?.userInfo?.first_name}"
-                            )
-                            sharedPre?.saveString(
-                                AppConstants.LAST_NAME,
-                                "${nonNullLoginModal.data?.userInfo?.last_name}"
-                            )
-                            saveString(
-                                AppConstants.ACCESS_TOKEN,
-                                nonNullLoginModal.data?.tokensInfo?.accessToken
-                            )
-                            saveString(
-                                AppConstants.REFRESH_TOKEN,
-                                nonNullLoginModal.data?.tokensInfo?.refreshToken
-                            )
+                        } else {
 
-                            saveString(
-                                AppConstants.User_IDENTIFIER,
-                                nonNullLoginModal.data?.userInfo?.identifier
-                            )
-                            saveString(
-                                AppConstants.PHONE,
-                                nonNullLoginModal.data?.userInfo?.mobile.toString()
-                            )
-                            saveModel(
-                                AppConstants.USER_ROLE,
-                                nonNullLoginModal.data?.activeIdentityInfo!!.identifier
-                            )
-
-                            saveString(
-                                AppConstants.COUNTRY_CODE,
-                                nonNullLoginModal.data.userInfo.country_code.toString()
-                            )
-
-                            saveModel(AppConstants.SAVE_MODAL, nonNullLoginModal.data)
-                        }
-
-
-                        LoginViewModal().getPreferencesDataList(
-                            requireActivity(),
-                            AppConstants.fiClientNumber,
-                            sharedPre?.getString(AppConstants.Device_IDENTIFIER, "")!!,
-                            "Bearer " + CommonUtils.accessToken,
-                        ).observe(requireActivity()) { getPreferences ->
-                            getPreferences?.let {
-                                if (it.statusCode == 200) {
-                                    sharedPre?.saveString(
-                                        AppConstants.USER_PREFERENCES,
-                                        getPreferences.data!!.preferencesInfo.destination_country
-                                    )
-                                    sharedPre?.saveString(
-                                        AppConstants.USER_DISCIPLINES,
-                                        getPreferences.data!!.preferencesInfo.disciplines.toString()
-                                    )
-
-                                    if (!getPreferences.data!!.hasAllPreferencesSet) {
-                                        sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
-
-
-                                        val intent = Intent(
-                                            requireActivity(),
-                                            SetPreferencesActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                        requireActivity().finish()
-
-                                    } else {
-                                        FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
-                                            if (!task.isSuccessful) {
-                                                Log.w(
-                                                    ContentValues.TAG,
-                                                    "Fetching FCM registration token failed",
-                                                    task.exception
-                                                )
-                                                return@addOnCompleteListener
-                                            }
-                                            token = task.result
-                                            Log.d("onCreateViewLoginToken", token)
-
-                                            sendFcmToken(token, requireActivity())
-
-                                            Log.d("onCreateViewLoginToken", token)
-                                        }
-
-
-
-                                        val intent =
-                                            Intent(requireActivity(), MainActivity::class.java)
-                                        startActivity(intent)
-                                        requireActivity().finish()
-                                        sharedPre!!.saveString(AppConstants.ISLOggedIn, "true")
-
-                                    }
-
-
-                                } else {
-                                    CommonUtils.toast(
-                                        requireActivity(),
-                                        it.message ?: "Something went wrong"
-                                    )
+                            FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    sendFcmToken(it.result, requireActivity())
                                 }
                             }
+
+                            startActivity(
+
+                                Intent(requireActivity(), MainActivity::class.java)
+                            )
                         }
 
-
                     } else {
-
-                        errorDialogOpen(requireActivity(), nonNullLoginModal.message.toString())
+                        // 🚀 Preferences failed → continue
+//                            startActivity(
+//                                Intent(requireActivity(), MainActivity::class.java)
+//                            )
                     }
+
+
+
+                    requireActivity().finish()
                 }
             }
+
+        } catch (e: Exception) {
+            Log.e("LoginCrash", e.message ?: "Handled")
+            startActivity(Intent(requireActivity(), MainActivity::class.java))
+            requireActivity().finish()
         }
     }
 
@@ -500,4 +498,3 @@ private fun sendFcmToken(s: String?, activity: FragmentActivity?) {
         }
     }
 }
-

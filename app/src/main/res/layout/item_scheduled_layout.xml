@@ -132,11 +132,11 @@
                         android:layout_marginStart="@dimen/_10dp"
                         android:layout_weight="1"
                         android:padding="@dimen/dp_5"
-                        android:drawableStart="@drawable/walk_in"
+                        android:visibility="gone"
+                        android:background="@drawable/bg_pending_badge"
                         android:textColor="@color/black"
                         android:drawablePadding="@dimen/dp_5"
-                        android:visibility="gone"
-                        android:text="Walkin"
+                        android:text="Pending"
                         android:layout_height="wrap_content"
                         />
 

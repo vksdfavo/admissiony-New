@@ -443,7 +443,7 @@ class SignInPhoneNoFragment : Fragment() {
                                         200 -> {
                                             sharedPre?.saveString(
                                                 AppConstants.USER_PREFERENCES,
-                                                it.data!!.preferencesInfo.destination_country
+                                                it.data!!.preferencesInfo.destination_country.toString()
                                             )
                                             sharedPre?.saveString(
                                                 AppConstants.USER_DISCIPLINES,

@@ -68,10 +68,13 @@ class ScheduledAdapter(
         val counsellingType = currentItem.counseling_type ?: ""
         val meetLink = currentItem.meet_link ?: ""
 
-        if (counsellingType != "online") {
+        if (meetLink.isEmpty()) {
 
-            holder.binding.walkin.visibility = View.VISIBLE
-            holder.binding.plateform.visibility = View.GONE
+            holder.binding.walkin.visibility = View.GONE
+            holder.binding.plateform.visibility = View.VISIBLE
+
+            holder.binding.plateform.text = "Link Pending"
+            holder.binding.plateform.setTextColor(Color.LTGRAY)
 
         } else {
 

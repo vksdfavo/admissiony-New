@@ -45,7 +45,7 @@ class TimeSlotAdapter(
                 return
             }
 
-            if (item.is_available == 0) {
+            if (item.staff_available == 0) {
                 binding.cardTimeSlots.setBackgroundResource(R.drawable.bg_time_red)
                 binding.textTimeSlot.setTextColor(Color.DKGRAY)
                 binding.cardTimeSlots.setOnClickListener {

@@ -1605,6 +1605,7 @@ interface ApiInterface {
         @Header("fi-client-number") fiClientNumber: String?,
         @Header("fi-device-number") device_number: String?,
         @Header("Authorization") authorization: String?,
+        @Header("fi-time-offset") offset: String?,
         @Field("branch_id") branch_id: String,
         @Field("event_start_datetime") event_start_datetime: String,
         @Field("event_end_datetime") event_end_datetime: String,
@@ -1681,6 +1682,20 @@ interface ApiInterface {
         @Header("Authorization") authorization: String?,
         @Path("identifier") identifier: String?,
     ): Call<getDocumentChecklistModal?>?
+
+    @GET("dropdown/studylevel")
+    fun getStudyLevel2(
+        @Header("fi-client-number") fiClientNumber: String?,
+        @Header("fi-device-number") device_number: String?,
+        @Header("Authorization") authorization: String?
+    ): Call<StudyLevelModal?>?
+
+    @GET("dropdown/highest-study-level")
+    fun getStudyLevelMaven(
+        @Header("fi-client-number") fiClientNumber: String?,
+        @Header("fi-device-number") device_number: String?,
+        @Header("Authorization") authorization: String?
+    ): Call<StudyLevelModal?>?
 
 }
 
